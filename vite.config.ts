@@ -10,10 +10,7 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@styles': path.resolve(__dirname, './src/styles'),
       '@root': path.resolve(__dirname, './src'),
-      '@context': path.resolve(
-        __dirname,
-        './src/context/BorderDebuggerContext.tsx',
-      ),
+      '@context': path.resolve(__dirname, './src/context'),
     },
   },
 })
