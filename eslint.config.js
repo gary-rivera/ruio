@@ -1,10 +1,10 @@
 // eslint.config.js
-import js from '@eslint/js';
-import typescriptParser from '@typescript-eslint/parser';
-import typescriptPlugin from '@typescript-eslint/eslint-plugin';
-import reactPlugin from 'eslint-plugin-react';
-import prettierPlugin from 'eslint-plugin-prettier';
-import prettierConfig from 'eslint-config-prettier';
+import js from '@eslint/js'
+import typescriptParser from '@typescript-eslint/parser'
+import typescriptPlugin from '@typescript-eslint/eslint-plugin'
+import reactPlugin from 'eslint-plugin-react'
+import prettierPlugin from 'eslint-plugin-prettier'
+import prettierConfig from 'eslint-config-prettier'
 
 export default [
   // Base ESLint recommended rules
@@ -40,7 +40,7 @@ export default [
     },
   },
   prettierConfig,
-];
+]
 
 /*
 RULES TO ADD

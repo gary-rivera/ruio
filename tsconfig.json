@@ -1,7 +1,7 @@
 {
   "files": [],
   "compilerOptions": {
-    "composite": true,  // Required for project references
+    "composite": true, // Required for project references
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
@@ -16,8 +16,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "declaration": true,               // Emit .d.ts files
-    "declarationDir": "./dist",        // Output directory for .d.ts files
+    "declaration": true, // Emit .d.ts files
+    "declarationDir": "./dist", // Output directory for .d.ts files
     "emitDeclarationOnly": false
   },
   "include": ["src"],
