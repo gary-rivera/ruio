@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App'
-import './index.css'
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { BorderDebuggerProvider } from './context/BorderDebuggerContext';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+ReactDOM.render(
+  <React.StrictMode>
+    <BorderDebuggerProvider>
+      <App />
+    </BorderDebuggerProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
