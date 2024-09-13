@@ -1,7 +1,13 @@
 {
-  "files": [],
   "compilerOptions": {
-    "composite": true,  // Required for project references
+    "baseUrl": ".", // This is important for relative paths
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@root/*": ["src/*"],
+      "@context/*": ["src/context/*"]
+    },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
@@ -16,13 +22,9 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "declaration": true,               // Emit .d.ts files
-    "declarationDir": "./dist",        // Output directory for .d.ts files
+    "declaration": true,
+    "declarationDir": "./dist",
     "emitDeclarationOnly": false
   },
-  "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src"]
 }
