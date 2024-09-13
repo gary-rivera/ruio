@@ -1,8 +1,8 @@
 // src/main.tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { BorderDebuggerProvider } from './context/BorderDebuggerContext';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import { BorderDebuggerProvider } from './context/BorderDebuggerContext'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,5 +10,5 @@ ReactDOM.render(
       <App />
     </BorderDebuggerProvider>
   </React.StrictMode>,
-  document.getElementById('root')
-);
+  document.getElementById('root'),
+)

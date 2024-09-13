@@ -1,6 +1,6 @@
-import React from 'react';
-import UtilityIcon from './components/UtilityIcon';
-import ControlPanel from './components/ControlPanel';
+import React from 'react'
+import UtilityIcon from './components/UtilityIcon'
+import ControlPanel from './components/ControlPanel'
 
 const App: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const App: React.FC = () => {
       <ControlPanel />
       {/* Your main app components */}
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
