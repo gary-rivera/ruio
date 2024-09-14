@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
-import { hoverSelect } from '../utils/hoverSelect' // Import the hoverSelect utility
+import { smartHover } from '../utils/smartHover'
 
 interface BorderDebuggerContextProps {
   bordersEnabled: boolean
@@ -16,14 +16,28 @@ const BorderDebuggerContext = createContext<BorderDebuggerContextProps | undefin
 export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
-  const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null)
+  const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null) // rename to focusedElement?
+  const [selectModeActive, setSelectModeActive] = useState(false)
 
   // Function to enable element selection mode
   const selectElementMode = () => {
-    hoverSelect((element: HTMLElement) => {
-      setSelectedElement(element) // Set the selected element
-      applyBorders(element, depth, bordersEnabled) // Apply borders after selection
-    })
+    setSelectModeActive(true)
+
+    const cleanupHover = smartHover(
+      (hoveredElement: HTMLElement) => {
+        console.log('hoveredElement', hoveredElement)
+        setSelectedElement(hoveredElement)
+        applyBorders(hoveredElement, depth, bordersEnabled)
+      },
+      (clickedElement: HTMLElement) => {
+        console.log('clickedElement', clickedElement)
+        setSelectedElement(clickedElement)
+        applyBorders(clickedElement, depth, bordersEnabled)
+
+        if (cleanupHover) cleanupHover()
+        setSelectModeActive(false)
+      },
+    )
   }
 
   // Apply or remove borders whenever bordersEnabled or depth changes

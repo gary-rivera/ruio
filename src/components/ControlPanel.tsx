@@ -10,7 +10,7 @@ const ControlPanel: React.FC = () => {
 
   return (
     <div
-      className="no-border"
+      className="ruio-exclude"
       style={{
         position: 'fixed',
         bottom: '80px',
@@ -21,19 +21,13 @@ const ControlPanel: React.FC = () => {
         border: '1px solid black',
       }}
     >
-      <label>
+      <label className="ruio-exclude">
         Depth:
-        <input
-          type="number"
-          value={depth}
-          onChange={handleDepthChange}
-          min="1"
-          max="10" // Adjusted to your max depth
-        />
+        <input type="number" value={depth} onChange={handleDepthChange} min="1" max="10" />
       </label>
 
-      <div>
-        <button className="no-border" onClick={selectElementMode} disabled={!bordersEnabled}>
+      <div className="ruio-exclude">
+        <button className="ruio-exclude" onClick={selectElementMode} disabled={!bordersEnabled}>
           Select Element
         </button>
         <button onClick={() => setBordersEnabled(!bordersEnabled)}>
