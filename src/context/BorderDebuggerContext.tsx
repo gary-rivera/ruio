@@ -13,12 +13,25 @@ interface BorderDebuggerContextProps {
 
 const BorderDebuggerContext = createContext<BorderDebuggerContextProps | undefined>(undefined)
 
+/**
+ * Provides border debugging functionality to its children, including element selection,
+ * border application, and interaction management.
+ *
+ * @param {object} props - The properties for the provider component.
+ * @param {ReactNode} props.children - The child components to be rendered inside the provider.
+ * @returns {JSX.Element} The context provider component.
+ */
 export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
   const [interactiveModeActive, setInteractiveModeActive] = useState(false)
 
+  /**
+   * Activates the element selection mode and sets up hover and click interactions.
+   *
+   * @returns {function(): void} A cleanup function to remove event listeners when interaction mode is disabled.
+   */
   const selectElementMode = () => {
     setInteractiveModeActive(true)
 
@@ -66,6 +79,12 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
   )
 }
 
+/**
+ * Custom hook to access the border debugger context.
+ *
+ * @throws Will throw an error if used outside of the `BorderDebuggerProvider`.
+ * @returns {BorderDebuggerContextProps} The border debugger context value.
+ */
 export const useBorderDebugger = () => {
   const context = useContext(BorderDebuggerContext)
   if (!context) {
