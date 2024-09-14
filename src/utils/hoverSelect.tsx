@@ -1,41 +1,40 @@
-// src/utils/hoverSelect.ts
+export const hoverSelect = (onHover: (element: HTMLElement) => void) => {
+  // TODO: make the root element configurable/applicable to a specific root eleement if needed
+  const rootElement = document.getElementById('root') // Reference to the root element
 
-export const hoverSelect = (onSelect: (element: HTMLElement) => void) => {
-  // Change the cursor to 'crosshair' when in selection mode
-  document.body.style.cursor = 'crosshair'
+  if (!rootElement) {
+    console.error('Root element not found!')
+    return
+  }
 
-  // Hover effect to outline hovered elements
+  // Hover effect to highlight elements below the root
   const handleHover = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-    if (!target.classList.contains('no-border')) {
-      target.style.outline = '2px solid blue' // Highlight hovered element
+
+    // Skip highlighting the root element and its parents (html, body)
+    if (target.closest('#root') && target !== rootElement) {
+      target.style.outline = '2px dashed blue' // Highlight hovered element
+      target.style.backgroundColor = 'rgba(0, 0, 255, 0.1)' // Highlight hovered element
+      onHover(target)
     }
   }
 
   // Remove the outline when the mouse leaves the element
   const handleMouseOut = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-    if (!target.classList.contains('no-border')) {
+    if (target.closest('#root') && target !== rootElement) {
       target.style.outline = '' // Remove hover outline
+      target.style.backgroundColor = '' // Remove hover background color
     }
   }
 
-  // Click event to select an element
-  const handleClick = (event: MouseEvent) => {
-    const target = event.target as HTMLElement
-    onSelect(target) // Pass the selected element to the callback
-
-    // Reset the cursor back to 'default' after selection
-    document.body.style.cursor = 'default'
-
-    // Remove the event listeners after selection
-    document.body.removeEventListener('mouseover', handleHover)
-    document.body.removeEventListener('mouseout', handleMouseOut)
-    document.body.removeEventListener('click', handleClick)
-  }
-
-  // Attach event listeners for hover and click
+  // Attach hover listeners
   document.body.addEventListener('mouseover', handleHover)
   document.body.addEventListener('mouseout', handleMouseOut)
-  document.body.addEventListener('click', handleClick)
+
+  // Return a cleanup function to remove the event listeners when needed
+  return () => {
+    document.body.removeEventListener('mouseover', handleHover)
+    document.body.removeEventListener('mouseout', handleMouseOut)
+  }
 }
