@@ -23,7 +23,14 @@ const ControlPanel: React.FC = () => {
     >
       <label className="ruio-exclude">
         Depth:
-        <input type="number" value={depth} onChange={handleDepthChange} min="1" max="10" />
+        <input
+          className="ruio-exclude"
+          type="number"
+          value={depth}
+          onChange={handleDepthChange}
+          min="1"
+          max="10"
+        />
       </label>
 
       <div className="ruio-exclude">

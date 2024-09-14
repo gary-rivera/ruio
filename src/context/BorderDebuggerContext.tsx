@@ -16,36 +16,39 @@ const BorderDebuggerContext = createContext<BorderDebuggerContextProps | undefin
 export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
-  const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null) // rename to focusedElement?
+  const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
   const [selectModeActive, setSelectModeActive] = useState(false)
 
-  // Function to enable element selection mode
   const selectElementMode = () => {
     setSelectModeActive(true)
 
-    const cleanupHover = smartHover(
-      (hoveredElement: HTMLElement) => {
-        console.log('hoveredElement', hoveredElement)
-        setSelectedElement(hoveredElement)
-        applyBorders(hoveredElement, depth, bordersEnabled)
-      },
-      (clickedElement: HTMLElement) => {
-        console.log('clickedElement', clickedElement)
-        setSelectedElement(clickedElement)
-        applyBorders(clickedElement, depth, bordersEnabled)
+    const cleanupHover = smartHover((element: HTMLElement) => {
+      setInteractedElement(element)
+      applyBorders(element, depth, bordersEnabled)
+    })
 
-        if (cleanupHover) cleanupHover()
-        setSelectModeActive(false)
-      },
-    )
+    return cleanupHover
   }
 
   // Apply or remove borders whenever bordersEnabled or depth changes
   React.useEffect(() => {
-    if (selectedElement) {
-      applyBorders(selectedElement, depth, bordersEnabled)
+    if (interactedElement) {
+      applyBorders(interactedElement, depth, bordersEnabled)
     }
-  }, [bordersEnabled, depth, selectedElement])
+  }, [bordersEnabled, depth, interactedElement])
+
+  // Listen for element selection mode cleanup
+  React.useEffect(() => {
+    if (!selectModeActive && interactedElement) {
+      const cleanup = selectElementMode()
+
+      // Cleanup event listeners when selection mode is turned off
+      return () => {
+        if (cleanup) cleanup()
+        setSelectModeActive(false)
+      }
+    }
+  }, [selectModeActive, interactedElement])
 
   return (
     <BorderDebuggerContext.Provider
@@ -55,7 +58,7 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
         depth,
         setDepth,
         selectElementMode,
-        selectedElement,
+        selectedElement: interactedElement,
       }}
     >
       {children}
