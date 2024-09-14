@@ -22,8 +22,8 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
 
 export const useBorderDebugger = () => {
   const context = React.useContext(BorderDebuggerContext)
-  if (!context) {
-    throw new Error('useBorderDebugger must be used within BorderDebuggerProvider')
-  }
+
+  if (!context) throw new Error('useBorderDebugger must be used within BorderDebuggerProvider')
+
   return context
 }

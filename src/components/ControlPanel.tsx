@@ -15,7 +15,7 @@ const ControlPanel: React.FC = () => {
         bottom: '80px',
         right: '20px',
         zIndex: 9999,
-        backgroundColor: 'white',
+        backgroundColor: 'darkgray',
         padding: '10px',
         border: '1px solid black',
       }}
