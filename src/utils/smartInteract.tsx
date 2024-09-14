@@ -1,11 +1,11 @@
 const DEFAULT_ROOT_ELEMENT = 'root' // !important: adjust this to match the root element id in your project
 
-export const smartHover = (onHoverOrClick: (element: HTMLElement) => void) => {
+export const smartInteract = (onHoverOrClick: (element: HTMLElement) => void) => {
   const rootElement = document.querySelector(`#${DEFAULT_ROOT_ELEMENT}`) as HTMLElement
 
   if (!rootElement) {
     console.error(
-      "[ruio][smartHover] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
+      "[ruio][smartInteract] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
       DEFAULT_ROOT_ELEMENT,
     )
     return

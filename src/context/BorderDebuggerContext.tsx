@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
-import { smartHover } from '../utils/smartHover'
+import { smartInteract } from '../utils/smartInteract'
 
 interface BorderDebuggerContextProps {
   bordersEnabled: boolean
@@ -17,12 +17,12 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
-  const [selectModeActive, setSelectModeActive] = useState(false)
+  const [interactiveModeActive, setInteractiveModeActive] = useState(false)
 
   const selectElementMode = () => {
-    setSelectModeActive(true)
+    setInteractiveModeActive(true)
 
-    const cleanupHover = smartHover((element: HTMLElement) => {
+    const cleanupHover = smartInteract((element: HTMLElement) => {
       setInteractedElement(element)
       applyBorders(element, depth, bordersEnabled)
     })
@@ -39,16 +39,16 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
 
   // Listen for element selection mode cleanup
   React.useEffect(() => {
-    if (!selectModeActive && interactedElement) {
+    if (!interactiveModeActive && interactedElement) {
       const cleanup = selectElementMode()
 
       // Cleanup event listeners when selection mode is turned off
       return () => {
         if (cleanup) cleanup()
-        setSelectModeActive(false)
+        setInteractiveModeActive(false)
       }
     }
-  }, [selectModeActive, interactedElement])
+  }, [interactiveModeActive, interactedElement])
 
   return (
     <BorderDebuggerContext.Provider
