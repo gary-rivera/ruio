@@ -1,11 +1,23 @@
-import React from 'react'
-import { useBorderDebugger } from '@context/BorderDebuggerContext'
+import React, { useEffect } from 'react'
+import { useBorderDebugger } from '../context/BorderDebuggerContext'
+import { applyBorders } from '../utils/applyBorders'
 
-const UtilityIcon: React.FC = () => {
-  const { bordersEnabled, setBordersEnabled } = useBorderDebugger()
+type UtilityIconProps = {
+  selector?: keyof HTMLElementTagNameMap
+}
+
+const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = 'body' }) => {
+  const { bordersEnabled, setBordersEnabled, depth } = useBorderDebugger()
+
+  useEffect(() => {
+    const rootElement = document.querySelector(selector) // Or target a specific root
+
+    if (rootElement) applyBorders(rootElement as HTMLElement, depth, bordersEnabled)
+  }, [bordersEnabled, depth])
 
   return (
     <div
+      className="no-border"
       style={{
         position: 'fixed',
         bottom: '20px',
@@ -16,7 +28,6 @@ const UtilityIcon: React.FC = () => {
         cursor: 'pointer',
       }}
       onClick={() => setBordersEnabled(!bordersEnabled)}
-      title="Toggle Border Debugger"
     >
       🛠️
     </div>
