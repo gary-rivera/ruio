@@ -17,7 +17,7 @@ const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = 'body' }) => {
 
   return (
     <div
-      className="no-border"
+      className="ruio-exclude"
       style={{
         position: 'fixed',
         bottom: '20px',

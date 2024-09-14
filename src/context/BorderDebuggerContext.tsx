@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
-import { hoverSelect } from '../utils/hoverSelect' // Import the hoverSelect utility
+import { smartInteract } from '../utils/smartInteract'
 
 interface BorderDebuggerContextProps {
   bordersEnabled: boolean
@@ -13,25 +13,55 @@ interface BorderDebuggerContextProps {
 
 const BorderDebuggerContext = createContext<BorderDebuggerContextProps | undefined>(undefined)
 
+/**
+ * Provides border debugging functionality to its children, including element selection,
+ * border application, and interaction management.
+ *
+ * @param {object} props - The properties for the provider component.
+ * @param {ReactNode} props.children - The child components to be rendered inside the provider.
+ * @returns {JSX.Element} The context provider component.
+ */
 export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
-  const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null)
+  const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
+  const [interactiveModeActive, setInteractiveModeActive] = useState(false)
 
-  // Function to enable element selection mode
+  /**
+   * Activates the element selection mode and sets up hover and click interactions.
+   *
+   * @returns {function(): void} A cleanup function to remove event listeners when interaction mode is disabled.
+   */
   const selectElementMode = () => {
-    hoverSelect((element: HTMLElement) => {
-      setSelectedElement(element) // Set the selected element
-      applyBorders(element, depth, bordersEnabled) // Apply borders after selection
+    setInteractiveModeActive(true)
+
+    const cleanupHover = smartInteract((element: HTMLElement) => {
+      setInteractedElement(element)
+      applyBorders(element, depth, bordersEnabled)
     })
+
+    return cleanupHover
   }
 
   // Apply or remove borders whenever bordersEnabled or depth changes
   React.useEffect(() => {
-    if (selectedElement) {
-      applyBorders(selectedElement, depth, bordersEnabled)
+    if (interactedElement) {
+      applyBorders(interactedElement, depth, bordersEnabled)
     }
-  }, [bordersEnabled, depth, selectedElement])
+  }, [bordersEnabled, depth, interactedElement])
+
+  // Listen for element selection mode cleanup
+  React.useEffect(() => {
+    if (!interactiveModeActive && interactedElement) {
+      const cleanup = selectElementMode()
+
+      // Cleanup event listeners when selection mode is turned off
+      return () => {
+        if (cleanup) cleanup()
+        setInteractiveModeActive(false)
+      }
+    }
+  }, [interactiveModeActive, interactedElement])
 
   return (
     <BorderDebuggerContext.Provider
@@ -41,7 +71,7 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
         depth,
         setDepth,
         selectElementMode,
-        selectedElement,
+        selectedElement: interactedElement,
       }}
     >
       {children}
@@ -49,6 +79,12 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
   )
 }
 
+/**
+ * Custom hook to access the border debugger context.
+ *
+ * @throws Will throw an error if used outside of the `BorderDebuggerProvider`.
+ * @returns {BorderDebuggerContextProps} The border debugger context value.
+ */
 export const useBorderDebugger = () => {
   const context = useContext(BorderDebuggerContext)
   if (!context) {

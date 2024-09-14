@@ -6,11 +6,9 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
   const traverse = (el: HTMLElement, currentDepth: number) => {
     // if (['SCRIPT'].includes(el.tagName) || el.id === 'root') return
-    console.log('el', {
-      el,
-    })
+
     if (currentDepth > depth) return
-    if (el.classList.contains('no-border') || el.tagName === 'SCRIPT') return
+    if (el.classList.contains('ruio-exclude') || el.tagName === 'SCRIPT') return
     elements.push(el)
 
     el.style.outline = apply ? '2px solid red' : ''
