@@ -1,14 +1,13 @@
 // src/main.tsx
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import App from './App'
-import { BorderDebuggerProvider } from './context/BorderDebuggerContext'
 
-ReactDOM.render(
+const rootElement = document.getElementById('root') as HTMLElement
+
+const root = ReactDOM.createRoot(rootElement)
+root.render(
   <React.StrictMode>
-    <BorderDebuggerProvider>
-      <App />
-    </BorderDebuggerProvider>
+    <App />
   </React.StrictMode>,
-  document.getElementById('root'),
 )
