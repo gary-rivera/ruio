@@ -1,13 +1,17 @@
-export const hoverSelect = (onHover: (element: HTMLElement) => void) => {
+// TODO: rename to smartHover or something similar
+export const hoverSelect = (
+  onHover: (element: HTMLElement) => void,
+  // onClick?: (element: HTMLElement) => void,
+) => {
   // TODO: make the root element configurable/applicable to a specific root eleement if needed
-  const rootElement = document.getElementById('root') // Reference to the root element
+  const rootElement = document.getElementById('root') // Reference to the current root element
 
   if (!rootElement) {
     console.error('Root element not found!')
     return
   }
 
-  // Hover effect to highlight elements below the root
+  // Hover on effect
   const handleHover = (event: MouseEvent) => {
     const target = event.target as HTMLElement
 
@@ -19,7 +23,7 @@ export const hoverSelect = (onHover: (element: HTMLElement) => void) => {
     }
   }
 
-  // Remove the outline when the mouse leaves the element
+  // Hover off effect
   const handleMouseOut = (event: MouseEvent) => {
     const target = event.target as HTMLElement
     if (target.closest('#root') && target !== rootElement) {
@@ -28,13 +32,33 @@ export const hoverSelect = (onHover: (element: HTMLElement) => void) => {
     }
   }
 
+  // Click while hovering effect
+  const handleSelect = (event: MouseEvent) => {
+    const target = event.target as HTMLElement
+    if (target.closest('#root') && target !== rootElement) {
+      target.style.outline = '' // Remove hover outline
+      target.style.backgroundColor = '' // Remove hover background color
+
+      // Call onHover to handle element hover logic, if needed
+      onHover(target)
+
+      // Call onClick to handle click-specific logic
+      // onClick && onClick(target)
+
+      // Optionally remove the hover listeners or perform additional logic
+      // Clean up hover listeners if you want to disable hover on click
+    }
+  }
+
   // Attach hover listeners
   document.body.addEventListener('mouseover', handleHover)
   document.body.addEventListener('mouseout', handleMouseOut)
+  document.body.addEventListener('click', handleSelect)
 
   // Return a cleanup function to remove the event listeners when needed
   return () => {
     document.body.removeEventListener('mouseover', handleHover)
     document.body.removeEventListener('mouseout', handleMouseOut)
+    document.body.removeEventListener('click', handleSelect)
   }
 }
