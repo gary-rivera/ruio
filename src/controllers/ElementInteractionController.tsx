@@ -21,7 +21,7 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
   const originalStyles = new Map<HTMLElement, string>()
 
   const isValidTarget = (target: HTMLElement) => {
-    // Ensure the target is not the root element (i.e., ParentComponent) itself
+    // TODO: is this actually needed? I think we can just check if the target is a child of the root element
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
 
     return (
@@ -59,8 +59,8 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
   const applyHoverStyles = (target: HTMLElement, isHovering: boolean) => {
     if (isHovering) {
       saveOriginalStyles(target)
-      target.style.outline = '2px dashed blue'
-      target.style.backgroundColor = 'rgba(0, 0, 255, 0.1)'
+      // target.style.outline = '2px solid blue' // TOOD: fix this, its not working :(
+      target.style.backgroundColor = '#00ffaa' // TODO: make the color more appealing to the eye
     } else {
       restoreOriginalStyles(target)
     }
