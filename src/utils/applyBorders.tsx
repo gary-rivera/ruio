@@ -1,3 +1,4 @@
+import { getRelativeDepthColor } from '@utils/assignBorderColor'
 // only exposed for testing (for now)
 export let previouslyAppliedElements: HTMLElement[] = []
 
@@ -10,7 +11,7 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
     elements.push(el)
 
-    el.style.outline = apply ? '2px solid red' : ''
+    el.style.outline = apply ? `1.5px solid ${getRelativeDepthColor('neon', currentDepth)}` : ''
 
     Array.from(el.children).forEach((child) => {
       if (child instanceof HTMLElement) {

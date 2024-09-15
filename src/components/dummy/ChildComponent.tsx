@@ -3,7 +3,7 @@ import GrandChildComponent from './GrandchildComponent'
 
 const ChildComponent: React.FC = () => {
   return (
-    <div style={{ padding: '20px', background: 'darkgray' }}>
+    <div style={{ padding: '20px', background: 'darkgray', borderRadius: '25px' }}>
       <h2>Child Component</h2>
       <p>This is the child component.</p>
       <GrandChildComponent />
