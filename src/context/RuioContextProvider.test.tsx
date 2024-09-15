@@ -39,7 +39,7 @@ const TestComponent = () => {
 
 describe('RuioContextProvider', () => {
   beforeEach(() => {
-    jest.resetAllMocks() // Reset mocks before each test
+    jest.resetAllMocks()
   })
 
   test('matches the snapshot for initial render', () => {
@@ -64,9 +64,8 @@ describe('RuioContextProvider', () => {
     const cleanupMock = jest.fn()
     const mockElement = document.createElement('div')
 
-    // Mock the implementation of ElementInteractionController
     mockedElementInteractionController.mockImplementation((callback) => {
-      return cleanupMock // Return mock cleanup function
+      return cleanupMock
     })
 
     act(() => {
@@ -146,7 +145,6 @@ describe('RuioContextProvider', () => {
 
     expect(cleanupMock).not.toHaveBeenCalled()
 
-    // Trigger cleanup
     cleanupMock()
 
     expect(cleanupMock).toHaveBeenCalled()
@@ -166,7 +164,7 @@ describe('RuioContextProvider', () => {
     const mockElement = document.createElement('div')
     mockedElementInteractionController.mockImplementation((callback: (element: HTMLElement) => void) => {
       callback(mockElement)
-      return jest.fn() // Mock cleanup function
+      return jest.fn()
     })
 
     render(
@@ -190,13 +188,13 @@ describe('RuioContextProvider', () => {
     expect(mockedApplyBorders).toHaveBeenCalledWith(mockElement, 1, true)
   })
 
+  // NOTE: consider enabling this test for possible regression checks (not working rn)
   // test('should call cleanup function when component unmounts', async () => {
   //   const cleanupMock = jest.fn()
 
-  //   // Mock the implementation of ElementInteractionController
   //   mockedElementInteractionController.mockImplementation(() => {
   //     console.log('ElementInteractionController called, returning cleanupMock')
-  //     return cleanupMock // Return the mock cleanup function
+  //     return cleanupMock
   //   })
 
   //   const { unmount } = render(
@@ -205,21 +203,18 @@ describe('RuioContextProvider', () => {
   //     </RuioContextProvider>,
   //   )
 
-  //   // Trigger selection mode
   //   const selectElementButton = screen.getByText('Select Element Mode')
 
   //   await act(async () => {
   //     userEvent.click(selectElementButton)
   //   })
 
-  //   // Unmount the component and ensure cleanup logic is invoked
   //   await act(async () => {
   //     unmount()
   //   })
 
   //   console.log('Unmounting the component, checking cleanupMock')
 
-  //   // Check if cleanupMock was called
   //   expect(cleanupMock).toHaveBeenCalledTimes(1)
   // })
 
