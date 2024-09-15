@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
-import { smartInteract } from '../utils/smartInteract'
+import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
 interface RuioContextProps {
   bordersEnabled: boolean
@@ -35,12 +35,12 @@ export const RuioProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const selectElementMode = () => {
     setInteractiveModeActive(true)
 
-    const cleanupHover = smartInteract((element: HTMLElement) => {
+    const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
       setInteractedElement(element)
       applyBorders(element, depth, bordersEnabled)
     })
 
-    return cleanupHover
+    return cleanupElementSelectionEvents
   }
 
   // Apply or remove borders whenever bordersEnabled or depth changes

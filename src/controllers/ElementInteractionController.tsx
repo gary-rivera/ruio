@@ -7,12 +7,12 @@ const DEFAULT_ROOT_ELEMENT = 'root' // !important: adjust this to match the root
  * @param {function(HTMLElement): void} onHoverOrClick - The callback function to be invoked when an element is hovered or clicked.
  * @returns {function(): void} - A cleanup function that removes all attached event listeners.
  */
-export const smartInteract = (onHoverOrClick: (element: HTMLElement) => void) => {
+export const ElementInteractionController = (onHoverOrClick: (element: HTMLElement) => void) => {
   const rootElement = document.querySelector(`#${DEFAULT_ROOT_ELEMENT}`) as HTMLElement
 
   if (!rootElement) {
     console.error(
-      "[ruio][smartInteract] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
+      "[ruio][ElementInteractionController] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
       DEFAULT_ROOT_ELEMENT,
     )
     return
