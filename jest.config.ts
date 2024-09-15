@@ -13,7 +13,7 @@ const config: Config.InitialOptions = {
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@context/(.*)$': '<rootDir>/src/context/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
-    '^@tests/(.*)$': '<rootDir>/src/tests/$1'
+    '^@tests/(.*)$': '<rootDir>/src/tests/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], // Jest setup file
 }
