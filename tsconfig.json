@@ -7,7 +7,8 @@
       "@styles/*": ["src/styles/*"],
       "@root/*": ["src/*"],
       "@context/*": ["src/context/*"],
-      "@controllers/*": ["src/controllers/*"]
+      "@controllers/*": ["src/controllers/*"],
+      "@tests/*": ["src/tests/*"]
     },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -25,7 +26,8 @@
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./dist",
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false,
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "include": ["src"]
 }

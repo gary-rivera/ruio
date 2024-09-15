@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react'
+import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
@@ -44,21 +44,24 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   }
 
   // Apply or remove borders whenever bordersEnabled or depth changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (interactedElement) {
       applyBorders(interactedElement, depth, bordersEnabled)
     }
   }, [bordersEnabled, depth, interactedElement])
 
   // Listen for element selection mode cleanup
-  React.useEffect(() => {
+  useEffect(() => {
     if (!interactiveModeActive && interactedElement) {
       const cleanup = selectElementMode()
 
       // Cleanup event listeners when selection mode is turned off
       return () => {
-        if (cleanup) cleanup()
         setInteractiveModeActive(false)
+        if (cleanup) {
+          console.log('Cleaning up interaction controller')
+          cleanup()
+        }
       }
     }
   }, [interactiveModeActive, interactedElement])
@@ -88,7 +91,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 export const useRuioContext = () => {
   const context = useContext(RuioContext)
   if (!context) {
-    throw new Error('useRuio must be used within RuioProvider')
+    throw new Error('[RuioContextProvider] useRuio must be used within RuioProvider')
   }
   return context
 }

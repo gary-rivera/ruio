@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RuioContextProvider matches the snapshot for initial render 1`] = `
+<div>
+  <div>
+    <div
+      data-testid="bordersEnabled"
+    >
+      Disabled
+    </div>
+    <div
+      data-testid="depth"
+    >
+      1
+    </div>
+    <div
+      data-testid="selectedElement"
+    >
+      None
+    </div>
+    <button>
+      Select Element Mode
+    </button>
+    <button>
+      Enable Borders
+    </button>
+    <button>
+      Set Depth to 5
+    </button>
+  </div>
+</div>
+`;

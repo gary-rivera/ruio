@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BorderedComponent Snapshot Tests matches the snapshot when borders are applied 1`] = `
+<DocumentFragment>
+  <div
+    style="outline: 2px solid red;"
+  >
+    Bordered Component
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BorderedComponent Snapshot Tests matches the snapshot when borders are not applied 1`] = `
+<DocumentFragment>
+  <div>
+    Bordered Component
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BorderedComponent Snapshot Tests matches the snapshot with depth 0 1`] = `
+<DocumentFragment>
+  <div
+    style="outline: 2px solid red;"
+  >
+    Bordered Component
+  </div>
+</DocumentFragment>
+`;

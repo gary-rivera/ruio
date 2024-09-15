@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ControlPanel matches the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="ruio-exclude"
+    data-testid="control-panel"
+    style="position: fixed; bottom: 80px; right: 20px; z-index: 9999; background-color: white; padding: 10px; border: 1px solid black;"
+  >
+    <label
+      class="ruio-exclude"
+    >
+      Depth:
+      <input
+        class="ruio-exclude"
+        max="10"
+        min="1"
+        type="number"
+        value="3"
+      />
+    </label>
+    <div
+      class="ruio-exclude"
+    >
+      <button
+        class="ruio-exclude"
+        disabled=""
+      >
+        Select Element
+      </button>
+      <button>
+        Enable Borders
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
