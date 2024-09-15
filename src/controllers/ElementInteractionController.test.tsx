@@ -136,3 +136,5 @@ describe('ElementInteractionController', () => {
     expect(rootElement.style.outline).toBe('')
   })
 })
+
+// TODO: test to ensure the file looks the EXACT same as before the SelectElementMode is triggered
