@@ -2,7 +2,7 @@ import React, { createContext, useState, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { smartInteract } from '../utils/smartInteract'
 
-interface BorderDebuggerContextProps {
+interface RuioContextProps {
   bordersEnabled: boolean
   setBordersEnabled: React.Dispatch<React.SetStateAction<boolean>>
   depth: number
@@ -11,17 +11,17 @@ interface BorderDebuggerContextProps {
   selectedElement: HTMLElement | null
 }
 
-const BorderDebuggerContext = createContext<BorderDebuggerContextProps | undefined>(undefined)
+const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
 /**
- * Provides border debugging functionality to its children, including element selection,
+ * Provides Ruio functionality to its children, including element selection,
  * border application, and interaction management.
  *
  * @param {object} props - The properties for the provider component.
  * @param {ReactNode} props.children - The child components to be rendered inside the provider.
  * @returns {JSX.Element} The context provider component.
  */
-export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const RuioProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
@@ -64,7 +64,7 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
   }, [interactiveModeActive, interactedElement])
 
   return (
-    <BorderDebuggerContext.Provider
+    <RuioContext.Provider
       value={{
         bordersEnabled,
         setBordersEnabled,
@@ -75,20 +75,20 @@ export const BorderDebuggerProvider: React.FC<{ children: ReactNode }> = ({ chil
       }}
     >
       {children}
-    </BorderDebuggerContext.Provider>
+    </RuioContext.Provider>
   )
 }
 
 /**
- * Custom hook to access the border debugger context.
+ * Custom hook to access the Ruio context.
  *
- * @throws Will throw an error if used outside of the `BorderDebuggerProvider`.
- * @returns {BorderDebuggerContextProps} The border debugger context value.
+ * @throws Will throw an error if used outside of the `RuioProvider`.
+ * @returns {RuioContextProps} The Ruio context value.
  */
-export const useBorderDebugger = () => {
-  const context = useContext(BorderDebuggerContext)
+export const useRuio = () => {
+  const context = useContext(RuioContext)
   if (!context) {
-    throw new Error('useBorderDebugger must be used within BorderDebuggerProvider')
+    throw new Error('useRuio must be used within RuioProvider')
   }
   return context
 }

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
-import { useBorderDebugger } from '../context/BorderDebuggerContext'
+import { useRuio } from '../context/RuioContext'
 import { applyBorders } from '../utils/applyBorders'
 
 type UtilityIconProps = {
-  selector?: keyof HTMLElementTagNameMap
+  selector?: string // TODO: stricter typing of either element tag name or selector id/class
 }
 
-const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = 'body' }) => {
-  const { bordersEnabled, setBordersEnabled, depth } = useBorderDebugger()
+const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
+  const { bordersEnabled, setBordersEnabled, depth } = useRuio()
 
   useEffect(() => {
-    const rootElement = document.querySelector(selector) // Or target a specific root
+    const rootElement = document.querySelector(selector)
 
     if (rootElement) applyBorders(rootElement as HTMLElement, depth, bordersEnabled)
   }, [bordersEnabled, depth])
