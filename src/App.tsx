@@ -10,6 +10,7 @@ const App: React.FC = () => {
   return (
     <RuioWrapper>
       <ParentComponent />
+      <ParentComponent />
     </RuioWrapper>
   )
 }
