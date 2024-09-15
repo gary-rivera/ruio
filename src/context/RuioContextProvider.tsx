@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react'
+import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
@@ -13,28 +13,34 @@ interface RuioContextProps {
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
+/**
+ * Provides Ruio functionality to its children, including element selection,
+ * border application, and interaction management.
+ *
+ * @param {object} props - The properties for the provider component.
+ * @param {ReactNode} props.children - The child components to be rendered inside the provider.
+ * @returns {JSX.Element} The context provider component.
+ */
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
   const [interactiveModeActive, setInteractiveModeActive] = useState(false)
-  const [cleanupElementSelectionEvents, setCleanupElementSelectionEvents] = useState<
-    (() => void) | null
-  >(null)
 
   /**
    * Activates the element selection mode and sets up hover and click interactions.
+   *
+   * @returns {function(): void} A cleanup function to remove event listeners when interaction mode is disabled.
    */
   const selectElementMode = () => {
     setInteractiveModeActive(true)
 
-    const cleanupFn = ElementInteractionController((element: HTMLElement) => {
+    const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
       setInteractedElement(element)
       applyBorders(element, depth, bordersEnabled)
     })
 
-    // Store the cleanup function so we can call it on unmount
-    setCleanupElementSelectionEvents(() => cleanupFn)
+    return cleanupElementSelectionEvents
   }
 
   // Apply or remove borders whenever bordersEnabled or depth changes
@@ -44,16 +50,21 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }
   }, [bordersEnabled, depth, interactedElement])
 
-  // Cleanup interaction controller on unmount or when mode deactivates
+  // Listen for element selection mode cleanup
   useEffect(() => {
-    return () => {
-      if (cleanupElementSelectionEvents) {
-        console.log('Cleaning up interaction controller')
-        cleanupElementSelectionEvents()
+    if (!interactiveModeActive && interactedElement) {
+      const cleanup = selectElementMode()
+
+      // Cleanup event listeners when selection mode is turned off
+      return () => {
+        setInteractiveModeActive(false)
+        if (cleanup) {
+          console.log('Cleaning up interaction controller')
+          cleanup()
+        }
       }
-      setInteractiveModeActive(false)
     }
-  }, [cleanupElementSelectionEvents])
+  }, [interactiveModeActive, interactedElement])
 
   return (
     <RuioContext.Provider
@@ -71,6 +82,12 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   )
 }
 
+/**
+ * Custom hook to access the Ruio context.
+ *
+ * @throws Will throw an error if used outside of the `RuioProvider`.
+ * @returns {RuioContextProps} The Ruio context value.
+ */
 export const useRuioContext = () => {
   const context = useContext(RuioContext)
   if (!context) {
