@@ -8,32 +8,25 @@ describe('ElementInteractionController', () => {
   let cleanup: Function | undefined
 
   beforeEach(() => {
-    // Create a root element that simulates the app's root element
     rootElement = document.createElement('div')
     rootElement.id = 'root'
     document.body.appendChild(rootElement)
 
-    // Create a child element under root
     childElement = document.createElement('div')
     rootElement.appendChild(childElement)
 
-    // Create an element to be excluded from interactions
     excludedElement = document.createElement('div')
     excludedElement.classList.add('ruio-exclude')
     rootElement.appendChild(excludedElement)
 
-    // Mock the callback function
     mockCallback = jest.fn()
 
-    // Call the ElementInteractionController and store the cleanup function
     cleanup = ElementInteractionController(mockCallback)
   })
 
   afterEach(() => {
-    // Clean up the DOM after each test
     document.body.removeChild(rootElement)
 
-    // Run the cleanup function to remove event listeners, if it exists
     if (cleanup) cleanup()
   })
 

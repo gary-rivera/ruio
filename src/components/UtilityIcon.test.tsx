@@ -26,11 +26,15 @@ describe('UtilityIcon', () => {
     jest.clearAllMocks() // Clear any mock call history
   })
 
-  it('renders the UtilityIcon component', () => {
+  it('renders the UtilityIcon component without crashing (Smoke Test)', () => {
     render(<UtilityIcon />)
-
     const utilityIcon = screen.getByTestId('utility-icon')
     expect(utilityIcon).toBeInTheDocument()
+  })
+
+  it('matches the snapshot', () => {
+    const { asFragment } = render(<UtilityIcon />)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('applies the correct styles based on bordersEnabled state', () => {

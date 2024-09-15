@@ -28,6 +28,16 @@ describe('ControlPanel', () => {
     jest.clearAllMocks()
   })
 
+  it('matches the snapshot', () => {
+    const { asFragment } = render(<ControlPanel />)
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('renders the ControlPanel without crashing (Smoke Test)', () => {
+    render(<ControlPanel />)
+    expect(screen.getByLabelText('Depth:')).toBeInTheDocument()
+  })
+
   it('renders the control panel with default values', () => {
     render(<ControlPanel />)
 
