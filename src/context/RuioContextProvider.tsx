@@ -21,7 +21,7 @@ const RuioContext = createContext<RuioContextProps | undefined>(undefined)
  * @param {ReactNode} props.children - The child components to be rendered inside the provider.
  * @returns {JSX.Element} The context provider component.
  */
-export const RuioProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
@@ -85,7 +85,7 @@ export const RuioProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
  * @throws Will throw an error if used outside of the `RuioProvider`.
  * @returns {RuioContextProps} The Ruio context value.
  */
-export const useRuio = () => {
+export const useRuioContext = () => {
   const context = useContext(RuioContext)
   if (!context) {
     throw new Error('useRuio must be used within RuioProvider')
