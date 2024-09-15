@@ -10,6 +10,7 @@ const ControlPanel: React.FC = () => {
 
   return (
     <div
+      data-testid="control-panel"
       className="ruio-exclude"
       style={{
         position: 'fixed',

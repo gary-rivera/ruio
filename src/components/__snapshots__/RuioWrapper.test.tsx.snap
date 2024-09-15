@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ControlPanel matches the snapshot 1`] = `
+exports[`RuioWrapper Snapshot Tests should match the snapshot with default children 1`] = `
 <DocumentFragment>
+  <div
+    class="ruio-exclude"
+    data-testid="utility-icon"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: lightcoral; padding: 10px; cursor: pointer;"
+  >
+    🛠️
+  </div>
   <div
     class="ruio-exclude"
     data-testid="control-panel"
@@ -16,7 +23,7 @@ exports[`ControlPanel matches the snapshot 1`] = `
         max="10"
         min="1"
         type="number"
-        value="3"
+        value="1"
       />
     </label>
     <div
@@ -32,6 +39,9 @@ exports[`ControlPanel matches the snapshot 1`] = `
         Enable Borders
       </button>
     </div>
+  </div>
+  <div>
+    Snapshot Child
   </div>
 </DocumentFragment>
 `;
