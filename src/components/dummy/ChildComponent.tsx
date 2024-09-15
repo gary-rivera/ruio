@@ -7,6 +7,7 @@ const ChildComponent: React.FC = () => {
       <h2>Child Component</h2>
       <p>This is the child component.</p>
       <GrandChildComponent />
+      <GrandChildComponent />
     </div>
   )
 }

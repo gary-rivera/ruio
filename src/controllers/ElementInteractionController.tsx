@@ -1,4 +1,4 @@
-const DEFAULT_ROOT_ELEMENT = 'root' // !important: adjust this to match the root element id in your project
+const DEFAULT_ROOT_ELEMENT = 'root'
 
 /**
  * Attaches hover and click listeners to elements under the specified root element.
@@ -18,36 +18,54 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
     return
   }
 
-  /**
-   * Determines if the target element is valid for hover or click interaction.
-   *
-   * @param {HTMLElement} target - The DOM element being interacted with.
-   * @returns {boolean} - Returns true if the target is valid, false otherwise.
-   */
+  const originalStyles = new Map<HTMLElement, string>()
+
   const isValidTarget = (target: HTMLElement) => {
+    // Ensure the target is not the root element (i.e., ParentComponent) itself
+    const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
+
     return (
       !target.classList.contains('ruio-exclude') &&
-      target.closest(`#${DEFAULT_ROOT_ELEMENT}`) &&
-      target !== rootElement
+      isChildOfRoot && // Only apply hover styles to elements inside the root
+      target !== rootElement // Exclude the root element itself from hover effects
     )
   }
-
   /**
-   * Applies or removes hover styles on the target element.
+   * Saves the element's current inline styles before applying new hover styles.
    *
    * @param {HTMLElement} target - The element to apply hover styles to.
-   * @param {boolean} isHovering - Whether the hover styles should be applied or removed.
    */
-  const applyHoverStyles = (target: HTMLElement, isHovering: boolean) => {
-    target.style.outline = isHovering ? '2px dashed blue' : ''
-    target.style.backgroundColor = isHovering ? 'rgba(0, 0, 255, 0.1)' : ''
+  const saveOriginalStyles = (target: HTMLElement) => {
+    if (!originalStyles.has(target)) {
+      originalStyles.set(target, target.getAttribute('style') || '')
+    }
   }
 
   /**
-   * Handles the mouseover event and applies hover styles if the target is valid.
+   * Restores the original inline styles to the element.
    *
-   * @param {MouseEvent} event - The mouse event triggered by hovering.
+   * @param {HTMLElement} target - The element whose styles should be restored.
    */
+  const restoreOriginalStyles = (target: HTMLElement) => {
+    const originalStyle = originalStyles.get(target)
+    if (originalStyle !== undefined) {
+      target.setAttribute('style', originalStyle)
+    } else {
+      target.removeAttribute('style')
+    }
+    originalStyles.delete(target)
+  }
+
+  const applyHoverStyles = (target: HTMLElement, isHovering: boolean) => {
+    if (isHovering) {
+      saveOriginalStyles(target)
+      target.style.outline = '2px dashed blue'
+      target.style.backgroundColor = 'rgba(0, 0, 255, 0.1)'
+    } else {
+      restoreOriginalStyles(target)
+    }
+  }
+
   const handleHover = (event: MouseEvent) => {
     const target = event.target as HTMLElement
     if (isValidTarget(target)) {
@@ -56,27 +74,15 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
     }
   }
 
-  /**
-   * Handles the mouseout event and removes hover styles if the target is valid.
-   *
-   * @param {MouseEvent} event - The mouse event triggered when the mouse leaves the element.
-   */
   const handleMouseOut = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-
     if (isValidTarget(target)) {
       applyHoverStyles(target, false)
     }
   }
 
-  /**
-   * Handles the click event, removes hover styles, and invokes the callback for the selected element.
-   *
-   * @param {MouseEvent} event - The mouse event triggered by clicking an element.
-   */
   const handleSelect = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-
     if (isValidTarget(target)) {
       applyHoverStyles(target, false)
       onHoverOrClick(target)
@@ -84,14 +90,10 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
     }
   }
 
-  // Attach event listeners
   document.body.addEventListener('mouseover', handleHover)
   document.body.addEventListener('mouseout', handleMouseOut)
   document.body.addEventListener('click', handleSelect)
 
-  /**
-   * Callback fn to clean up event listeners added to the document body once root element is selected.
-   */
   const cleanup = () => {
     document.body.removeEventListener('mouseover', handleHover)
     document.body.removeEventListener('mouseout', handleMouseOut)

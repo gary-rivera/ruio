@@ -7,6 +7,8 @@ const ParentComponent: React.FC = () => {
       <h1>Parent Component</h1>
       <p>This is the parent component.</p>
       <ChildComponent />
+      <ChildComponent />
+      <ChildComponent />
       <button>Click Me</button>
     </div>
   )
