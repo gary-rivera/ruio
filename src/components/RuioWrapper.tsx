@@ -1,15 +1,15 @@
 import React, { ReactNode } from 'react'
 import UtilityIcon from './UtilityIcon'
-import { RuioProvider } from '@context/RuioContext'
+import { RuioContextProvider } from '@context/RuioContextProvider'
 import ControlPanel from './ControlPanel'
 
 const RuioWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <RuioProvider>
+    <RuioContextProvider>
       <UtilityIcon />
       <ControlPanel />
       {children}
-    </RuioProvider>
+    </RuioContextProvider>
   )
 }
 

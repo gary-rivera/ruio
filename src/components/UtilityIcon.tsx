@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useRuio } from '../context/RuioContext'
+import { useRuioContext } from '../context/RuioContextProvider'
 import { applyBorders } from '../utils/applyBorders'
 
 type UtilityIconProps = {
@@ -7,7 +7,7 @@ type UtilityIconProps = {
 }
 
 const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
-  const { bordersEnabled, setBordersEnabled, depth } = useRuio()
+  const { bordersEnabled, setBordersEnabled, depth } = useRuioContext()
 
   useEffect(() => {
     const rootElement = document.querySelector(selector)
