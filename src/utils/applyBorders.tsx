@@ -11,7 +11,7 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
     elements.push(el)
 
-    el.style.outline = apply ? `1.5px solid ${getRelativeDepthColor('neon', currentDepth)}` : ''
+    el.style.outline = apply ? `1.5px solid ${getRelativeDepthColor('dark', currentDepth)}` : ''
 
     Array.from(el.children).forEach((child) => {
       if (child instanceof HTMLElement) {

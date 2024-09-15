@@ -1,50 +1,58 @@
 const colorPalettes: Record<string, string[]> = {
   default: [
-    '#ff5832',
-    '#84a5ad',
-    '#c17f70',
-    '#5bbfd6',
-    '#ea6547',
-    '#999999',
-    '#ad8c84',
-    '#70b2c1',
-    '#d6725b',
-    '#47ccea',
-    '#999999',
-    '#84a5ad',
-    '#c17f70',
-    '#5bbfd6',
-    '#ea6547',
-    '#999999',
-    '#ad8c84',
-    '#70b2c1',
-    '#d6725b',
-    '#47ccea',
-    '#999999',
-    '#84a5ad',
-    '#c17f70',
-    '#5bbfd6',
-    '#ea6547',
-    '#999999',
-    '#ad8c84',
-    '#70b2c1',
-    '#d6725b',
-    '#47ccea',
-    '#999999',
-    '#84a5ad',
-    '#c17f70',
-    '#5bbfd6',
-    '#ea6547',
-    '#999999',
-    '#ad8c84',
-    '#70b2c1',
-    '#d6725b',
-    '#47ccea',
+    '#ff5832', // Vivid Orange
+    '#84a5ad', // Muted Cyan
+    '#c17f70', // Soft Brown
+    '#5bbfd6', // Bright Cyan
+    '#ea6547', // Warm Red-Orange
+    '#999999', // Neutral Gray
+    '#ad8c84', // Muted Pink
+    '#70b2c1', // Light Cyan
+    '#d6725b', // Warm Coral
+    '#47ccea', // Bright Aqua
   ],
-  light: [],
-  dark: [],
-  zesty: ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#8B00FF'],
-  neon: ['#FF00FF', '#00FFFF', '#FFFF00', '#00FF00', '#FF0000', '#0000FF', '#FF7F00'],
+  light: [
+    '#FFCCCC', // Light Red
+    '#CCE5FF', // Light Blue
+    '#CCFFCC', // Light Green
+    '#FFF5CC', // Light Yellow
+    '#FFCCE5', // Light Pink
+    '#CCFFF5', // Light Teal
+    '#FFE5CC', // Light Orange
+    '#E5CCFF', // Light Purple
+    '#FFF0CC', // Light Peach
+    '#CCFFEA', // Light Aqua
+  ],
+  dark: [
+    '#990000', // Dark Red
+    '#003366', // Dark Blue
+    '#006600', // Dark Green
+    '#996600', // Dark Yellow/Brown
+    '#660033', // Dark Pink
+    '#003333', // Dark Teal
+    '#994C00', // Dark Orange
+    '#330066', // Dark Purple
+    '#664400', // Dark Peach/Brown
+    '#00664C', // Dark Aqua
+  ],
+  zesty: [
+    '#FF0000', // Red
+    '#FF7F00', // Orange
+    '#FFFF00', // Yellow
+    '#00FF00', // Green
+    '#0000FF', // Blue
+    '#4B0082', // Indigo
+    '#8B00FF', // Violet
+  ],
+  neon: [
+    '#FF00FF', // Magenta
+    '#00FFFF', // Cyan
+    '#FFFF00', // Yellow
+    '#00FF00', // Bright Green
+    '#FF0000', // Bright Red
+    '#0000FF', // Bright Blue
+    '#FF7F00', // Bright Orange
+  ],
   minimalist: [
     '#FFFFFF', // Pure White
     '#000000', // Pure Black
