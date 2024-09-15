@@ -1,8 +1,8 @@
 import React from 'react'
-import { useBorderDebugger } from '../context/BorderDebuggerContext'
+import { useRuio } from '../context/RuioContext'
 
 const ControlPanel: React.FC = () => {
-  const { depth, setDepth, bordersEnabled, setBordersEnabled, selectElementMode } = useBorderDebugger()
+  const { depth, setDepth, bordersEnabled, setBordersEnabled, selectElementMode } = useRuio()
 
   const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepth(parseInt(event.target.value, 10)) // Adjust depth dynamically
