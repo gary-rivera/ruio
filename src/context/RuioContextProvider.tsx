@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react'
+import React, { createContext, useState, useEffect, ReactNode, useContext, useMemo } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
@@ -65,20 +65,19 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }
   }, [interactiveModeActive, interactedElement])
 
-  return (
-    <RuioContext.Provider
-      value={{
-        bordersEnabled,
-        setBordersEnabled,
-        depth,
-        setDepth,
-        selectElementMode,
-        selectedElement: interactedElement,
-      }}
-    >
-      {children}
-    </RuioContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      bordersEnabled,
+      setBordersEnabled,
+      depth,
+      setDepth,
+      selectElementMode,
+      selectedElement: interactedElement,
+    }),
+    [bordersEnabled, depth, interactedElement],
   )
+
+  return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
 }
 
 /**
