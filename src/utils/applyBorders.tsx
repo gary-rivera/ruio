@@ -1,17 +1,22 @@
 import { getRelativeDepthColor } from '@utils/assignBorderColor'
-// only exposed for testing (for now)
-export let previouslyAppliedElements: HTMLElement[] = []
 
+export let previouslyAppliedElements: Set<HTMLElement> = new Set()
+
+// TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements
+// reference sha:
 export const applyBorders = (element: HTMLElement, depth: number, apply: boolean) => {
-  const elements: HTMLElement[] = []
+  const elements = new Set<HTMLElement>()
 
   const traverse = (el: HTMLElement, currentDepth: number) => {
     if (currentDepth > depth) return
     if (el.classList.contains('ruio-exclude') || el.tagName === 'SCRIPT') return
 
-    elements.push(el)
+    elements.add(el)
 
-    el.style.outline = apply ? `2px solid ${getRelativeDepthColor('dark', currentDepth)}` : ''
+    // Apply styles only when necessary
+    requestAnimationFrame(() => {
+      el.style.outline = apply ? `2px solid ${getRelativeDepthColor('dark', currentDepth)}` : ''
+    })
 
     Array.from(el.children).forEach((child) => {
       if (child instanceof HTMLElement) {
@@ -22,18 +27,17 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
   traverse(element, 0)
 
-  if (previouslyAppliedElements.length > 0) {
+  requestAnimationFrame(() => {
     previouslyAppliedElements.forEach((el) => {
-      // Remove the border styling from elements that are no longer in the list
-      if (!elements.includes(el)) el.style.outline = ''
+      // Remove border if not in the new set of elements
+      if (!elements.has(el)) el.style.outline = ''
     })
-  }
 
-  previouslyAppliedElements = elements
+    previouslyAppliedElements = elements
+  })
 }
 
 // Export a reset function for testing
-// tl;dr - encapsulation of logic is important to avoid false positives in tests
 export const resetPreviouslyAppliedElements = () => {
-  previouslyAppliedElements = []
+  previouslyAppliedElements.clear()
 }
