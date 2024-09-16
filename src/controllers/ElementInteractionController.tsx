@@ -19,14 +19,8 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
   }
 
   const isValidTarget = (target: HTMLElement) => {
-    // TODO: is this actually needed? I think we can just check if the target is a child of the root element
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
-
-    return (
-      !target.classList.contains('ruio-exclude') &&
-      isChildOfRoot && // Only apply hover styles to elements inside the root
-      target !== rootElement // Exclude the root element itself from hover effects
-    )
+    return !target.classList.contains('ruio-exclude') && isChildOfRoot && target !== rootElement
   }
 
   const originalStyles = new Map<HTMLElement, string>()
@@ -52,48 +46,42 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
     const originalStyle = originalStyles.get(target)
 
     originalStyle ? target.setAttribute('style', originalStyle) : target.removeAttribute('style')
-
     if (originalStyle === '') target.style.backgroundColor = ''
 
     target.classList.remove('ruio-hovered')
-
     originalStyles.delete(target)
   }
 
-  const applyHoverStyles = (target: HTMLElement, isHovering: boolean) => {
-    if (isHovering) {
-      if (!originalStyles.has(target)) {
-        saveOriginalStyles(target)
-      }
-      // target.classList.add('ruio-hovered')
-      target.style.backgroundColor = 'rgba(153, 181, 214, 0.66)'
-    } else {
-      restoreOriginalStyles(target)
+  const applyHoverStyles = (target: HTMLElement) => {
+    if (!originalStyles.has(target)) {
+      saveOriginalStyles(target)
     }
+    target.style.backgroundColor = 'rgba(153, 181, 214, 0.66)'
+  }
+
+  const removeHoverStyles = (target: HTMLElement) => {
+    restoreOriginalStyles(target)
   }
 
   const handleHover = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-
     if (isValidTarget(target)) {
-      applyHoverStyles(target, true)
+      applyHoverStyles(target)
       onHoverOrClick(target)
     }
   }
 
   const handleMouseOut = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-
     if (isValidTarget(target) && target.classList.contains('ruio-hovered')) {
-      applyHoverStyles(target, false)
+      removeHoverStyles(target)
     }
   }
 
-  const handleSelect = (event: MouseEvent) => {
+  const handleClick = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-
     if (isValidTarget(target)) {
-      applyHoverStyles(target, false)
+      removeHoverStyles(target)
       onHoverOrClick(target)
       cleanup()
     }
@@ -101,12 +89,12 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
 
   document.body.addEventListener('mouseover', handleHover)
   document.body.addEventListener('mouseout', handleMouseOut)
-  document.body.addEventListener('click', handleSelect)
+  document.body.addEventListener('click', handleClick)
 
   const cleanup = () => {
     document.body.removeEventListener('mouseover', handleHover)
     document.body.removeEventListener('mouseout', handleMouseOut)
-    document.body.removeEventListener('click', handleSelect)
+    document.body.removeEventListener('click', handleClick)
   }
 
   return cleanup

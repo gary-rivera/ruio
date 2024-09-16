@@ -3,17 +3,29 @@ import { applyBorders, resetPreviouslyAppliedElements } from './applyBorders'
 describe('applyBorders Smoke and Functionality Tests', () => {
   let element: HTMLElement
   let childElement: HTMLElement
+  let originalRequestAnimationFrame: typeof window.requestAnimationFrame
 
   beforeEach(() => {
     element = document.createElement('div')
     childElement = document.createElement('div')
     element.appendChild(childElement)
 
+    // Save original requestAnimationFrame reference
+    originalRequestAnimationFrame = window.requestAnimationFrame
+
+    // Mock requestAnimationFrame to run synchronously and return a dummy number
+    window.requestAnimationFrame = (callback: FrameRequestCallback): number => {
+      callback(0) // Execute the callback immediately
+      return 1 // Return a mock frame ID
+    }
+
     // Reset previously applied elements before each test
     resetPreviouslyAppliedElements()
   })
 
   afterEach(() => {
+    // Restore the original requestAnimationFrame after each test
+    window.requestAnimationFrame = originalRequestAnimationFrame
     element.style.outline = ''
     childElement.style.outline = ''
   })
@@ -47,7 +59,6 @@ describe('applyBorders Smoke and Functionality Tests', () => {
   // Functional Tests
   test('applies borders to the element and its children', () => {
     applyBorders(element, 1, true)
-
     expect(element.style.outline).toBe('2px solid #990000')
     expect(childElement.style.outline).toBe('2px solid #003366')
   })
