@@ -18,8 +18,6 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
     return
   }
 
-  const originalStyles = new Map<HTMLElement, string>()
-
   const isValidTarget = (target: HTMLElement) => {
     // TODO: is this actually needed? I think we can just check if the target is a child of the root element
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
@@ -30,14 +28,18 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
       target !== rootElement // Exclude the root element itself from hover effects
     )
   }
+
+  const originalStyles = new Map<HTMLElement, string>()
+
   /**
    * Saves the element's current inline styles before applying new hover styles.
    *
    * @param {HTMLElement} target - The element to apply hover styles to.
    */
   const saveOriginalStyles = (target: HTMLElement) => {
-    if (!originalStyles.has(target)) {
+    if (!target.classList.contains('ruio-hovered')) {
       originalStyles.set(target, target.getAttribute('style') || '')
+      target.classList.add('ruio-hovered')
     }
   }
 
@@ -48,19 +50,23 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
    */
   const restoreOriginalStyles = (target: HTMLElement) => {
     const originalStyle = originalStyles.get(target)
-    if (originalStyle !== undefined) {
-      target.setAttribute('style', originalStyle)
-    } else {
-      target.removeAttribute('style')
-    }
+
+    originalStyle ? target.setAttribute('style', originalStyle) : target.removeAttribute('style')
+
+    if (originalStyle === '') target.style.backgroundColor = ''
+
+    target.classList.remove('ruio-hovered')
+
     originalStyles.delete(target)
   }
 
   const applyHoverStyles = (target: HTMLElement, isHovering: boolean) => {
     if (isHovering) {
-      saveOriginalStyles(target)
-      // target.style.outline = '2px solid blue' // TOOD: fix this, its not working :(
-      target.style.backgroundColor = '#00ffaa' // TODO: make the color more appealing to the eye
+      if (!originalStyles.has(target)) {
+        saveOriginalStyles(target)
+      }
+      // target.classList.add('ruio-hovered')
+      target.style.backgroundColor = 'rgba(153, 181, 214, 0.66)'
     } else {
       restoreOriginalStyles(target)
     }
@@ -68,6 +74,7 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
 
   const handleHover = (event: MouseEvent) => {
     const target = event.target as HTMLElement
+
     if (isValidTarget(target)) {
       applyHoverStyles(target, true)
       onHoverOrClick(target)
@@ -76,13 +83,15 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
 
   const handleMouseOut = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-    if (isValidTarget(target)) {
+
+    if (isValidTarget(target) && target.classList.contains('ruio-hovered')) {
       applyHoverStyles(target, false)
     }
   }
 
   const handleSelect = (event: MouseEvent) => {
     const target = event.target as HTMLElement
+
     if (isValidTarget(target)) {
       applyHoverStyles(target, false)
       onHoverOrClick(target)

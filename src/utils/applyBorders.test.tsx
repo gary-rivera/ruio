@@ -48,8 +48,8 @@ describe('applyBorders Smoke and Functionality Tests', () => {
   test('applies borders to the element and its children', () => {
     applyBorders(element, 1, true)
 
-    expect(element.style.outline).toBe('2px solid red')
-    expect(childElement.style.outline).toBe('2px solid red')
+    expect(element.style.outline).toBe('2px solid #990000')
+    expect(childElement.style.outline).toBe('2px solid #003366')
   })
 
   test('removes borders when apply is false', () => {
@@ -66,17 +66,17 @@ describe('applyBorders Smoke and Functionality Tests', () => {
 
     applyBorders(element, 1, true)
 
-    expect(element.style.outline).toBe('2px solid red')
-    expect(childElement.style.outline).toBe('2px solid red')
+    expect(element.style.outline).toBe('2px solid #990000')
+    expect(childElement.style.outline).toBe('2px solid #003366')
     expect(deepChildElement.style.outline).toBe('')
   })
 
   test('removes border from previously applied elements not in the current list', () => {
     applyBorders(element, 1, true)
-    expect(element.style.outline).toBe('2px solid red')
+    expect(element.style.outline).toBe('2px solid #990000')
 
     applyBorders(childElement, 1, true)
     expect(element.style.outline).toBe('')
-    expect(childElement.style.outline).toBe('2px solid red')
+    expect(childElement.style.outline).toBe('2px solid #990000')
   })
 })

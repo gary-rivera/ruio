@@ -59,7 +59,6 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       return () => {
         setInteractiveModeActive(false)
         if (cleanup) {
-          console.log('Cleaning up interaction controller')
           cleanup()
         }
       }
