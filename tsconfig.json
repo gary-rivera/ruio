@@ -29,5 +29,5 @@
     "emitDeclarationOnly": false,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["src"]
+  "include": ["src", "jest.setup.ts"]
 }
