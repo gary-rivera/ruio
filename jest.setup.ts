@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom' // Provides additional matchers for testing library
 
-
 globalThis.requestIdleCallback = (callback) => {
   return setTimeout(() => {
     callback({
