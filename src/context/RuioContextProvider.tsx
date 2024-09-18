@@ -50,7 +50,6 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         if (cleanupElementSelectionEvents) {
           cleanupElementSelectionEvents()
         }
-        setInteractiveModeActive(false) // Reset interaction mode
       }
     }
   }, [interactiveModeActive, depth, bordersEnabled])
