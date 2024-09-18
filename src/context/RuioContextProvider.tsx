@@ -15,8 +15,10 @@ interface RuioContextProps {
   setBordersEnabled: React.Dispatch<React.SetStateAction<boolean>>
   depth: number
   setDepth: React.Dispatch<React.SetStateAction<number>>
+  selectedRootElement: HTMLElement | null
+  isElementSelectionActive: boolean
+  setIsElementSelectionActive: React.Dispatch<React.SetStateAction<boolean>>
   selectElementMode: () => void
-  selectedElement: HTMLElement | null
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
@@ -24,24 +26,34 @@ const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
-  const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
-  const [interactiveModeActive, setInteractiveModeActive] = useState(false)
+  const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
+  const [isElementSelectionActive, setIsElementSelectionActive] = useState(false)
+
+  const garyIsStuck = false
+  if (garyIsStuck) {
+    console.log('RuioContextProvider', {
+      bordersEnabled,
+      depth,
+      selectedRootElement,
+      isElementSelectionActive,
+    })
+  }
 
   /**
    * Triggers element selection mode by toggling the active state.
    * Wrapped in useCallback to maintain referential equality in contextValue.
    */
   const selectElementMode = useCallback(() => {
-    setInteractiveModeActive((prev) => !prev)
+    setIsElementSelectionActive((prev) => !prev)
   }, [])
 
   useEffect(() => {
-    if (interactiveModeActive) {
+    if (isElementSelectionActive) {
       console.log('Element selection mode activated')
 
       // Starts the ElementInteractionController when interactive mode is active
       const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
-        setInteractedElement(element)
+        setSelectedRootElement(element)
         applyBorders(element, depth, bordersEnabled)
       })
 
@@ -52,13 +64,13 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
       }
     }
-  }, [interactiveModeActive, depth, bordersEnabled])
+  }, [isElementSelectionActive, depth, bordersEnabled])
 
   useEffect(() => {
-    if (interactedElement) {
-      applyBorders(interactedElement, depth, bordersEnabled)
+    if (selectedRootElement) {
+      applyBorders(selectedRootElement, depth, bordersEnabled)
     }
-  }, [bordersEnabled, depth, interactedElement])
+  }, [bordersEnabled, depth, selectedRootElement])
 
   const contextValue = useMemo(
     () => ({
@@ -66,10 +78,12 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       setBordersEnabled,
       depth,
       setDepth,
+      selectedRootElement,
+      isElementSelectionActive,
+      setIsElementSelectionActive,
       selectElementMode,
-      selectedElement: interactedElement,
     }),
-    [bordersEnabled, depth, interactedElement, selectElementMode], // added selectElementMode here
+    [bordersEnabled, depth, selectedRootElement, selectElementMode], // added selectElementMode here
   )
 
   return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>

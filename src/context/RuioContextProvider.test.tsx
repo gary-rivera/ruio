@@ -16,17 +16,24 @@ const mockedElementInteractionController = ElementInteractionController as jest.
 const mockedApplyBorders = applyBorders as jest.MockedFunction<typeof applyBorders>
 
 const TestComponent = () => {
-  const { bordersEnabled, setBordersEnabled, depth, setDepth, selectElementMode, selectedElement } =
-    useRuioContext()
+  const {
+    bordersEnabled,
+    setBordersEnabled,
+    depth,
+    setDepth,
+    isElementSelectionActive,
+    setIsElementSelectionActive,
+    selectedRootElement,
+  } = useRuioContext()
 
   return (
     <div>
       <div data-testid="bordersEnabled">{bordersEnabled ? 'Enabled' : 'Disabled'}</div>
       <div data-testid="depth">{depth}</div>
-      <div data-testid="selectedElement">{selectedElement?.tagName || 'None'}</div>
+      <div data-testid="selectedRootElement">{selectedRootElement?.tagName || 'None'}</div>
       <button
         onClick={() => {
-          selectElementMode()
+          setIsElementSelectionActive(!isElementSelectionActive)
         }}
       >
         Select Element Mode
@@ -90,7 +97,7 @@ describe('RuioContextProvider', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('selectedElement').textContent).toBe(mockElement.tagName)
+      expect(screen.getByTestId('selectedRootElement').textContent).toBe(mockElement.tagName)
     })
   })
 
@@ -157,7 +164,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    expect(screen.getByTestId('selectedElement').textContent).toBe('None')
+    expect(screen.getByTestId('selectedRootElement').textContent).toBe('None')
   })
 
   test('should call applyBorders with correct arguments when borders are enabled', async () => {
