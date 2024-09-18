@@ -1,0 +1,24 @@
+:root {
+  --ruio-toggle-width: 75px;
+}
+
+.ruio-toggle-container {
+  /* TODO: utilize the dynamic width sizing from ^^^ */
+  width: 60px;
+  aspect-ratio: 4 / 3;
+  display: inline-block;
+  border-radius: 50px;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+/*
+TODO: add a opacity effect when not hovering over button or when the util is disabled
+*/
+
+svg.ruio-logo {
+  z-index: 9999;
+  cursor: 'pointer';
+  border: 2px solid #aaacab;
+  border-radius: 15px;
+}

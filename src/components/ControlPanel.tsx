@@ -22,7 +22,7 @@ const ControlPanel: React.FC = () => {
         border: '1px solid black',
       }}
     >
-      <label className="ruio-exclude">
+      <label className="ruio-exclude" style={{ color: 'black' }}>
         Depth:
         <input
           className="ruio-exclude"
@@ -33,13 +33,9 @@ const ControlPanel: React.FC = () => {
           max="10"
         />
       </label>
-
       <div className="ruio-exclude">
         <button className="ruio-exclude" onClick={selectElementMode} disabled={!bordersEnabled}>
           Select Element
-        </button>
-        <button onClick={() => setBordersEnabled(!bordersEnabled)}>
-          {bordersEnabled ? 'Disable Borders' : 'Enable Borders'}
         </button>
       </div>
     </div>
