@@ -1,4 +1,12 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext, useMemo } from 'react'
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useContext,
+  useMemo,
+  useCallback,
+} from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
@@ -13,14 +21,6 @@ interface RuioContextProps {
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
-/**
- * Provides Ruio functionality to its children, including element selection,
- * border application, and interaction management.
- *
- * @param {object} props - The properties for the provider component.
- * @param {ReactNode} props.children - The child components to be rendered inside the provider.
- * @returns {JSX.Element} The context provider component.
- */
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
@@ -28,42 +28,38 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [interactiveModeActive, setInteractiveModeActive] = useState(false)
 
   /**
-   * Activates the element selection mode and sets up hover and click interactions.
-   *
-   * @returns {function(): void} A cleanup function to remove event listeners when interaction mode is disabled.
+   * Triggers element selection mode by toggling the active state.
+   * Wrapped in useCallback to maintain referential equality in contextValue.
    */
-  const selectElementMode = () => {
-    setInteractiveModeActive(true)
+  const selectElementMode = useCallback(() => {
+    setInteractiveModeActive((prev) => !prev)
+  }, [])
 
-    const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
-      setInteractedElement(element)
-      applyBorders(element, depth, bordersEnabled)
-    })
+  useEffect(() => {
+    if (interactiveModeActive) {
+      console.log('Element selection mode activated')
 
-    return cleanupElementSelectionEvents
-  }
+      // Starts the ElementInteractionController when interactive mode is active
+      const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
+        setInteractedElement(element)
+        applyBorders(element, depth, bordersEnabled)
+      })
 
-  // Apply or remove borders whenever bordersEnabled or depth changes
+      // Clean up event listeners when interaction mode is turned off
+      return () => {
+        if (cleanupElementSelectionEvents) {
+          cleanupElementSelectionEvents()
+        }
+        setInteractiveModeActive(false) // Reset interaction mode
+      }
+    }
+  }, [interactiveModeActive, depth, bordersEnabled])
+
   useEffect(() => {
     if (interactedElement) {
       applyBorders(interactedElement, depth, bordersEnabled)
     }
   }, [bordersEnabled, depth, interactedElement])
-
-  // Listen for element selection mode cleanup
-  useEffect(() => {
-    if (!interactiveModeActive && interactedElement) {
-      const cleanup = selectElementMode()
-
-      // Cleanup event listeners when selection mode is turned off
-      return () => {
-        setInteractiveModeActive(false)
-        if (cleanup) {
-          cleanup()
-        }
-      }
-    }
-  }, [interactiveModeActive, interactedElement])
 
   const contextValue = useMemo(
     () => ({
@@ -74,7 +70,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       selectElementMode,
       selectedElement: interactedElement,
     }),
-    [bordersEnabled, depth, interactedElement],
+    [bordersEnabled, depth, interactedElement, selectElementMode], // added selectElementMode here
   )
 
   return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
@@ -82,9 +78,6 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
 /**
  * Custom hook to access the Ruio context.
- *
- * @throws Will throw an error if used outside of the `RuioProvider`.
- * @returns {RuioContextProps} The Ruio context value.
  */
 export const useRuioContext = () => {
   const context = useContext(RuioContext)
