@@ -43,6 +43,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
   const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
+  // const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
 
   /**
    * Triggers element selection mode by toggling the active state.
@@ -61,8 +62,8 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
           applyBorders(element, depth, ruioEnabled)
         },
         (element: HTMLElement) => {
+          setSelectedRootElement(element)
           setIsElementSelectionModeActive(false)
-          // OR
         },
       )
 
@@ -81,7 +82,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (selectedRootElement) {
       applyBorders(selectedRootElement, depth, ruioEnabled)
     }
-  }, [ruioEnabled, depth, selectedRootElement])
+  }, [depth, selectedRootElement]) // NOTE: did include ruioEnabled at one point -- might need to add back
 
   const contextValue = useMemo(
     () => ({
