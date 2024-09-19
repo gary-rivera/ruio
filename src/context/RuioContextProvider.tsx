@@ -58,7 +58,6 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       // trigger ElementInteractionController (add click and hover events to DOM used for root element selection)
       const cleanupElementSelectionEvents = ElementInteractionController(
         (element: HTMLElement) => {
-          setSelectedRootElement(element)
           applyBorders(element, depth, ruioEnabled)
         },
         (element: HTMLElement) => {
