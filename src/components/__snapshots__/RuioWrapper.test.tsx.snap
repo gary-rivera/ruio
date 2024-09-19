@@ -4,15 +4,8 @@ exports[`RuioWrapper Snapshot Tests should match the snapshot with default child
 <DocumentFragment>
   <div
     class="ruio-exclude"
-    data-testid="utility-icon"
-    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: lightcoral; padding: 10px; cursor: pointer;"
-  >
-    🛠️
-  </div>
-  <div
-    class="ruio-exclude"
-    data-testid="control-panel"
-    style="position: fixed; bottom: 80px; right: 20px; z-index: 9999; background-color: white; padding: 10px; border: 1px solid black;"
+    data-testid="ruio-control-panel"
+    style="position: fixed; bottom: 80px; right: 20px; z-index: 9999; background-color: white; padding: 10px; border: 1px solid black; display: none;"
   >
     <label
       class="ruio-exclude"
@@ -39,6 +32,13 @@ exports[`RuioWrapper Snapshot Tests should match the snapshot with default child
         Enable Borders
       </button>
     </div>
+  </div>
+  <div
+    class="ruio-exclude"
+    data-testid="ruio-toggle-icon"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: lightcoral; padding: 10px; cursor: pointer;"
+  >
+    🛠️
   </div>
   <div>
     Snapshot Child

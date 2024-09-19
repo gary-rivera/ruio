@@ -9,17 +9,17 @@ type UtilityIconProps = {
 }
 
 const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
-  const { bordersEnabled, setBordersEnabled, depth } = useRuioContext()
+  const { ruioEnabled, setRuioEnabled, depth } = useRuioContext()
 
   useEffect(() => {
     const rootElement = document.querySelector(selector)
 
-    if (rootElement) applyBorders(rootElement as HTMLElement, depth, bordersEnabled)
-  }, [bordersEnabled, depth])
+    if (rootElement) applyBorders(rootElement as HTMLElement, depth, ruioEnabled)
+  }, [ruioEnabled, depth])
 
   return (
     <div
-      data-testid="utility-icon"
+      data-testid="ruio-toggle-icon"
       className="ruio-exclude"
       style={{
         position: 'fixed',
@@ -29,7 +29,7 @@ const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
         padding: '10px',
         cursor: 'pointer',
       }}
-      onClick={() => setBordersEnabled(!bordersEnabled)}
+      onClick={() => setRuioEnabled(!ruioEnabled)}
     >
       <RuioLogo />
     </div>

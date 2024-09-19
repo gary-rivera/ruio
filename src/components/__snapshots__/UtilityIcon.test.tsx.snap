@@ -4,7 +4,7 @@ exports[`UtilityIcon matches the snapshot 1`] = `
 <DocumentFragment>
   <div
     class="ruio-exclude"
-    data-testid="utility-icon"
+    data-testid="ruio-toggle-icon"
     style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: lightcoral; padding: 10px; cursor: pointer;"
   >
     🛠️

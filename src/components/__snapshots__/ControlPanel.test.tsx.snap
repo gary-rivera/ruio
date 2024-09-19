@@ -4,7 +4,7 @@ exports[`ControlPanel matches the snapshot 1`] = `
 <DocumentFragment>
   <div
     class="ruio-exclude"
-    data-testid="control-panel"
+    data-testid="ruio-control-panel"
     style="position: fixed; bottom: 80px; right: 20px; z-index: 9999; background-color: white; padding: 10px; border: 1px solid black;"
   >
     <label

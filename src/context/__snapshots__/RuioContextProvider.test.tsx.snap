@@ -2,9 +2,40 @@
 
 exports[`RuioContextProvider matches the snapshot for initial render 1`] = `
 <div>
+  <div
+    class="ruio-exclude"
+    data-testid="ruio-control-panel"
+    style="position: fixed; bottom: 80px; right: 20px; z-index: 9999; background-color: white; padding: 10px; border: 1px solid black; display: none;"
+  >
+    <label
+      class="ruio-exclude"
+    >
+      Depth:
+      <input
+        class="ruio-exclude"
+        max="10"
+        min="1"
+        type="number"
+        value="1"
+      />
+    </label>
+    <div
+      class="ruio-exclude"
+    >
+      <button
+        class="ruio-exclude"
+        disabled=""
+      >
+        Select Element
+      </button>
+      <button>
+        Enable Borders
+      </button>
+    </div>
+  </div>
   <div>
     <div
-      data-testid="bordersEnabled"
+      data-testid="ruioEnabled"
     >
       Disabled
     </div>
@@ -14,17 +45,23 @@ exports[`RuioContextProvider matches the snapshot for initial render 1`] = `
       1
     </div>
     <div
-      data-testid="selectedElement"
+      data-testid="selectedRootElement"
     >
       None
     </div>
-    <button>
+    <button
+      data-testid="select-element-mode"
+    >
       Select Element Mode
     </button>
-    <button>
+    <button
+      data-testid="enable-borders"
+    >
       Enable Borders
     </button>
-    <button>
+    <button
+      data-testid="set-depth"
+    >
       Set Depth to 5
     </button>
   </div>

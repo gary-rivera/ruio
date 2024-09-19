@@ -16,23 +16,35 @@ const mockedElementInteractionController = ElementInteractionController as jest.
 const mockedApplyBorders = applyBorders as jest.MockedFunction<typeof applyBorders>
 
 const TestComponent = () => {
-  const { bordersEnabled, setBordersEnabled, depth, setDepth, selectElementMode, selectedElement } =
-    useRuioContext()
+  const {
+    ruioEnabled,
+    setRuioEnabled,
+    depth,
+    setDepth,
+    isElementSelectionModeActive,
+    setIsElementSelectionModeActive,
+    selectedRootElement,
+  } = useRuioContext()
 
   return (
     <div>
-      <div data-testid="bordersEnabled">{bordersEnabled ? 'Enabled' : 'Disabled'}</div>
+      <div data-testid="ruioEnabled">{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
       <div data-testid="depth">{depth}</div>
-      <div data-testid="selectedElement">{selectedElement?.tagName || 'None'}</div>
+      <div data-testid="selectedRootElement">{selectedRootElement?.tagName || 'None'}</div>
       <button
+        data-testid="select-element-mode"
         onClick={() => {
-          selectElementMode()
+          setIsElementSelectionModeActive(!isElementSelectionModeActive)
         }}
       >
         Select Element Mode
       </button>
-      <button onClick={() => setBordersEnabled(true)}>Enable Borders</button>
-      <button onClick={() => setDepth(5)}>Set Depth to 5</button>
+      <button data-testid="enable-borders" onClick={() => setRuioEnabled(true)}>
+        Enable Borders
+      </button>
+      <button data-testid="set-depth" onClick={() => setDepth(5)}>
+        Set Depth to 5
+      </button>
     </div>
   )
 }
@@ -76,7 +88,7 @@ describe('RuioContextProvider', () => {
       )
     })
 
-    const selectElementButton = screen.getByText('Select Element Mode')
+    const selectElementButton = screen.getByTestId('select-element-mode')
 
     await act(async () => {
       await userEvent.click(selectElementButton)
@@ -90,24 +102,24 @@ describe('RuioContextProvider', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('selectedElement').textContent).toBe(mockElement.tagName)
+      expect(screen.getByTestId('selectedRootElement').textContent).toBe(mockElement.tagName)
     })
   })
 
-  test('should update bordersEnabled state when triggered', async () => {
+  test('should update ruioEnabled state when triggered', async () => {
     render(
       <RuioContextProvider>
         <TestComponent />
       </RuioContextProvider>,
     )
 
-    const enableBordersButton = screen.getByText('Enable Borders')
+    const enableBordersButton = screen.getByTestId('enable-borders')
 
     await act(async () => {
       await userEvent.click(enableBordersButton)
     })
 
-    expect(screen.getByTestId('bordersEnabled').textContent).toBe('Enabled')
+    expect(screen.getByTestId('ruioEnabled').textContent).toBe('Enabled')
   })
 
   test('should update depth state when triggered', async () => {
@@ -117,7 +129,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const setDepthButton = screen.getByText('Set Depth to 5')
+    const setDepthButton = screen.getByTestId('set-depth')
 
     await act(async () => {
       await userEvent.click(setDepthButton)
@@ -137,7 +149,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const selectElementButton = screen.getByText('Select Element Mode')
+    const selectElementButton = screen.getByTestId('select-element-mode')
 
     await act(async () => {
       await userEvent.click(selectElementButton)
@@ -145,7 +157,9 @@ describe('RuioContextProvider', () => {
 
     expect(cleanupMock).not.toHaveBeenCalled()
 
-    cleanupMock()
+    await act(async () => {
+      cleanupMock()
+    })
 
     expect(cleanupMock).toHaveBeenCalled()
   })
@@ -157,7 +171,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    expect(screen.getByTestId('selectedElement').textContent).toBe('None')
+    expect(screen.getByTestId('selectedRootElement').textContent).toBe('None')
   })
 
   test('should call applyBorders with correct arguments when borders are enabled', async () => {
@@ -173,13 +187,13 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const enableBordersButton = screen.getByText('Enable Borders')
+    const enableBordersButton = screen.getByTestId('enable-borders')
 
     await act(async () => {
       await userEvent.click(enableBordersButton)
     })
 
-    const selectElementButton = screen.getByText('Select Element Mode')
+    const selectElementButton = screen.getByTestId('select-element-mode')
 
     await act(async () => {
       await userEvent.click(selectElementButton)
@@ -188,42 +202,12 @@ describe('RuioContextProvider', () => {
     expect(mockedApplyBorders).toHaveBeenCalledWith(mockElement, 1, true)
   })
 
-  // NOTE: consider enabling this test for possible regression checks (not working rn)
-  // test('should call cleanup function when component unmounts', async () => {
-  //   const cleanupMock = jest.fn()
-
-  //   mockedElementInteractionController.mockImplementation(() => {
-  //     console.log('ElementInteractionController called, returning cleanupMock')
-  //     return cleanupMock
-  //   })
-
-  //   const { unmount } = render(
-  //     <RuioContextProvider>
-  //       <TestComponent />
-  //     </RuioContextProvider>,
-  //   )
-
-  //   const selectElementButton = screen.getByText('Select Element Mode')
-
-  //   await act(async () => {
-  //     userEvent.click(selectElementButton)
-  //   })
-
-  //   await act(async () => {
-  //     unmount()
-  //   })
-
-  //   console.log('Unmounting the component, checking cleanupMock')
-
-  //   expect(cleanupMock).toHaveBeenCalledTimes(1)
-  // })
-
   test('should throw error if useRuioContext is used outside provider', () => {
     const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {})
 
     const TestInvalidComponent = () => {
-      const { bordersEnabled } = useRuioContext()
-      return <div>{bordersEnabled ? 'Enabled' : 'Disabled'}</div>
+      const { ruioEnabled } = useRuioContext()
+      return <div>{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
     }
 
     expect(() => render(<TestInvalidComponent />)).toThrow(

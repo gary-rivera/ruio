@@ -6,21 +6,21 @@ jest.mock('@context/RuioContextProvider')
 
 describe('ControlPanel', () => {
   let setDepthMock: jest.Mock
-  let setBordersEnabledMock: jest.Mock
-  let selectElementModeMock: jest.Mock
+  let setRuioEnabledMock: jest.Mock
+  let toggleElementSelectionModeMock: jest.Mock
 
   beforeEach(() => {
     setDepthMock = jest.fn()
-    setBordersEnabledMock = jest.fn()
-    selectElementModeMock = jest.fn()
+    setRuioEnabledMock = jest.fn()
+    toggleElementSelectionModeMock = jest.fn()
 
     // Mock the useRuioContext hook
     ;(useRuioContext as jest.Mock).mockReturnValue({
       depth: 3,
       setDepth: setDepthMock,
-      bordersEnabled: false,
-      setBordersEnabled: setBordersEnabledMock,
-      selectElementMode: selectElementModeMock,
+      ruioEnabled: false,
+      setRuioEnabled: setRuioEnabledMock,
+      toggleElementSelectionMode: toggleElementSelectionModeMock,
     })
   })
 
@@ -55,9 +55,9 @@ describe('ControlPanel', () => {
     ;(useRuioContext as jest.Mock).mockReturnValue({
       depth: 3,
       setDepth: setDepthMock,
-      bordersEnabled: true, // bordersEnabled is now true
-      setBordersEnabled: setBordersEnabledMock,
-      selectElementMode: selectElementModeMock,
+      ruioEnabled: true, // ruioEnabled is now true
+      setRuioEnabled: setRuioEnabledMock,
+      toggleElementSelectionMode: toggleElementSelectionModeMock,
     })
 
     render(<ControlPanel />)
@@ -75,22 +75,22 @@ describe('ControlPanel', () => {
     expect(setDepthMock).toHaveBeenCalledWith(5)
   })
 
-  it('toggles bordersEnabled when the toggle button is clicked', () => {
+  it('toggles ruioEnabled when the toggle button is clicked', () => {
     render(<ControlPanel />)
 
     const toggleButton = screen.getByText('Enable Borders')
     fireEvent.click(toggleButton)
 
-    expect(setBordersEnabledMock).toHaveBeenCalledWith(true) // Should enable borders
+    expect(setRuioEnabledMock).toHaveBeenCalledWith(true) // Should enable borders
   })
 
-  it('calls selectElementMode when Select Element button is clicked', () => {
+  it('calls toggleElementSelectionMode when Select Element button is clicked', () => {
     ;(useRuioContext as jest.Mock).mockReturnValue({
       depth: 3,
       setDepth: setDepthMock,
-      bordersEnabled: true, // bordersEnabled is true
-      setBordersEnabled: setBordersEnabledMock,
-      selectElementMode: selectElementModeMock,
+      ruioEnabled: true, // ruioEnabled is true
+      setRuioEnabled: setRuioEnabledMock,
+      toggleElementSelectionMode: toggleElementSelectionModeMock,
     })
 
     render(<ControlPanel />)
@@ -98,6 +98,6 @@ describe('ControlPanel', () => {
     const selectButton = screen.getByText('Select Element')
     fireEvent.click(selectButton)
 
-    expect(selectElementModeMock).toHaveBeenCalled()
+    expect(toggleElementSelectionModeMock).toHaveBeenCalled()
   })
 })
