@@ -1,5 +1,4 @@
-import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import RuioWrapper from './RuioWrapper'
 
 describe('RuioWrapper Smoke Tests', () => {
@@ -42,8 +41,19 @@ describe('RuioWrapper Edge Cases', () => {
       </RuioWrapper>,
     )
 
-    expect(getByTestId('utility-icon')).toBeInTheDocument()
-    expect(getByTestId('control-panel')).toBeInTheDocument()
+    expect(getByTestId('ruio-toggle-icon')).toBeInTheDocument()
+  })
+
+  it('should render ControlPanel only when ruioEnabeld is true', () => {
+    const { getByTestId } = render(
+      <RuioWrapper>
+        <div>Some Child</div>
+      </RuioWrapper>,
+    )
+
+    fireEvent.click(getByTestId('ruio-toggle-icon'))
+
+    expect(getByTestId('ruio-control-panel')).toBeInTheDocument()
   })
 
   it('should render without children', () => {

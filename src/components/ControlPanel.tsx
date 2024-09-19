@@ -2,16 +2,15 @@ import React from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 
 const ControlPanel: React.FC = () => {
-  const { depth, setDepth, ruioEnabled, setRuioEnabled, isElementSelectionActive, selectElementMode } =
-    useRuioContext()
+  const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
 
   const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDepth(parseInt(event.target.value, 10)) // Adjust depth dynamically
+    setDepth(parseInt(event.target.value, 10))
   }
 
   return (
     <div
-      data-testid="control-panel"
+      data-testid="ruio-control-panel"
       className="ruio-exclude"
       style={{
         position: 'fixed',
@@ -36,9 +35,10 @@ const ControlPanel: React.FC = () => {
       </label>
 
       <div className="ruio-exclude">
-        <button className="ruio-exclude" onClick={selectElementMode} disabled={!ruioEnabled}>
+        <button className="ruio-exclude" onClick={toggleElementSelectionMode} disabled={!ruioEnabled}>
           Select Element
         </button>
+        {/* TODO: remove this button, its redundant with the icon */}
         <button onClick={() => setRuioEnabled(!ruioEnabled)}>
           {ruioEnabled ? 'Disable Borders' : 'Enable Borders'}
         </button>

@@ -10,16 +10,17 @@ import React, {
 } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
+import ControlPanel from '@components/ControlPanel'
 
 interface RuioContextProps {
-  ruioEnabled: boolean
-  setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>>
-  depth: number
-  setDepth: React.Dispatch<React.SetStateAction<number>>
-  selectedRootElement: HTMLElement | null
-  isElementSelectionActive: boolean
-  setIsElementSelectionActive: React.Dispatch<React.SetStateAction<boolean>>
-  selectElementMode: () => void
+  ruioEnabled: boolean // is ruio related state/interactions enabled
+  setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // toggle ruio related state/interactions
+  depth: number // depth of the amount of elements to apply borders to
+  setDepth: React.Dispatch<React.SetStateAction<number>> // set the depth of the amount of elements to apply borders to
+  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to where div.body#root)
+  isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
+  setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
+  toggleElementSelectionMode: () => void
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
@@ -28,61 +29,37 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [ruioEnabled, setRuioEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
-  const [isElementSelectionActive, setIsElementSelectionActive] = useState(false)
+  const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
 
+  // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
   const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
-
-  const garyIsStuck = false
-  if (garyIsStuck) {
-    console.log('RuioContextProvider', {
-      ruioEnabled,
-      depth,
-      selectedRootElement,
-      isElementSelectionActive,
-    })
-  }
 
   /**
    * Triggers element selection mode by toggling the active state.
    * Wrapped in useCallback to maintain referential equality in contextValue.
    */
-  // enabling the selectElementMode will
-  // toggle the isElementSelectionActive state
-  // isElementSelectionActive state will be activated
-  // // ElementInteractionController (click and hover events are applied to DOM)
-  // // applyBorders (borders are applied to the current hovered element)
-
-  // toggleElementSelectMode should be the name of the function
-  // regardless of the state toggle the isElementSelectionActive state
-
-  // // isElementSelectionActive is toggled won
-  // // // ElementInteractionController (click and hover events are applied to DOM)
-  // // // apply borders UI to whichecer element is hovered over (maybe this is handled by the ElementInteractionController??)
-
-  // // isElementSelectionActive is toggled off
-
-  const selectElementMode = useCallback(() => {
-    setIsElementSelectionActive((prev) => !prev)
+  const toggleElementSelectionMode = useCallback(() => {
+    setIsElementSelectionModeActive((prev) => !prev)
   }, [])
 
   useEffect(() => {
-    if (isElementSelectionActive) {
-      console.log('Element selection mode activated')
-
-      // Starts the ElementInteractionController when interactive mode is active
+    if (isElementSelectionModeActive) {
+      // trigger ElementInteractionController (add click and hover events to DOM used for root element selection)
       const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
         setSelectedRootElement(element)
         applyBorders(element, depth, ruioEnabled)
       })
 
-      // Clean up event listeners when interaction mode is turned off
       return () => {
         if (cleanupElementSelectionEvents) {
           cleanupElementSelectionEvents()
         }
       }
     }
-  }, [isElementSelectionActive, depth, ruioEnabled])
+    // NOTE: should the cleanup function be saved to a ref to be called later when element selection mode is exited?
+    // when an element is selected: yes [] no []
+    // when an element is not selected: yes [] no []
+  }, [isElementSelectionModeActive, depth, ruioEnabled])
 
   useEffect(() => {
     if (selectedRootElement) {
@@ -97,14 +74,19 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       depth,
       setDepth,
       selectedRootElement,
-      isElementSelectionActive,
-      setIsElementSelectionActive,
-      selectElementMode,
+      isElementSelectionModeActive,
+      setIsElementSelectionModeActive,
+      toggleElementSelectionMode,
     }),
-    [ruioEnabled, depth, selectedRootElement, selectElementMode], // added selectElementMode here
+    [ruioEnabled, depth, selectedRootElement, toggleElementSelectionMode],
   )
 
-  return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
+  return (
+    <RuioContext.Provider value={contextValue}>
+      {ruioEnabled && <ControlPanel />}
+      {children}
+    </RuioContext.Provider>
+  )
 }
 
 /**

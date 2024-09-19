@@ -21,8 +21,8 @@ const TestComponent = () => {
     setRuioEnabled,
     depth,
     setDepth,
-    isElementSelectionActive,
-    setIsElementSelectionActive,
+    isElementSelectionModeActive,
+    setIsElementSelectionModeActive,
     selectedRootElement,
   } = useRuioContext()
 
@@ -33,7 +33,7 @@ const TestComponent = () => {
       <div data-testid="selectedRootElement">{selectedRootElement?.tagName || 'None'}</div>
       <button
         onClick={() => {
-          setIsElementSelectionActive(!isElementSelectionActive)
+          setIsElementSelectionModeActive(!isElementSelectionModeActive)
         }}
       >
         Select Element Mode

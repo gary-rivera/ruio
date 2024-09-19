@@ -1,13 +1,11 @@
 import React, { ReactNode } from 'react'
 import UtilityIcon from './UtilityIcon'
 import { RuioContextProvider } from '@context/RuioContextProvider'
-import ControlPanel from './ControlPanel'
 
 const RuioWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <RuioContextProvider>
+    <RuioContextProvider data-testid="ruio-toggle-icon">
       <UtilityIcon />
-      <ControlPanel />
       {children}
     </RuioContextProvider>
   )

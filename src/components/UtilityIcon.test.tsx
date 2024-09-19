@@ -10,13 +10,13 @@ jest.mock('../utils/applyBorders', () => ({
 }))
 
 describe('UtilityIcon', () => {
-  let setBordersEnabledMock: jest.Mock
+  let setRuioEnabledMock: jest.Mock
 
   beforeEach(() => {
-    setBordersEnabledMock = jest.fn()
+    setRuioEnabledMock = jest.fn()
     ;(useRuioContext as jest.Mock).mockReturnValue({
-      bordersEnabled: false,
-      setBordersEnabled: setBordersEnabledMock,
+      ruioEnabled: false,
+      setRuioEnabled: setRuioEnabledMock,
       depth: 3,
     })
   })
@@ -28,7 +28,7 @@ describe('UtilityIcon', () => {
 
   it('renders the UtilityIcon component without crashing (Smoke Test)', () => {
     render(<UtilityIcon />)
-    const utilityIcon = screen.getByTestId('utility-icon')
+    const utilityIcon = screen.getByTestId('ruio-toggle-icon')
     expect(utilityIcon).toBeInTheDocument()
   })
 
@@ -37,60 +37,60 @@ describe('UtilityIcon', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('applies the correct styles based on bordersEnabled state', () => {
+  it('applies the correct styles based on ruioEnabled state', () => {
     render(<UtilityIcon />)
-    const utilityIcon = screen.getByTestId('utility-icon')
-    expect(utilityIcon).toHaveStyle({ backgroundColor: 'lightcoral' }) // bordersEnabled: false
+    const utilityIcon = screen.getByTestId('ruio-toggle-icon')
+    expect(utilityIcon).toHaveStyle({ backgroundColor: 'lightcoral' }) // ruioEnabled: false
 
     cleanup() // Ensure no multiple elements in the DOM
 
-    // Change mock for bordersEnabled = true
+    // Change mock for ruioEnabled = true
     ;(useRuioContext as jest.Mock).mockReturnValue({
-      bordersEnabled: true,
-      setBordersEnabled: setBordersEnabledMock,
+      ruioEnabled: true,
+      setRuioEnabled: setRuioEnabledMock,
       depth: 3,
     })
 
     render(<UtilityIcon />)
-    const updatedUtilityIcon = screen.getByTestId('utility-icon')
-    expect(updatedUtilityIcon).toHaveStyle({ backgroundColor: 'lightgreen' }) // bordersEnabled: true
+    const updatedUtilityIcon = screen.getByTestId('ruio-toggle-icon')
+    expect(updatedUtilityIcon).toHaveStyle({ backgroundColor: 'lightgreen' }) // ruioEnabled: true
   })
 
-  it('toggles bordersEnabled state on click', () => {
-    const setBordersEnabledMock = jest.fn()
+  it('toggles ruioEnabled state on click', () => {
+    const setRuioEnabledMock = jest.fn()
 
-    // Initially mock useRuioContext for bordersEnabled = false
+    // Initially mock useRuioContext for ruioEnabled = false
     ;(useRuioContext as jest.Mock).mockReturnValue({
-      bordersEnabled: false,
-      setBordersEnabled: setBordersEnabledMock,
+      ruioEnabled: false,
+      setRuioEnabled: setRuioEnabledMock,
       depth: 3,
     })
 
     const { getByTestId, rerender } = render(<UtilityIcon />)
-    const utilityIcon = getByTestId('utility-icon')
+    const utilityIcon = getByTestId('ruio-toggle-icon')
 
-    // First click: should enable borders (setBordersEnabled(true))
+    // First click: should enable borders (setRuioEnabled(true))
     fireEvent.click(utilityIcon)
-    expect(setBordersEnabledMock).toHaveBeenCalledWith(true)
+    expect(setRuioEnabledMock).toHaveBeenCalledWith(true)
 
     // Clear the mock to start fresh for the second click
-    setBordersEnabledMock.mockClear()
+    setRuioEnabledMock.mockClear()
 
-    // Re-render the component after updating the mock to simulate bordersEnabled = true
+    // Re-render the component after updating the mock to simulate ruioEnabled = true
     ;(useRuioContext as jest.Mock).mockReturnValue({
-      bordersEnabled: true,
-      setBordersEnabled: setBordersEnabledMock,
+      ruioEnabled: true,
+      setRuioEnabled: setRuioEnabledMock,
       depth: 3,
     })
 
     rerender(<UtilityIcon />) // Ensure the component re-renders with updated state
 
-    // Second click: should disable borders (setBordersEnabled(false))
+    // Second click: should disable borders (setRuioEnabled(false))
     fireEvent.click(utilityIcon)
-    expect(setBordersEnabledMock).toHaveBeenCalledWith(false)
+    expect(setRuioEnabledMock).toHaveBeenCalledWith(false)
   })
 
-  it('calls applyBorders when bordersEnabled or depth changes', () => {
+  it('calls applyBorders when ruioEnabled or depth changes', () => {
     const rootElementMock = document.createElement('div')
     document.querySelector = jest.fn().mockReturnValue(rootElementMock)
 
@@ -102,8 +102,8 @@ describe('UtilityIcon', () => {
 
     // Simulate a change in the context state
     ;(useRuioContext as jest.Mock).mockReturnValue({
-      bordersEnabled: true,
-      setBordersEnabled: setBordersEnabledMock,
+      ruioEnabled: true,
+      setRuioEnabled: setRuioEnabledMock,
       depth: 5,
     })
 

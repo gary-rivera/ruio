@@ -17,7 +17,7 @@ const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
 
   return (
     <div
-      data-testid="utility-icon"
+      data-testid="ruio-toggle-icon"
       className="ruio-exclude"
       style={{
         position: 'fixed',
