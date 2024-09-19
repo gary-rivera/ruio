@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { forwardRef, useRef, useEffect } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 
-const ControlPanel: React.FC = () => {
-  const { depth, setDepth, bordersEnabled, setBordersEnabled, selectElementMode } = useRuioContext()
+interface ControlPanelProps {
+  // Define any props if needed, or leave empty
+}
+
+function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) {
+  const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
 
   const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDepth(parseInt(event.target.value, 10)) // Adjust depth dynamically
+    setDepth(parseInt(event.target.value, 10))
   }
 
   return (
     <div
-      data-testid="control-panel"
+      ref={ref}
+      data-testid="ruio-control-panel"
       className="ruio-exclude"
       style={{
         position: 'fixed',
@@ -35,15 +40,16 @@ const ControlPanel: React.FC = () => {
       </label>
 
       <div className="ruio-exclude">
-        <button className="ruio-exclude" onClick={selectElementMode} disabled={!bordersEnabled}>
+        <button className="ruio-exclude" onClick={toggleElementSelectionMode} disabled={!ruioEnabled}>
           Select Element
         </button>
-        <button onClick={() => setBordersEnabled(!bordersEnabled)}>
-          {bordersEnabled ? 'Disable Borders' : 'Enable Borders'}
+        {/* TODO: remove this button, its redundant with the icon */}
+        <button onClick={() => setRuioEnabled(!ruioEnabled)}>
+          {ruioEnabled ? 'Disable Borders' : 'Enable Borders'}
         </button>
       </div>
     </div>
   )
 }
 
-export default ControlPanel
+export default forwardRef<HTMLDivElement, ControlPanelProps>(ControlPanel)

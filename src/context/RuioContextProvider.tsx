@@ -1,90 +1,112 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext, useMemo } from 'react'
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useContext,
+  useCallback,
+  useMemo,
+  useRef,
+} from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
+import ControlPanel from '@components/ControlPanel'
 
 interface RuioContextProps {
-  bordersEnabled: boolean
-  setBordersEnabled: React.Dispatch<React.SetStateAction<boolean>>
-  depth: number
-  setDepth: React.Dispatch<React.SetStateAction<number>>
-  selectElementMode: () => void
-  selectedElement: HTMLElement | null
+  ruioEnabled: boolean // is ruio related state/interactions enabled
+  setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // toggle ruio related state/interactions
+  depth: number // depth of the amount of elements to apply borders to
+  setDepth: React.Dispatch<React.SetStateAction<number>> // set the depth of the amount of elements to apply borders to
+  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to where div.body#root)
+  isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
+  setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
+  toggleElementSelectionMode: () => void
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
-/**
- * Provides Ruio functionality to its children, including element selection,
- * border application, and interaction management.
- *
- * @param {object} props - The properties for the provider component.
- * @param {ReactNode} props.children - The child components to be rendered inside the provider.
- * @returns {JSX.Element} The context provider component.
- */
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [bordersEnabled, setBordersEnabled] = useState(false)
+  const [ruioEnabled, setRuioEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
-  const [interactedElement, setInteractedElement] = useState<HTMLElement | null>(null)
-  const [interactiveModeActive, setInteractiveModeActive] = useState(false)
+  const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
+  const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
+
+  const controlPanelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (ruioEnabled && controlPanelRef.current) {
+      controlPanelRef.current.style.display = 'block'
+    } else if (controlPanelRef.current) {
+      controlPanelRef.current.style.display = 'none'
+    }
+  }, [ruioEnabled])
+
+  // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
+  const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
 
   /**
-   * Activates the element selection mode and sets up hover and click interactions.
-   *
-   * @returns {function(): void} A cleanup function to remove event listeners when interaction mode is disabled.
+   * Triggers element selection mode by toggling the active state.
+   * Wrapped in useCallback to maintain referential equality in contextValue.
    */
-  const selectElementMode = () => {
-    setInteractiveModeActive(true)
+  const toggleElementSelectionMode = useCallback(() => {
+    setIsElementSelectionModeActive((prev) => !prev)
+  }, [])
 
-    const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
-      setInteractedElement(element)
-      applyBorders(element, depth, bordersEnabled)
-    })
-
-    return cleanupElementSelectionEvents
-  }
-
-  // Apply or remove borders whenever bordersEnabled or depth changes
   useEffect(() => {
-    if (interactedElement) {
-      applyBorders(interactedElement, depth, bordersEnabled)
-    }
-  }, [bordersEnabled, depth, interactedElement])
+    if (isElementSelectionModeActive) {
+      // trigger ElementInteractionController (add click and hover events to DOM used for root element selection)
+      const cleanupElementSelectionEvents = ElementInteractionController(
+        (element: HTMLElement) => {
+          setSelectedRootElement(element)
+          applyBorders(element, depth, ruioEnabled)
+        },
+        (element: HTMLElement) => {
+          setIsElementSelectionModeActive(false)
+          // OR
+        },
+      )
 
-  // Listen for element selection mode cleanup
-  useEffect(() => {
-    if (!interactiveModeActive && interactedElement) {
-      const cleanup = selectElementMode()
-
-      // Cleanup event listeners when selection mode is turned off
       return () => {
-        setInteractiveModeActive(false)
-        if (cleanup) {
-          cleanup()
+        if (cleanupElementSelectionEvents) {
+          cleanupElementSelectionEvents()
         }
       }
     }
-  }, [interactiveModeActive, interactedElement])
+    // NOTE: should the cleanup function be saved to a ref to be called later when element selection mode is exited?
+    // when an element is selected: yes [] no []
+    // when an element is not selected: yes [] no []
+  }, [isElementSelectionModeActive, depth, ruioEnabled])
+
+  useEffect(() => {
+    if (selectedRootElement) {
+      applyBorders(selectedRootElement, depth, ruioEnabled)
+    }
+  }, [ruioEnabled, depth, selectedRootElement])
 
   const contextValue = useMemo(
     () => ({
-      bordersEnabled,
-      setBordersEnabled,
+      ruioEnabled,
+      setRuioEnabled,
       depth,
       setDepth,
-      selectElementMode,
-      selectedElement: interactedElement,
+      selectedRootElement,
+      isElementSelectionModeActive,
+      setIsElementSelectionModeActive,
+      toggleElementSelectionMode,
     }),
-    [bordersEnabled, depth, interactedElement],
+    [ruioEnabled, depth, selectedRootElement, toggleElementSelectionMode],
   )
 
-  return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
+  return (
+    <RuioContext.Provider value={contextValue}>
+      <ControlPanel ref={controlPanelRef} />
+      {children}
+    </RuioContext.Provider>
+  )
 }
 
 /**
  * Custom hook to access the Ruio context.
- *
- * @throws Will throw an error if used outside of the `RuioProvider`.
- * @returns {RuioContextProps} The Ruio context value.
  */
 export const useRuioContext = () => {
   const context = useContext(RuioContext)
