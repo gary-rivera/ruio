@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useRuioContext } from '../context/RuioContextProvider'
 import { applyBorders } from '../utils/applyBorders'
-import ReactComponent from '../assets/ruio-logo.svg'
-import RuioLogo from '../assets/RuioLogo'
+import RuioLogo from './RuioToggle'
 
 type UtilityIconProps = {
   selector?: string // TODO: stricter typing of either element tag name or selector id/class

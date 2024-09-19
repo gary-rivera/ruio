@@ -1,15 +1,16 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import UtilityIcon from './UtilityIcon'
-import { RuioContextProvider } from '@context/RuioContextProvider'
+import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
 import ControlPanel from './ControlPanel'
-import RuioLogo from '../assets/RuioLogo'
+import { applyBorders } from '../utils/applyBorders'
+import RuioLogo from './RuioToggle'
 
 const RuioWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <RuioContextProvider>
       {/* <RuioLogo /> */}
-      <UtilityIcon />
-      {/* <ControlPanel /> */}
+      {/* <UtilityIcon /> */}
+      <ControlPanel />
       {children}
     </RuioContextProvider>
   )

@@ -5,8 +5,8 @@ import React, {
   ReactNode,
   useContext,
   useCallback,
-  useMemo,
   useRef,
+  useMemo,
 } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'

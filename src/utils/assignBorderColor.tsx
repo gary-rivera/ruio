@@ -52,6 +52,7 @@ const colorPalettes: Record<string, string[]> = {
     '#FF0000', // Bright Red
     '#0000FF', // Bright Blue
     '#FF7F00', // Bright Orange
+    // NOTE: pastel pink #FFADAD, pastel peach #FFD6A5, pastel yellow #FDFFB6, pastel green #CAFFBF, pastel blue #9BF6FF, pastel purple #A0C4FF
   ],
   minimalist: [
     '#FFFFFF', // Pure White

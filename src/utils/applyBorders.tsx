@@ -15,7 +15,7 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
     // Apply styles only when necessary
     requestAnimationFrame(() => {
-      el.style.outline = apply ? `2px solid ${getRelativeDepthColor('dark', currentDepth)}` : ''
+      el.style.outline = apply ? `2px solid ${getRelativeDepthColor('neon', currentDepth)}` : ''
     })
 
     Array.from(el.children).forEach((child) => {

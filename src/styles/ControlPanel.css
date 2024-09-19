@@ -1,0 +1,32 @@
+.ruio-control-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+svg {
+  height: 50px;
+  width: 50px;
+}
+
+.ruio-control-panel svg {
+  background-color: #1c2120;
+  cursor: pointer;
+  border-radius: 15px;
+
+  path.ruio-out {
+    stroke: #eaf8ef;
+    opacity: 0.9;
+  }
+
+  circle.ruio-in {
+    stroke: #06e5d5;
+    opacity: 0.95;
+  }
+  path.ruio-in {
+    opacity: 0.95;
+    /* opacity: 0.5; */
+    stroke: #06e5d5;
+  }
+}

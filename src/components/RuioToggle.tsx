@@ -11,6 +11,7 @@ function RuioToggle(props: React.SVGProps<SVGSVGElement>) {
       className="ruio-exclude ruio-toggle-container"
       onClick={() => {
         setRuioEnabled(!ruioEnabled)
+        console.log('RuioToggle clicked', ruioEnabled)
       }}
     >
       <svg
