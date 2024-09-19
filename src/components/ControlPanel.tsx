@@ -1,15 +1,12 @@
-import React from 'react'
+import React, { forwardRef, useRef, useEffect } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 
-const ControlPanel: React.FC = () => {
-  const {
-    depth,
-    setDepth,
-    ruioEnabled,
-    setRuioEnabled,
-    toggleElementSelectionMode,
-    setIsElementSelectionModeActive,
-  } = useRuioContext()
+interface ControlPanelProps {
+  // Define any props if needed, or leave empty
+}
+
+function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) {
+  const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
 
   const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepth(parseInt(event.target.value, 10))
@@ -17,6 +14,7 @@ const ControlPanel: React.FC = () => {
 
   return (
     <div
+      ref={ref}
       data-testid="ruio-control-panel"
       className="ruio-exclude"
       style={{
@@ -54,4 +52,4 @@ const ControlPanel: React.FC = () => {
   )
 }
 
-export default ControlPanel
+export default forwardRef<HTMLDivElement, ControlPanelProps>(ControlPanel)

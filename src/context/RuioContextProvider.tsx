@@ -31,6 +31,16 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
   const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
 
+  const controlPanelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (ruioEnabled && controlPanelRef.current) {
+      controlPanelRef.current.style.display = 'block'
+    } else if (controlPanelRef.current) {
+      controlPanelRef.current.style.display = 'none'
+    }
+  }, [ruioEnabled])
+
   // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
   const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
 
@@ -89,7 +99,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   return (
     <RuioContext.Provider value={contextValue}>
-      {ruioEnabled && <ControlPanel />}
+      <ControlPanel ref={controlPanelRef} />
       {children}
     </RuioContext.Provider>
   )
