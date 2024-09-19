@@ -17,8 +17,8 @@ const mockedApplyBorders = applyBorders as jest.MockedFunction<typeof applyBorde
 
 const TestComponent = () => {
   const {
-    bordersEnabled,
-    setBordersEnabled,
+    ruioEnabled,
+    setRuioEnabled,
     depth,
     setDepth,
     isElementSelectionActive,
@@ -28,7 +28,7 @@ const TestComponent = () => {
 
   return (
     <div>
-      <div data-testid="bordersEnabled">{bordersEnabled ? 'Enabled' : 'Disabled'}</div>
+      <div data-testid="ruioEnabled">{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
       <div data-testid="depth">{depth}</div>
       <div data-testid="selectedRootElement">{selectedRootElement?.tagName || 'None'}</div>
       <button
@@ -38,7 +38,7 @@ const TestComponent = () => {
       >
         Select Element Mode
       </button>
-      <button onClick={() => setBordersEnabled(true)}>Enable Borders</button>
+      <button onClick={() => setRuioEnabled(true)}>Enable Borders</button>
       <button onClick={() => setDepth(5)}>Set Depth to 5</button>
     </div>
   )
@@ -101,7 +101,7 @@ describe('RuioContextProvider', () => {
     })
   })
 
-  test('should update bordersEnabled state when triggered', async () => {
+  test('should update ruioEnabled state when triggered', async () => {
     render(
       <RuioContextProvider>
         <TestComponent />
@@ -114,7 +114,7 @@ describe('RuioContextProvider', () => {
       await userEvent.click(enableBordersButton)
     })
 
-    expect(screen.getByTestId('bordersEnabled').textContent).toBe('Enabled')
+    expect(screen.getByTestId('ruioEnabled').textContent).toBe('Enabled')
   })
 
   test('should update depth state when triggered', async () => {
@@ -229,8 +229,8 @@ describe('RuioContextProvider', () => {
     const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {})
 
     const TestInvalidComponent = () => {
-      const { bordersEnabled } = useRuioContext()
-      return <div>{bordersEnabled ? 'Enabled' : 'Disabled'}</div>
+      const { ruioEnabled } = useRuioContext()
+      return <div>{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
     }
 
     expect(() => render(<TestInvalidComponent />)).toThrow(

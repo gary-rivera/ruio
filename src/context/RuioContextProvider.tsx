@@ -4,15 +4,16 @@ import React, {
   useEffect,
   ReactNode,
   useContext,
-  useMemo,
   useCallback,
+  useMemo,
+  useRef,
 } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
 interface RuioContextProps {
-  bordersEnabled: boolean
-  setBordersEnabled: React.Dispatch<React.SetStateAction<boolean>>
+  ruioEnabled: boolean
+  setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>>
   depth: number
   setDepth: React.Dispatch<React.SetStateAction<number>>
   selectedRootElement: HTMLElement | null
@@ -24,15 +25,17 @@ interface RuioContextProps {
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [bordersEnabled, setBordersEnabled] = useState(false)
+  const [ruioEnabled, setRuioEnabled] = useState(false)
   const [depth, setDepth] = useState(1)
   const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
   const [isElementSelectionActive, setIsElementSelectionActive] = useState(false)
 
+  const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
+
   const garyIsStuck = false
   if (garyIsStuck) {
     console.log('RuioContextProvider', {
-      bordersEnabled,
+      ruioEnabled,
       depth,
       selectedRootElement,
       isElementSelectionActive,
@@ -43,6 +46,21 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
    * Triggers element selection mode by toggling the active state.
    * Wrapped in useCallback to maintain referential equality in contextValue.
    */
+  // enabling the selectElementMode will
+  // toggle the isElementSelectionActive state
+  // isElementSelectionActive state will be activated
+  // // ElementInteractionController (click and hover events are applied to DOM)
+  // // applyBorders (borders are applied to the current hovered element)
+
+  // toggleElementSelectMode should be the name of the function
+  // regardless of the state toggle the isElementSelectionActive state
+
+  // // isElementSelectionActive is toggled won
+  // // // ElementInteractionController (click and hover events are applied to DOM)
+  // // // apply borders UI to whichecer element is hovered over (maybe this is handled by the ElementInteractionController??)
+
+  // // isElementSelectionActive is toggled off
+
   const selectElementMode = useCallback(() => {
     setIsElementSelectionActive((prev) => !prev)
   }, [])
@@ -54,7 +72,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       // Starts the ElementInteractionController when interactive mode is active
       const cleanupElementSelectionEvents = ElementInteractionController((element: HTMLElement) => {
         setSelectedRootElement(element)
-        applyBorders(element, depth, bordersEnabled)
+        applyBorders(element, depth, ruioEnabled)
       })
 
       // Clean up event listeners when interaction mode is turned off
@@ -64,18 +82,18 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
       }
     }
-  }, [isElementSelectionActive, depth, bordersEnabled])
+  }, [isElementSelectionActive, depth, ruioEnabled])
 
   useEffect(() => {
     if (selectedRootElement) {
-      applyBorders(selectedRootElement, depth, bordersEnabled)
+      applyBorders(selectedRootElement, depth, ruioEnabled)
     }
-  }, [bordersEnabled, depth, selectedRootElement])
+  }, [ruioEnabled, depth, selectedRootElement])
 
   const contextValue = useMemo(
     () => ({
-      bordersEnabled,
-      setBordersEnabled,
+      ruioEnabled,
+      setRuioEnabled,
       depth,
       setDepth,
       selectedRootElement,
@@ -83,7 +101,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       setIsElementSelectionActive,
       selectElementMode,
     }),
-    [bordersEnabled, depth, selectedRootElement, selectElementMode], // added selectElementMode here
+    [ruioEnabled, depth, selectedRootElement, selectElementMode], // added selectElementMode here
   )
 
   return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>

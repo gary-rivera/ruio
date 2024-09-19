@@ -7,13 +7,13 @@ type UtilityIconProps = {
 }
 
 const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
-  const { bordersEnabled, setBordersEnabled, depth } = useRuioContext()
+  const { ruioEnabled, setRuioEnabled, depth } = useRuioContext()
 
   useEffect(() => {
     const rootElement = document.querySelector(selector)
 
-    if (rootElement) applyBorders(rootElement as HTMLElement, depth, bordersEnabled)
-  }, [bordersEnabled, depth])
+    if (rootElement) applyBorders(rootElement as HTMLElement, depth, ruioEnabled)
+  }, [ruioEnabled, depth])
 
   return (
     <div
@@ -24,11 +24,11 @@ const UtilityIcon: React.FC<UtilityIconProps> = ({ selector = '#root' }) => {
         bottom: '20px',
         right: '20px',
         zIndex: 9999,
-        backgroundColor: bordersEnabled ? 'lightgreen' : 'lightcoral',
+        backgroundColor: ruioEnabled ? 'lightgreen' : 'lightcoral',
         padding: '10px',
         cursor: 'pointer',
       }}
-      onClick={() => setBordersEnabled(!bordersEnabled)}
+      onClick={() => setRuioEnabled(!ruioEnabled)}
     >
       🛠️
     </div>
