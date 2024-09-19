@@ -32,14 +32,19 @@ const TestComponent = () => {
       <div data-testid="depth">{depth}</div>
       <div data-testid="selectedRootElement">{selectedRootElement?.tagName || 'None'}</div>
       <button
+        data-testid="select-element-mode"
         onClick={() => {
           setIsElementSelectionModeActive(!isElementSelectionModeActive)
         }}
       >
         Select Element Mode
       </button>
-      <button onClick={() => setRuioEnabled(true)}>Enable Borders</button>
-      <button onClick={() => setDepth(5)}>Set Depth to 5</button>
+      <button data-testid="enable-borders" onClick={() => setRuioEnabled(true)}>
+        Enable Borders
+      </button>
+      <button data-testid="set-depth" onClick={() => setDepth(5)}>
+        Set Depth to 5
+      </button>
     </div>
   )
 }
@@ -83,7 +88,7 @@ describe('RuioContextProvider', () => {
       )
     })
 
-    const selectElementButton = screen.getByText('Select Element Mode')
+    const selectElementButton = screen.getByTestId('select-element-mode')
 
     await act(async () => {
       await userEvent.click(selectElementButton)
@@ -108,7 +113,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const enableBordersButton = screen.getByText('Enable Borders')
+    const enableBordersButton = screen.getByTestId('enable-borders')
 
     await act(async () => {
       await userEvent.click(enableBordersButton)
@@ -124,7 +129,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const setDepthButton = screen.getByText('Set Depth to 5')
+    const setDepthButton = screen.getByTestId('set-depth')
 
     await act(async () => {
       await userEvent.click(setDepthButton)
@@ -144,7 +149,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const selectElementButton = screen.getByText('Select Element Mode')
+    const selectElementButton = screen.getByTestId('select-element-mode')
 
     await act(async () => {
       await userEvent.click(selectElementButton)
@@ -152,7 +157,9 @@ describe('RuioContextProvider', () => {
 
     expect(cleanupMock).not.toHaveBeenCalled()
 
-    cleanupMock()
+    await act(async () => {
+      cleanupMock()
+    })
 
     expect(cleanupMock).toHaveBeenCalled()
   })
@@ -180,13 +187,13 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    const enableBordersButton = screen.getByText('Enable Borders')
+    const enableBordersButton = screen.getByTestId('enable-borders')
 
     await act(async () => {
       await userEvent.click(enableBordersButton)
     })
 
-    const selectElementButton = screen.getByText('Select Element Mode')
+    const selectElementButton = screen.getByTestId('select-element-mode')
 
     await act(async () => {
       await userEvent.click(selectElementButton)
@@ -194,36 +201,6 @@ describe('RuioContextProvider', () => {
 
     expect(mockedApplyBorders).toHaveBeenCalledWith(mockElement, 1, true)
   })
-
-  // NOTE: consider enabling this test for possible regression checks (not working rn)
-  // test('should call cleanup function when component unmounts', async () => {
-  //   const cleanupMock = jest.fn()
-
-  //   mockedElementInteractionController.mockImplementation(() => {
-  //     console.log('ElementInteractionController called, returning cleanupMock')
-  //     return cleanupMock
-  //   })
-
-  //   const { unmount } = render(
-  //     <RuioContextProvider>
-  //       <TestComponent />
-  //     </RuioContextProvider>,
-  //   )
-
-  //   const selectElementButton = screen.getByText('Select Element Mode')
-
-  //   await act(async () => {
-  //     userEvent.click(selectElementButton)
-  //   })
-
-  //   await act(async () => {
-  //     unmount()
-  //   })
-
-  //   console.log('Unmounting the component, checking cleanupMock')
-
-  //   expect(cleanupMock).toHaveBeenCalledTimes(1)
-  // })
 
   test('should throw error if useRuioContext is used outside provider', () => {
     const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {})
