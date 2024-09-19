@@ -2,7 +2,14 @@ import React from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 
 const ControlPanel: React.FC = () => {
-  const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
+  const {
+    depth,
+    setDepth,
+    ruioEnabled,
+    setRuioEnabled,
+    toggleElementSelectionMode,
+    setIsElementSelectionModeActive,
+  } = useRuioContext()
 
   const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepth(parseInt(event.target.value, 10))

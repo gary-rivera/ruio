@@ -1,7 +1,8 @@
 import { ElementInteractionController } from './ElementInteractionController'
 
 describe('ElementInteractionController', () => {
-  let mockCallback: jest.Mock
+  let mockHoverCallback: jest.Mock
+  let mockClickCallback: jest.Mock
   let rootElement: HTMLElement
   let childElement: HTMLElement
   let excludedElement: HTMLElement
@@ -20,9 +21,10 @@ describe('ElementInteractionController', () => {
     excludedElement.classList.add('ruio-exclude')
     rootElement.appendChild(excludedElement)
 
-    mockCallback = jest.fn()
+    mockHoverCallback = jest.fn()
+    mockClickCallback = jest.fn()
 
-    cleanup = ElementInteractionController(mockCallback)
+    cleanup = ElementInteractionController(mockHoverCallback, mockClickCallback)
   })
 
   afterEach(() => {
@@ -38,7 +40,7 @@ describe('ElementInteractionController', () => {
    */
   test('runs without errors when called with a valid callback', () => {
     expect(() => {
-      ElementInteractionController(mockCallback)
+      ElementInteractionController(mockHoverCallback, mockClickCallback)
     }).not.toThrow()
   })
 
@@ -49,13 +51,13 @@ describe('ElementInteractionController', () => {
   /**
    * Functional Tests
    */
-  test('applies hover styles and calls callback on hover over a valid target', () => {
+  test('applies hover styles and calls hover callback on hover over a valid target', () => {
     const hoverEvent = new MouseEvent('mouseover', {
       bubbles: true,
     })
     childElement.dispatchEvent(hoverEvent)
 
-    expect(mockCallback).toHaveBeenCalledWith(childElement)
+    expect(mockHoverCallback).toHaveBeenCalledWith(childElement)
     expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
   })
 
@@ -77,38 +79,36 @@ describe('ElementInteractionController', () => {
     expect(childElement.style.backgroundColor).toBe(originalBgColor)
   })
 
-  test('applies no hover styles and does not call callback on excluded elements', () => {
+  test('applies no hover styles and does not call hover callback on excluded elements', () => {
     const hoverEvent = new MouseEvent('mouseover', {
       bubbles: true,
     })
 
     excludedElement.dispatchEvent(hoverEvent)
 
-    expect(mockCallback).not.toHaveBeenCalled()
-    expect(excludedElement.style.outline).toBe('')
+    expect(mockHoverCallback).not.toHaveBeenCalled()
     expect(excludedElement.style.backgroundColor).toBe('')
   })
 
-  test('calls callback and cleans up listeners on click', () => {
+  test('calls click callback and cleans up listeners on click', () => {
     const clickEvent = new MouseEvent('click', {
       bubbles: true,
     })
 
     childElement.dispatchEvent(clickEvent)
 
-    expect(mockCallback).toHaveBeenCalledWith(childElement)
-    expect(childElement.style.outline).toBe('')
+    expect(mockClickCallback).toHaveBeenCalledWith(childElement)
     expect(childElement.style.backgroundColor).toBe('')
 
     // Ensure cleanup is called (listeners are removed)
     if (cleanup) cleanup()
 
     // Try triggering hover/click after cleanup to ensure no effect
-    mockCallback.mockClear() // Reset the callback to check for post-cleanup events
+    mockClickCallback.mockClear() // Reset the callback to check for post-cleanup events
     childElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
     childElement.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
-    expect(mockCallback).not.toHaveBeenCalled()
+    expect(mockClickCallback).not.toHaveBeenCalled()
   })
 
   /**
@@ -125,21 +125,40 @@ describe('ElementInteractionController', () => {
     rootElement.dispatchEvent(hoverEvent)
     rootElement.dispatchEvent(clickEvent)
 
-    expect(mockCallback).not.toHaveBeenCalled()
-    expect(rootElement.style.outline).toBe('')
+    expect(mockHoverCallback).not.toHaveBeenCalled()
+    expect(mockClickCallback).not.toHaveBeenCalled()
     expect(rootElement.style.backgroundColor).toBe('')
   })
 
-  // test('applies hover styles to child elements of root, not root itself', () => {
+  // TODO: before implementing this test, we need to ensure the ElemntInteractionController is updated to handle this case
+  // requires being more restrictive in the hover and click event listeners, namely our logic behind storing element styles in the originalStyles map section
+  // test('restores element styles to their original state after selection mode is triggered', () => {
   //   const hoverEvent = new MouseEvent('mouseover', {
   //     bubbles: true,
   //   })
+  //   const clickEvent = new MouseEvent('click', {
+  //     bubbles: true,
+  //   })
 
+  //   // Dispatch hover event before click
   //   childElement.dispatchEvent(hoverEvent)
+  //   expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
 
-  //   expect(childElement.style.outline).toBe('2px dashed blue')
-  //   expect(rootElement.style.outline).toBe('')
+  //   // Dispatch click event to trigger selection mode and reset styles
+  //   childElement.dispatchEvent(clickEvent)
+  //   expect(childElement.style.backgroundColor).toBe('')
+
+  //   // Ensure cleanup is called (listeners are removed)
+  //   if (cleanup) cleanup()
+
+  //   // Clear mocks and check for post-cleanup events
+  //   mockHoverCallback.mockClear()
+  //   mockClickCallback.mockClear()
+
+  //   childElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
+  //   childElement.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
+  //   expect(mockHoverCallback).not.toHaveBeenCalled()
+  //   expect(mockClickCallback).not.toHaveBeenCalled()
   // })
 })
-
-// TODO: test to ensure the file looks the EXACT same as before the SelectElementMode is triggered

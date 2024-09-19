@@ -4,10 +4,14 @@ const DEFAULT_ROOT_ELEMENT = 'root'
  * Attaches hover and click listeners to elements under the specified root element.
  * When an element is hovered or clicked, the provided callback function is executed.
  *
- * @param {function(HTMLElement): void} onHoverOrClick - The callback function to be invoked when an element is hovered or clicked.
+ * @param {function(HTMLElement): void} onHover - The callback function to be invoked when an element is hovered. Adds styling and applys borders
+ * @param {function(HTMLElement): void} onClick - The callback function to be invoked when an element is clicked. Removes styling and borders, cleans up event listeners, and toggles ruioEnabled state to off
  * @returns {function(): void} - A cleanup function that removes all attached event listeners.
  */
-export const ElementInteractionController = (onHoverOrClick: (element: HTMLElement) => void) => {
+export const ElementInteractionController = (
+  onHover: (element: HTMLElement) => void,
+  onClick: (element: HTMLElement) => void,
+) => {
   const rootElement = document.querySelector(`#${DEFAULT_ROOT_ELEMENT}`) as HTMLElement
 
   if (!rootElement) {
@@ -21,6 +25,8 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
   const isValidTarget = (target: HTMLElement) => {
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
     return !target.classList.contains('ruio-exclude') && isChildOfRoot && target !== rootElement
+    // const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
+    // return !target.classList.contains('ruio-exclude') && isChildOfRoot && target !== rootElement
   }
 
   const originalStyles = new Map<HTMLElement, string>()
@@ -42,6 +48,9 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
    *
    * @param {HTMLElement} target - The element whose styles should be restored.
    */
+
+  // TODO: we need to ensure the ElemntInteractionController is updated to handle this case
+  // requires being more restrictive in the hover and click event listeners, namely our logic behind storing element styles in the originalStyles map section
   const restoreOriginalStyles = (target: HTMLElement) => {
     const originalStyle = originalStyles.get(target)
 
@@ -67,7 +76,7 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
     const target = event.target as HTMLElement
     if (isValidTarget(target)) {
       applyHoverStyles(target)
-      onHoverOrClick(target)
+      onHover(target)
     }
   }
 
@@ -79,10 +88,12 @@ export const ElementInteractionController = (onHoverOrClick: (element: HTMLEleme
   }
 
   const handleClick = (event: MouseEvent) => {
+    event.preventDefault()
+
     const target = event.target as HTMLElement
     if (isValidTarget(target)) {
       removeHoverStyles(target)
-      onHoverOrClick(target)
+      onClick(target)
       cleanup()
     }
   }
