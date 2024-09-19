@@ -25,8 +25,6 @@ export const ElementInteractionController = (
   const isValidTarget = (target: HTMLElement) => {
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
     return !target.classList.contains('ruio-exclude') && isChildOfRoot && target !== rootElement
-    // const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
-    // return !target.classList.contains('ruio-exclude') && isChildOfRoot && target !== rootElement
   }
 
   const originalStyles = new Map<HTMLElement, string>()
