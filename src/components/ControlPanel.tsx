@@ -5,7 +5,7 @@ import RuioToggle from '@components/RuioToggle'
 
 import '@styles/ControlPanel.css'
 import SettingsIcon from '@assets/SettingsIcon'
-import ToggleElementSelectionMode from '@assets/ToggleElementSelectionModeIcon'
+import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 
 interface ControlPanelProps {
   // Define any props if needed, or leave empty
@@ -55,10 +55,11 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
       </label>
       <div className="ruio-exclude">
         <button className="ruio-exclude" onClick={ToggleElementSelectionMode} disabled={!ruioEnabled}>
+        <button className="ruio-exclude" onClick={toggleElementSelectionMode} disabled={!ruioEnabled}>
           Select Element
         </button>
       </div>
-      <ToggleElementSelectionMode
+      <ToggleElementSelectionModeIcon
       // onClick={() => {
       //   console.log('ToggleElementSelectionMode clicked')
       //   toggleElementSelectionMode()
