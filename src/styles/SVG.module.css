@@ -4,6 +4,7 @@
   /* fill: green; */
 }
 
+/* ToggleElementSelectionModeIcon */
 .ruio-element-select-svg .ruio-mouse-pointer {
   stroke: #eaf8ef;
 }
@@ -12,6 +13,7 @@
   stroke: #06e5d5;
 }
 
+/* ToggleSettingsIcon */
 .ruio-settings-svg .ruio-outline {
   stroke: #06e5d5;
 }

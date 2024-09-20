@@ -1,16 +1,6 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  ReactNode,
-  useContext,
-  useCallback,
-  useRef,
-  useMemo,
-} from 'react'
+import React, { createContext, useState, useEffect, ReactNode, useContext, useRef, useMemo } from 'react'
 import { applyBorders } from '../utils/applyBorders'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
-import ControlPanel from '@components/ControlPanel'
 
 interface RuioContextProps {
   ruioEnabled: boolean // is ruio related state/interactions enabled
@@ -43,46 +33,29 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
   const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
-  // const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
 
   /**
    * Triggers element selection mode by toggling the active state.
    * Wrapped in useCallback to maintain referential equality in contextValue.
    */
   const toggleElementSelectionMode = () => {
-    setIsElementSelectionModeActive((prev) => {
-      console.log('toggleElementSelectionMode clicked. original state before click', prev)
-      return !prev
-    })
+    setIsElementSelectionModeActive((prev) => !prev)
   }
 
   useEffect(() => {
-    console.log(
-      '[useEffect] effect triggered. isElementSelectionModeActive: ',
-      isElementSelectionModeActive,
-    )
     if (isElementSelectionModeActive) {
-      console.log('isElementSelectionModeActive is true. calling ElementInteractionController')
       const cleanupElementSelectionEvents = ElementInteractionController(
         (element) => {
-          console.log('ElementInteractionController callback hover triggered')
           applyBorders(element, depth, ruioEnabled)
         },
         (element) => {
-          console.log('ElementInteractionController callback click triggered')
           setSelectedRootElement(element)
           setIsElementSelectionModeActive(false)
         },
       )
 
-      console.log(
-        '[useEffect] ElementInteractionController completed. received cleanupElementSelectionEvents: ',
-        cleanupElementSelectionEvents,
-      )
-
       return () => {
         if (cleanupElementSelectionEvents) {
-          console.log('cleanupElementSelectionEvents is true. calling cleanupElement')
           cleanupElementSelectionEvents()
         }
       }
