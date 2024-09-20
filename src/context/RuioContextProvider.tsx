@@ -18,6 +18,7 @@ interface RuioContextProps {
   depth: number // depth of the amount of elements to apply borders to
   setDepth: React.Dispatch<React.SetStateAction<number>> // set the depth of the amount of elements to apply borders to
   selectedRootElement: HTMLElement | null // the root element that is selected (defaults to where div.body#root)
+  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
   isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
   setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
   toggleElementSelectionMode: () => void
