@@ -110,13 +110,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     [ruioEnabled, depth, selectedRootElement, isElementSelectionModeActive, toggleElementSelectionMode],
   )
 
-  return (
-    <RuioContext.Provider value={contextValue}>
-      {/* TODO: dont delete for now. Not sure the scroll on re-render issue doesnt reoccur  */}
-      {/* <ControlPanel ref={controlPanelRef} /> */}
-      {children}
-    </RuioContext.Provider>
-  )
+  return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
 }
 
 /**

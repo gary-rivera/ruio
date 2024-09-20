@@ -16,3 +16,5 @@ export default defineConfig({
     },
   },
 })
+
+// TODO: leverage HMR https://stackoverflow.com/questions/70996320/enable-hot-reload-for-vite-react-project-instead-of-page-reload

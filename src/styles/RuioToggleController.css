@@ -15,14 +15,9 @@
   display: inline-block;
   box-sizing: border-box;
 
-  aspect-ratio: 4 / 3;
-  z-index: 9999;
-  cursor: 'pointer';
-  border: 2px solid #aaacab;
-
   .ruio-logo {
     width: 50px;
-    height: 50px;
+    height: 5%;
     fill: black;
   }
 }

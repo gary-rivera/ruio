@@ -20,9 +20,9 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
   // // TODO: opens a modal with brief FAQ and link to github for more info/usage
 
   // perhaps move to settingsModal related components
-  const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDepth(parseInt(event.target.value, 10))
-  }
+  // const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setDepth(parseInt(event.target.value, 10))
+  // }
 
   // basically just ensures that the borders are applied to the root element on initial load to the starting point
   // useEffect(() => {
@@ -51,7 +51,7 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
       </div> */}
 
       {ruioEnabled && (
-        <div className="ruio-exclude ruio-test">
+        <div className="ruio-exclude ruio-panel-container">
           <SettingsIcon />
           <ToggleElementSelectionModeIcon />
         </div>
