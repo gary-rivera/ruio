@@ -19,21 +19,19 @@
     /* padding: none; */
     /* border: none; */
     /* background: none; */
-    background-color: cyan;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     /* gap: 10px; */
-    border: 1px solid red;
 
-    .ruio-btn {
+    /* .ruio-btn {
       all: unset;
       border: 1px solid yellow;
       width: 44px;
       height: 44px;
-    }
+    } */
   }
 
   .ruio-element-select-icon {
@@ -56,9 +54,9 @@
   }
 
   .ruio-settings-icon {
-    border: 1px solid orange;
+    border: 5px solid rgb(255, 0, 234);
 
-    background-color: #1c2120;
+    background-color: #211c21;
 
     width: 40px;
     height: 40px;

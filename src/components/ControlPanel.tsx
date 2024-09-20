@@ -4,7 +4,7 @@ import { applyBorders } from '@utils/applyBorders'
 import RuioToggleController from '../controllers/RuioToggleController'
 
 import '@styles/ControlPanel.css'
-import '@styles/Button.module.css'
+import styles from './Button.module.css'
 import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 

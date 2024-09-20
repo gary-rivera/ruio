@@ -1,0 +1,25 @@
+.ruio-svg {
+  width: 100%;
+  height: 100%;
+  /* fill: green; */
+}
+
+.ruio-element-select-svg .ruio-mouse-pointer {
+  stroke: #eaf8ef;
+}
+
+.ruio-element-select-svg .ruio-outline {
+  stroke: #06e5d5;
+}
+
+.ruio-settings-svg .ruio-outline {
+  stroke: #06e5d5;
+}
+
+.ruio-settings-svg .ruio-bar-bg {
+  stroke: #eaf8ef;
+}
+
+.ruio-settings-svg .ruio-dial {
+  stroke: #eaf8ef;
+}
