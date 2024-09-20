@@ -17,7 +17,6 @@ interface RuioContextProps {
   setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // toggle ruio related state/interactions
   depth: number // depth of the amount of elements to apply borders to
   setDepth: React.Dispatch<React.SetStateAction<number>> // set the depth of the amount of elements to apply borders to
-  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to where div.body#root)
   selectedRootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
   isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
   setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
@@ -50,32 +49,44 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
    * Triggers element selection mode by toggling the active state.
    * Wrapped in useCallback to maintain referential equality in contextValue.
    */
-  const toggleElementSelectionMode = useCallback(() => {
-    setIsElementSelectionModeActive((prev) => !prev)
-  }, [])
+  const toggleElementSelectionMode = () => {
+    setIsElementSelectionModeActive((prev) => {
+      console.log('toggleElementSelectionMode clicked. original state before click', prev)
+      return !prev
+    })
+  }
 
   useEffect(() => {
+    console.log(
+      '[useEffect] effect triggered. isElementSelectionModeActive: ',
+      isElementSelectionModeActive,
+    )
     if (isElementSelectionModeActive) {
-      // trigger ElementInteractionController (add click and hover events to DOM used for root element selection)
+      console.log('isElementSelectionModeActive is true. calling ElementInteractionController')
       const cleanupElementSelectionEvents = ElementInteractionController(
-        (element: HTMLElement) => {
+        (element) => {
+          console.log('ElementInteractionController callback hover triggered')
           applyBorders(element, depth, ruioEnabled)
         },
-        (element: HTMLElement) => {
+        (element) => {
+          console.log('ElementInteractionController callback click triggered')
           setSelectedRootElement(element)
           setIsElementSelectionModeActive(false)
         },
       )
 
+      console.log(
+        '[useEffect] ElementInteractionController completed. received cleanupElementSelectionEvents: ',
+        cleanupElementSelectionEvents,
+      )
+
       return () => {
         if (cleanupElementSelectionEvents) {
+          console.log('cleanupElementSelectionEvents is true. calling cleanupElement')
           cleanupElementSelectionEvents()
         }
       }
     }
-    // NOTE: should the cleanup function be saved to a ref to be called later when element selection mode is exited?
-    // when an element is selected: yes [] no []
-    // when an element is not selected: yes [] no []
   }, [isElementSelectionModeActive, depth, ruioEnabled])
 
   useEffect(() => {
@@ -95,7 +106,8 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       setIsElementSelectionModeActive,
       toggleElementSelectionMode,
     }),
-    [ruioEnabled, depth, selectedRootElement, toggleElementSelectionMode],
+    // TODO: verify that this is the appropriate way to set up dependancy array. is it necessary to include all of the values in the array?
+    [ruioEnabled, depth, selectedRootElement, isElementSelectionModeActive, toggleElementSelectionMode],
   )
 
   return (

@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef, useEffect } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 import { applyBorders } from '@utils/applyBorders'
-import RuioToggleLogo from '@components/RuioToggleLogo'
+import RuioToggleController from '../controllers/RuioToggleController'
 
 import '@styles/ControlPanel.css'
 import SettingsIcon from '@assets/SettingsIcon'
@@ -10,12 +10,12 @@ import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIc
 interface ControlPanelProps {
   // Define any props if needed, or leave empty
 }
-
+// TODO: rename to RuioUIContainer
 function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) {
   const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
   // DONE: renders the toggle button
   // DONE: transaparent background of container
-  // DONE: position fixed bottom right
+  // TODO: position fixed bottom right for RuioToggleController
 
   // Icons to render:
   // DONE: enable elemnt select mode
@@ -41,8 +41,13 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
   }, [ruioEnabled, depth])
 
   return (
-    <div ref={ref} data-testid="ruio-control-panel" className="ruio-control-panel" style={{}}>
-      <label className="ruio-exclude" style={{ color: 'black' }}>
+    <div
+      ref={ref}
+      data-testid="ruio-control-panel"
+      className="ruio-control-panel ruio-exclude"
+      style={{}}
+    >
+      {/* <label className="ruio-exclude" style={{ color: 'black' }}>
         Depth:
         <input
           className="ruio-exclude"
@@ -57,10 +62,15 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
         <button className="ruio-exclude" onClick={toggleElementSelectionMode} disabled={!ruioEnabled}>
           Select Element
         </button>
+      </div> */}
+
+      {/* {ruioEnabled && ( */}
+      <div className="ruio-exclude">
+        <ToggleElementSelectionModeIcon />
+        <SettingsIcon />
       </div>
-      {ruioEnabled && <ToggleElementSelectionModeIcon />}
-      {ruioEnabled && <SettingsIcon />}
-      <RuioToggleLogo />
+      {/* )} */}
+      <RuioToggleController />
     </div>
   )
 }
