@@ -7,7 +7,7 @@ function ToggleElementSelectionModeIcon() {
 
   return (
     <button
-      className="ruio-exclude"
+      className="ruio-exclude ruio-ciruio-toggle-element-selection-mode"
       onClick={(el) => {
         el.preventDefault()
         console.log('ToggleElementSelectionModeIcon clicked')

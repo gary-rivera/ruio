@@ -13,20 +13,11 @@ interface ControlPanelProps {
 // TODO: rename to RuioUIContainer
 function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) {
   const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
-  // DONE: renders the toggle button
-  // DONE: transaparent background of container
-  // TODO: position fixed bottom right for RuioToggleController
 
   // Icons to render:
-  // DONE: enable elemnt select mode
-  // // TODO: onclick trigger the selectElementMode function
-  // DONE: configure settings (theme, depth, etc)
   // // TODO: onclick trigger the settingsModal function to control theme, depth, etc
   // TODO: FAQ (question mark)
   // // TODO: opens a modal with brief FAQ and link to github for more info/usage
-
-  // TODO: on initial load only render toggle button
-  // TODO: on toggle button click, render the rest of the buttons
 
   // perhaps move to settingsModal related components
   const handleDepthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,12 +32,7 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
   }, [ruioEnabled, depth])
 
   return (
-    <div
-      ref={ref}
-      data-testid="ruio-control-panel"
-      className="ruio-control-panel ruio-exclude"
-      style={{}}
-    >
+    <div ref={ref} data-testid="ruio-control-panel" className="ruio-control-panel ruio-exclude">
       {/* <label className="ruio-exclude" style={{ color: 'black' }}>
         Depth:
         <input
@@ -66,8 +52,8 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
 
       {ruioEnabled && (
         <div className="ruio-exclude">
-          <ToggleElementSelectionModeIcon />
           <SettingsIcon />
+          <ToggleElementSelectionModeIcon />
         </div>
       )}
       <RuioToggleController />

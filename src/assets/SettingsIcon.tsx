@@ -1,5 +1,6 @@
 import '@styles/SettingsIcon.css'
 
+// TODO: perhaps use a different, more indicative icon rather than the dial config icon
 function SettingsIcon() {
   return (
     <svg className="ruio-settings-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
