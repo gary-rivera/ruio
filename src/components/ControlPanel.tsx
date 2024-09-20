@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef, useEffect } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 import { applyBorders } from '@utils/applyBorders'
-import RuioToggle from '@components/RuioToggle'
+import RuioToggleLogo from '@components/RuioToggleLogo'
 
 import '@styles/ControlPanel.css'
 import SettingsIcon from '@assets/SettingsIcon'
@@ -54,20 +54,13 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
         />
       </label>
       <div className="ruio-exclude">
-        <button className="ruio-exclude" onClick={ToggleElementSelectionMode} disabled={!ruioEnabled}>
         <button className="ruio-exclude" onClick={toggleElementSelectionMode} disabled={!ruioEnabled}>
           Select Element
         </button>
       </div>
-      <ToggleElementSelectionModeIcon
-      // onClick={() => {
-      //   console.log('ToggleElementSelectionMode clicked')
-      //   toggleElementSelectionMode()
-      // }}
-      // disabled={false}
-      />
-      <SettingsIcon />
-      <RuioToggle />
+      {ruioEnabled && <ToggleElementSelectionModeIcon />}
+      {ruioEnabled && <SettingsIcon />}
+      <RuioToggleLogo />
     </div>
   )
 }

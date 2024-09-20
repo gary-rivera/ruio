@@ -4,19 +4,27 @@
 
 .ruio-toggle-container {
   /* TODO: utilize the dynamic width sizing from ^^^ */
-  width: 60px;
-  aspect-ratio: 4 / 3;
+
   display: inline-block;
   border-radius: 50px;
   box-sizing: border-box;
   z-index: 9999;
 }
 
-svg.ruio-logo {
+.ruio-toggle-logo {
+  display: inline-block;
+  box-sizing: border-box;
+
+  aspect-ratio: 4 / 3;
   z-index: 9999;
   cursor: 'pointer';
   border: 2px solid #aaacab;
-  border-radius: 15px;
+
+  .ruio-logo {
+    width: 50px;
+    height: 50px;
+    fill: black;
+  }
 }
 
 /*
