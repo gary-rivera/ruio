@@ -4,8 +4,8 @@ import '@styles/SettingsIcon.css'
 // TODO: turn into a button to control the settings modal
 function SettingsIcon() {
   return (
-    <button>
-      <svg className="ruio-settings-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <button className="ruio-exclude ruio-settings-btn ruio-btn">
+      <svg className="ruio-settings-svg ruio-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path
           className="ruio-outline"
           d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"

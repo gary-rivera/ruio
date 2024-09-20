@@ -4,6 +4,7 @@ import { applyBorders } from '@utils/applyBorders'
 import RuioToggleController from '../controllers/RuioToggleController'
 
 import '@styles/ControlPanel.css'
+import '@styles/Button.module.css'
 import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 
@@ -32,7 +33,7 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
   // }, [ruioEnabled, depth])
 
   return (
-    <div ref={ref} data-testid="ruio-control-panel" className="ruio-control-panel ruio-exclude">
+    <div ref={ref} data-testid="ruio-control-panel" className="ruio-exclude ruio-control-panel ">
       {/* <label className="ruio-exclude" style={{ color: 'black' }}>
         Depth:
         <input
@@ -50,13 +51,13 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
         </button>
       </div> */}
 
+      <RuioToggleController />
       {ruioEnabled && (
-        <div className="ruio-exclude ruio-panel-container">
+        <div className="ruio-exclude ruio-icons-container">
           <SettingsIcon />
           <ToggleElementSelectionModeIcon />
         </div>
       )}
-      <RuioToggleController />
     </div>
   )
 }
