@@ -64,12 +64,12 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
         </button>
       </div> */}
 
-      {/* {ruioEnabled && ( */}
-      <div className="ruio-exclude">
-        <ToggleElementSelectionModeIcon />
-        <SettingsIcon />
-      </div>
-      {/* )} */}
+      {ruioEnabled && (
+        <div className="ruio-exclude">
+          <ToggleElementSelectionModeIcon />
+          <SettingsIcon />
+        </div>
+      )}
       <RuioToggleController />
     </div>
   )
