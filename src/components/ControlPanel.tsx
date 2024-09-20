@@ -25,11 +25,11 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
   }
 
   // basically just ensures that the borders are applied to the root element on initial load to the starting point
-  useEffect(() => {
-    const rootElement = document.querySelector('#root')
+  // useEffect(() => {
+  //   const rootElement = document.querySelector('#root')
 
-    if (rootElement) applyBorders(rootElement as HTMLElement, depth, ruioEnabled)
-  }, [ruioEnabled, depth])
+  //   if (rootElement) applyBorders(rootElement as HTMLElement, depth, ruioEnabled)
+  // }, [ruioEnabled, depth])
 
   return (
     <div ref={ref} data-testid="ruio-control-panel" className="ruio-control-panel ruio-exclude">
@@ -51,7 +51,7 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
       </div> */}
 
       {ruioEnabled && (
-        <div className="ruio-exclude">
+        <div className="ruio-exclude ruio-test">
           <SettingsIcon />
           <ToggleElementSelectionModeIcon />
         </div>

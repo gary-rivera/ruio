@@ -6,8 +6,6 @@ import ControlPanel from './ControlPanel'
 const RuioWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <RuioContextProvider>
-      {/* <RuioLogo /> */}
-      {/* <UtilityIcon /> */}
       <ControlPanel />
       {children}
     </RuioContextProvider>
