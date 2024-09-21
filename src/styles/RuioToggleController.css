@@ -4,22 +4,10 @@
 
 .ruio-toggle-container {
   /* TODO: utilize the dynamic width sizing from ^^^ */
-
   display: inline-block;
   border-radius: 50px;
   box-sizing: border-box;
   z-index: 9999;
-}
-
-.ruio-toggle-logo {
-  display: inline-block;
-  box-sizing: border-box;
-
-  .ruio-logo {
-    width: 50px;
-    height: 5%;
-    fill: black;
-  }
 }
 
 /*

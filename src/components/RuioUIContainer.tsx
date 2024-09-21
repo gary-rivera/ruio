@@ -4,6 +4,7 @@ import { useRuioContext } from '@context/RuioContextProvider'
 import RuioToggleController from '../controllers/RuioToggleController'
 
 import '@styles/RuioUIContainer.css'
+import divStyles from '@styles/Div.module.css'
 import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 

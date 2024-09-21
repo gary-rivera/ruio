@@ -33,3 +33,9 @@
 .ruio-settings-svg .ruio-dial {
   stroke: #eaf8ef;
 }
+
+/* logo in RuioToggleController */
+.ruio-logo-svg {
+  margin: 3px;
+  fill: #eaf8ef;
+}
