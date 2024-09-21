@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef, useEffect } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
+// import { applyOutlineUI } from '@utils/applyOutlineUI'
 import RuioToggleController from '../controllers/RuioToggleController'
 
 import '@styles/RuioUIContainer.css'
