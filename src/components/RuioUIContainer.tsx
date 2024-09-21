@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef, useEffect } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
-import { applyBorders } from '@utils/applyBorders'
+import { applyOutlineUI } from '@utils/applyOutlineUI'
 import RuioToggleController from '../controllers/RuioToggleController'
 
 import '@styles/RuioUIContainer.css'
@@ -23,7 +23,7 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
   // useEffect(() => {
   //   const rootElement = document.querySelector('#root')
 
-  //   if (rootElement) applyBorders(rootElement as HTMLElement, depth, ruioEnabled)
+  //   if (rootElement) applyOutlineUI(rootElement as HTMLElement, depth, ruioEnabled)
   // }, [ruioEnabled, depth])
 
   return (

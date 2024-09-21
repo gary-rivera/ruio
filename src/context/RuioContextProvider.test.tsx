@@ -1,19 +1,19 @@
 import { render, screen, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from './RuioContextProvider'
-import { applyBorders } from '../utils/applyBorders'
+import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
 
 // mocks source
-jest.mock('../utils/applyBorders')
+jest.mock('../utils/applyOutlineUI')
 jest.mock('../controllers/ElementInteractionController')
 
 // mocks target
 const mockedElementInteractionController = ElementInteractionController as jest.MockedFunction<
   typeof ElementInteractionController
 >
-const mockedApplyBorders = applyBorders as jest.MockedFunction<typeof applyBorders>
+const mockedApplyBorders = applyOutlineUI as jest.MockedFunction<typeof applyOutlineUI>
 
 const TestComponent = () => {
   const {
@@ -174,7 +174,7 @@ describe('RuioContextProvider', () => {
     expect(screen.getByTestId('selectedRootElement').textContent).toBe('None')
   })
 
-  test('should call applyBorders with correct arguments when borders are enabled', async () => {
+  test('should call applyOutlineUI with correct arguments when borders are enabled', async () => {
     const mockElement = document.createElement('div')
     mockedElementInteractionController.mockImplementation((callback: (element: HTMLElement) => void) => {
       callback(mockElement)

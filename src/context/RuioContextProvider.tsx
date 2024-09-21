@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext, useRef, useMemo } from 'react'
-import { applyBorders } from '../utils/applyBorders'
+import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
 interface RuioContextProps {
@@ -46,7 +46,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (isElementSelectionModeActive) {
       const cleanupElementSelectionEvents = ElementInteractionController(
         (element) => {
-          applyBorders(element, depth, ruioEnabled)
+          applyOutlineUI(element, depth, ruioEnabled)
         },
         (element) => {
           setSelectedRootElement(element)
@@ -64,7 +64,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   useEffect(() => {
     if (selectedRootElement) {
-      applyBorders(selectedRootElement, depth, ruioEnabled)
+      applyOutlineUI(selectedRootElement, depth, ruioEnabled)
     }
   }, [depth, selectedRootElement]) // NOTE: did include ruioEnabled at one point -- might need to add back
 
