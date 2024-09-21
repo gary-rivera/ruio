@@ -4,7 +4,9 @@ import svgStyles from '@styles/SVG.module.css'
 // TODO: turn into a button to control the settings modal
 function SettingsIcon() {
   return (
-    <button className={`${buttonStyles['ruio-btn']} ${buttonStyles['ruio-settings-btn']} ruio-exclude`}>
+    <button
+      className={`${buttonStyles['ruio-btn']} ${buttonStyles['ruio-settings-btn']} ruio-exclude ruio-controller-icon`}
+    >
       <svg
         className={`${svgStyles['ruio-svg']} ${svgStyles['ruio-settings-svg']}`}
         viewBox="0 0 24 24"
