@@ -1,9 +1,8 @@
-import '@styles/RuioToggleController.css'
 import RuioLogoIcon from '@assets/RuioLogoIcon'
 
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import '@styles/RuioUIContainer.css'
+import '@styles/RuioToggleController.css'
 
 function RuioToggleController() {
   const { ruioEnabled, setRuioEnabled } = useRuioContext()
