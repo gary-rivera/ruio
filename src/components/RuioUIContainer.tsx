@@ -3,15 +3,15 @@ import { useRuioContext } from '@context/RuioContextProvider'
 import { applyBorders } from '@utils/applyBorders'
 import RuioToggleController from '../controllers/RuioToggleController'
 
-import '@styles/ControlPanel.css'
+import '@styles/RuioUIContainer.css'
 import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 
-interface ControlPanelProps {
+interface RuioUIContainerProps {
   // Define any props if needed, or leave empty
 }
 // TODO: rename to RuioUIContainer
-function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) {
+function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElement>) {
   const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
 
   // Icons to render:
@@ -39,4 +39,4 @@ function ControlPanel(props: ControlPanelProps, ref: React.Ref<HTMLDivElement>) 
   )
 }
 
-export default forwardRef<HTMLDivElement, ControlPanelProps>(ControlPanel)
+export default forwardRef<HTMLDivElement, RuioUIContainerProps>(RuioUIContainer)

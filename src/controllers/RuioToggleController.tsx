@@ -3,7 +3,7 @@ import RuioLogoIcon from '@assets/RuioLogoIcon'
 
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import '@styles/ControlPanel.css'
+import '@styles/RuioUIContainer.css'
 
 function RuioToggleController() {
   const { ruioEnabled, setRuioEnabled } = useRuioContext()

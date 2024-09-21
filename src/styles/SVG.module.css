@@ -1,11 +1,15 @@
 .ruio-svg {
   width: 100%;
   height: 100%;
-  /* fill: green; */
+  border-radius: 10px;
 }
 
 /* ToggleElementSelectionModeIcon */
+.ruio-element-select-svg {
+  fill: #1c2120;
+}
 .ruio-element-select-svg .ruio-mouse-pointer {
+  fill: #1c2120;
   stroke: #eaf8ef;
 }
 
@@ -14,12 +18,16 @@
 }
 
 /* ToggleSettingsIcon */
+.ruio-settings-svg {
+  fill: #1c2120;
+}
 .ruio-settings-svg .ruio-outline {
   stroke: #06e5d5;
 }
 
 .ruio-settings-svg .ruio-bar-bg {
   stroke: #eaf8ef;
+  opacity: 0.9;
 }
 
 .ruio-settings-svg .ruio-dial {

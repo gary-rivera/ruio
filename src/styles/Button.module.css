@@ -10,7 +10,7 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
-  border-radius: 11px;
+  border-radius: 12px;
 
   .ruio-mouse-pointer {
     stroke: #eaf8ef;
@@ -28,7 +28,7 @@
   height: 40px;
   cursor: pointer;
   fill: #1c2120;
-  border-radius: 11px;
+  border-radius: 12px;
 
   .ruio-outline {
     stroke: #06e5d5;

@@ -1,10 +1,10 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import { useRuioContext } from '@context/RuioContextProvider'
-import ControlPanel from './ControlPanel'
+import RuioUIContainer from './RuioUIContainer'
 
 jest.mock('@context/RuioContextProvider')
 
-describe('ControlPanel', () => {
+describe('RuioUIContainer', () => {
   let setDepthMock: jest.Mock
   let setRuioEnabledMock: jest.Mock
   let toggleElementSelectionModeMock: jest.Mock
@@ -13,8 +13,6 @@ describe('ControlPanel', () => {
     setDepthMock = jest.fn()
     setRuioEnabledMock = jest.fn()
     toggleElementSelectionModeMock = jest.fn()
-
-    // Mock the useRuioContext hook
     ;(useRuioContext as jest.Mock).mockReturnValue({
       depth: 3,
       setDepth: setDepthMock,
@@ -29,17 +27,17 @@ describe('ControlPanel', () => {
   })
 
   it('matches the snapshot', () => {
-    const { asFragment } = render(<ControlPanel />)
+    const { asFragment } = render(<RuioUIContainer />)
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('renders the ControlPanel without crashing (Smoke Test)', () => {
-    render(<ControlPanel />)
+  it('renders the RuioUIContainer without crashing (Smoke Test)', () => {
+    render(<RuioUIContainer />)
     expect(screen.getByLabelText('Depth:')).toBeInTheDocument()
   })
 
   it('renders the control panel with default values', () => {
-    render(<ControlPanel />)
+    render(<RuioUIContainer />)
 
     expect(screen.getByLabelText('Depth:')).toBeInTheDocument()
     expect(screen.getByLabelText('Depth:')).toHaveValue(3)
@@ -60,14 +58,14 @@ describe('ControlPanel', () => {
       toggleElementSelectionMode: toggleElementSelectionModeMock,
     })
 
-    render(<ControlPanel />)
+    render(<RuioUIContainer />)
 
     const selectButton = screen.getByText('Select Element')
     expect(selectButton).not.toBeDisabled()
   })
 
   it('changes the depth value on input change', () => {
-    render(<ControlPanel />)
+    render(<RuioUIContainer />)
 
     const depthInput = screen.getByLabelText('Depth:')
     fireEvent.change(depthInput, { target: { value: '5' } })
@@ -76,7 +74,7 @@ describe('ControlPanel', () => {
   })
 
   it('toggles ruioEnabled when the toggle button is clicked', () => {
-    render(<ControlPanel />)
+    render(<RuioUIContainer />)
 
     const toggleButton = screen.getByText('Enable Borders')
     fireEvent.click(toggleButton)
@@ -93,7 +91,7 @@ describe('ControlPanel', () => {
       toggleElementSelectionMode: toggleElementSelectionModeMock,
     })
 
-    render(<ControlPanel />)
+    render(<RuioUIContainer />)
 
     const selectButton = screen.getByText('Select Element')
     fireEvent.click(selectButton)
