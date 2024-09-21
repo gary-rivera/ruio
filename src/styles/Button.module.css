@@ -4,6 +4,15 @@
   height: 44px;
   background-color: #1c2120;
   overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.ruio-button-enabled {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  transform: scale(1);
 }
 
 /* ToggleElementSelectionModeIcon.tsx */
@@ -40,7 +49,42 @@
 }
 
 .ruio-logo-btn {
+  opacity: 0.5;
+  transform: scale(0.98);
+  /* transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease; */
+
+  transition: transform 0.5s ease-in-out;
+  /* opacity 0.5s ease; */
+
   margin-top: 8px;
-  border-radius: 12px;
+  border-radius: 10px;
   width: 50px;
 }
+
+.ruio-btn-disabled {
+  opacity: 0.5;
+}
+
+.ruio-btn-enabled {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.ruio-logo-btn:hover:not(:focus) {
+  opacity: 1;
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+  transform: scale(1.08);
+}
+
+/* .ruio-logo-btn:focused {
+  transition: opacity 0.3s ease;
+  transform: scale(1.1);
+} */
+
+/* .ruio-logo-btn:not(:hover) {
+  opacity: 0.5;
+} */
