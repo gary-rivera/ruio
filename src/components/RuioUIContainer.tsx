@@ -3,7 +3,6 @@ import { useRuioContext } from '@context/RuioContextProvider'
 // import { applyOutlineUI } from '@utils/applyOutlineUI'
 import RuioToggleController from '../controllers/RuioToggleController'
 
-import '@styles/RuioUIContainer.css'
 import divStyles from '@styles/Div.module.css'
 import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
@@ -28,7 +27,15 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
   // }, [ruioEnabled, depth])
 
   return (
-    <div ref={ref} data-testid="ruio-control-panel" className="ruio-exclude ruio-control-panel ">
+    <div
+      ref={ref}
+      data-testid="ruio-ui-container"
+      className={`
+        ruio exlcude
+        ${divStyles['ruio-ui-container']}
+      `}
+    >
+      {/* all ruio components are lazy-loaded, css controls respective render effects */}
       <RuioToggleController />
       {ruioEnabled && (
         <div className="ruio-exclude ruio-icons-container">

@@ -1,8 +1,19 @@
-/* RuioToggleController */
-.ruio-toggle-logo {
-  /* outline: 10px solid red; */
-  width: 40px;
-  height: 40px;
-  /* display: inline-block; */
-  /* box-sizing: border-box; */
+/* TODO: add ruio global css variables:
+- dynamic (vw?) width
+- dynamic (vw?) height
+- global icon dimensions
+- global primary colors (white, black, and blue)
+*/
+
+/* RuioUIContainer */
+.ruio-ui-container {
+  bottom: 40px;
+  right: 40px;
+
+  z-index: 9999;
+  position: fixed;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
 }
