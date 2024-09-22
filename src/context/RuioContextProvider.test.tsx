@@ -49,6 +49,8 @@ const TestComponent = () => {
   )
 }
 
+// TODO: test for toggle element selection mode to deactivate on click of an element
+
 describe('RuioContextProvider', () => {
   beforeEach(() => {
     jest.resetAllMocks()
