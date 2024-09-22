@@ -51,6 +51,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   useEffect(() => {
     if (isElementSelectionModeActive || !ruioEnabled) {
+    if (ruioEnabled && isElementSelectionModeActive) {
       const cleanupElementSelectionEvents = ElementInteractionController(
         (element) => {
           applyOutlineUI(element, depth, ruioEnabled)
