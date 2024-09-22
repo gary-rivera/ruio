@@ -1,6 +1,6 @@
-import { applyBorders, resetPreviouslyAppliedElements } from './applyBorders'
+import { applyOutlineUI, resetPreviouslyAppliedElements } from './applyOutlineUI'
 
-describe('applyBorders Smoke and Functionality Tests', () => {
+describe('applyOutlineUI Smoke and Functionality Tests', () => {
   let element: HTMLElement
   let childElement: HTMLElement
   let originalRequestAnimationFrame: typeof window.requestAnimationFrame
@@ -33,39 +33,39 @@ describe('applyBorders Smoke and Functionality Tests', () => {
   // Smoke Tests
   test('runs without errors on valid input', () => {
     expect(() => {
-      applyBorders(element, 2, true)
+      applyOutlineUI(element, 2, true)
     }).not.toThrow()
   })
 
   test('handles empty elements without throwing', () => {
     const emptyElement = document.createElement('div')
     expect(() => {
-      applyBorders(emptyElement, 2, true)
+      applyOutlineUI(emptyElement, 2, true)
     }).not.toThrow()
   })
 
   test('does not fail on depth 0', () => {
     expect(() => {
-      applyBorders(element, 0, true)
+      applyOutlineUI(element, 0, true)
     }).not.toThrow()
   })
 
   test('does not fail when apply is false', () => {
     expect(() => {
-      applyBorders(element, 2, false)
+      applyOutlineUI(element, 2, false)
     }).not.toThrow()
   })
 
   // Functional Tests
   test('applies borders to the element and its children', () => {
-    applyBorders(element, 1, true)
+    applyOutlineUI(element, 1, true)
     expect(element.style.outline).toBe('2px solid #990000')
     expect(childElement.style.outline).toBe('2px solid #003366')
   })
 
   test('removes borders when apply is false', () => {
-    applyBorders(element, 1, true)
-    applyBorders(element, 1, false)
+    applyOutlineUI(element, 1, true)
+    applyOutlineUI(element, 1, false)
 
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('')
@@ -75,7 +75,7 @@ describe('applyBorders Smoke and Functionality Tests', () => {
     const deepChildElement = document.createElement('div')
     childElement.appendChild(deepChildElement)
 
-    applyBorders(element, 1, true)
+    applyOutlineUI(element, 1, true)
 
     expect(element.style.outline).toBe('2px solid #990000')
     expect(childElement.style.outline).toBe('2px solid #003366')
@@ -83,10 +83,10 @@ describe('applyBorders Smoke and Functionality Tests', () => {
   })
 
   test('removes border from previously applied elements not in the current list', () => {
-    applyBorders(element, 1, true)
+    applyOutlineUI(element, 1, true)
     expect(element.style.outline).toBe('2px solid #990000')
 
-    applyBorders(childElement, 1, true)
+    applyOutlineUI(childElement, 1, true)
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('2px solid #990000')
   })

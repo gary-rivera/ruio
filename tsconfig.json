@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".", // This is important for relative paths
     "paths": {
+      "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
       "@styles/*": ["src/styles/*"],
@@ -29,5 +30,5 @@
     "emitDeclarationOnly": false,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["src", "jest.setup.ts"]
+  "include": ["src/**/*", "jest.setup.ts"]
 }

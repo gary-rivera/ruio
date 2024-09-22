@@ -4,7 +4,7 @@ export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 
 // TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements (performance for small vs. large data sets)
 // ref. sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
-export const applyBorders = (element: HTMLElement, depth: number, apply: boolean) => {
+export const applyOutlineUI = (element: HTMLElement, depth: number, apply: boolean) => {
   const elements = new Set<HTMLElement>()
 
   const traverse = (el: HTMLElement, currentDepth: number) => {
@@ -15,7 +15,7 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
     // Apply styles only when necessary
     requestAnimationFrame(() => {
-      el.style.outline = apply ? `2px solid ${getRelativeDepthColor('dark', currentDepth)}` : ''
+      el.style.outline = apply ? `2px solid ${getRelativeDepthColor('neon', currentDepth)}` : ''
     })
 
     Array.from(el.children).forEach((child) => {
@@ -29,7 +29,7 @@ export const applyBorders = (element: HTMLElement, depth: number, apply: boolean
 
   requestAnimationFrame(() => {
     previouslyAppliedElements.forEach((el) => {
-      // Remove border if not in the new set of elements
+      // Remove outline if not in the new set of elements
       if (!elements.has(el)) el.style.outline = ''
     })
 

@@ -1,23 +1,13 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  ReactNode,
-  useContext,
-  useCallback,
-  useMemo,
-  useRef,
-} from 'react'
-import { applyBorders } from '../utils/applyBorders'
+import React, { createContext, useState, useEffect, ReactNode, useContext, useRef, useMemo } from 'react'
+import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
-import ControlPanel from '@components/ControlPanel'
 
 interface RuioContextProps {
   ruioEnabled: boolean // is ruio related state/interactions enabled
   setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // toggle ruio related state/interactions
   depth: number // depth of the amount of elements to apply borders to
   setDepth: React.Dispatch<React.SetStateAction<number>> // set the depth of the amount of elements to apply borders to
-  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to where div.body#root)
+  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
   isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
   setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
   toggleElementSelectionMode: () => void
@@ -43,24 +33,22 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
   const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
-  // const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
 
   /**
    * Triggers element selection mode by toggling the active state.
    * Wrapped in useCallback to maintain referential equality in contextValue.
    */
-  const toggleElementSelectionMode = useCallback(() => {
+  const toggleElementSelectionMode = () => {
     setIsElementSelectionModeActive((prev) => !prev)
-  }, [])
+  }
 
   useEffect(() => {
     if (isElementSelectionModeActive) {
-      // trigger ElementInteractionController (add click and hover events to DOM used for root element selection)
       const cleanupElementSelectionEvents = ElementInteractionController(
-        (element: HTMLElement) => {
-          applyBorders(element, depth, ruioEnabled)
+        (element) => {
+          applyOutlineUI(element, depth, ruioEnabled)
         },
-        (element: HTMLElement) => {
+        (element) => {
           setSelectedRootElement(element)
           setIsElementSelectionModeActive(false)
         },
@@ -72,14 +60,11 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         }
       }
     }
-    // NOTE: should the cleanup function be saved to a ref to be called later when element selection mode is exited?
-    // when an element is selected: yes [] no []
-    // when an element is not selected: yes [] no []
   }, [isElementSelectionModeActive, depth, ruioEnabled])
 
   useEffect(() => {
     if (selectedRootElement) {
-      applyBorders(selectedRootElement, depth, ruioEnabled)
+      applyOutlineUI(selectedRootElement, depth, ruioEnabled)
     }
   }, [depth, selectedRootElement]) // NOTE: did include ruioEnabled at one point -- might need to add back
 
@@ -94,15 +79,11 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       setIsElementSelectionModeActive,
       toggleElementSelectionMode,
     }),
-    [ruioEnabled, depth, selectedRootElement, toggleElementSelectionMode],
+    // TODO: verify that this is the appropriate way to set up dependancy array. is it necessary to include all of the values in the array?
+    [ruioEnabled, depth, selectedRootElement, isElementSelectionModeActive, toggleElementSelectionMode],
   )
 
-  return (
-    <RuioContext.Provider value={contextValue}>
-      <ControlPanel ref={controlPanelRef} />
-      {children}
-    </RuioContext.Provider>
-  )
+  return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
 }
 
 /**
