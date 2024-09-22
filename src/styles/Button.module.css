@@ -52,8 +52,6 @@
 .ruio-logo-btn {
   transform: scale(0.99);
   transition: transform 0.5s ease-in-out;
-
-  margin-top: 8px;
   border-radius: 10px;
   width: 50px;
 }
