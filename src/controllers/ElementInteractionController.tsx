@@ -49,12 +49,36 @@ export const ElementInteractionController = (
 
   // TODO: we need to ensure the ElemntInteractionController is updated to handle this case
   // requires being more restrictive in the hover and click event listeners, namely our logic behind storing element styles in the originalStyles map section
-  const restoreOriginalStyles = (target: HTMLElement) => {
+  // TODO: make style properties exist on a key'value schema so instant lookup for filtering can occur instead of iterative filtering
+  const restoreOriginalStyles = (target: HTMLElement, stylesToFilterOut?: string[]) => {
     const originalStyle = originalStyles.get(target)
 
-    originalStyle ? target.setAttribute('style', originalStyle) : target.removeAttribute('style')
-    if (originalStyle === '') target.style.backgroundColor = ''
+    if (originalStyle) {
+      // Split the style string into individual declarations
+      let updatedStyles = originalStyle
 
+      if (stylesToFilterOut && stylesToFilterOut.length) {
+        const stylesArray = updatedStyles.split(';').filter(Boolean)
+
+        updatedStyles = stylesArray
+          .filter((style) => {
+            const [property] = style.split(':').map((s) => s.trim())
+            return !stylesToFilterOut.includes(property)
+          })
+          .join('; ')
+      }
+
+      // Apply the filtered styles or remove the style attribute if empty
+      if (updatedStyles.trim()) {
+        target.setAttribute('style', updatedStyles)
+      } else {
+        target.removeAttribute('style')
+      }
+    } else {
+      target.removeAttribute('style')
+    }
+
+    // Remove the class and delete the original style entry
     target.classList.remove('ruio-hovered')
     originalStyles.delete(target)
   }
@@ -67,7 +91,7 @@ export const ElementInteractionController = (
   }
 
   const removeHoverStyles = (target: HTMLElement) => {
-    restoreOriginalStyles(target)
+    restoreOriginalStyles(target, ['hover'])
   }
 
   const handleHover = (event: MouseEvent) => {
