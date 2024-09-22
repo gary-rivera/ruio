@@ -8,7 +8,11 @@ function ToggleElementSelectionModeIcon() {
 
   return (
     <button
-      className={`${buttonStyles['ruio-btn']} ${buttonStyles['ruio-element-select-btn']} ruio-exclude`}
+      className={`
+        ruio-exclude
+        ${buttonStyles['ruio-btn']}
+        ${ruioEnabled ? buttonStyles['ruio-element-select-btn-active'] : buttonStyles['ruio-element-select-btn-inactive']}
+      `}
       onClick={(el) => {
         el.preventDefault()
         console.log('ToggleElementSelectionModeIcon clicked')

@@ -5,9 +5,19 @@ import svgStyles from '@styles/SVG.module.css'
 
 // NOTE: perhaps use a different, more indicative icon rather than the dial config icon
 function SettingsIcon() {
+  const { toggleElementSelectionMode, setRuioEnabled, ruioEnabled } = useRuioContext()
   return (
     <button
-      className={`${buttonStyles['ruio-btn']} ${buttonStyles['ruio-settings-btn']} ruio-exclude ruio-controller-icon`}
+      className={`
+        ruio-exclude
+        ${buttonStyles['ruio-btn']}
+        ${ruioEnabled ? buttonStyles['ruio-settings-btn-active'] : buttonStyles['ruio-settings-btn-inactive']}
+      `}
+      onClick={(el) => {
+        el.preventDefault()
+        console.log('ToggleElementSelectionModeIcon clicked')
+        toggleElementSelectionMode() // TODO:  placeholder to verify current behavior
+      }}
     >
       <svg
         className={`${svgStyles['ruio-svg']} ${svgStyles['ruio-settings-svg']}`}

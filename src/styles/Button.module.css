@@ -4,14 +4,23 @@
   height: 44px;
   background-color: #1c2120;
   overflow: hidden;
+  border-radius: 12px;
+
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
 }
 
 /* ToggleElementSelectionModeIcon.tsx */
-.ruio-element-select-btn {
+.ruio-element-select-btn-inactive {
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+  transform: translateY(20px);
+  opacity: 0;
+  border: none;
   cursor: pointer;
+
   border-radius: 12px;
 
   .ruio-mouse-pointer {
@@ -23,8 +32,20 @@
   }
 }
 
+.ruio-element-select-btn-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 /* SettingsIcon.tsx */
-.ruio-settings-btn {
+.ruio-settings-btn-inactive {
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+  transform: translateY(20px);
+  opacity: 0;
+  border: none;
+
   cursor: pointer;
   fill: #1c2120;
   border-radius: 12px;
@@ -40,6 +61,11 @@
   .ruio-dial {
     stroke: #eaf8ef;
   }
+}
+
+.ruio-settings-btn-active {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* RuioToggleController */

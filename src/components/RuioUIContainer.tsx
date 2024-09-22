@@ -29,12 +29,8 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
     >
       {/* all ruio components are lazy-loaded, css controls respective render effects */}
       <RuioToggleController />
-      {ruioEnabled && (
-        <div className="ruio-exclude ruio-icons-container">
-          <SettingsIcon />
-          <ToggleElementSelectionModeIcon />
-        </div>
-      )}
+      <ToggleElementSelectionModeIcon />
+      <SettingsIcon />
     </div>
   )
 }
