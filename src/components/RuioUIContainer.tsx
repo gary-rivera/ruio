@@ -30,7 +30,7 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
       {/* all ruio components are lazy-loaded, css controls respective render effects */}
       <RuioToggleController />
       <ToggleElementSelectionModeIcon />
-      <SettingsIcon />
+      {/* <SettingsIcon /> */}
     </div>
   )
 }
