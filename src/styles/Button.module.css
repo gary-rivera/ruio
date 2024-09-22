@@ -9,12 +9,6 @@
     opacity 0.3s ease;
 }
 
-.ruio-button-enabled {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  transform: scale(1);
-}
-
 /* ToggleElementSelectionModeIcon.tsx */
 .ruio-element-select-btn {
   cursor: pointer;

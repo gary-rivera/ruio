@@ -1,6 +1,4 @@
-import React, { forwardRef, useRef, useEffect } from 'react'
-import { useRuioContext } from '@context/RuioContextProvider'
-// import { applyOutlineUI } from '@utils/applyOutlineUI'
+import React, { forwardRef } from 'react'
 import RuioToggleController from '../controllers/RuioToggleController'
 
 import divStyles from '@styles/Div.module.css'
@@ -8,17 +6,11 @@ import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 
 interface RuioUIContainerProps {
-  // Define any props if needed, or leave empty
+  // NOTE: define as needed
 }
-// TODO: rename to RuioUIContainer
+
 function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElement>) {
-  const { depth, setDepth, ruioEnabled, setRuioEnabled, toggleElementSelectionMode } = useRuioContext()
-
-  // Icons to render:
-  // // TODO: onclick trigger the settingsModal function to control theme, depth, etc
-  // TODO: FAQ (question mark)
-  // // TODO: opens a modal with brief FAQ and link to github for more info/usage
-
+  // TODO: delete once depth controlled by settings modal is built out
   // basically just ensures that the borders are applied to the root element on initial load to the starting point
   // useEffect(() => {
   //   const rootElement = document.querySelector('#root')

@@ -1,8 +1,8 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
+
 import buttonStyles from '@styles/Button.module.css'
 import svgStyles from '@styles/SVG.module.css'
 
-// TODO: rename to ToggleElementSelectionModeController
 function ToggleElementSelectionModeIcon() {
   const { toggleElementSelectionMode, setRuioEnabled, ruioEnabled } = useRuioContext()
 
