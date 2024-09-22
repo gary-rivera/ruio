@@ -9,6 +9,7 @@ function RuioToggleController() {
   return (
     <button
       className={`
+        ruio-exclude
         ${buttonStyles['ruio-btn']} ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}
       ${buttonStyles['ruio-logo-btn']} ruio-exclude`}
       onClick={() => {
@@ -16,7 +17,7 @@ function RuioToggleController() {
       }}
     >
       <svg
-        className={`${svgStyles['ruio-logo-svg']}`}
+        className={`ruio-exclude ${svgStyles['ruio-logo-svg']}`}
         viewBox="0 0 208 176"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

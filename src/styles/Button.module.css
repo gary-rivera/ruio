@@ -22,6 +22,7 @@
   cursor: pointer;
 
   border-radius: 12px;
+  z-index: 1;
 
   .ruio-mouse-pointer {
     stroke: #eaf8ef;
@@ -33,6 +34,8 @@
 }
 
 .ruio-element-select-btn-active {
+  z-index: 1;
+
   transform: translateY(0);
   opacity: 1;
 }

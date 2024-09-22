@@ -1,5 +1,7 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import RuioToggleController from '../controllers/RuioToggleController'
+import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import divStyles from '@styles/Div.module.css'
 import SettingsIcon from '@assets/SettingsIcon'
@@ -10,13 +12,14 @@ interface RuioUIContainerProps {
 }
 
 function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElement>) {
+  const { depth, ruioEnabled, parentAppRootElement, selectedRootElement } = useRuioContext()
+
   // TODO: delete once depth controlled by settings modal is built out
   // basically just ensures that the borders are applied to the root element on initial load to the starting point
-  // useEffect(() => {
-  //   const rootElement = document.querySelector('#root')
-
-  //   if (rootElement) applyOutlineUI(rootElement as HTMLElement, depth, ruioEnabled)
-  // }, [ruioEnabled, depth])
+  useEffect(() => {
+    if (parentAppRootElement && selectedRootElement?.id !== parentAppRootElement.id)
+      applyOutlineUI(selectedRootElement as HTMLElement, depth, ruioEnabled)
+  }, [ruioEnabled, depth])
 
   return (
     <div
