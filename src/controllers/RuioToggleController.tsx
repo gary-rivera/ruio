@@ -8,7 +8,7 @@ function RuioToggleController() {
   const { ruioEnabled, setRuioEnabled } = useRuioContext()
 
   return (
-    <div className={`${divStyles['ruio-toggle-container']}`}>
+    <div className={`ruio-exclude ${divStyles['ruio-toggle-container']}`}>
       <button
         className={`
         ruio-exclude
