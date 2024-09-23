@@ -6,6 +6,7 @@ export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 // TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements (performance for small vs. large data sets)
 // ref. sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
 export const applyOutlineUI = (element: HTMLElement, depth: number, apply: boolean) => {
+  if (element && element.classList.contains('ruio-exclude')) return
   const elements = new Set<HTMLElement>()
 
   const traverse = (el: HTMLElement, currentDepth: number) => {

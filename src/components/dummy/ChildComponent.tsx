@@ -13,6 +13,7 @@ const ChildComponent: React.FC = () => {
     >
       <h2>Child Component</h2>
       <p>This is the child component.</p>
+      <p className="ruio-exclude">This should not get styles applied, since its manually exlcuded.</p>
       <GrandChildComponent />
       <GrandChildComponent />
     </div>
