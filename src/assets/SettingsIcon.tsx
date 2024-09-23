@@ -10,7 +10,8 @@ function SettingsIcon() {
     <button
       className={`
         ruio-exclude
-        ${buttonStyles['ruio-btn']}
+        ruio-btn
+        ${buttonStyles['ruio-secondary-btn']}
         ${ruioEnabled ? buttonStyles['ruio-settings-btn-active'] : buttonStyles['ruio-settings-btn-inactive']}
       `}
       onClick={(el) => {

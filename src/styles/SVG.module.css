@@ -1,6 +1,5 @@
 .ruio-svg {
-  width: 100%;
-  height: 100%;
+  /* width: auto; */
   border-radius: 10px;
 }
 
@@ -36,6 +35,5 @@
 
 /* logo in RuioToggleController */
 .ruio-logo-svg {
-  margin: 3px;
   fill: #eaf8ef;
 }

@@ -10,8 +10,8 @@ function RuioToggleController() {
     <button
       className={`
         ruio-exclude
-        ${buttonStyles['ruio-btn']} ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}
-      ${buttonStyles['ruio-logo-btn']} ruio-exclude`}
+        ${buttonStyles['ruio-btn']}
+        ${buttonStyles['ruio-btn-primary']} ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}`}
       onClick={() => {
         setRuioEnabled(!ruioEnabled)
       }}
