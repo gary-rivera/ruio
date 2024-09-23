@@ -21,7 +21,8 @@ export const ElementInteractionController = (
     return
   }
 
-  if (rootElement.classList.contains('ruio-exclude')) return
+  // TODO: add a tooltip to clarify this element is excluded from border styles or element selection
+  // if (rootElement.classList.contains('ruio-exclude')) return
 
   const isValidTarget = (target: HTMLElement) => {
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
