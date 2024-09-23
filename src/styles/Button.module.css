@@ -14,6 +14,9 @@
     opacity 0.3s ease;
 }
 
+.ruio-btn-inactive {
+}
+
 .ruio-btn-secondary {
   display: hidden;
   width: 34px;
