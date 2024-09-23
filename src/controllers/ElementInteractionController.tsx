@@ -13,7 +13,6 @@ export const ElementInteractionController = (
   onClick: (element: HTMLElement) => void,
 ) => {
   const rootElement = document.querySelector(`#${DEFAULT_ROOT_ELEMENT}`) as HTMLElement
-
   if (!rootElement) {
     console.error(
       "[ruio][ElementInteractionController] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
@@ -21,6 +20,8 @@ export const ElementInteractionController = (
     )
     return
   }
+
+  if (rootElement.classList.contains('ruio-exclude')) return
 
   const isValidTarget = (target: HTMLElement) => {
     const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
