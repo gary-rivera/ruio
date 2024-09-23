@@ -10,10 +10,76 @@
   bottom: 40px;
   right: 40px;
 
-  z-index: 9999;
+  /* z-index: 9999; */
   position: fixed;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   gap: 8px;
+}
+
+.ruio-toggle-container:hover {
+  transform: scale(1.05);
+}
+
+.ruio-toggle-container {
+  margin-top: 2px;
+  display: flex;
+  align-items: center; /* Centers the items vertically */
+  justify-content: center; /* Centers the items horizontally */
+  position: relative;
+
+  transition:
+    transform 0.1s ease-in,
+    opacity 0.1s ease-in;
+}
+
+.ruio-logo-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%; /* Ensures the div fills the button's width */
+  height: 100%;
+}
+
+.active {
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+  transform: scale(0.9) rotate(10deg);
+}
+
+.inactive {
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+  transform: scale(1);
+}
+
+.ruio-second-bg-div-active,
+.ruio-second-bg-div-inactive {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 15px;
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+  will-change: opacity;
+  width: 100%;
+  height: 100%;
+}
+
+.ruio-second-bg-div-active {
+  background: #06e5d5;
+
+  transform: scaleX(1.1) scaleY(1.03) rotate(3deg);
+  opacity: 1;
+}
+
+.ruio-second-bg-div.inactive {
+  transform: scaleX(0.1) scaleY(1) rotate(0deg);
+  opacity: 0;
 }

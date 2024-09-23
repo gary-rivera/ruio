@@ -1,14 +1,23 @@
+/* ruio global button styling */
 .ruio-btn {
   all: unset;
-  width: 44px;
-  height: 44px;
+
   background-color: #1c2120;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+
   overflow: hidden;
-  border-radius: 12px;
 
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
+}
+
+.ruio-btn-secondary {
+  display: hidden;
+  width: 34px;
+  height: 34px;
 }
 
 /* ToggleElementSelectionModeIcon.tsx */
@@ -22,7 +31,7 @@
   cursor: pointer;
 
   border-radius: 12px;
-  z-index: 1;
+  z-index: 1000;
 
   .ruio-mouse-pointer {
     stroke: #eaf8ef;
@@ -34,7 +43,7 @@
 }
 
 .ruio-element-select-btn-active {
-  z-index: 1;
+  z-index: 1000;
 
   transform: translateY(0);
   opacity: 1;
@@ -72,26 +81,45 @@
 }
 
 /* RuioToggleController */
-.ruio-logo-btn {
-  transform: scale(0.99);
+.ruio-btn-primary {
+  z-index: 2000;
+  width: 38px;
+  height: 32px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 3px;
+
+  transform: scale(0.95);
   transition: transform 0.5s ease-in-out;
-  border-radius: 10px;
-  width: 50px;
 }
 
-.ruio-logo-btn:hover {
+.ruio-btn-primary:hover {
   opacity: 1;
   transition:
     transform 0.2s ease-in,
     opacity 0.2s ease-in;
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
-.ruio-logo-btn-disabled {
+.ruio-logo-btn-disabled,
+.ruio-logo-btn-disabled:hover {
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
   opacity: 0.5;
 }
 
-.ruio-logo-btn-enabled {
-  transform: scale(1);
+.ruio-logo-btn-enabled,
+.ruio-logo-btn-enabled:hover {
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+  transform: rotate(-10deg);
   opacity: 1;
+}
+
+.ruio-logo-btn-enabled:hover {
+  transform: rotate(-10deg);
 }

@@ -11,6 +11,7 @@ function ToggleElementSelectionModeIcon() {
       className={`
         ruio-exclude
         ${buttonStyles['ruio-btn']}
+        ${buttonStyles['ruio-btn-secondary']}
         ${ruioEnabled ? buttonStyles['ruio-element-select-btn-active'] : buttonStyles['ruio-element-select-btn-inactive']}
       `}
       onClick={(el) => {
