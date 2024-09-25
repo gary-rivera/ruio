@@ -1,12 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
-import svgr from 'vite-plugin-svgr'
-import checker from 'vite-plugin-checker'
-import postcss from 'rollup-plugin-postcss'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import svgr from 'vite-plugin-svgr';
+import checker from 'vite-plugin-checker';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export default defineConfig({
-  plugins: [react(), svgr(), checker({ typescript: true })],
+  plugins: [
+    react(),
+    svgr(),
+    checker({ typescript: true }),
+    cssInjectedByJsPlugin(),
+  ],
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/components/RuioWrapper.tsx'), // Adjust the entry point if necessary
@@ -18,7 +23,7 @@ export default defineConfig({
       },
       formats: ['es', 'cjs', 'umd'], // Specify the formats you want to build
     },
-    cssCodeSplit: true,
+    cssCodeSplit: false, // Required for css-injected-by-js plugin
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
@@ -34,14 +39,13 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './src/assets'),
       '@components': path.resolve(__dirname, './src/components'),
       '@utils': path.resolve(__dirname, './src/utils'),
-      '@styles': path.resolve(__dirname, './src/styles'),
       '@root': path.resolve(__dirname, './src'),
       '@context': path.resolve(__dirname, './src/context'),
     },
   },
   server: {
     hmr: {
-      overlay: true
-    }
-  }
-})
+      overlay: true,
+    },
+  },
+});

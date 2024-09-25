@@ -9,7 +9,7 @@
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
-      "@styles/*": ["src/styles/*"],
+
       "@root/*": ["src/*"],
       "@context/*": ["src/context/*"],
       "@controllers/*": ["src/controllers/*"]

@@ -1,20 +1,14 @@
 // components
 import React from 'react'
-import RuioWrapper from '../dist/ruio.esm'
+import RuioWrapper from '@components/RuioWrapper'
 import ParentComponent from '@components/dummy/ParentComponent'
-
-// styles
-import '@styles/globals.css'
 
 const App: React.FC = () => {
   return (
-    <div>
-      <RuioWrapper>
-        <div>
-          <h1></h1>
-        </div>
-      </RuioWrapper>
-    </div>
+    <RuioWrapper>
+      <ParentComponent />
+      <ParentComponent />
+    </RuioWrapper>
   )
 }
 

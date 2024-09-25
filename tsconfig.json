@@ -28,8 +28,8 @@
     "declaration": true,
     "declarationDir": "./dist",
     "emitDeclarationOnly": false,
-    "types": ["jest", "@testing-library/jest-dom", "./src/types/cssModules"]
+    "types": ["jest", "@testing-library/jest-dom", "./src/types/cssModules", "vite/client", "node"]
   },
-  "include": ["src/**/*", "jest.setup.ts"],
+  "include": ["src/**/*", "jest.setup.ts", "vite.config.ts"],
   "exclude": ["node_modules"]
 }
