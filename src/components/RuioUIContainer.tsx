@@ -3,7 +3,7 @@ import RuioToggleController from '../controllers/RuioToggleController'
 import { applyOutlineUI } from '@utils/applyOutlineUI'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import divStyles from '@styles/Div.module.css'
+import divStyles from '../styles/Div.module.css'
 import SettingsIcon from '@assets/SettingsIcon'
 import ToggleElementSelectionModeIcon from '@assets/ToggleElementSelectionModeIcon'
 
