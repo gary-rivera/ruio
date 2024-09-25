@@ -1,8 +1,8 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import buttonStyles from '@styles/Button.module.css'
-import divStyles from '@styles/Div.module.css'
-import svgStyles from '@styles/SVG.module.css'
+import buttonStyles from '../styles/Button.module.css'
+import divStyles from '../styles/Div.module.css'
+import svgStyles from '../styles/SVG.module.css'
 
 function RuioToggleController() {
   const { ruioEnabled, setRuioEnabled } = useRuioContext()

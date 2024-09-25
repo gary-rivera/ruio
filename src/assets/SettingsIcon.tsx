@@ -1,7 +1,7 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import buttonStyles from '@styles/Button.module.css'
-import svgStyles from '@styles/SVG.module.css'
+import buttonStyles from '../styles/Button.module.css'
+import svgStyles from '../styles/SVG.module.css'
 
 // NOTE: perhaps use a different, more indicative icon rather than the dial config icon
 function SettingsIcon() {

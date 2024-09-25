@@ -24,11 +24,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "outDir": "./dist",
+    "outDir": "./.tsc-out",
     "declaration": true,
     "declarationDir": "./dist",
     "emitDeclarationOnly": false,
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom", "./src/types/cssModules", "vite/client", "node"]
   },
-  "include": ["src/**/*", "jest.setup.ts"]
+  "include": ["src/**/*", "jest.setup.ts", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }
