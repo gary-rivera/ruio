@@ -1,8 +1,8 @@
 > ⚠️ **Disclaimer**: Ruio is currently in an unstable state and is still under active development. Features, UI, and behaviors may change frequently. Use it with caution (for now :D).
 
-# ruio (or React UI Outliner )
+# ruio
 
-**ruio** is a developer tool designed for React applications that allows you to dynamically apply real-time border styles to elements at the click of a button. Inspired by the Google Chrome Inspect Tool, Ruio provides instant visual feedback to help developers identify layout issues and optimize the structure of their applications. The tool is optimized for performance and scalability, offering a seamless integration experience in any React project.
+**ruio** (short for React UI Outliner) is a developer tool designed for React applications that allows you to dynamically apply real-time border styles to elements at the click of a button. Inspired by the Google Chrome Inspect Tool, Ruio provides instant visual feedback to help developers identify layout issues and optimize the structure of their applications. The tool is optimized for performance and scalability, offering a seamless integration experience in any React project.
 
 ![npm](https://img.shields.io/npm/v/ruio) ![license](https://img.shields.io/npm/l/ruio)
 
@@ -76,7 +76,7 @@ Apply a special `ruio-exclude` class to elements that you don't want to be consi
 
 ## Development
 
-To start developing Ruio locally:
+### To start developing Ruio locally:
 
 1. Clone the repository:
 
@@ -102,10 +102,12 @@ npm run dev
 npm run test
 ```
 
-Running in Your Project
+### Trying it out
 You can test ruio with the example React project:
 
 react-redux-realworld-example-app [repo](https://github.com/gothinkster/react-redux-realworld-example-app)
+
+_Note: since the referenced project is no longer maintained, you may have to use the `--force` flag to override dependency conflicts_
 
 ## License
 
