@@ -1,6 +1,7 @@
 {
   "name": "ruio",
   "version": "0.6.0",
+  "author": "Gary Rivera <a.gary.rivera@gmail.com> (https://github.com/gary-rivera)",
   "description": "A React developer tool for dynamically applying border styles to elements.",
   "private": false,
   "main": "dist/ruio.cjs.js",
@@ -41,7 +42,6 @@
     "highlight",
     "npm-package"
   ],
-  "author": "Gary Rivera <a.gary.rivera@gmail.com> (https://github.com/gary-rivera)",
   "license": "MIT",
   "peerDependencies": {
     "react": "^18.0.0",
@@ -73,6 +73,7 @@
     "prettier": "^3.3.3",
     "rollup-plugin-postcss": "^4.0.2",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.0",
     "typescript": "^5.5.2",
     "typescript-eslint": "^8.5.0",
