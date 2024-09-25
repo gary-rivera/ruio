@@ -11,9 +11,9 @@
 - **Dynamic Border Styling**: Visualize borders on any element within your React app.
 - **Element Selection Mode**: Mimics the hover effect of Chrome DevTools to highlight elements on the page.
 - **Click-to-Select**: Make any element the new root with a click.
-- **Toggle Logic**: Enable and disable border styling on the fly.
-- **Reset Functionality**: Quickly clear all applied border styles.
-- **Highly Configurable**: Works with different project structures and styles, supporting CSS Modules out-of-the-box.
+- **Toggle Logic**: Enable and disable border styling on the fly as well as memory of selected root element.
+- **Reset Functionality**: Automatically clear all applied border styles.
+- **Highly Configurable**: Works with different project structures and exists on top of any existing architectures.
 
 ## Table of Contents
 
@@ -38,7 +38,7 @@ To get started with Ruio, wrap your application in the RuioContextProvider:
 
 ```javascript
 // App.tsx
-import { RuioContextProvider } from 'ruio';
+import RuioContextProvider from 'ruio';
 
 function App() {
 	return (
@@ -49,24 +49,24 @@ function App() {
 export default App;
 ```
 
-Next, add the Ruio toggle button to your UI. This button allows you to enable or disable the border visualization mode.
+As long as youre in a development environment the `ruio` toggle icon will render. This button allows you to enable or disable the border visualization mode.
 
-Now, once the toggle button is clicked, you’ll be able to hover over elements in your app and see real-time borders being applied.
+Now, once the toggle button is clicked, you’ll be able to hover over elements in your app's DOM tree and see real-time UI insights being applied.
 
 ## Configuration
 
-Ruio is slated for configurative UI soon! Check back for options such as:
+Ruio is slated for a configurative UI soon! Check back for new customized options such as:
 
 - Outline UI depth selection.
   - Crawl deeper down the DOM tree
   - Option to crawl up the DOM tree
-  - Both upwards and downwards crawling
+  - Simultaneously crawl the DOM upwards and downwards 
 - Color theming
-- Keyboard macros for interactions (+ customization)
+- Keyboard macros for accessibility (+ key binding)
 
 ### Element Exclusion
 
-Apply a special `ruio-exclude` class to elements that you don't want to be considered for ruio's UI styling (inclusive). Any descendant of a component with the `ruio-exclude` class will also not be considered for ruio styling.
+Applying `ruio-exclude` class to elements that you don't want to be considered for ruio's UI styling (inclusive). Any descendant of a component with the `ruio-exclude` class will also be excluded from ruio styling.
 
 ```html
 <div className="ruio-exclude">
