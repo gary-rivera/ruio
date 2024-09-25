@@ -1,0 +1,47 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true, // Only generate .d.ts files
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@root/*": ["src/*"],
+      "@context/*": ["src/context/*"],
+      "@controllers/*": ["src/controllers/*"]
+    },
+    "outDir": "./dist"
+  },
+  "include": ["src/components/RuioWrapper.tsx", "src/types/cssModules.d.ts"], // Include your entry point and the global types file
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "tests",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/__tests__/**",
+    "**/__mocks__/**",
+    "**/__snapshots__/**",
+    "src/dummy",
+    "src/main.tsx",
+    "src/App.tsx",
+    "jest.config.ts",
+    "jest.setup.ts",
+    "tsconfig.json",
+    "tsconfig.build.json",
+    "*.fig",
+    "*.snap",
+    "*.svg",
+    "*.tsbuildinfo",
+    "*.eslint.js",
+    ".vscode",
+    ".DS_Store"
+  ]
+}
