@@ -1,7 +1,6 @@
+> ⚠️ **Disclaimer**: Ruio is currently in an unstable state and is still under active development. Features, UI, and behaviors may change frequently. Use it with caution (for now :D).
 
 # ruio (or React UI Outliner )
-
-![Ruio Logo](https://raw.githubusercontent.com/gary-rivera/ruio/main/assets/logo.png)
 
 **ruio** is a developer tool designed for React applications that allows you to dynamically apply real-time border styles to elements at the click of a button. Inspired by the Google Chrome Inspect Tool, Ruio provides instant visual feedback to help developers identify layout issues and optimize the structure of their applications. The tool is optimized for performance and scalability, offering a seamless integration experience in any React project.
 
