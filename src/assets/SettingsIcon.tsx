@@ -1,40 +1,37 @@
-import { useState } from 'react'
+import { useState, MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsModal from '@components/SettingsModal'
+import RuioIcon from './RuioIcon'
 
 import buttonStyles from '../styles/Button.module.css'
 import svgStyles from '../styles/SVG.module.css'
 
-// NOTE: perhaps use a different, more indicative icon rather than the dial config icon
 function SettingsIcon() {
-  const { toggleElementSelectionMode, setRuioEnabled, ruioEnabled } = useRuioContext()
+  const { ruioEnabled } = useRuioContext()
   const [settingsModalEnabled, setSettingsModalEnabled] = useState(false)
 
-  return (
-    <div
-      onClick={() => {
-        console.log('clicked toggle of settingsicon.div', settingsModalEnabled)
-        setSettingsModalEnabled(!settingsModalEnabled)
-      }}
-    >
-      <SettingsModal
-        isOpen={settingsModalEnabled}
-        onClose={() => setSettingsModalEnabled(!settingsModalEnabled)}
-      />
+  function handleToggleSettings(event: MouseEvent<HTMLDivElement>) {
+    event.preventDefault()
+    console.log('clicked toggle of settingsicon.div', settingsModalEnabled)
+    setSettingsModalEnabled(!settingsModalEnabled)
+  }
 
-      <button
-        className={`
-        ruio-exclude
-        ${buttonStyles['ruio-btn']}
-        ${buttonStyles['ruio-btn-secondary']}
-        ${ruioEnabled ? buttonStyles['ruio-settings-btn-active'] : buttonStyles['ruio-settings-btn-inactive']}
-      `}
+  return (
+    <>
+      <SettingsModal isOpen={settingsModalEnabled} onClose={() => setSettingsModalEnabled(false)} />
+
+      <RuioIcon
+        onClick={handleToggleSettings}
+        containerClassName=""
+        buttonClassName={`
+          ruio-exclude
+          ${buttonStyles['ruio-btn']}
+          ${buttonStyles['ruio-btn-secondary']}
+          ${ruioEnabled ? buttonStyles['ruio-settings-btn-active'] : buttonStyles['ruio-settings-btn-inactive']}
+        `}
+        svgClassName={`${svgStyles['ruio-svg']} ${svgStyles['ruio-settings-svg']}`}
       >
-        <svg
-          className={`${svgStyles['ruio-svg']} ${svgStyles['ruio-settings-svg']}`}
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <>
           <path
             className={`${svgStyles['ruio-outline']}`}
             d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
@@ -90,9 +87,9 @@ function SettingsIcon() {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
-      </button>
-    </div>
+        </>
+      </RuioIcon>
+    </>
   )
 }
 
