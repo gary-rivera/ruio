@@ -7,7 +7,7 @@ import buttonStyles from '../styles/Button.module.css'
 import svgStyles from '../styles/SVG.module.css'
 import divStyles from '../styles/Div.module.css'
 
-function ToggleElementSelectionModeIcon() {
+function ElementSelectIcon() {
   const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
 
   function handleClick(event: MouseEvent<HTMLDivElement>) {
@@ -44,4 +44,4 @@ function ToggleElementSelectionModeIcon() {
   )
 }
 
-export default ToggleElementSelectionModeIcon
+export default ElementSelectIcon
