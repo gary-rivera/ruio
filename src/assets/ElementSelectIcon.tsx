@@ -7,18 +7,16 @@ import buttonStyles from '../styles/Button.module.css'
 import svgStyles from '../styles/SVG.module.css'
 import divStyles from '../styles/Div.module.css'
 
-function ToggleElementSelectionModeIcon() {
+function ElementSelectIcon() {
   const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
 
-  function handleClick(event: MouseEvent<HTMLDivElement>) {
-    event.preventDefault()
+  function handleClick(event: MouseEvent<HTMLButtonElement>) {
     toggleElementSelectionMode()
   }
 
   return (
     <RuioIcon
       onClick={handleClick}
-      containerClassName={`${divStyles['ruio-toggle-container']}`}
       buttonClassName={`
         ${buttonStyles['ruio-btn']}
         ${buttonStyles['ruio-btn-secondary']}
@@ -44,4 +42,4 @@ function ToggleElementSelectionModeIcon() {
   )
 }
 
-export default ToggleElementSelectionModeIcon
+export default ElementSelectIcon
