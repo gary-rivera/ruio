@@ -25,8 +25,8 @@
 .ruio-toggle-container {
   margin-top: 2px;
   display: flex;
-  align-items: center; /* Centers the items vertically */
-  justify-content: center; /* Centers the items horizontally */
+  align-items: center;
+  justify-content: center;
   position: relative;
 
   transition:

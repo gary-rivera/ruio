@@ -15,23 +15,23 @@
 }
 
 .ruio-btn-secondary {
-  display: hidden;
   width: 34px;
   height: 34px;
+  cursor: pointer;
 }
 
 /* ToggleElementSelectionModeIcon.tsx */
 .ruio-element-select-btn-inactive {
+  opacity: 0;
+  cursor: pointer;
+
   transition:
     opacity 0.3s ease-out,
     transform 0.3s ease-out;
   transform: translateY(20px);
-  opacity: 0;
-  border: none;
-  cursor: pointer;
+  pointer-events: none;
 
   border-radius: 12px;
-  z-index: 1000;
 
   .ruio-mouse-pointer {
     stroke: #eaf8ef;
@@ -43,10 +43,12 @@
 }
 
 .ruio-element-select-btn-active {
+  opacity: 1;
+  pointer-events: auto;
+
   z-index: 1000;
 
   transform: translateY(0);
-  opacity: 1;
 }
 
 /* SettingsIcon.tsx */
