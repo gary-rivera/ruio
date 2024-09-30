@@ -10,7 +10,7 @@
   bottom: 40px;
   right: 40px;
 
-  /* z-index: 9999; */
+  z-index: 9999;
   position: fixed;
   display: flex;
   flex-direction: column-reverse;
@@ -23,6 +23,7 @@
 }
 
 .ruio-toggle-container {
+  z-index: 9999;
   margin-top: 2px;
   display: flex;
   align-items: center;
@@ -35,6 +36,8 @@
 }
 
 .ruio-logo-div {
+  z-index: 9999;
+
   display: flex;
   align-items: center;
   justify-content: center;

@@ -85,6 +85,7 @@
 /* RuioToggleController */
 .ruio-btn-primary {
   z-index: 2000;
+  z-index: 9999;
   width: 38px;
   height: 32px;
   display: inline-flex;
