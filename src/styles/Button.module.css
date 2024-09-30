@@ -8,30 +8,62 @@
   border-radius: 10px;
 
   overflow: hidden;
-
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.98);
+  }
+  40% {
+    transform: scale(0.95);
+  }
+  60% {
+    transform: scale(0.97);
+  }
+  80% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse 150ms ease-out;
+}
+
+/* secondary icons */
 .ruio-btn-secondary {
-  display: hidden;
+  overflow: hidden;
+  z-index: 9990;
   width: 34px;
   height: 34px;
-}
-
-/* ToggleElementSelectionModeIcon.tsx */
-.ruio-element-select-btn-inactive {
-  transition:
-    opacity 0.3s ease-out,
-    transform 0.3s ease-out;
-  transform: translateY(20px);
-  opacity: 0;
-  border: none;
+  border-radius: 10px;
   cursor: pointer;
 
-  border-radius: 12px;
-  z-index: 1000;
+  transition:
+    transform 150ms ease-in-out,
+    opacity 150ms ease-in-out;
+}
+
+.ruio-btn-secondary:hover {
+  transform: scale(1.05);
+}
+
+/* ElementSelectIcon.tsx */
+.ruio-element-select-btn-inactive {
+  opacity: 0;
+  cursor: pointer;
+
+  transition:
+    opacity 250ms ease-in-out,
+    transform 250ms ease-in-out;
+  transform: translateY(20px);
+  pointer-events: none;
 
   .ruio-mouse-pointer {
     stroke: #eaf8ef;
@@ -43,17 +75,17 @@
 }
 
 .ruio-element-select-btn-active {
-  z-index: 1000;
+  opacity: 1;
+  pointer-events: auto;
 
   transform: translateY(0);
-  opacity: 1;
 }
 
 /* SettingsIcon.tsx */
 .ruio-settings-btn-inactive {
   transition:
-    opacity 0.3s ease-out,
-    transform 0.3s ease-out;
+    opacity 250ms ease-in-out,
+    transform 250ms ease-in-out;
   transform: translateY(20px);
   opacity: 0;
   border: none;
@@ -82,7 +114,7 @@
 
 /* RuioToggleController */
 .ruio-btn-primary {
-  z-index: 2000;
+  z-index: 9999;
   width: 38px;
   height: 32px;
   display: inline-flex;
@@ -90,36 +122,29 @@
   align-items: center;
 
   padding: 3px;
-
-  transform: scale(0.95);
-  transition: transform 0.5s ease-in-out;
 }
 
 .ruio-btn-primary:hover {
   opacity: 1;
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   transform: scale(1.05);
 }
 
 .ruio-logo-btn-disabled,
 .ruio-logo-btn-disabled:hover {
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   opacity: 0.5;
 }
 
 .ruio-logo-btn-enabled,
 .ruio-logo-btn-enabled:hover {
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   transform: rotate(-10deg);
   opacity: 1;
-}
-
-.ruio-logo-btn-enabled:hover {
-  transform: rotate(-10deg);
 }
