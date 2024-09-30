@@ -23,7 +23,7 @@
 }
 
 .ruio-toggle-container {
-  z-index: 9999;
+  z-index: 9998;
   margin-top: 2px;
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@
 }
 
 .ruio-logo-div {
-  z-index: 9999;
+  z-index: 9998;
 
   display: flex;
   align-items: center;
@@ -59,6 +59,7 @@
 }
 
 .ruio-logo-div-bg {
+  z-index: 9997;
   position: absolute;
   bottom: 0;
   right: 0;

@@ -19,6 +19,7 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
       ref={ref}
       data-testid="ruio-ui-container"
       className={`
+        ruio-exclude
         ${divStyles['ruio-ui-container']}
       `}
     >
