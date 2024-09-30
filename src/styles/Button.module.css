@@ -15,6 +15,10 @@
   height: 34px;
   border-radius: 10px;
   cursor: pointer;
+
+  transition:
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
 }
 
 /* ToggleElementSelectionModeIcon.tsx */
