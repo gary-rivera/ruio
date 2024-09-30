@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import dividerStyles from '../styles/HorizontalDivider.module.css'
 
 type SettingsModalProps = {
   isOpen: boolean
@@ -25,32 +26,39 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
         color: 'white',
         maxWidth: '300px',
         width: '300px',
-        maxHeight: '150px',
-        height: '125px',
+        maxHeight: '200px',
+        height: '200px',
         padding: '20px',
         borderRadius: '10px',
         position: 'absolute',
-        right: '34px', // dynamically adjust to be iconRef.width/height + ~10px
-        bottom: '34px', // dynamically adjust to be iconRef.width/height + ~10px
+        right: '34px',
+        bottom: '34px',
+        flexDirection: 'column',
       }}
     >
+      <header style={{ display: 'inline-flex', justifyContent: 'space-between' }}>
+        <h2>Settings</h2>
+        <button style={{ all: 'unset' }} onClick={onClose}>
+          X
+        </button>
+      </header>
+      <hr style={{ width: 'inherit' }} />
+      <div style={{}}></div>
       <section style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 style={{ margin: '0px' }}> depth</h3>
           <span> depth controls</span>
         </div>
-        {/* <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 style={{ margin: '0px' }}> theme</h3>
           <span> theme controls</span>
         </div>
         <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h3 style={{ margin: '0px' }}> outline</h3>
           <span> outline controls</span>
-        </div> */}
+        </div>
       </section>
-      <footer style={{ alignSelf: 'end' }}>
-        <button onClick={onClose}>close</button>
-      </footer>
+      <footer style={{ alignSelf: 'end' }}></footer>
     </div>
   )
 }

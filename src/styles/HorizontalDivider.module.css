@@ -1,0 +1,6 @@
+.divider {
+  border: none;
+  border-top: 1px solid green; /* Adjust color as needed */
+
+  width: -webkit-fill-available;
+}
