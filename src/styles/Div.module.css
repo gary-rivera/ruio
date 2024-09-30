@@ -40,47 +40,46 @@
   align-items: center;
   justify-content: center;
 
-  width: 100%; /* Ensures the div fills the button's width */
+  width: 100%;
   height: 100%;
 }
 
-.active {
+.ruio-logo-div-active {
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   transform: scale(0.9) rotate(10deg);
 }
 
-.inactive {
+.ruio-logo-div-inactive {
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   transform: scale(1);
 }
 
-.ruio-second-bg-div-active,
-.ruio-second-bg-div-inactive {
+.ruio-logo-div-bg {
   position: absolute;
   bottom: 0;
   right: 0;
   pointer-events: none;
   border-radius: 15px;
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   will-change: opacity;
   width: 100%;
   height: 100%;
 }
 
-.ruio-second-bg-div-active {
+.ruio-logo-div-bg-active {
   background: #06e5d5;
 
   transform: scaleX(1.1) scaleY(1.03) rotate(3deg);
   opacity: 1;
 }
 
-.ruio-second-bg-div.inactive {
+.ruio-logo-div-bg-inactive {
   transform: scaleX(0.1) scaleY(1) rotate(0deg);
   opacity: 0;
 }

@@ -13,6 +13,7 @@
 .ruio-btn-secondary {
   width: 34px;
   height: 34px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -22,12 +23,10 @@
   cursor: pointer;
 
   transition:
-    opacity 0.3s ease-out,
-    transform 0.3s ease-out;
+    opacity 250ms ease-in-out,
+    transform 250ms ease-in-out;
   transform: translateY(20px);
   pointer-events: none;
-
-  border-radius: 12px;
 
   .ruio-mouse-pointer {
     stroke: #eaf8ef;
@@ -50,8 +49,8 @@
 /* SettingsIcon.tsx */
 .ruio-settings-btn-inactive {
   transition:
-    opacity 0.3s ease-out,
-    transform 0.3s ease-out;
+    opacity 250ms ease-in-out,
+    transform 250ms ease-in-out;
   transform: translateY(20px);
   opacity: 0;
   border: none;
@@ -80,7 +79,6 @@
 
 /* RuioToggleController */
 .ruio-btn-primary {
-  z-index: 2000;
   z-index: 9999;
   width: 38px;
   height: 32px;
@@ -94,24 +92,24 @@
 .ruio-btn-primary:hover {
   opacity: 1;
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   transform: scale(1.05);
 }
 
 .ruio-logo-btn-disabled,
 .ruio-logo-btn-disabled:hover {
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   opacity: 0.5;
 }
 
 .ruio-logo-btn-enabled,
 .ruio-logo-btn-enabled:hover {
   transition:
-    transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
   transform: rotate(-10deg);
   opacity: 1;
 }

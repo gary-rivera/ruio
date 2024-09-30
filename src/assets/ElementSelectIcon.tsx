@@ -18,7 +18,6 @@ function ElementSelectIcon() {
   return (
     <RuioIcon
       onClick={handleClick}
-      containerClassName={`${divStyles['ruio-toggle-container']}`}
       buttonClassName={`
         ${buttonStyles['ruio-btn']}
         ${buttonStyles['ruio-btn-secondary']}
