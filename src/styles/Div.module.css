@@ -7,6 +7,7 @@
 
 /* RuioUIContainer */
 .ruio-ui-container {
+  outline: 2px solid yellowgreen;
   bottom: 40px;
   right: 40px;
 
@@ -15,7 +16,7 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .ruio-toggle-container {

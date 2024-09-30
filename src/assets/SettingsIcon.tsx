@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react'
+import { useState, useRef, useEffect, MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsModal from '@components/SettingsModal'
 import RuioIcon from './RuioIcon'
@@ -9,20 +9,39 @@ import svgStyles from '../styles/SVG.module.css'
 function SettingsIcon() {
   const { ruioEnabled } = useRuioContext()
   const [settingsModalEnabled, setSettingsModalEnabled] = useState(false)
+  const [modalPosition, setModalPosition] = useState({ bottom: 0, right: 0 })
+  const iconRef = useRef<HTMLDivElement>(null)
 
   function handleToggleSettings(event: MouseEvent<HTMLButtonElement>) {
-    if (ruioEnabled) setSettingsModalEnabled(!settingsModalEnabled)
+    if (ruioEnabled) {
+      if (!settingsModalEnabled && iconRef.current) {
+        const rect = iconRef.current.getBoundingClientRect()
+        const offsetBottom = 20 // Adjust this value for desired spacing from the bottom
+        const offsetRight = 20 // Adjust this value for desired spacing from the right
+
+        console.log('innerHeight: ', window.innerHeight)
+        console.log('rect.bottom: ', rect.bottom)
+        console.log('rect.right: ', rect.right)
+
+        setModalPosition({
+          bottom: window.innerHeight - rect.bottom + offsetBottom, // Calculating distance from the bottom of the icon
+          right: window.innerWidth - rect.right + offsetRight, // Calculating distance from the right of the icon
+        })
+      }
+      setSettingsModalEnabled(!settingsModalEnabled)
+    }
   }
 
   return (
     <div
+      ref={iconRef}
       style={{
         outline: '2px solid pink',
         margin: '5px',
         display: 'flex',
         flexDirection: 'column-reverse',
         alignItems: 'end',
-        // position: 'absolute',
+        position: 'relative',
       }}
     >
       <RuioIcon
@@ -36,6 +55,7 @@ function SettingsIcon() {
         svgClassName={`${svgStyles['ruio-svg']} ${svgStyles['ruio-settings-svg']}`}
       >
         <>
+          {/* The SVG paths remain unchanged */}
           <path
             className={`${svgStyles['ruio-outline']}`}
             d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
@@ -93,7 +113,13 @@ function SettingsIcon() {
           />
         </>
       </RuioIcon>
-      <SettingsModal isOpen={settingsModalEnabled} onClose={() => setSettingsModalEnabled(false)} />
+      {settingsModalEnabled && (
+        <SettingsModal
+          isOpen={settingsModalEnabled}
+          position={modalPosition}
+          onClose={() => setSettingsModalEnabled(false)}
+        />
+      )}
     </div>
   )
 }
