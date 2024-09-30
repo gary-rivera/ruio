@@ -10,8 +10,7 @@ import divStyles from '../styles/Div.module.css'
 function ElementSelectIcon() {
   const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
 
-  function handleClick(event: MouseEvent<HTMLDivElement>) {
-    event.preventDefault()
+  function handleClick(event: MouseEvent<HTMLButtonElement>) {
     toggleElementSelectionMode()
   }
 

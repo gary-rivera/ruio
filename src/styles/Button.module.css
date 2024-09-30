@@ -10,7 +10,35 @@
   overflow: hidden;
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.98);
+  }
+  40% {
+    transform: scale(0.95);
+  }
+  60% {
+    transform: scale(0.97);
+  }
+  80% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse 150ms ease-out;
+}
+
+/* secondary icons */
 .ruio-btn-secondary {
+  overflow: hidden;
   z-index: 9990;
   width: 34px;
   height: 34px;
@@ -18,11 +46,15 @@
   cursor: pointer;
 
   transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+    transform 150ms ease-in-out,
+    opacity 150ms ease-in-out;
 }
 
-/* ToggleElementSelectionModeIcon.tsx */
+.ruio-btn-secondary:hover {
+  transform: scale(1.05);
+}
+
+/* ElementSelectIcon.tsx */
 .ruio-element-select-btn-inactive {
   opacity: 0;
   cursor: pointer;
@@ -45,8 +77,6 @@
 .ruio-element-select-btn-active {
   opacity: 1;
   pointer-events: auto;
-
-  z-index: 1000;
 
   transform: translateY(0);
 }
