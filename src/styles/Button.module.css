@@ -8,10 +8,6 @@
   border-radius: 10px;
 
   overflow: hidden;
-
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
 }
 
 .ruio-btn-secondary {
@@ -93,9 +89,6 @@
   align-items: center;
 
   padding: 3px;
-
-  transform: scale(0.95);
-  transition: transform 0.5s ease-in-out;
 }
 
 .ruio-btn-primary:hover {
@@ -121,8 +114,4 @@
     opacity 0.2s ease-in;
   transform: rotate(-10deg);
   opacity: 1;
-}
-
-.ruio-logo-btn-enabled:hover {
-  transform: rotate(-10deg);
 }

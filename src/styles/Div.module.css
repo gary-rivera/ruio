@@ -30,9 +30,7 @@
   justify-content: center;
   position: relative;
 
-  transition:
-    transform 0.1s ease-in,
-    opacity 0.1s ease-in;
+  transition: transform 250ms ease-in-out;
 }
 
 .ruio-logo-div {
