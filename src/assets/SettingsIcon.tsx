@@ -10,7 +10,7 @@ function SettingsIcon() {
   const { ruioEnabled } = useRuioContext()
   const [settingsModalEnabled, setSettingsModalEnabled] = useState(false)
 
-  function handleToggleSettings(event: MouseEvent<HTMLDivElement>) {
+  function handleToggleSettings(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
     console.log('clicked toggle of settingsicon.div', settingsModalEnabled)
     setSettingsModalEnabled(!settingsModalEnabled)
@@ -22,7 +22,6 @@ function SettingsIcon() {
 
       <RuioIcon
         onClick={handleToggleSettings}
-        containerClassName=""
         buttonClassName={`
           ruio-exclude
           ${buttonStyles['ruio-btn']}
