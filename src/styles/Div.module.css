@@ -7,7 +7,6 @@
 
 /* RuioUIContainer */
 .ruio-ui-container {
-  outline: 2px solid yellowgreen;
   bottom: 40px;
   right: 40px;
 
@@ -90,7 +89,6 @@
 .ruio-icon {
   width: auto;
   height: auto;
-  outline: 1px solid yellow;
   transition: transform 250ms ease-in-out;
 }
 .ruio-icon:hover {

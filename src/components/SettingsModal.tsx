@@ -5,18 +5,20 @@ type SettingsModalProps = {
   onClose: () => void
   title?: string
   footer?: ReactNode
-  position: { bottom: number; right: number }
+  position: { right: number; bottom: number }
 }
 
 function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsModalProps) {
   if (!isOpen) return null
-  console.log('received position values: ', {
-    bottom: position.bottom,
+  console.log('[SettingsModal] received coordinates: ', {
     right: position.right,
+    bottom: position.bottom,
+    offsetRight: position.right - 20,
+    offsetBottom: position.bottom - 20,
   })
   return (
     <div
-      className="yurrr"
+      className="ruio-exclude"
       style={{
         display: 'flex',
         backgroundColor: 'black',
@@ -25,12 +27,11 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
         width: '300px',
         maxHeight: '150px',
         height: '125px',
-        outline: '1px solid red',
         padding: '20px',
         borderRadius: '10px',
         position: 'absolute',
-        bottom: `${position.bottom}px`, // Ensure px is specified
-        right: `${position.right}px`, // Ensure px is specified
+        right: '34px', // dynamically adjust to be iconRef.width/height + ~10px
+        bottom: '34px', // dynamically adjust to be iconRef.width/height + ~10px
       }}
     >
       <section style={{ display: 'flex', flexDirection: 'column' }}>

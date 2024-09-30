@@ -13,30 +13,34 @@ function SettingsIcon() {
   const iconRef = useRef<HTMLDivElement>(null)
 
   function handleToggleSettings(event: MouseEvent<HTMLButtonElement>) {
-    if (ruioEnabled) {
-      if (!settingsModalEnabled && iconRef.current) {
-        const rect = iconRef.current.getBoundingClientRect()
-        const offsetBottom = 20 // Adjust this value for desired spacing from the bottom
-        const offsetRight = 20 // Adjust this value for desired spacing from the right
-
-        console.log('innerHeight: ', window.innerHeight)
-        console.log('rect.bottom: ', rect.bottom)
-        console.log('rect.right: ', rect.right)
-
-        setModalPosition({
-          bottom: window.innerHeight - rect.bottom + offsetBottom, // Calculating distance from the bottom of the icon
-          right: window.innerWidth - rect.right + offsetRight, // Calculating distance from the right of the icon
-        })
-      }
-      setSettingsModalEnabled(!settingsModalEnabled)
-    }
+    // if (!settingsModalEnabled && iconRef.current) setSettingsModalEnabled(!settingsModalEnabled)
+    setSettingsModalEnabled(!settingsModalEnabled)
   }
+
+  // useEffect(() => {
+  //   if (ruioEnabled && iconRef.current) {
+  //     const rect = iconRef.current.getBoundingClientRect()
+  //     const topLeftX = rect.left
+  //     const topLeftY = rect.top
+
+  //     console.log(
+  //       `Top-left corner of the element is at: (x/left-right: ${topLeftX}, y/top-bottom: ${topLeftY})`,
+  //     )
+
+  //     console.log('grabbing coords! ', {
+  //       bound: iconRef.current.getBoundingClientRect(),
+  //     })
+  //     const settingsIcon = iconRef.current.getBoundingClientRect()
+  //     const { x, y, bottom, right } = settingsIcon
+  //     setModalPosition({ right: 1649, bottom: 367 })
+  //   }
+  // }, [ruioEnabled])
 
   return (
     <div
       ref={iconRef}
+      className="ruio-exclude"
       style={{
-        outline: '2px solid pink',
         margin: '5px',
         display: 'flex',
         flexDirection: 'column-reverse',
