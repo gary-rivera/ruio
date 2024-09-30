@@ -11,15 +11,20 @@ function SettingsIcon() {
   const [settingsModalEnabled, setSettingsModalEnabled] = useState(false)
 
   function handleToggleSettings(event: MouseEvent<HTMLButtonElement>) {
-    event.preventDefault()
-    console.log('clicked toggle of settingsicon.div', settingsModalEnabled)
-    setSettingsModalEnabled(!settingsModalEnabled)
+    if (ruioEnabled) setSettingsModalEnabled(!settingsModalEnabled)
   }
 
   return (
-    <>
-      <SettingsModal isOpen={settingsModalEnabled} onClose={() => setSettingsModalEnabled(false)} />
-
+    <div
+      style={{
+        outline: '2px solid pink',
+        margin: '5px',
+        display: 'flex',
+        flexDirection: 'column-reverse',
+        alignItems: 'end',
+        // position: 'absolute',
+      }}
+    >
       <RuioIcon
         onClick={handleToggleSettings}
         buttonClassName={`
@@ -88,7 +93,8 @@ function SettingsIcon() {
           />
         </>
       </RuioIcon>
-    </>
+      <SettingsModal isOpen={settingsModalEnabled} onClose={() => setSettingsModalEnabled(false)} />
+    </div>
   )
 }
 

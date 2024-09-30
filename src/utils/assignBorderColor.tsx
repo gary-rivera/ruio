@@ -35,7 +35,8 @@ const colorPalettes: Record<string, string[]> = {
     '#664400', // Dark Peach/Brown
     '#00664C', // Dark Aqua
   ],
-  zesty: [
+  // didnt realize the negative connotation ._.
+  roygbiv: [
     '#FF0000', // Red
     '#FF7F00', // Orange
     '#FFFF00', // Yellow
