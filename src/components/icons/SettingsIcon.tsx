@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import SettingsModal from '@components/SettingsModal'
-import RuioIcon from './RuioIcon'
+import SettingsModal from '@components/settings/SettingsModal'
+import RuioIcon from '@components/icons/RuioIcon'
 
-import buttonStyles from '../styles/Button.module.css'
-import svgStyles from '../styles/SVG.module.css'
+import buttonStyles from '../../styles/Button.module.css'
+import svgStyles from '../../styles/SVG.module.css'
 
 function SettingsIcon() {
   const { ruioEnabled } = useRuioContext()
@@ -59,7 +59,6 @@ function SettingsIcon() {
         svgClassName={`${svgStyles['ruio-svg']} ${svgStyles['ruio-settings-svg']}`}
       >
         <>
-          {/* The SVG paths remain unchanged */}
           <path
             className={`${svgStyles['ruio-outline']}`}
             d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"

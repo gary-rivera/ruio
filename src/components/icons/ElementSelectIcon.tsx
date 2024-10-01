@@ -1,11 +1,11 @@
 import { MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import RuioIcon from './RuioIcon'
+import RuioIcon from '@components/icons/RuioIcon'
 
 // styling modules
-import buttonStyles from '../styles/Button.module.css'
-import svgStyles from '../styles/SVG.module.css'
-import divStyles from '../styles/Div.module.css'
+import buttonStyles from '../../styles/Button.module.css'
+import svgStyles from '../../styles/SVG.module.css'
+import divStyles from '../../styles/Div.module.css'
 
 function ElementSelectIcon() {
   const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
