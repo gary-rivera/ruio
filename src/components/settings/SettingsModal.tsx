@@ -88,8 +88,8 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
 
         borderRadius: '1rem',
         position: 'absolute',
-        right: '2vw',
-        bottom: '2vw',
+        right: '1.5vw',
+        bottom: '1.5vw',
         padding: '1rem 2rem',
         fontSize: '1rem',
         boxShadow:

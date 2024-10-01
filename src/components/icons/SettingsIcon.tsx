@@ -41,7 +41,6 @@ function SettingsIcon() {
       ref={iconRef}
       className="ruio-exclude"
       style={{
-        margin: '5px',
         display: 'flex',
         flexDirection: 'column-reverse',
         alignItems: 'end',

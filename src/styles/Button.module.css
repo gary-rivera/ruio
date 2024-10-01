@@ -13,8 +13,6 @@
   text-align: center;
 
   background-color: #1c2120;
-  width: 34px;
-  height: 34px;
 
   overflow: hidden;
 }
@@ -49,9 +47,9 @@
 .ruio-btn-secondary {
   overflow: hidden;
   z-index: 9990;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   cursor: pointer;
 
   transition:
