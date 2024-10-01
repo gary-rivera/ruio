@@ -14,16 +14,16 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/components/RuioWrapper.tsx'), // Adjust the entry point if necessary
-      name: 'Ruio', // Name for the global variable in UMD builds
+      entry: path.resolve(__dirname, 'src/components/RuioWrapper.tsx'),
+      name: 'Ruio',
       fileName: (format) => {
-        if (format === 'es') return 'ruio.esm.js' // Ensure ES module file name
-        if (format === 'cjs') return 'ruio.cjs.js' // Ensure CJS file name
-        return 'ruio.umd.js' // Fallback for UMD builds
+        if (format === 'es') return 'ruio.esm.js'
+        if (format === 'cjs') return 'ruio.cjs.js'
+        return 'ruio.umd.js'
       },
-      formats: ['es', 'cjs', 'umd'], // Specify the formats you want to build
+      formats: ['es', 'cjs', 'umd'],
     },
-    cssCodeSplit: false, // Required for css-injected-by-js plugin
+    cssCodeSplit: false,
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {

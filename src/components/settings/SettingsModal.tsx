@@ -23,6 +23,8 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
     offsetBottom: position.bottom - 20,
   })
 
+  const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
+
   type SettingsRowProps = {
     title: string
     containerClassName: string
@@ -46,6 +48,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           alignItems: 'center',
           justifyContent: 'space-between',
           margin: '0.3rem 0rem',
+          fontSize: '0.9rem',
         }}
       >
         <h4 style={{ margin: 0, fontWeight: '300' }}>{title}</h4>
@@ -58,6 +61,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             backgroundColor: '#383B3A',
             borderRadius: '0.5rem',
             width: '7rem',
+            boxShadow,
             ...inputContainerStyling,
           }}
         >
@@ -79,7 +83,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
         backgroundColor: '#2E3130',
         border: '2px solid #06E5D5',
         color: 'white',
-        width: '21vw',
+        width: '20vw',
         height: '15vw',
 
         borderRadius: '1rem',
@@ -88,6 +92,8 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
         bottom: '2vw',
         padding: '1rem 2rem',
         fontSize: '1rem',
+        boxShadow:
+          'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset',
       }}
     >
       <div className="ruio-settings-main-content">
@@ -95,16 +101,70 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            fontSize: '1.1rem',
+            fontSize: '1rem',
           }}
         >
-          <h2 style={{ margin: '0px' }}>Settings</h2>
+          <h2
+            style={{
+              margin: '0px',
+              marginBottom: '1rem',
+              fontWeight: '500',
+            }}
+          >
+            Settings
+          </h2>
           <button
             className={buttonStyles['ruio-btn']}
-            style={{ fontSize: 'inherit', backgroundColor: 'none', color: '#FFFFFF' }}
+            style={{ fontSize: 'inherit', backgroundColor: 'inherit', color: '#FFFFFF' }}
             onClick={onClose}
           >
-            x
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 41 41"
+              // fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g filter="url(#filter0_d_101_40)">
+                <path
+                  d="M11.7622 12.4937L29.0452 28.9625M11.8426 28.9625L29.1257 12.4937"
+                  stroke="#EAF8EF"
+                  stroke-width="5"
+                  stroke-linecap="round"
+                  shape-rendering="crispEdges"
+                />
+              </g>
+              <defs>
+                <filter
+                  id="filter0_d_101_40"
+                  x="5.26221"
+                  y="9.99365"
+                  width="30.3635"
+                  height="29.4689"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dy="4" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_40" />
+                  <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_dropShadow_101_40"
+                    result="shape"
+                  />
+                </filter>
+              </defs>
+            </svg>
           </button>
         </header>
         <section className="ruio-outline-config" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -112,9 +172,24 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             className="ruio-settings-subtitle"
             style={{ display: 'flex', fontSize: '1rem', alignItems: 'end', color: '#A6A6A6' }}
           >
-            <h4 style={{ margin: 0, fontWeight: '400' }}>Outline configuration</h4>
+            <h4
+              style={{
+                margin: 0,
+                marginBottom: '0.5rem',
+
+                fontWeight: '400',
+                fontSize: '0.9rem',
+              }}
+            >
+              Outline configuration
+            </h4>
             <hr
-              style={{ flex: 1, marginLeft: '2rem', border: 'none', borderTop: '1.5px solid #5E5E5E' }}
+              style={{
+                flex: 1,
+                marginLeft: '1.75rem',
+                border: 'none',
+                borderTop: '1.5px solid #5E5E5E',
+              }}
             />
           </div>
 
@@ -122,7 +197,11 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             title="Depth"
             containerClassName="ruio-settings-depth-row"
             inputContainerClassName="ruio-settings-depth-input"
-            inputContainerStyling={{ backgroundColor: 'inherit', justifyContent: 'space-between' }}
+            inputContainerStyling={{
+              backgroundColor: 'inherit',
+              justifyContent: 'space-between',
+              boxShadow: 'none',
+            }}
             children={
               <>
                 <button
@@ -135,6 +214,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                     backgroundColor: '#383B3A',
                     borderRadius: '0.5rem',
                     color: '#FFFFFF',
+                    boxShadow,
                   }}
                 >
                   -
@@ -142,7 +222,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                 <input
                   className={inputStyles['ruio-input']}
                   type="text"
-                  value="10"
+                  defaultValue="10"
                   style={{
                     width: '2.5rem',
                     fontSize: 'inherit',
@@ -160,6 +240,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                     backgroundColor: '#383B3A',
                     borderRadius: '0.5rem',
                     color: '#FFFFFF',
+                    boxShadow,
                   }}
                 >
                   +
@@ -224,7 +305,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           marginBottom: '-1rem',
           marginLeft: '-2rem',
           marginRight: '-2rem',
-          height: '10%',
+          height: '8%',
           borderBottomLeftRadius: 'inherit',
           borderBottomRightRadius: 'inherit',
           fontSize: '0.8rem',
