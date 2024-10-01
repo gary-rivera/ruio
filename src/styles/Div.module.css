@@ -68,7 +68,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  pointer-events: none;
+
   border-radius: 15px;
   transition:
     transform 250ms ease-in-out,
