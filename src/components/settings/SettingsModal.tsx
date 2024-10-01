@@ -57,7 +57,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           style={{
             display: 'flex',
             justifyContent: 'center',
-            backgroundColor: '#383B3A',
+            backgroundColor: '#3C3F3E',
             borderRadius: '0.5rem',
             height: '2.1rem',
             width: '7rem',
@@ -80,8 +80,8 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
         justifyContent: 'space-between',
         alignContent: 'center',
 
-        backgroundColor: '#2E3130',
-        border: '1px solid #06E5D5',
+        backgroundColor: '#323635',
+        border: '0.1rem solid #06E5D5',
         color: 'white',
         width: '20vw',
         height: '15vw',
@@ -102,12 +102,12 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             display: 'flex',
             justifyContent: 'space-between',
             fontSize: '1rem',
+            marginBottom: '1rem',
           }}
         >
           <h2
             style={{
-              margin: '0px',
-              marginBottom: '1.25rem',
+              margin: 0,
               fontWeight: '500',
             }}
           >
@@ -123,51 +123,19 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             onClick={onClose}
           >
             <svg
-              width="28"
-              height="28"
-              viewBox="0 0 41 41"
+              width="24"
+              height="24"
+              viewBox="0 0 34 34"
               // fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g filter="url(#filter0_d_101_40)">
-                <path
-                  d="M11.7622 12.4937L29.0452 28.9625M11.8426 28.9625L29.1257 12.4937"
-                  stroke="#EAF8EF"
-                  stroke-width="5"
-                  stroke-linecap="round"
-                  shape-rendering="crispEdges"
-                />
-              </g>
-              <defs>
-                <filter
-                  id="filter0_d_101_40"
-                  x="5.26221"
-                  y="9.99365"
-                  width="30.3635"
-                  height="29.4689"
-                  filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB"
-                >
-                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                  <feColorMatrix
-                    in="SourceAlpha"
-                    type="matrix"
-                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                    result="hardAlpha"
-                  />
-                  <feOffset dy="4" />
-                  <feGaussianBlur stdDeviation="2" />
-                  <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0" />
-                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_40" />
-                  <feBlend
-                    mode="normal"
-                    in="SourceGraphic"
-                    in2="effect1_dropShadow_101_40"
-                    result="shape"
-                  />
-                </filter>
-              </defs>
+              <path
+                d="M11.7622 12.4937L29.0452 28.9625M11.8426 28.9625L29.1257 12.4937"
+                stroke="#EAF8EF"
+                stroke-width="5"
+                stroke-linecap="round"
+                shape-rendering="crispEdges"
+              />
             </svg>
           </button>
         </header>
@@ -186,7 +154,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
               fontSize: '1rem',
               alignItems: 'center',
               color: '#A6A6A6',
-              marginBottom: '0.5rem',
+              marginBottom: '0.15rem',
             }}
           >
             <h4
@@ -222,13 +190,12 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
               <>
                 <button
                   className={buttonStyles['ruio-btn']}
-                  type="button"
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
                     width: '2.1rem',
                     cursor: 'pointer',
-                    backgroundColor: '#383B3A',
+                    backgroundColor: '#3C3F3E',
                     borderRadius: '0.5rem',
                     color: '#FFFFFF',
                     boxShadow,
@@ -249,13 +216,12 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                 />
                 <button
                   className={buttonStyles['ruio-btn']}
-                  type="button"
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
                     width: '2.1rem',
                     cursor: 'pointer',
-                    backgroundColor: '#383B3A',
+                    backgroundColor: '#3C3F3E',
                     borderRadius: '0.5rem',
                     color: '#FFFFFF',
                     boxShadow,
