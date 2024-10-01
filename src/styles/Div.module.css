@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 /* TODO: add ruio global css variables:
 - dynamic (vw?) width
 - dynamic (vw?) height
@@ -7,6 +9,8 @@
 
 /* RuioUIContainer */
 .ruio-ui-container {
+  font-family: 'Outfit', sans-serif;
+
   bottom: 40px;
   right: 40px;
 
