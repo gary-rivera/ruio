@@ -47,7 +47,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          margin: '0.3rem 0rem',
+          margin: '0.25rem 0rem',
           fontSize: '0.9rem',
         }}
       >
@@ -57,9 +57,9 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           style={{
             display: 'flex',
             justifyContent: 'center',
-
             backgroundColor: '#383B3A',
             borderRadius: '0.5rem',
+            height: '2.1rem',
             width: '7rem',
             boxShadow,
             ...inputContainerStyling,
@@ -81,15 +81,15 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
         alignContent: 'center',
 
         backgroundColor: '#2E3130',
-        border: '2px solid #06E5D5',
+        border: '1px solid #06E5D5',
         color: 'white',
         width: '20vw',
         height: '15vw',
 
         borderRadius: '1rem',
         position: 'absolute',
-        right: '1.5vw',
-        bottom: '1.5vw',
+        right: '1.25vw',
+        bottom: '2vw',
         padding: '1rem 2rem',
         fontSize: '1rem',
         boxShadow:
@@ -107,7 +107,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           <h2
             style={{
               margin: '0px',
-              marginBottom: '1rem',
+              marginBottom: '1.25rem',
               fontWeight: '500',
             }}
           >
@@ -115,12 +115,16 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           </h2>
           <button
             className={buttonStyles['ruio-btn']}
-            style={{ fontSize: 'inherit', backgroundColor: 'inherit', color: '#FFFFFF' }}
+            style={{
+              fontSize: 'inherit',
+              backgroundColor: 'inherit',
+              color: '#FFFFFF',
+            }}
             onClick={onClose}
           >
             <svg
-              width="30"
-              height="30"
+              width="28"
+              height="28"
               viewBox="0 0 41 41"
               // fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -167,16 +171,27 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             </svg>
           </button>
         </header>
-        <section className="ruio-outline-config" style={{ display: 'flex', flexDirection: 'column' }}>
+        <section
+          className="ruio-outline-config"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
           <div
-            className="ruio-settings-subtitle"
-            style={{ display: 'flex', fontSize: '1rem', alignItems: 'end', color: '#A6A6A6' }}
+            className="ruio-settings-subtitle-container"
+            style={{
+              display: 'flex',
+              fontSize: '1rem',
+              alignItems: 'center',
+              color: '#A6A6A6',
+              marginBottom: '0.5rem',
+            }}
           >
             <h4
               style={{
                 margin: 0,
-                marginBottom: '0.5rem',
-
                 fontWeight: '400',
                 fontSize: '0.9rem',
               }}
@@ -186,9 +201,10 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             <hr
               style={{
                 flex: 1,
+                margin: 0,
                 marginLeft: '1.75rem',
                 border: 'none',
-                borderTop: '1.5px solid #5E5E5E',
+                borderTop: '0.1rem solid #5E5E5E',
               }}
             />
           </div>
@@ -210,6 +226,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
+                    width: '2.1rem',
                     cursor: 'pointer',
                     backgroundColor: '#383B3A',
                     borderRadius: '0.5rem',
@@ -236,6 +253,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
+                    width: '2.1rem',
                     cursor: 'pointer',
                     backgroundColor: '#383B3A',
                     borderRadius: '0.5rem',
@@ -274,23 +292,21 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
             title="Opacity"
             containerClassName="ruio-settings-opacity-row"
             inputContainerClassName="ruio-opacity-input-control"
+            inputContainerStyling={{ display: 'flex', alignItems: 'center' }}
             children={
               <>
-                <input
-                  id="opacity-input"
-                  className={inputStyles['ruio-input']}
-                  type="text"
-                  min="0"
-                  max="100"
-                  step="1"
-                  defaultValue="75"
+                <span
                   style={{
-                    width: '3rem',
-                    padding: '0.4rem',
+                    maxWidth: '1.5rem',
+                    padding: 0,
                     textAlign: 'center',
-                    fontSize: 'inherit',
+                    fontSize: '0.9rem',
+                    fontWeight: '300',
+                    marginRight: '0.1rem',
                   }}
-                />
+                >
+                  100
+                </span>
                 <span style={{ color: 'gray', alignSelf: 'center' }}>%</span>
               </>
             }
