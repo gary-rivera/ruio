@@ -4,8 +4,9 @@ import { applyOutlineUI } from '@utils/applyOutlineUI'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import divStyles from '../styles/Div.module.css'
-import SettingsIcon from '@assets/SettingsIcon'
-import ElementSelectIcon from '@assets/ElementSelectIcon'
+import SettingsIcon from '@components/icons/SettingsIcon'
+import ElementSelectIcon from '@components/icons/ElementSelectIcon'
+import '../styles/globals.css'
 
 interface RuioUIContainerProps {
   // NOTE: define as needed
