@@ -1,0 +1,12 @@
+.ruio-input {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block; /* Ensures consistent display */
+  font: inherit; /* Inherit font from parent */
+  color: inherit; /* Inherit text color */
+  box-sizing: border-box; /* Ensures consistent sizing */
+  outline: none; /* Remove browser's default outline */
+  appearance: none; /* Removes default styles in some browsers */
+}

@@ -10,6 +10,7 @@
 /* RuioUIContainer */
 .ruio-ui-container {
   font-family: 'Outfit', sans-serif;
+  font-weight: 400;
 
   bottom: 40px;
   right: 40px;
