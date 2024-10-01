@@ -13,7 +13,7 @@ type SettingsModalProps = {
   position: { right: number; bottom: number }
 }
 
-function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsModalProps) {
+function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
   if (!isOpen) return null
 
   console.log('[SettingsModal] received coordinates: ', {
@@ -51,7 +51,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           fontSize: '0.9rem',
         }}
       >
-        <h4 style={{ margin: 0, fontWeight: '300' }}>{title}</h4>
+        <h4 style={{ margin: 0, fontWeight: '400' }}>{title}</h4>
         <div
           className={`ruio-settings-input-container ${inputContainerClassName}`}
           style={{
@@ -208,6 +208,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
                   type="text"
                   defaultValue="10"
                   style={{
+                    alignSelf: 'center',
                     width: '2.5rem',
                     fontSize: 'inherit',
                     padding: '0.2rem',
@@ -293,7 +294,7 @@ function SettingsModal({ isOpen, onClose, position, title, footer }: SettingsMod
           fontSize: '0.8rem',
         }}
       >
-        <span style={{ fontStyle: 'italic', color: '#5E5E5E' }}> Report an issue</span>
+        <span style={{ color: '#5E5E5E' }}> Report an issue</span>
       </footer>
     </div>
   )
