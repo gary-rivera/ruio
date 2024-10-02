@@ -3,16 +3,16 @@ import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 
 interface RuioContextProps {
-  ruioEnabled: boolean // is ruio related state/interactions enabled
+  ruioEnabled: boolean // are ruio related state +/- interactions enabled
   setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // toggle ruio related state/interactions
-  depth: number // depth of the amount of elements to apply borders to
-  setDepth: React.Dispatch<React.SetStateAction<number>> // set the depth of the amount of elements to apply borders to
+  depth: number // depth of the amount of elements to apply outline UI to
+  setDepth: React.Dispatch<React.SetStateAction<number>>
   parentAppRootElement: HTMLElement | null // the root of the parent react application
   setParentAppRootElement: React.Dispatch<React.SetStateAction<HTMLElement | null>>
   selectedRootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
   isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
   setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
-  toggleElementSelectionMode: () => void
+  toggleElementSelectionMode: () => void // cb to toggle element selection mode (for clarity, might remove)
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
@@ -25,11 +25,9 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [parentAppRootElement, setParentAppRootElement] = useState<HTMLElement | null>(
     document.querySelector('#root') as HTMLElement | null,
   )
-  // TODO: use a ruio wrapper root element
+
   // if current element has standard react root class element and the current selected element isn't the root class element, dont apply the ui outlining styles
-
   const controlPanelRef = useRef<HTMLDivElement | null>(null)
-
   useEffect(() => {
     if (ruioEnabled && controlPanelRef.current) {
       controlPanelRef.current.style.display = 'block'
@@ -73,7 +71,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (selectedRootElement) {
       applyOutlineUI(selectedRootElement, depth, ruioEnabled)
     }
-  }, [depth, selectedRootElement, setRuioEnabled, ruioEnabled]) // NOTE: did include ruioEnabled at one point -- might need to add back
+  }, [depth, selectedRootElement, setRuioEnabled, ruioEnabled])
 
   const contextValue = useMemo(
     () => ({
@@ -88,7 +86,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       setIsElementSelectionModeActive,
       toggleElementSelectionMode,
     }),
-    // TODO: verify that this is the appropriate way to set up dependancy array. is it necessary to include all of the values in the array?
+    // TODO: verify -- is it necessary to include all of these deps?
     [
       ruioEnabled,
       depth,
