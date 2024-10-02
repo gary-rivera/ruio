@@ -1,6 +1,5 @@
 import React, { forwardRef, useEffect } from 'react'
 import RuioToggleController from '../controllers/RuioToggleController'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import divStyles from '../styles/Div.module.css'
@@ -13,8 +12,6 @@ interface RuioUIContainerProps {
 }
 
 function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElement>) {
-  const { depth, ruioEnabled, parentAppRootElement, selectedRootElement } = useRuioContext()
-
   return (
     <div
       ref={ref}

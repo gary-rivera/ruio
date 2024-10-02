@@ -13,6 +13,8 @@ interface RuioContextProps {
   isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
   setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
   toggleElementSelectionMode: () => void // cb to toggle element selection mode (for clarity, might remove)
+  currentColorPalette: string // the key of the current color palette aka theme
+  setCurrentColorPalette: React.Dispatch<React.SetStateAction<string>> // setter for the color palette theme
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
@@ -25,6 +27,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [parentAppRootElement, setParentAppRootElement] = useState<HTMLElement | null>(
     document.querySelector('#root') as HTMLElement | null,
   )
+  const [currentColorPalette, setCurrentColorPalette] = useState<string>('default')
 
   // if current element has standard react root class element and the current selected element isn't the root class element, dont apply the ui outlining styles
   const controlPanelRef = useRef<HTMLDivElement | null>(null)
@@ -51,7 +54,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (ruioEnabled && isElementSelectionModeActive) {
       const cleanupElementSelectionEvents = ElementInteractionController(
         (element) => {
-          applyOutlineUI(element, depth, ruioEnabled)
+          applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
         },
         (element) => {
           setIsElementSelectionModeActive(false)
@@ -69,9 +72,9 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   useEffect(() => {
     if (selectedRootElement) {
-      applyOutlineUI(selectedRootElement, depth, ruioEnabled)
+      applyOutlineUI(selectedRootElement, depth, ruioEnabled, currentColorPalette)
     }
-  }, [depth, selectedRootElement, setRuioEnabled, ruioEnabled])
+  }, [depth, selectedRootElement, setRuioEnabled, ruioEnabled, currentColorPalette])
 
   const contextValue = useMemo(
     () => ({
@@ -85,6 +88,8 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       isElementSelectionModeActive,
       setIsElementSelectionModeActive,
       toggleElementSelectionMode,
+      currentColorPalette,
+      setCurrentColorPalette,
     }),
     // TODO: verify -- is it necessary to include all of these deps?
     [
@@ -95,6 +100,8 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       selectedRootElement,
       isElementSelectionModeActive,
       toggleElementSelectionMode,
+      currentColorPalette,
+      setCurrentColorPalette,
     ],
   )
 

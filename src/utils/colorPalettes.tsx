@@ -1,4 +1,4 @@
-const colorPalettes: Record<string, string[]> = {
+export const colorPalettesMap: Record<string, string[]> = {
   default: [
     '#ff5832', // Vivid Orange
     '#84a5ad', // Muted Cyan
@@ -69,10 +69,10 @@ const colorPalettes: Record<string, string[]> = {
   ],
 }
 
-export const getRelativeDepthColor = (theme: keyof typeof colorPalettes, depth: number): string => {
-  const palette = colorPalettes[theme]
-  if (!palette.length) {
-    throw new Error(`The theme '${theme}' does not have any colors defined.`)
+export const getRelativeDepthColor = (colors: string[], currentDepth: number): string => {
+  if (!colors.length) {
+    throw new Error(`[ruio][utils/colorPalettes] no colors found for the current theme`)
   }
-  return palette[depth % palette.length]
+  const index = currentDepth % colors.length
+  return colors[index]
 }

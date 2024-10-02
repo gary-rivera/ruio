@@ -1,3 +1,4 @@
+// NOTE: THIS FILE IS FOR TESTING PURPOSES ONLY
 import React, { useEffect, useRef } from 'react'
 import { applyOutlineUI } from '@utils/applyOutlineUI'
 
@@ -11,7 +12,7 @@ export const BorderedComponent: React.FC<BorderedComponentProps> = ({ depth, app
 
   useEffect(() => {
     if (containerRef.current) {
-      applyOutlineUI(containerRef.current, depth, apply)
+      applyOutlineUI(containerRef.current, depth, apply, 'default')
     }
   }, [depth, apply])
 

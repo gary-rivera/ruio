@@ -1,12 +1,24 @@
-import { getRelativeDepthColor } from '@utils/assignBorderColor'
+import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
 
 export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 
 // TODO: add root class or id configuration to settings icon modal
 // TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements (performance for small vs. large data sets)
 // ref. sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
-export const applyOutlineUI = (element: HTMLElement, depth: number, apply: boolean) => {
+export const applyOutlineUI = (
+  element: HTMLElement,
+  depth: number,
+  apply: boolean,
+  currentColorPalette: string,
+) => {
   if (element && element.classList.contains('ruio-exclude')) return
+
+  if (!currentColorPalette) {
+    console.warn('currentColorPalette is undefined; defaulting to "default" palette.')
+    currentColorPalette = 'default'
+  }
+
+  const colors = colorPalettesMap[currentColorPalette]
   const elements = new Set<HTMLElement>()
 
   const traverse = (el: HTMLElement, currentDepth: number) => {
@@ -18,8 +30,9 @@ export const applyOutlineUI = (element: HTMLElement, depth: number, apply: boole
 
     // Apply styles only when necessary
     requestAnimationFrame(() => {
-      // TODO: not too optimal to constantly lookup rahter than load the hex index based off state
-      el.style.outline = apply ? `2px solid ${getRelativeDepthColor('neon', currentDepth)}` : ''
+      // Use the colors array instead of a hard-coded palette key
+      const outlineColor = getRelativeDepthColor(colors, currentDepth)
+      el.style.outline = apply ? `2px solid ${outlineColor}` : ''
     })
 
     Array.from(el.children).forEach((child) => {
