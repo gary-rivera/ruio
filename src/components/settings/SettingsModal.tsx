@@ -150,7 +150,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
 
           <SettingsRow
             title="Depth"
-            containerClassName="ruio-settings-depth-row"
+            containerID="ruio-settings-depth-row"
             inputContainerClassName="ruio-settings-depth-input"
             inputContainerStyling={{
               backgroundColor: 'inherit',
@@ -214,7 +214,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
 
           <SettingsRow
             title="Theme"
-            containerClassName="ruio-settings-theme-row"
+            containerID="ruio-settings-theme-row"
             inputContainerClassName="ruio-theme-input-control"
             children={
               <>
@@ -235,7 +235,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
 
           <SettingsRow
             title="Opacity"
-            containerClassName="ruio-settings-opacity-row"
+            containerID="ruio-settings-opacity-row"
             inputContainerClassName="ruio-opacity-input-control"
             inputContainerStyling={{ display: 'flex', alignItems: 'center' }}
             children={

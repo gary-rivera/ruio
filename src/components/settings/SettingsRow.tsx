@@ -2,7 +2,7 @@ import { ReactNode, CSSProperties } from 'react'
 
 type SettingsRowProps = {
   title: string
-  containerClassName: string
+  containerID: string
   inputContainerClassName: string
   inputContainerStyling?: CSSProperties
   children: ReactNode
@@ -10,7 +10,7 @@ type SettingsRowProps = {
 
 function SettingsRow({
   title,
-  containerClassName,
+  containerID,
   inputContainerClassName,
   inputContainerStyling,
   children,
@@ -19,7 +19,7 @@ function SettingsRow({
 
   return (
     <div
-      className={containerClassName}
+      id={containerID}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
