@@ -1,6 +1,8 @@
 import { ReactNode, ChangeEvent, useState } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
+import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
+import { colorPalettesMap } from '@utils/colorPalettes'
 
 import buttonStyles from '../../styles/Button.module.css'
 // import dividerStyles from '../styles/HorizontalDivider.module.css'
@@ -44,7 +46,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
   }
   return (
     <div
-      className="ruio-exclude ruio-settings-modal"
+      className=" ruio-settings-modal"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -216,21 +218,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
             title="Theme"
             containerID="ruio-settings-theme-row"
             inputContainerClassName="ruio-theme-input-control"
-            children={
-              <>
-                <select
-                  id="number-select"
-                  className={selectStyles['ruio-select']}
-                  style={{ padding: '0.5rem', fontSize: 'inherit', fontWeight: '200' }}
-                >
-                  {['default', 'dark', 'neon'].map((theme) => (
-                    <option key={theme} value={theme}>
-                      {theme}
-                    </option>
-                  ))}
-                </select>
-              </>
-            }
+            children={<ColorPaletteDropdown />}
           />
 
           <SettingsRow
