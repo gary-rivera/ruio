@@ -1,7 +1,9 @@
-import { ReactNode, CSSProperties } from 'react'
+import { ReactNode, ChangeEvent, useState } from 'react'
+import { useRuioContext } from '@root/context/RuioContextProvider'
+import SettingsRow from '@components/settings/SettingsRow'
 
 import buttonStyles from '../../styles/Button.module.css'
-import dividerStyles from '../styles/HorizontalDivider.module.css'
+// import dividerStyles from '../styles/HorizontalDivider.module.css'
 import inputStyles from '../../styles/Input.module.css'
 import selectStyles from '../../styles/Select.module.css'
 
@@ -12,65 +14,34 @@ type SettingsModalProps = {
   footer?: ReactNode
   position: { right: number; bottom: number }
 }
+const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
 function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
   if (!isOpen) return null
 
-  console.log('[SettingsModal] received coordinates: ', {
-    right: position.right,
-    bottom: position.bottom,
-    offsetRight: position.right - 20,
-    offsetBottom: position.bottom - 20,
-  })
+  const { depth, setDepth } = useRuioContext()
+  const [tempDepth, setTempDepth] = useState<string>(depth.toString())
 
-  const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
-
-  type SettingsRowProps = {
-    title: string
-    containerClassName: string
-    inputContainerClassName: string
-    inputContainerStyling?: CSSProperties
-    children: ReactNode
+  function adjustStylingDepth(operation: 'increment' | 'decrement') {
+    console.log('[adjustStylingDepth] called with: ', operation)
+    setDepth((prevDepth) => {
+      const newDepth = operation === 'increment' ? prevDepth + 1 : prevDepth - 1
+      setTempDepth(newDepth.toString())
+      return newDepth
+    })
   }
 
-  function SettingsRow({
-    title,
-    containerClassName,
-    inputContainerClassName,
-    inputContainerStyling,
-    children,
-  }: SettingsRowProps) {
-    return (
-      <div
-        className={containerClassName}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          margin: '0.25rem 0rem',
-          fontSize: '0.9rem',
-        }}
-      >
-        <h4 style={{ margin: 0, fontWeight: '400' }}>{title}</h4>
-        <div
-          className={`ruio-settings-input-container ${inputContainerClassName}`}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            backgroundColor: '#3C3F3E',
-            borderRadius: '0.5rem',
-            height: '2.1rem',
-            width: '7rem',
-            boxShadow,
-            ...inputContainerStyling,
-          }}
-        >
-          {children}
-        </div>
-      </div>
-    )
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setTempDepth(event.target.value)
   }
 
+  function handleConfirm() {
+    const value = parseInt(tempDepth, 10)
+    if (!isNaN(value)) {
+      setDepth(value)
+    }
+    setTempDepth(value.toString())
+  }
   return (
     <div
       className="ruio-exclude ruio-settings-modal"
@@ -132,9 +103,9 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
               <path
                 d="M11.7622 12.4937L29.0452 28.9625M11.8426 28.9625L29.1257 12.4937"
                 stroke="#EAF8EF"
-                stroke-width="5"
-                stroke-linecap="round"
-                shape-rendering="crispEdges"
+                strokeWidth="5"
+                strokeLinecap="round"
+                shapeRendering="crispEdges"
               />
             </svg>
           </button>
@@ -190,6 +161,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
               <>
                 <button
                   className={buttonStyles['ruio-btn']}
+                  onClick={() => adjustStylingDepth('decrement')}
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
@@ -206,7 +178,12 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
                 <input
                   className={inputStyles['ruio-input']}
                   type="text"
-                  defaultValue="10"
+                  value={tempDepth}
+                  onChange={handleChange}
+                  onBlur={handleConfirm}
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+                    e.key === 'Enter' && handleConfirm()
+                  }
                   style={{
                     alignSelf: 'center',
                     width: '2.5rem',
@@ -217,6 +194,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
                 />
                 <button
                   className={buttonStyles['ruio-btn']}
+                  onClick={() => adjustStylingDepth('increment')}
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',

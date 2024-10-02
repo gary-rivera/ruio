@@ -19,7 +19,7 @@ const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [ruioEnabled, setRuioEnabled] = useState(false)
-  const [depth, setDepth] = useState(5)
+  const [depth, setDepth] = useState(3)
   const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
   const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
   const [parentAppRootElement, setParentAppRootElement] = useState<HTMLElement | null>(
