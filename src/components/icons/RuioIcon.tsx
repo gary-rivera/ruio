@@ -19,7 +19,6 @@ function RuioIcon({
   const [shouldPulse, setShouldPulse] = useState(false)
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     onClick(event)
-    console.log('hit handleClick event :)')
     if (pulseEnabled) {
       setShouldPulse(true)
 

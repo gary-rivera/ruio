@@ -59,7 +59,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
         width: '20vw',
         height: '15vw',
 
-        borderRadius: '1rem',
+        borderRadius: '10px',
         position: 'absolute',
         right: '1.25vw',
         bottom: '2vw',
@@ -170,7 +170,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
                     width: '2.1rem',
                     cursor: 'pointer',
                     backgroundColor: '#3C3F3E',
-                    borderRadius: '0.5rem',
+                    borderRadius: '8px',
                     color: '#FFFFFF',
                     boxShadow,
                   }}
@@ -203,7 +203,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
                     width: '2.1rem',
                     cursor: 'pointer',
                     backgroundColor: '#3C3F3E',
-                    borderRadius: '0.5rem',
+                    borderRadius: '8px',
                     color: '#FFFFFF',
                     boxShadow,
                   }}
@@ -218,11 +218,17 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
             title="Theme"
             containerID="ruio-settings-theme-row"
             inputContainerClassName="ruio-theme-input-control"
+            inputContainerStyling={{
+              display: 'flex',
+              alignItems: 'center',
+              position: 'relative',
+              cursor: 'crosshair',
+            }}
             children={<ColorPaletteDropdown />}
           />
 
           <SettingsRow
-            title="Opacity"
+            title="Border/Outline"
             containerID="ruio-settings-opacity-row"
             inputContainerClassName="ruio-opacity-input-control"
             inputContainerStyling={{ display: 'flex', alignItems: 'center' }}

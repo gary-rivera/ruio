@@ -99,3 +99,8 @@
 .ruio-icon:hover {
   transform: scale(1.05);
 }
+
+/* ColorPaletteDropdown */
+.ruio-dropdown-list-item-active-theme {
+  background-color: #565a59;
+}
