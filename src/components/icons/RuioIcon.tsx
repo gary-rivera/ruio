@@ -1,5 +1,5 @@
 import { ReactNode, MouseEvent, useState } from 'react'
-import buttonStyles from '../styles/Button.module.css'
+import buttonStyles from '../../styles/Button.module.css'
 
 type RuioIconProps = {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
@@ -16,18 +16,16 @@ function RuioIcon({
   svgClassName = '',
   pulseEnabled = true,
 }: RuioIconProps) {
-  // TODO: rename to shouldPulse (ispulsing sounds like it repeats)
   const [shouldPulse, setShouldPulse] = useState(false)
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     onClick(event)
-    console.log('hit handleClick event :)')
-    // if (pulseEnabled) {
-    setShouldPulse(true)
+    if (pulseEnabled) {
+      setShouldPulse(true)
 
-    setTimeout(() => {
-      setShouldPulse(false)
-    }, 150)
-    // }
+      setTimeout(() => {
+        setShouldPulse(false)
+      }, 150)
+    }
   }
 
   return (

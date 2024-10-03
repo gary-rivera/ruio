@@ -1,19 +1,17 @@
 import React, { forwardRef, useEffect } from 'react'
 import RuioToggleController from '../controllers/RuioToggleController'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import divStyles from '../styles/Div.module.css'
-import SettingsIcon from '@assets/SettingsIcon'
-import ElementSelectIcon from '@assets/ElementSelectIcon'
+import SettingsIcon from '@components/icons/SettingsIcon'
+import ElementSelectIcon from '@components/icons/ElementSelectIcon'
+import '../styles/globals.css'
 
 interface RuioUIContainerProps {
   // NOTE: define as needed
 }
 
 function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElement>) {
-  const { depth, ruioEnabled, parentAppRootElement, selectedRootElement } = useRuioContext()
-
   return (
     <div
       ref={ref}
@@ -26,7 +24,7 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
       {/* all ruio components are lazy-loaded, css controls respective render effects */}
       <RuioToggleController />
       <ElementSelectIcon />
-      {/* <SettingsIcon /> */}
+      <SettingsIcon />
     </div>
   )
 }

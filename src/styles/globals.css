@@ -1,4 +1,12 @@
-body {
+.ruio-dummy {
   background-color: black;
   color: white; /* Optional: set text color to white for readability */
 }
+
+/*
+TODO: enable once verified this doesn't impact parent projects on import
+input:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+*/

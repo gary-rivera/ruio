@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 /* TODO: add ruio global css variables:
 - dynamic (vw?) width
 - dynamic (vw?) height
@@ -7,6 +9,9 @@
 
 /* RuioUIContainer */
 .ruio-ui-container {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+
   bottom: 40px;
   right: 40px;
 
@@ -15,7 +20,7 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .ruio-toggle-container {
@@ -63,7 +68,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  pointer-events: none;
+
   border-radius: 15px;
   transition:
     transform 250ms ease-in-out,
@@ -89,9 +94,20 @@
 .ruio-icon {
   width: auto;
   height: auto;
-  outline: 1px solid yellow;
   transition: transform 250ms ease-in-out;
 }
 .ruio-icon:hover {
   transform: scale(1.05);
+}
+
+/* ColorPaletteDropdown */
+.ruio-dropdown-list-item-active-theme {
+  background-color: #565a59;
+}
+
+.ruio-dropdown-list-item {
+}
+
+.ruio-input-active {
+  outline: 0.01rem solid #06e5d5;
 }
