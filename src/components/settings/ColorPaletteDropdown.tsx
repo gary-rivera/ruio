@@ -41,7 +41,8 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
       //   setIsOpen(true)
       // }}
     >
-      <span>{currentColorPalette}</span>
+      {currentColorPalette}
+
       {isOpen && (
         <div
           className="dropdown-menu"

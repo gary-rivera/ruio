@@ -20,8 +20,15 @@ function SettingsRow({
   children,
   allowCustomEvents = false,
   isOpen,
+  setIsOpen,
 }: SettingsRowProps) {
   const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget || event.target === event.currentTarget.firstChild) {
+      if (allowCustomEvents && setIsOpen) setIsOpen(!isOpen)
+    }
+  }
 
   return (
     <div
@@ -39,6 +46,7 @@ function SettingsRow({
         className={`ruio-settings-input-container ${inputContainerClassName} ${isOpen ? divStyles['ruio-input-active'] : ''}`}
         style={{
           display: 'flex',
+          // outline: '1px solid yellow',
           justifyContent: 'center',
           backgroundColor: '#3C3F3E',
           borderRadius: '8px',
@@ -47,6 +55,7 @@ function SettingsRow({
           boxShadow,
           ...inputContainerStyling,
         }}
+        onClick={handleClick}
       >
         {children}
       </div>
