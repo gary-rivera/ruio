@@ -226,7 +226,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             setIsOpen={setThemeDropdownIsOpen}
           />
 
-          <SettingsRow
+          {/* <SettingsRow
             title="Border/Outline"
             containerID="ruio-settings-opacity-row"
             inputContainerClassName="ruio-opacity-input-control"
@@ -248,7 +248,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <span style={{ color: 'gray', alignSelf: 'center' }}>%</span>
               </>
             }
-          />
+          /> */}
         </section>
       </div>
 
