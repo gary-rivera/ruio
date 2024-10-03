@@ -40,7 +40,7 @@ export const colorPalettesMap: Record<string, string[]> = {
     '#FF5F00', // Neon Orange
     '#1E90FF', // Neon Blue
   ],
-  minimal: [
+  minima: [
     '#2F3E46', // Charcoal Gray
     '#CAD2C5', // Pale Green
     '#4A4E69', // Muted Purple

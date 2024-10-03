@@ -1,54 +1,45 @@
 import React, { useState, useRef, useEffect } from 'react'
-import ColorPaletteOption from './ColorPaletteOption'
 import { colorPalettesMap } from '@utils/colorPalettes'
 import { useRuioContext } from '@context/RuioContextProvider'
 
-// import './ColorPaletteDropdown.css' // Import your CSS styles
 import buttonStyles from '../../styles/Button.module.css'
 import spanStyles from '../../styles/Span.module.css'
 import divStyles from '../../styles/Div.module.css'
 
-function ColorPaletteDropdown(/*{ onSelect }*/) {
-  const { currentColorPalette, setCurrentColorPalette } = useRuioContext()
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedPalette, setSelectedPalette] = useState('default')
-  const dropdownRef = useRef()
+type ColorPaletteDropdownProps = {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen)
+function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) {
+  const { currentColorPalette, setCurrentColorPalette } = useRuioContext()
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const paletteKey = event.currentTarget.getAttribute('data-palette-key')
+    if (paletteKey) setCurrentColorPalette(paletteKey)
   }
 
-  // TODO: if hovered over 100ms render the dropdowncontainer (call handleToggle)
-  // TODO: handleClick of item to establish new theme
-  // TODO: handleClick outside of dropdown
+  const handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
+    const movedToElement = event.relatedTarget as Node
+    if (dropdownRef.current && !dropdownRef.current.contains(movedToElement)) {
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 350)
+    }
+  }
 
-  // const handleSelect = (paletteKey) => {
-  //   setSelectedPalette(paletteKey)
-  //   setIsOpen(false)
-  //   if (onSelect) {
-  //     onSelect(paletteKey)
-  //   }
-  // }
+  const handleDropdownItemHover = (event: React.MouseEvent<HTMLDivElement>) => {}
 
-  // const handleClickOutside = (event) => {
-  //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //     setIsOpen(false)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside)
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside)
-  //   }
-  // }, [])
+  useEffect(() => {}, [isOpen, dropdownRef])
 
   return (
     <div
       className="color-palette-dropdown-control"
-      onClick={handleToggle}
-
-      /*ref={dropdownRef}*/
+      ref={dropdownRef}
+      // onClick={() => {
+      //   setIsOpen(true)
+      // }}
     >
       <span>{currentColorPalette}</span>
       {isOpen && (
@@ -67,13 +58,16 @@ function ColorPaletteDropdown(/*{ onSelect }*/) {
             overflowY: 'auto',
             gap: '0.2rem',
           }}
+          ref={dropdownRef}
+          onMouseLeave={handleMouseLeave}
         >
           {Object.entries(colorPalettesMap).map(([paletteKey, colors]) => {
-            const isCurrentTheme = paletteKey === currentColorPalette
+            const itemIsCurrentTheme = paletteKey === currentColorPalette
             return (
               <div
                 key={paletteKey}
-                className={`${isCurrentTheme && divStyles['ruio-dropdown-list-item-active-theme']} ${divStyles['ruio-dropdown-list-item']}`}
+                data-palette-key={paletteKey} // for state updates :)
+                className={`${itemIsCurrentTheme ? divStyles['ruio-dropdown-list-item-active-theme'] : ''} ${divStyles['ruio-dropdown-list-item']}`}
                 style={{
                   display: 'flex',
                   justifyContent: 'space-evenly',
@@ -82,6 +76,7 @@ function ColorPaletteDropdown(/*{ onSelect }*/) {
                   fontSize: '0.75rem',
                   padding: '0.7rem 0rem',
                 }}
+                onClick={handleClick}
               >
                 <div
                   className="selected-icon"
@@ -92,7 +87,7 @@ function ColorPaletteDropdown(/*{ onSelect }*/) {
                   }}
                 >
                   {/* TODO: add an svg */}
-                  {isCurrentTheme && 'x'}
+                  {itemIsCurrentTheme && 'x'}
                 </div>
                 <div
                   className="color-display-item"

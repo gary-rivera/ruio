@@ -1,4 +1,5 @@
 import { ReactNode, CSSProperties, useState } from 'react'
+import divStyles from '../../styles/Div.module.css'
 
 type SettingsRowProps = {
   title: string
@@ -6,7 +7,9 @@ type SettingsRowProps = {
   inputContainerClassName: string
   inputContainerStyling?: CSSProperties
   children: ReactNode
-  applyOutline?: boolean
+  allowCustomEvents?: boolean
+  isOpen?: boolean
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function SettingsRow({
@@ -15,13 +18,10 @@ function SettingsRow({
   inputContainerClassName,
   inputContainerStyling,
   children,
-  applyOutline = false,
+  allowCustomEvents = false,
+  isOpen,
 }: SettingsRowProps) {
-  const [isClicked, setIsClicked] = useState(false)
   const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
-  const handleClick = () => {
-    setIsClicked(!isClicked)
-  }
 
   return (
     <div
@@ -36,8 +36,7 @@ function SettingsRow({
     >
       <h4 style={{ margin: 0, fontWeight: '400' }}>{title}</h4>
       <div
-        className={`ruio-settings-input-container ${inputContainerClassName}`}
-        onClick={handleClick}
+        className={`ruio-settings-input-container ${inputContainerClassName} ${isOpen ? divStyles['ruio-input-active'] : ''}`}
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -45,7 +44,6 @@ function SettingsRow({
           borderRadius: '8px',
           height: '2rem',
           width: '6.5rem',
-          outline: isClicked && applyOutline ? '0.01rem solid #06E5D5' : undefined,
           boxShadow,
           ...inputContainerStyling,
         }}

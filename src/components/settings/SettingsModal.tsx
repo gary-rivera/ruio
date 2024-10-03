@@ -2,10 +2,8 @@ import { ReactNode, ChangeEvent, useState } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
-import { colorPalettesMap } from '@utils/colorPalettes'
 
 import buttonStyles from '../../styles/Button.module.css'
-// import dividerStyles from '../styles/HorizontalDivider.module.css'
 import inputStyles from '../../styles/Input.module.css'
 import selectStyles from '../../styles/Select.module.css'
 
@@ -16,16 +14,17 @@ type SettingsModalProps = {
   footer?: ReactNode
   position: { right: number; bottom: number }
 }
+
 const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
-function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
+function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   if (!isOpen) return null
 
   const { depth, setDepth } = useRuioContext()
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
+  const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
 
   function adjustStylingDepth(operation: 'increment' | 'decrement') {
-    console.log('[adjustStylingDepth] called with: ', operation)
     setDepth((prevDepth) => {
       const newDepth = operation === 'increment' ? prevDepth + 1 : prevDepth - 1
       setTempDepth(newDepth.toString())
@@ -95,13 +94,7 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
             }}
             onClick={onClose}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 34 34"
-              // fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="24" height="24" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M11.7622 12.4937L29.0452 28.9625M11.8426 28.9625L29.1257 12.4937"
                 stroke="#EAF8EF"
@@ -219,12 +212,18 @@ function SettingsModal({ isOpen, onClose, position }: SettingsModalProps) {
             containerID="ruio-settings-theme-row"
             inputContainerClassName="ruio-theme-input-control"
             inputContainerStyling={{
+              userSelect: 'none',
               display: 'flex',
               alignItems: 'center',
               position: 'relative',
               cursor: 'crosshair',
             }}
-            children={<ColorPaletteDropdown />}
+            children={
+              <ColorPaletteDropdown isOpen={themeDropdownIsOpen} setIsOpen={setThemeDropdownIsOpen} />
+            }
+            allowCustomEvents
+            isOpen={themeDropdownIsOpen}
+            setIsOpen={setThemeDropdownIsOpen}
           />
 
           <SettingsRow
