@@ -4,28 +4,27 @@ import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 // import RuioCloseModalIcon from '@components/icons/RuioCloseModalIcon'
 
+import settingsModalStyles from '../../styles/SettingsModal.module.css'
 import buttonStyles from '../../styles/Button.module.css'
 import inputStyles from '../../styles/Input.module.css'
-import selectStyles from '../../styles/Select.module.css'
 
 type SettingsModalProps = {
   isOpen: boolean
   onClose: () => void
   title?: string
   footer?: ReactNode
-  settingsModalClassName?: string
 }
 
 const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
-function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModalProps) {
+function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   if (!isOpen) return null
 
   const { depth, setDepth } = useRuioContext()
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
 
-  function adjustStylingDepth(operation: 'increment' | 'decrement') {
+  function adjustDepthStyling(operation: 'increment' | 'decrement') {
     setDepth((prevDepth) => {
       const newDepth = operation === 'increment' ? prevDepth + 1 : prevDepth - 1
       setTempDepth(newDepth.toString())
@@ -33,98 +32,29 @@ function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModa
     })
   }
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleDepthChange(event: ChangeEvent<HTMLInputElement>) {
     setTempDepth(event.target.value)
   }
 
-  function handleConfirm() {
+  function handleDepthConfirm() {
     const value = parseInt(tempDepth, 10)
     if (!isNaN(value)) {
       setDepth(value)
     }
     setTempDepth(value.toString())
   }
+
   return (
-    <div
-      className={settingsModalClassName}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignContent: 'center',
-
-        backgroundColor: '#323635',
-        border: '0.1rem solid #06E5D5',
-        color: 'white',
-        width: '20vw',
-        height: '15vw',
-
-        borderRadius: '10px',
-        position: 'absolute',
-        right: '0',
-        bottom: '0',
-        padding: '1rem 2rem',
-        fontSize: '1rem',
-        boxShadow:
-          'rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset',
-      }}
-    >
-      <div className="ruio-settings-main-content">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr auto',
-            alignItems: 'center',
-            gap: '1rem', // Space between h2 and button
-            width: '100%',
-          }}
-        >
-          <h2
-            style={{
-              margin: 0,
-              fontWeight: '500',
-            }}
-          >
-            Settings
-          </h2>
+    <div className={settingsModalStyles['modal-container']}>
+      <div className={settingsModalStyles['main-content']}>
+        <div className={settingsModalStyles['header']}>
+          <h2 className={settingsModalStyles['title']}>Settings</h2>
           {/* <RuioCloseModalIcon onClick={onClose} /> */}
         </div>
-        <section
-          className="ruio-outline-config"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            className="ruio-settings-subtitle-container"
-            style={{
-              display: 'flex',
-              fontSize: '1rem',
-              alignItems: 'center',
-              color: '#A6A6A6',
-              marginBottom: '0.15rem',
-            }}
-          >
-            <h4
-              style={{
-                margin: 0,
-                fontWeight: '400',
-                fontSize: '0.9rem',
-              }}
-            >
-              Outline configuration
-            </h4>
-            <hr
-              style={{
-                flex: 1,
-                margin: 0,
-                marginLeft: '1.75rem',
-                border: 'none',
-                borderTop: '0.1rem solid #5E5E5E',
-              }}
-            />
+        <section className={settingsModalStyles['category']}>
+          <div className={settingsModalStyles['category-subtitle-section']}>
+            <h4 className={settingsModalStyles['category-subtitle']}>Outline configuration</h4>
+            <hr className={settingsModalStyles['category-divider-bar']} />
           </div>
 
           <SettingsRow
@@ -140,7 +70,7 @@ function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModa
               <>
                 <button
                   className={buttonStyles['ruio-btn']}
-                  onClick={() => adjustStylingDepth('decrement')}
+                  onClick={() => adjustDepthStyling('decrement')}
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
@@ -158,10 +88,10 @@ function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModa
                   className={inputStyles['ruio-input']}
                   type="text"
                   value={tempDepth}
-                  onChange={handleChange}
-                  onBlur={handleConfirm}
+                  onChange={handleDepthChange}
+                  onBlur={handleDepthConfirm}
                   onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-                    e.key === 'Enter' && handleConfirm()
+                    e.key === 'Enter' && handleDepthConfirm()
                   }
                   style={{
                     alignSelf: 'center',
@@ -173,7 +103,7 @@ function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModa
                 />
                 <button
                   className={buttonStyles['ruio-btn']}
-                  onClick={() => adjustStylingDepth('increment')}
+                  onClick={() => adjustDepthStyling('increment')}
                   style={{
                     fontSize: 'inherit',
                     padding: '0.5rem',
@@ -210,7 +140,7 @@ function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModa
             setIsOpen={setThemeDropdownIsOpen}
           />
 
-          <SettingsRow
+          {/* <SettingsRow
             title="Border/Outline"
             containerID="ruio-settings-opacity-row"
             inputContainerClassName="ruio-opacity-input-control"
@@ -232,24 +162,12 @@ function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModa
                 <span style={{ color: 'gray', alignSelf: 'center' }}>%</span>
               </>
             }
-          />
+          /> */}
         </section>
       </div>
 
-      <footer
-        style={{
-          backgroundColor: '#1C2120',
-          padding: '1rem',
-          marginBottom: '-1rem',
-          marginLeft: '-2rem',
-          marginRight: '-2rem',
-          height: '8%',
-          borderBottomLeftRadius: 'inherit',
-          borderBottomRightRadius: 'inherit',
-          fontSize: '0.8rem',
-        }}
-      >
-        <span style={{ color: '#5E5E5E' }}> Report an issue</span>
+      <footer className={settingsModalStyles['modal-footer']}>
+        <span className={settingsModalStyles['report-issue']}> Report an issue</span>
       </footer>
     </div>
   )
