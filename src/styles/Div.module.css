@@ -12,15 +12,15 @@
   font-family: 'Outfit', sans-serif;
   font-weight: 400;
 
+  position: fixed;
   bottom: 40px;
   right: 40px;
 
-  /* z-index: 9999; */
-  position: fixed;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 0.3125rem;
 }
 
 .ruio-toggle-container {

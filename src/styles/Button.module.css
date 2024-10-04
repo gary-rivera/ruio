@@ -1,20 +1,18 @@
 /* ruio global button styling */
 .ruio-btn {
-  background: none;
+  /* background: none; */
   border: none;
   padding: 0;
   margin: 0;
-  display: inline-block;
-  font: inherit;
 
   cursor: pointer;
-  appearance: none;
+  /* appearance: none;
   box-shadow: none;
-  text-align: center;
+  text-align: center; */
 
   background-color: #1c2120;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 @keyframes pulse {
@@ -154,4 +152,16 @@
     opacity 250ms ease-in-out;
   transform: rotate(-10deg);
   opacity: 1;
+}
+
+/* SettingsModal */
+.ruio-btn-close-modal {
+  /* position: absolute; */
+  cursor: pointer !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  outline: none !important;
+  pointer-events: all !important;
+  /* z-index: 9999 !important; */
+  box-sizing: border-box !important;
 }
