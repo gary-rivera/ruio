@@ -9,6 +9,9 @@ function RuioToggleController() {
 
   return (
     <div className={`ruio-exclude ${divStyles['ruio-toggle-container']}`}>
+      <div
+        className={`${divStyles['ruio-logo-div-bg']} ${ruioEnabled ? divStyles['ruio-logo-div-bg-active'] : divStyles['ruio-logo-div-bg-inactive']}`}
+      />
       <button
         className={`
         ruio-exclude
@@ -35,9 +38,6 @@ function RuioToggleController() {
           </svg>
         </div>
       </button>
-      <div
-        className={`${divStyles['ruio-logo-div-bg']} ${ruioEnabled ? divStyles['ruio-logo-div-bg-active'] : divStyles['ruio-logo-div-bg-inactive']}`}
-      />
     </div>
   )
 }
