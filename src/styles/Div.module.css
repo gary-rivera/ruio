@@ -12,19 +12,19 @@
   font-family: 'Outfit', sans-serif;
   font-weight: 400;
 
+  position: fixed;
   bottom: 40px;
   right: 40px;
 
-  z-index: 9999;
-  position: fixed;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 0.3125rem;
 }
 
 .ruio-toggle-container {
-  z-index: 9998;
+  /* z-index: 9998; */
   margin-top: 2px;
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@
 }
 
 .ruio-logo-div {
-  z-index: 9998;
+  /* z-index: 9998; */
 
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@
 }
 
 .ruio-logo-div-bg {
-  z-index: 9997;
+  /* z-index: 9997; */
   position: absolute;
   bottom: 0;
   right: 0;

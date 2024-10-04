@@ -1,13 +1,14 @@
 import { MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import RuioIcon from '@components/icons/RuioIcon'
+import IconProps from '../../types/IconTypes'
 
 // styling modules
 import buttonStyles from '../../styles/Button.module.css'
 import svgStyles from '../../styles/SVG.module.css'
 import divStyles from '../../styles/Div.module.css'
 
-function ElementSelectIcon() {
+function ElementSelectIcon({ onClick }: IconProps) {
   const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {

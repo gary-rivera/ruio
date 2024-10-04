@@ -1,17 +1,35 @@
-import React, { forwardRef, useEffect } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import RuioToggleController from '../controllers/RuioToggleController'
-import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import divStyles from '../styles/Div.module.css'
 import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
-import '../styles/globals.css'
+import SettingsModal from './settings/SettingsModal'
 
-interface RuioUIContainerProps {
-  // NOTE: define as needed
+import '../styles/globals.css'
+import divStyles from '../styles/Div.module.css'
+import iconStyles from '../styles/Icon.module.css'
+
+type ControllersContainerState = {
+  elementSelectOpen: boolean
+  settingsOpen: boolean
+  toggleControllerOpen: boolean
 }
 
-function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElement>) {
+function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
+  const [isOpen, setIsOpen] = useState<ControllersContainerState>({
+    elementSelectOpen: false,
+    settingsOpen: false,
+    toggleControllerOpen: false,
+  })
+
+  const toggleContainer = (key: keyof ControllersContainerState) => {
+    setIsOpen((prevState) => ({
+      elementSelectOpen: false,
+      settingsOpen: false,
+      toggleControllerOpen: false,
+      [key]: !prevState[key],
+    }))
+  }
   return (
     <div
       ref={ref}
@@ -21,12 +39,25 @@ function RuioUIContainer(props: RuioUIContainerProps, ref: React.Ref<HTMLDivElem
         ${divStyles['ruio-ui-container']}
       `}
     >
-      {/* all ruio components are lazy-loaded, css controls respective render effects */}
+      <div className="ruio-controls-container">
+        <div className={iconStyles['icon-container']}>
+          <SettingsIcon onClick={() => toggleContainer('settingsOpen')} />
+          {isOpen.settingsOpen && (
+            <SettingsModal
+              isOpen={isOpen.settingsOpen}
+              onClose={() => toggleContainer('settingsOpen')}
+            />
+          )}
+        </div>
+        <div className={iconStyles['icon-container']}>
+          <ElementSelectIcon onClick={() => toggleContainer('elementSelectOpen')} />
+          {/* NOTE: for adding on the spot depth controls */}
+          {isOpen.elementSelectOpen && false && <div>{/* Render Element Select Container */}</div>}
+        </div>
+      </div>
       <RuioToggleController />
-      <ElementSelectIcon />
-      <SettingsIcon />
     </div>
   )
 }
 
-export default forwardRef<HTMLDivElement, RuioUIContainerProps>(RuioUIContainer)
+export default forwardRef<HTMLDivElement>(RuioUIContainer)

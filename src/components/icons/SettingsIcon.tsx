@@ -1,54 +1,19 @@
-import { useState, useRef, useEffect, MouseEvent } from 'react'
+import { useRef } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import SettingsModal from '@components/settings/SettingsModal'
 import RuioIcon from '@components/icons/RuioIcon'
+import IconProps from '../../types/IconTypes'
 
 import buttonStyles from '../../styles/Button.module.css'
 import svgStyles from '../../styles/SVG.module.css'
 
-function SettingsIcon() {
+function SettingsIcon({ onClick }: IconProps) {
   const { ruioEnabled } = useRuioContext()
-  const [settingsModalEnabled, setSettingsModalEnabled] = useState(false)
-  const [modalPosition, setModalPosition] = useState({ bottom: 0, right: 0 })
   const iconRef = useRef<HTMLDivElement>(null)
 
-  function handleToggleSettings(event: MouseEvent<HTMLButtonElement>) {
-    // if (!settingsModalEnabled && iconRef.current) setSettingsModalEnabled(!settingsModalEnabled)
-    setSettingsModalEnabled(!settingsModalEnabled)
-  }
-
-  // useEffect(() => {
-  //   if (ruioEnabled && iconRef.current) {
-  //     const rect = iconRef.current.getBoundingClientRect()
-  //     const topLeftX = rect.left
-  //     const topLeftY = rect.top
-
-  //     console.log(
-  //       `Top-left corner of the element is at: (x/left-right: ${topLeftX}, y/top-bottom: ${topLeftY})`,
-  //     )
-
-  //     console.log('grabbing coords! ', {
-  //       bound: iconRef.current.getBoundingClientRect(),
-  //     })
-  //     const settingsIcon = iconRef.current.getBoundingClientRect()
-  //     const { x, y, bottom, right } = settingsIcon
-  //     setModalPosition({ right: 1649, bottom: 367 })
-  //   }
-  // }, [ruioEnabled])
-
   return (
-    <div
-      ref={iconRef}
-      className="ruio-exclude"
-      style={{
-        display: 'flex',
-        flexDirection: 'column-reverse',
-        alignItems: 'end',
-        position: 'relative',
-      }}
-    >
+    <div ref={iconRef} className="ruio-exclude">
       <RuioIcon
-        onClick={handleToggleSettings}
+        onClick={onClick}
         buttonClassName={`
           ruio-exclude
           ${buttonStyles['ruio-btn']}
@@ -115,13 +80,6 @@ function SettingsIcon() {
           />
         </>
       </RuioIcon>
-      {settingsModalEnabled && (
-        <SettingsModal
-          isOpen={settingsModalEnabled}
-          position={modalPosition}
-          onClose={() => setSettingsModalEnabled(false)}
-        />
-      )}
     </div>
   )
 }

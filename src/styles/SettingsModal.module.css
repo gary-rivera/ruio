@@ -1,0 +1,87 @@
+.modal-container {
+  position: absolute;
+  right: 105%;
+  bottom: 105%;
+  display: flex;
+  flex-direction: column;
+
+  background-color: #323635;
+  border: 0.1rem solid #06e5d5;
+  color: white;
+  width: 20rem;
+  height: 14rem;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+  /* TODO: transform effects styling */
+}
+
+.main-content {
+  flex-grow: 1;
+  font-weight: 300;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.title,
+.category-subtitle {
+  margin: 0;
+}
+.title {
+  font-weight: 500;
+}
+
+/* Category Section */
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-subtitle-section {
+  display: flex;
+  align-items: center;
+  color: #a6a6a6;
+  gap: 1.75rem;
+}
+
+.category-subtitle {
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.category-divider-bar {
+  flex: 1;
+  border: none;
+  border-top: 0.1rem solid #5e5e5e;
+}
+
+/* Footer */
+.modal-footer {
+  height: 50%;
+  max-height: 3rem;
+  background-color: #1c2120;
+  display: flex;
+  align-items: center;
+  margin: 1.25rem -2rem -1rem -2rem;
+  font-size: 0.8rem;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+
+.report-issue {
+  color: #5e5e5e;
+  margin-left: 2rem;
+}

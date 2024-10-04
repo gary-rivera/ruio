@@ -37,7 +37,7 @@ function SettingsRow({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        margin: '0.25rem 0rem',
+        // margin: '0.25rem 0rem',
         fontSize: '0.9rem',
       }}
     >
