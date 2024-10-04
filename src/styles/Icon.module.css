@@ -1,21 +1,9 @@
-/* Icon.module.css */
-
 .icon-container {
   position: relative;
 }
 
-.dropdown {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  visibility: visible;
-  transform: translate(-10px, -10px);
-  z-index: 10;
+.settings-icon {
 }
 
-/* Specific styling for individual icons if needed */
-.settingsIcon {
-}
-
-.elementSelectIcon {
+.element-select-icon {
 }
