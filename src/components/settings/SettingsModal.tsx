@@ -2,6 +2,7 @@ import { ReactNode, ChangeEvent, useState } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
+// import RuioCloseModalIcon from '@components/icons/RuioCloseModalIcon'
 
 import buttonStyles from '../../styles/Button.module.css'
 import inputStyles from '../../styles/Input.module.css'
@@ -12,12 +13,12 @@ type SettingsModalProps = {
   onClose: () => void
   title?: string
   footer?: ReactNode
-  position: { right: number; bottom: number }
+  settingsModalClassName?: string
 }
 
 const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
-function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
+function SettingsModal({ isOpen, onClose, settingsModalClassName }: SettingsModalProps) {
   if (!isOpen) return null
 
   const { depth, setDepth } = useRuioContext()
@@ -45,7 +46,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   }
   return (
     <div
-      className=" ruio-settings-modal"
+      className={settingsModalClassName}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -60,8 +61,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
         borderRadius: '10px',
         position: 'absolute',
-        right: '1.25vw',
-        bottom: '2vw',
+        right: '0',
+        bottom: '0',
         padding: '1rem 2rem',
         fontSize: '1rem',
         boxShadow:
@@ -69,12 +70,13 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       }}
     >
       <div className="ruio-settings-main-content">
-        <header
+        <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            fontSize: '1rem',
-            marginBottom: '1rem',
+            display: 'grid',
+            gridTemplateColumns: '1fr auto',
+            alignItems: 'center',
+            gap: '1rem', // Space between h2 and button
+            width: '100%',
           }}
         >
           <h2
@@ -85,26 +87,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           >
             Settings
           </h2>
-          <button
-            className={buttonStyles['ruio-btn']}
-            style={{
-              fontSize: 'inherit',
-              backgroundColor: 'inherit',
-              color: '#FFFFFF',
-            }}
-            onClick={onClose}
-          >
-            <svg width="24" height="24" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M11.7622 12.4937L29.0452 28.9625M11.8426 28.9625L29.1257 12.4937"
-                stroke="#EAF8EF"
-                strokeWidth="5"
-                strokeLinecap="round"
-                shapeRendering="crispEdges"
-              />
-            </svg>
-          </button>
-        </header>
+          {/* <RuioCloseModalIcon onClick={onClose} /> */}
+        </div>
         <section
           className="ruio-outline-config"
           style={{
@@ -226,7 +210,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             setIsOpen={setThemeDropdownIsOpen}
           />
 
-          {/* <SettingsRow
+          <SettingsRow
             title="Border/Outline"
             containerID="ruio-settings-opacity-row"
             inputContainerClassName="ruio-opacity-input-control"
@@ -248,7 +232,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <span style={{ color: 'gray', alignSelf: 'center' }}>%</span>
               </>
             }
-          /> */}
+          />
         </section>
       </div>
 
