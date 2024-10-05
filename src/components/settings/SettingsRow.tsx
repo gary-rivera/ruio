@@ -37,7 +37,6 @@ function SettingsRow({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        // margin: '0.25rem 0rem',
         fontSize: '0.9rem',
       }}
     >
@@ -46,7 +45,6 @@ function SettingsRow({
         className={`ruio-settings-input-container ${inputContainerClassName} ${isOpen ? divStyles['ruio-input-active'] : ''}`}
         style={{
           display: 'flex',
-          // outline: '1px solid yellow',
           justifyContent: 'center',
           backgroundColor: '#3C3F3E',
           borderRadius: '8px',
