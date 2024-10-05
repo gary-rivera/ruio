@@ -25,11 +25,9 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
 
   function adjustDepthStyling(operation: 'increment' | 'decrement') {
-    setDepth((prevDepth) => {
-      const newDepth = operation === 'increment' ? prevDepth + 1 : prevDepth - 1
-      setTempDepth(newDepth.toString())
-      return newDepth
-    })
+    const newDepth = operation === 'increment' ? depth + 1 : depth - 1 // Directly reference depth
+    setDepth(newDepth)
+    setTempDepth(newDepth.toString())
   }
 
   function handleDepthChange(event: ChangeEvent<HTMLInputElement>) {
