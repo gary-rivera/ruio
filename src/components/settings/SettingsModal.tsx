@@ -18,8 +18,6 @@ type SettingsModalProps = {
 const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  if (!isOpen) return null
-
   const { depth, setDepth } = useRuioContext()
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
@@ -47,6 +45,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       <div className={settingsModalStyles['main-content']}>
         <div className={settingsModalStyles['header']}>
           <h2 className={settingsModalStyles['title']}>Settings</h2>
+    <div className={`${settingsModalStyles.modalContainer} ${isOpen ? settingsModalStyles.open : ''}`}>
           <CloseModalIcon onClick={onClose} />
         </div>
         <section className={settingsModalStyles['category']}>

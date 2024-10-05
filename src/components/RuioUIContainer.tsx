@@ -42,12 +42,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
       <div className="ruio-controls-container">
         <div className={iconStyles['icon-container']}>
           <SettingsIcon onClick={() => toggleContainer('settingsOpen')} />
-          {isOpen.settingsOpen && (
-            <SettingsModal
-              isOpen={isOpen.settingsOpen}
-              onClose={() => toggleContainer('settingsOpen')}
-            />
-          )}
+          <SettingsModal isOpen={isOpen.settingsOpen} onClose={() => toggleContainer('settingsOpen')} />
         </div>
         <div className={iconStyles['icon-container']}>
           <ElementSelectIcon onClick={() => toggleContainer('elementSelectOpen')} />
