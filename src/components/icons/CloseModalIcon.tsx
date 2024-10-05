@@ -25,8 +25,8 @@ function CloseModalIcon({ onClick }: IconProps) {
         <path
           d="M11.9982 11.2911L82.7089 82.0018M11.2911 82.0018L82.0018 11.2911"
           stroke="white"
-          stroke-width="22"
-          stroke-linecap="round"
+          strokeWidth="22"
+          strokeLinecap="round"
         />
       </>
     </RuioIcon>
