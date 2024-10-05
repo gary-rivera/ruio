@@ -7,3 +7,16 @@
 
 .element-select-icon {
 }
+
+.close-modal-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: calc(1.5rem * (0.03125 * 2.5)); /* double to the relative containing modal */
+}
+.close-modal-btn:hover {
+  background-color: #565a59;
+}
