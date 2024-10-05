@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext, useRef, useMemo } from 'react'
 import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
+import { debounce } from '@utils/debounce'
 
 interface RuioContextProps {
   ruioEnabled: boolean // are ruio related state +/- interactions enabled
@@ -52,14 +53,18 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
   useEffect(() => {
     if (ruioEnabled && isElementSelectionModeActive) {
+      const debouncedApplyOutline = debounce((element: HTMLElement) => {
+        applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
+      }, 75)
+
+      const debouncedSetSelection = debounce((element: HTMLElement) => {
+        setIsElementSelectionModeActive(false)
+        setSelectedRootElement(element)
+      }, 75)
+
       const cleanupElementSelectionEvents = ElementInteractionController(
-        (element) => {
-          applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
-        },
-        (element) => {
-          setIsElementSelectionModeActive(false)
-          setSelectedRootElement(element)
-        },
+        debouncedApplyOutline,
+        debouncedSetSelection,
       )
 
       return () => {
@@ -74,7 +79,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (selectedRootElement) {
       applyOutlineUI(selectedRootElement, depth, ruioEnabled, currentColorPalette)
     }
-  }, [depth, selectedRootElement, setRuioEnabled, ruioEnabled, currentColorPalette])
+  }, [depth, selectedRootElement, ruioEnabled, currentColorPalette])
 
   const contextValue = useMemo(
     () => ({
