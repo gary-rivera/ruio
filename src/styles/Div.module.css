@@ -64,7 +64,7 @@
   bottom: 0;
   right: 0;
 
-  border-radius: 15px;
+  border-radius: 12px;
   transition:
     transform 250ms ease-in-out,
     opacity 150ms ease-in-out;

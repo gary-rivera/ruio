@@ -19,7 +19,7 @@
   max-height: 0;
   opacity: 0;
   visibility: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
 
   gap: 0.2rem;
 }

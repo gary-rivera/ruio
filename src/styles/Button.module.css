@@ -45,9 +45,9 @@
 .ruio-btn-secondary {
   overflow: hidden;
 
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   cursor: pointer;
 
   transition:
@@ -95,19 +95,6 @@
 
   cursor: pointer;
   fill: #1c2120;
-  border-radius: 12px;
-
-  .ruio-outline {
-    stroke: #06e5d5;
-  }
-
-  .ruio-bar-bg {
-    stroke: #eaf8ef;
-  }
-
-  .ruio-dial {
-    stroke: #eaf8ef;
-  }
 }
 
 .ruio-settings-btn-active {
@@ -119,8 +106,8 @@
 .ruio-btn-primary {
   border-radius: 8px;
 
-  width: 38px;
-  height: 32px;
+  width: 45px;
+  height: 38px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -155,11 +142,12 @@
 
 /* SettingsModal */
 .ruio-btn-close-modal {
+  /* position: absolute; */
   cursor: pointer !important;
   width: 3rem !important;
   height: 3rem !important;
   outline: none !important;
   pointer-events: all !important;
-
+  /* z-index: 9999 !important; */
   box-sizing: border-box !important;
 }
