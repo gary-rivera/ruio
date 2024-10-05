@@ -17,6 +17,7 @@ function ElementSelectIcon({ onClick }: IconProps) {
 
   return (
     <RuioIcon
+      id="ruio-element-select-icon"
       onClick={handleClick}
       buttonClassName={`
         ${buttonStyles['ruio-btn']}

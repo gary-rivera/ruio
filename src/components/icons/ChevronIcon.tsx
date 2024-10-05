@@ -10,7 +10,7 @@ import svgStyles from '../../styles/SVG.module.css'
 function ChevronIcon() {
   return (
     <RuioIcon
-      onClick={() => console.log('chevron toggled')}
+      id="ruio-chevron"
       buttonClassName={`
           ruio-exclude
           ${buttonStyles['ruio-btn']}

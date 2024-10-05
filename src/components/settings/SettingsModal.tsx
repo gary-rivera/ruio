@@ -42,7 +42,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   }
 
   return (
-    <div className={`${settingsModalStyles.modalContainer} ${isOpen ? settingsModalStyles.open : ''}`}>
+    <div
+      id="ruio-settings-modal-container"
+      className={`${settingsModalStyles.modalContainer} ${isOpen ? settingsModalStyles.open : ''}`}
+    >
       <div className={settingsModalStyles.mainContent}>
         <div className={settingsModalStyles.header}>
           <h2 className={settingsModalStyles.title}>Settings</h2>

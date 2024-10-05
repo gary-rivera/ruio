@@ -11,10 +11,10 @@ function SettingsIcon({ onClick }: IconProps) {
   const iconRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div ref={iconRef} className="ruio-exclude">
-      <RuioIcon
-        onClick={onClick}
-        buttonClassName={`
+    <RuioIcon
+      id="ruio-settings-icon"
+      onClick={onClick}
+      buttonClassName={`
           ruio-exclude
           ${buttonStyles['ruio-btn']}
           ${buttonStyles['ruio-btn-secondary']}

@@ -39,12 +39,12 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
         ${divStyles['ruio-ui-container']}
       `}
     >
-      <div className="ruio-controls-container">
-        <div className={iconStyles['icon-container']}>
+      <div id="ruio-controls-container">
+        <div id="ruio-settings-container" className={iconStyles['icon-container']}>
           <SettingsIcon onClick={() => toggleContainer('settingsOpen')} />
           <SettingsModal isOpen={isOpen.settingsOpen} onClose={() => toggleContainer('settingsOpen')} />
         </div>
-        <div className={iconStyles['icon-container']}>
+        <div id="ruio-element-select-container" className={iconStyles['icon-container']}>
           <ElementSelectIcon onClick={() => toggleContainer('elementSelectOpen')} />
           {/* NOTE: for adding on the spot depth controls */}
           {isOpen.elementSelectOpen && false && <div>{/* Render Element Select Container */}</div>}

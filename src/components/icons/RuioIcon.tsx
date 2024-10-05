@@ -22,14 +22,6 @@ function RuioIcon({
   pulseEnabled = true,
   shouldMemoize = true,
 }: RuioIconProps) {
-  console.log(`[RuioIcon] rendering ${id}:`, {
-    buttonClasses: buttonClassName
-      .split('\n')
-      .map((e) => e.trim())
-      .filter((x) => x.length),
-    svgClasses: svgClassName.split('\n'),
-    isIconMemoized: shouldMemoize,
-  })
   const [shouldPulse, setShouldPulse] = useState(false)
 
   const handleClick = useCallback(
@@ -60,7 +52,7 @@ function RuioIcon({
       }, [svgClassName])
     : `ruio-exclude ${svgClassName}`
   return (
-    <button className={buttonClasses} onClick={handleClick}>
+    <button id={id} className={buttonClasses} onClick={handleClick}>
       <svg className={svgClasses} viewBox={svgViewBox} xmlns="http://www.w3.org/2000/svg">
         {children}
       </svg>

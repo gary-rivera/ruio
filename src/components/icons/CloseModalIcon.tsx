@@ -10,6 +10,7 @@ import svgStyles from '../../styles/SVG.module.css'
 function CloseModalIcon({ onClick }: IconProps) {
   return (
     <RuioIcon
+      id="ruio-close-icon"
       onClick={onClick}
       buttonClassName={`
           ruio-exclude
