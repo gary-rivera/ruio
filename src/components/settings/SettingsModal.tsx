@@ -1,4 +1,4 @@
-import { ReactNode, ChangeEvent, useState } from 'react'
+import { ReactNode, ChangeEvent, useState, memo } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
@@ -20,11 +20,12 @@ const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { depth, setDepth } = useRuioContext()
+
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
 
   function adjustDepthStyling(operation: 'increment' | 'decrement') {
-    const newDepth = operation === 'increment' ? depth + 1 : depth - 1 // Directly reference depth
+    const newDepth = operation === 'increment' ? depth + 1 : depth - 1
     setDepth(newDepth)
     setTempDepth(newDepth.toString())
   }
@@ -66,6 +67,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               justifyContent: 'space-between',
               boxShadow: 'none',
               gridTemplateColumns: '1fr 1fr 1fr',
+              padding: 0,
             }}
             children={
               <>
@@ -73,9 +75,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   className={buttonStyles['ruio-btn']}
                   onClick={() => adjustDepthStyling('decrement')}
                   style={{
+                    justifySelf: 'start',
                     fontSize: 'inherit',
-                    padding: '0.5rem',
-                    width: '2.1rem',
+                    width: '2rem',
+                    height: 'inherit',
                     cursor: 'pointer',
                     backgroundColor: '#3C3F3E',
                     borderRadius: '8px',
@@ -95,10 +98,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     e.key === 'Enter' && handleDepthConfirm()
                   }
                   style={{
+                    justifySelf: 'center',
                     alignSelf: 'center',
                     width: '2.5rem',
                     fontSize: 'inherit',
-                    padding: '0.2rem',
                     textAlign: 'center',
                   }}
                 />
@@ -106,9 +109,12 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   className={buttonStyles['ruio-btn']}
                   onClick={() => adjustDepthStyling('increment')}
                   style={{
+                    justifySelf: 'end',
                     fontSize: 'inherit',
-                    padding: '0.5rem',
-                    width: '2.1rem',
+                    padding: '0 0.75rem',
+                    width: '2rem',
+                    height: 'inherit',
+
                     cursor: 'pointer',
                     backgroundColor: '#3C3F3E',
                     borderRadius: '8px',
@@ -130,19 +136,18 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               userSelect: 'none',
               cursor: 'pointer',
 
-              // display: 'grid',
               display: 'grid',
-              gridTemplateColumns: '1fr',
-              alignItems: 'center',
-              justifyItems: 'center',
+              gridTemplateColumns: '1fr auto',
             }}
             children={
-              <ColorPaletteDropdown isOpen={themeDropdownIsOpen} setIsOpen={setThemeDropdownIsOpen} />
+              <>
+                <ColorPaletteDropdown isOpen={themeDropdownIsOpen} setIsOpen={setThemeDropdownIsOpen} />
+                <ChevronIcon isOpen={themeDropdownIsOpen} />
+              </>
             }
             allowCustomEvents
             isOpen={themeDropdownIsOpen}
             setIsOpen={setThemeDropdownIsOpen}
-            icon
           />
 
           {/* <SettingsRow
@@ -178,4 +183,6 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   )
 }
 
-export default SettingsModal
+export default memo(SettingsModal, (prevProps, nextProps) => {
+  return prevProps.isOpen === nextProps.isOpen && prevProps.onClose === nextProps.onClose
+})
