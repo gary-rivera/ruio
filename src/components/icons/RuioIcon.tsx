@@ -6,6 +6,7 @@ type RuioIconProps = {
   children: ReactNode
   buttonClassName?: string
   svgClassName?: string
+  svgViewBox?: string
   pulseEnabled?: boolean
 }
 
@@ -14,6 +15,7 @@ function RuioIcon({
   children,
   buttonClassName = '',
   svgClassName = '',
+  svgViewBox = '0 0 24 24',
   pulseEnabled = true,
 }: RuioIconProps) {
   const [shouldPulse, setShouldPulse] = useState(false)
@@ -35,7 +37,7 @@ function RuioIcon({
     >
       <svg
         className={`ruio-exclude ${svgClassName}`}
-        viewBox="0 0 24 24"
+        viewBox={svgViewBox}
         xmlns="http://www.w3.org/2000/svg"
       >
         {children}
