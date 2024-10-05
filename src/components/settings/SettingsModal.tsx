@@ -2,7 +2,7 @@ import { ReactNode, ChangeEvent, useState } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
-// import RuioCloseModalIcon from '@components/icons/RuioCloseModalIcon'
+import CloseModalIcon from '@components/icons/CloseModalIcon'
 
 import settingsModalStyles from '../../styles/SettingsModal.module.css'
 import buttonStyles from '../../styles/Button.module.css'
@@ -49,7 +49,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       <div className={settingsModalStyles['main-content']}>
         <div className={settingsModalStyles['header']}>
           <h2 className={settingsModalStyles['title']}>Settings</h2>
-          {/* <RuioCloseModalIcon onClick={onClose} /> */}
+          <CloseModalIcon onClick={onClose} />
         </div>
         <section className={settingsModalStyles['category']}>
           <div className={settingsModalStyles['category-subtitle-section']}>
