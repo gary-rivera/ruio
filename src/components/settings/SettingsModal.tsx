@@ -3,6 +3,7 @@ import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
+import ChevronIcon from '@components/icons/ChevronIcon'
 
 import settingsModalStyles from '../../styles/SettingsModal.module.css'
 import buttonStyles from '../../styles/Button.module.css'
@@ -61,6 +62,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               backgroundColor: 'inherit',
               justifyContent: 'space-between',
               boxShadow: 'none',
+              gridTemplateColumns: '1fr 1fr 1fr',
             }}
             children={
               <>
@@ -123,10 +125,13 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             inputContainerClassName="ruio-theme-input-control"
             inputContainerStyling={{
               userSelect: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
               cursor: 'pointer',
+
+              // display: 'grid',
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              alignItems: 'center',
+              justifyItems: 'center',
             }}
             children={
               <ColorPaletteDropdown isOpen={themeDropdownIsOpen} setIsOpen={setThemeDropdownIsOpen} />
@@ -134,6 +139,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             allowCustomEvents
             isOpen={themeDropdownIsOpen}
             setIsOpen={setThemeDropdownIsOpen}
+            icon
           />
 
           {/* <SettingsRow

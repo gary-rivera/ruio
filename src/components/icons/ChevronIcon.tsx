@@ -7,28 +7,30 @@ import buttonStyles from '../../styles/Button.module.css'
 import iconStyles from '../../styles/Icon.module.css'
 import svgStyles from '../../styles/SVG.module.css'
 
-function CloseModalIcon({ onClick }: IconProps) {
+function ChevronIcon() {
   return (
     <RuioIcon
-      onClick={onClick}
+      onClick={() => console.log('chevron toggled')}
       buttonClassName={`
           ruio-exclude
           ${buttonStyles['ruio-btn']}
-          ${iconStyles['close-modal-btn']}
+          ${iconStyles['ruio-chevron']}
         `}
       svgClassName={` ${svgStyles['close-modal-svg']}`}
-      svgViewBox="0 0 94 93"
+      svgViewBox="0 0 92 62"
     >
       <>
+        {/* <svg width="92" height="62" viewBox="0 0 92 62" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
         <path
-          d="M11.9982 11.2911L82.7089 82.0018M11.2911 82.0018L82.0018 11.2911"
+          d="M10.9982 11.2911L46 46.2929L81.0018 11.2911"
           stroke="white"
-          strokeWidth="22"
-          strokeLinecap="round"
+          stroke-width="22"
+          stroke-linecap="round"
         />
+        {/* </svg> */}
       </>
     </RuioIcon>
   )
 }
 
-export default CloseModalIcon
+export default ChevronIcon

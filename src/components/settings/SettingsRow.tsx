@@ -1,5 +1,6 @@
 import { ReactNode, CSSProperties, useState } from 'react'
 import divStyles from '../../styles/Div.module.css'
+import ChevronIcon from '@components/icons/ChevronIcon'
 
 type SettingsRowProps = {
   title: string
@@ -10,6 +11,7 @@ type SettingsRowProps = {
   allowCustomEvents?: boolean
   isOpen?: boolean
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  icon?: ReactNode
 }
 
 function SettingsRow({
@@ -21,6 +23,7 @@ function SettingsRow({
   allowCustomEvents = false,
   isOpen,
   setIsOpen,
+  icon,
 }: SettingsRowProps) {
   const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
@@ -44,18 +47,24 @@ function SettingsRow({
       <div
         className={`ruio-settings-input-container ${inputContainerClassName} ${isOpen ? divStyles['ruio-input-active'] : ''}`}
         style={{
-          display: 'flex',
-          justifyContent: 'center',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          alignItems: 'center',
+          justifyItems: 'center',
+          // padding: '0 0.5rem',
           backgroundColor: '#3C3F3E',
           borderRadius: '8px',
           height: '2rem',
           width: '6.5rem',
+          // maxWidth: '6rem',
+          position: 'relative',
           boxShadow,
           ...inputContainerStyling,
         }}
         onClick={handleClick}
       >
         {children}
+        {icon && <ChevronIcon />}
       </div>
     </div>
   )

@@ -1,3 +1,9 @@
+.colorPaletteDropdownControl {
+  justify-self: center;
+  border: 1px solid green;
+  width: fit-content;
+}
+
 .dropdownMenu {
   display: flex;
   flex-direction: column;
@@ -19,6 +25,8 @@
   max-height: 0;
   opacity: 0;
   visibility: hidden;
+  overflow-x: hidden;
+
   overflow-y: auto;
 
   gap: 0.2rem;

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { colorPalettesMap } from '@utils/colorPalettes'
 import { useRuioContext } from '@context/RuioContextProvider'
+import ChevronIcon from '@components/icons/ChevronIcon'
 
 import styles from '../../styles/ColorPaletteDropdown.module.css'
 import buttonStyles from '../../styles/Button.module.css'
@@ -16,7 +17,10 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
   const { currentColorPalette, setCurrentColorPalette } = useRuioContext()
   const dropdownRef = useRef<HTMLDivElement | null>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleOpenDropdown = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!isOpen) setIsOpen(true)
+  }
+  const handleThemeSelect = (event: React.MouseEvent<HTMLDivElement>) => {
     const paletteKey = event.currentTarget.getAttribute('data-palette-key')
     if (paletteKey) setCurrentColorPalette(paletteKey)
   }
@@ -35,7 +39,7 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
   useEffect(() => {}, [isOpen, dropdownRef])
 
   return (
-    <div className="color-palette-dropdown-control" ref={dropdownRef}>
+    <div className={styles.colorPaletteDropdownControl} ref={dropdownRef}>
       {currentColorPalette}
 
       <div
@@ -58,7 +62,7 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
                 fontSize: '0.75rem',
                 padding: '0.7rem 0rem',
               }}
-              onClick={handleClick}
+              onClick={handleThemeSelect}
             >
               <div
                 className="selected-icon"
