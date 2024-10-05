@@ -44,7 +44,7 @@
 /* secondary icons */
 .ruio-btn-secondary {
   overflow: hidden;
-  /* z-index: 9990; */
+
   width: 28px;
   height: 28px;
   border-radius: 8px;
@@ -119,7 +119,6 @@
 .ruio-btn-primary {
   border-radius: 8px;
 
-  /* z-index: 9999; */
   width: 38px;
   height: 32px;
   display: inline-flex;
@@ -156,12 +155,11 @@
 
 /* SettingsModal */
 .ruio-btn-close-modal {
-  /* position: absolute; */
   cursor: pointer !important;
   width: 3rem !important;
   height: 3rem !important;
   outline: none !important;
   pointer-events: all !important;
-  /* z-index: 9999 !important; */
+
   box-sizing: border-box !important;
 }

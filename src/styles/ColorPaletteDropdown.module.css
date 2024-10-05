@@ -1,0 +1,50 @@
+.dropdownMenu {
+  display: flex;
+  flex-direction: column;
+
+  width: 10rem;
+
+  background-color: #383b3a;
+  position: absolute;
+  top: 125%;
+  right: 0;
+  padding: 0.5rem 0rem;
+  border-radius: 8px;
+
+  /* transition effects */
+  transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease,
+    visibility 0.3s;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: hidden;
+
+  gap: 0.2rem;
+}
+
+.dropdownMenuOpen {
+  max-height: 10rem;
+  opacity: 1;
+  visibility: visible;
+  overflow-y: auto;
+}
+
+.dropdownMenu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.dropdownMenu::-webkit-scrollbar-thumb {
+  background-color: #565a59;
+  border-radius: 8px;
+}
+
+.dropdownMenu::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.dropdownMenu {
+  scrollbar-width: thin;
+  scrollbar-color: #565a59 transparent;
+}

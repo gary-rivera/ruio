@@ -18,8 +18,6 @@ type SettingsModalProps = {
 const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
 
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  if (!isOpen) return null
-
   const { depth, setDepth } = useRuioContext()
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
@@ -43,16 +41,16 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   }
 
   return (
-    <div className={settingsModalStyles['modal-container']}>
-      <div className={settingsModalStyles['main-content']}>
-        <div className={settingsModalStyles['header']}>
-          <h2 className={settingsModalStyles['title']}>Settings</h2>
+    <div className={`${settingsModalStyles.modalContainer} ${isOpen ? settingsModalStyles.open : ''}`}>
+      <div className={settingsModalStyles.mainContent}>
+        <div className={settingsModalStyles.header}>
+          <h2 className={settingsModalStyles.title}>Settings</h2>
           <CloseModalIcon onClick={onClose} />
         </div>
-        <section className={settingsModalStyles['category']}>
-          <div className={settingsModalStyles['category-subtitle-section']}>
-            <h4 className={settingsModalStyles['category-subtitle']}>Outline configuration</h4>
-            <hr className={settingsModalStyles['category-divider-bar']} />
+        <section className={settingsModalStyles.category}>
+          <div className={settingsModalStyles.categorySubtitleSection}>
+            <h4 className={settingsModalStyles.categorySubtitle}>Outline configuration</h4>
+            <hr className={settingsModalStyles.categoryDividerBar} />
           </div>
 
           <SettingsRow
@@ -128,7 +126,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               display: 'flex',
               alignItems: 'center',
               position: 'relative',
-              cursor: 'crosshair',
+              cursor: 'pointer',
             }}
             children={
               <ColorPaletteDropdown isOpen={themeDropdownIsOpen} setIsOpen={setThemeDropdownIsOpen} />
@@ -164,8 +162,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         </section>
       </div>
 
-      <footer className={settingsModalStyles['modal-footer']}>
-        <span className={settingsModalStyles['report-issue']}> Report an issue</span>
+      <footer className={settingsModalStyles.modalFooter}>
+        <span className={settingsModalStyles.reportIssue}> Report an issue</span>
       </footer>
     </div>
   )
