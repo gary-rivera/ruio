@@ -14,7 +14,6 @@ function SettingsIcon({ onClick }: IconProps) {
       id="ruio-settings-icon"
       onClick={onClick}
       buttonClassName={`
-          ruio-exclude
           ${buttonStyles['ruio-btn']}
           ${buttonStyles['ruio-btn-secondary']}
           ${ruioEnabled ? buttonStyles['ruio-settings-btn-active'] : buttonStyles['ruio-settings-btn-inactive']}

@@ -38,6 +38,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
         ruio-exclude
         ${divStyles['ruio-ui-container']}
       `}
+      id="ruio-exclude"
     >
       <div id="ruio-controls-container">
         <div id="ruio-settings-container" className={iconStyles['icon-container']}>

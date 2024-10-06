@@ -16,13 +16,13 @@ function ChevronIcon({ isOpen }: ChevronIconProps) {
     <RuioIcon
       id="ruio-chevron"
       buttonClassName={`
-          ruio-exclude
           ${buttonStyles['ruio-btn']}
           ${iconStyles.chevron}
           ${isOpen ? iconStyles.chevronActive : iconStyles.chevronInactive}
         `}
       svgClassName={` ${svgStyles['ruio-chevron-svg']}`}
       svgViewBox="0 0 92 62"
+      pulseEnabled={false}
     >
       <path
         d="M7.99823 8.29111L43 43.2929L78.0018 8.29112"

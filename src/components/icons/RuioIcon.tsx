@@ -44,16 +44,16 @@ function RuioIcon({
 
   const buttonClasses = shouldMemoize
     ? useMemo(() => {
-        return `ruio-exclude ${buttonClassName} ${shouldPulse ? buttonStyles.pulse : ''}`
+        return `${buttonClassName} ${shouldPulse ? buttonStyles.pulse : ''}`
       }, [buttonClassName, shouldPulse])
-    : `ruio-exclude ${buttonClassName} ${shouldPulse ? buttonStyles.pulse : ''}`
+    : `${buttonClassName} ${shouldPulse ? buttonStyles.pulse : ''}`
 
   // Conditionally memoize the svg classes
   const svgClasses = shouldMemoize
     ? useMemo(() => {
-        return `ruio-exclude ${svgClassName}`
+        return `${svgClassName}`
       }, [svgClassName])
-    : `ruio-exclude ${svgClassName}`
+    : `${svgClassName}`
   return (
     <button id={id} className={buttonClasses} onClick={handleClick}>
       <svg className={svgClasses} viewBox={svgViewBox} xmlns="http://www.w3.org/2000/svg">

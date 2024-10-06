@@ -18,7 +18,6 @@ describe('ElementInteractionController', () => {
     rootElement.appendChild(childElement)
 
     excludedElement = document.createElement('div')
-    excludedElement.classList.add('ruio-exclude')
     rootElement.appendChild(excludedElement)
 
     mockHoverCallback = jest.fn()
