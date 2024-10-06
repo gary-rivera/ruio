@@ -8,13 +8,12 @@ function RuioToggleController() {
   const { ruioEnabled, setRuioEnabled } = useRuioContext()
 
   return (
-    <div className={`ruio-exclude ${divStyles['ruio-toggle-container']}`}>
+    <div className={`${divStyles['ruio-toggle-container']}`}>
       <div
         className={`${divStyles['ruio-logo-div-bg']} ${ruioEnabled ? divStyles['ruio-logo-div-bg-active'] : divStyles['ruio-logo-div-bg-inactive']}`}
       />
       <button
         className={`
-        ruio-exclude
         ${buttonStyles['ruio-btn']}
         ${buttonStyles['ruio-btn-primary']} ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}`}
         onClick={() => {
@@ -25,7 +24,7 @@ function RuioToggleController() {
           className={`${divStyles['ruio-logo-div']} ${ruioEnabled ? divStyles['ruio-logo-div-active'] : divStyles['ruio-logo-div-inactive']}`}
         >
           <svg
-            className={`ruio-exclude ${svgStyles['ruio-logo-svg']}`}
+            className={`${svgStyles['ruio-logo-svg']}`}
             viewBox="0 0 208 176"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

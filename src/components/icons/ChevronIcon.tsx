@@ -16,7 +16,6 @@ function ChevronIcon({ isOpen }: ChevronIconProps) {
     <RuioIcon
       id="ruio-chevron"
       buttonClassName={`
-          ruio-exclude
           ${buttonStyles['ruio-btn']}
           ${iconStyles.chevron}
           ${isOpen ? iconStyles.chevronActive : iconStyles.chevronInactive}

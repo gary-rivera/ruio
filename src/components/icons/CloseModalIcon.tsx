@@ -13,7 +13,6 @@ function CloseModalIcon({ onClick }: IconProps) {
       id="ruio-close-icon"
       onClick={onClick}
       buttonClassName={`
-          ruio-exclude
           ${buttonStyles['ruio-btn']}
           ${iconStyles['close-modal-btn']}
         `}
