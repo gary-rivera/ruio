@@ -55,12 +55,12 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     if (ruioEnabled && isElementSelectionModeActive) {
       const debouncedApplyOutline = debounce((element: HTMLElement) => {
         applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
-      }, 75)
+      }, 50)
 
       const debouncedSetSelection = debounce((element: HTMLElement) => {
         setIsElementSelectionModeActive(false)
         setSelectedRootElement(element)
-      }, 75)
+      }, 50)
 
       const cleanupElementSelectionEvents = ElementInteractionController(
         debouncedApplyOutline,

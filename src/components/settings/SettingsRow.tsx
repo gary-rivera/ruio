@@ -1,6 +1,8 @@
-import { ReactNode, CSSProperties, useState } from 'react'
-import divStyles from '../../styles/Div.module.css'
+import { ReactNode, CSSProperties, useState, useCallback, memo } from 'react'
 import ChevronIcon from '@components/icons/ChevronIcon'
+
+import divStyles from '../../styles/Div.module.css'
+import iconStyles from '../../styles/Icon.module.css'
 
 type SettingsRowProps = {
   title: string
@@ -11,7 +13,6 @@ type SettingsRowProps = {
   allowCustomEvents?: boolean
   isOpen?: boolean
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
-  icon?: ReactNode
 }
 
 function SettingsRow({
@@ -23,15 +24,11 @@ function SettingsRow({
   allowCustomEvents = false,
   isOpen,
   setIsOpen,
-  icon,
 }: SettingsRowProps) {
   const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
-
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget || event.target === event.currentTarget.firstChild) {
-      if (allowCustomEvents && setIsOpen) setIsOpen(!isOpen)
-    }
-  }
+  const handleClick = useCallback(() => {
+    if (allowCustomEvents && setIsOpen) setIsOpen(!isOpen)
+  }, [allowCustomEvents, isOpen, setIsOpen])
 
   return (
     <div
@@ -48,15 +45,14 @@ function SettingsRow({
         className={`ruio-settings-input-container ${inputContainerClassName} ${isOpen ? divStyles['ruio-input-active'] : ''}`}
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
+          gridTemplateColumns: 'auto 1fr auto',
           alignItems: 'center',
-          justifyItems: 'center',
-          // padding: '0 0.5rem',
+          width: '100%',
+          maxWidth: '6.5rem',
+
           backgroundColor: '#3C3F3E',
           borderRadius: '8px',
           height: '2rem',
-          width: '6.5rem',
-          // maxWidth: '6rem',
           position: 'relative',
           boxShadow,
           ...inputContainerStyling,
@@ -64,10 +60,11 @@ function SettingsRow({
         onClick={handleClick}
       >
         {children}
-        {icon && <ChevronIcon />}
       </div>
     </div>
   )
 }
 
-export default SettingsRow
+export default memo(SettingsRow, (prevProps, nextProps) => {
+  return prevProps.isOpen === nextProps.isOpen && prevProps.children === nextProps.children
+})

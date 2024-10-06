@@ -7,28 +7,29 @@ import buttonStyles from '../../styles/Button.module.css'
 import iconStyles from '../../styles/Icon.module.css'
 import svgStyles from '../../styles/SVG.module.css'
 
-function ChevronIcon() {
+type ChevronIconProps = {
+  isOpen?: boolean
+}
+
+function ChevronIcon({ isOpen }: ChevronIconProps) {
   return (
     <RuioIcon
-      onClick={() => console.log('chevron toggled')}
+      id="ruio-chevron"
       buttonClassName={`
           ruio-exclude
           ${buttonStyles['ruio-btn']}
-          ${iconStyles['ruio-chevron']}
+          ${iconStyles.chevron}
+          ${isOpen ? iconStyles.chevronActive : iconStyles.chevronInactive}
         `}
-      svgClassName={` ${svgStyles['close-modal-svg']}`}
+      svgClassName={` ${svgStyles['ruio-chevron-svg']}`}
       svgViewBox="0 0 92 62"
     >
-      <>
-        {/* <svg width="92" height="62" viewBox="0 0 92 62" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
-        <path
-          d="M10.9982 11.2911L46 46.2929L81.0018 11.2911"
-          stroke="white"
-          stroke-width="22"
-          stroke-linecap="round"
-        />
-        {/* </svg> */}
-      </>
+      <path
+        d="M7.99823 8.29111L43 43.2929L78.0018 8.29112"
+        stroke="white"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
     </RuioIcon>
   )
 }
