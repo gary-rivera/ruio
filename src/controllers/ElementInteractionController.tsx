@@ -22,11 +22,12 @@ export const ElementInteractionController = (
   }
 
   // TODO: add a tooltip to clarify this element is excluded from border styles or element selection
-  // if (rootElement.classList.contains('ruio-exclude')) return
 
   const isValidTarget = (target: HTMLElement) => {
-    const isChildOfRoot = target !== rootElement && target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
-    return !target.classList.contains('ruio-exclude') && isChildOfRoot && target !== rootElement
+    const targetIsDescendantOfRoot = target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
+    const targetIsDescendantOfRuio = target.closest('[id^="ruio-exclude"]')
+
+    return targetIsDescendantOfRoot && !targetIsDescendantOfRuio
   }
 
   const originalStyles = new Map<HTMLElement, string>()
