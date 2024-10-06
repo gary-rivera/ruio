@@ -1,17 +1,15 @@
 /* ruio global button styling */
 .ruio-btn {
-  /* background: none; */
+  background: transparent;
   border: none;
   padding: 0;
   margin: 0;
 
-  /* appearance: none;
-  box-shadow: none;
-  text-align: center; */
-
   background-color: #1c2120;
+}
 
-  /* overflow: hidden; */
+.ruio-btn:focus {
+  outline: 0.01rem solid #06e5d5;
 }
 
 @keyframes pulse {

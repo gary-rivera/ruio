@@ -3,10 +3,13 @@
   border: none;
   padding: 0;
   margin: 0;
-  display: inline-block; /* Ensures consistent display */
-  font: inherit; /* Inherit font from parent */
-  color: inherit; /* Inherit text color */
-  box-sizing: border-box; /* Ensures consistent sizing */
-  outline: none; /* Remove browser's default outline */
-  appearance: none; /* Removes default styles in some browsers */
+  display: inline-block;
+  font: inherit;
+  color: inherit;
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+}
+.ruio-input-active {
+  outline: 0.01rem solid #06e5d5;
 }
