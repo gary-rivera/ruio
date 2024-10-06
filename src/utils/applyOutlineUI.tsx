@@ -11,8 +11,6 @@ export const applyOutlineUI = (
   apply: boolean,
   currentColorPalette: string,
 ) => {
-  if (element && element.classList.contains('ruio-exclude')) return
-
   if (!currentColorPalette) {
     console.warn('currentColorPalette is undefined; defaulting to "default" palette.')
     currentColorPalette = 'default'
@@ -24,7 +22,7 @@ export const applyOutlineUI = (
   const traverse = (el: HTMLElement, currentDepth: number) => {
     if (!el || currentDepth > depth) return // NOTE: temporary, while we get depth-down figure out
 
-    if (el.classList.contains('ruio-exclude') || el.tagName === 'SCRIPT') return
+    if (el.tagName === 'SCRIPT') return
 
     elements.add(el)
 
