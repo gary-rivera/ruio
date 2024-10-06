@@ -24,6 +24,12 @@ function ChevronIcon({ isOpen }: ChevronIconProps) {
       svgClassName={` ${svgStyles['ruio-chevron-svg']}`}
       svgViewBox="0 0 92 62"
     >
+      <path
+        d="M7.99823 8.29111L43 43.2929L78.0018 8.29112"
+        stroke="white"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
     </RuioIcon>
   )
 }
