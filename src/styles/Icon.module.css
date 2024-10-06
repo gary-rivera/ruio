@@ -22,13 +22,22 @@
   background-color: #565a59;
 }
 
-.ruio-chevron {
-  background-color: inherit;
+.chevron {
+  background-color: transparent;
+  padding: 0 0.75rem;
+  width: 2rem;
+  height: inherit;
   position: absolute;
   right: 0;
-  border: 1px solid yellow;
-  /* width: 1.25rem; */
-  /* height: 1.25rem; */
-  width: 0.85rem;
-  height: 0.85rem;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.chevronInactive {
+  transform: rotate(0deg);
+  transition: transform 300ms ease;
+}
+.chevronActive {
+  transform: rotate(180deg);
+  transition: transform 300ms ease;
 }
