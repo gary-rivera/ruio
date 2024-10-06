@@ -5,7 +5,6 @@
   padding: 0;
   margin: 0;
 
-  cursor: pointer;
   /* appearance: none;
   box-shadow: none;
   text-align: center; */
@@ -48,7 +47,6 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  cursor: pointer;
 
   transition:
     transform 150ms ease-in-out,
@@ -62,7 +60,6 @@
 /* ElementSelectIcon.tsx */
 .ruio-element-select-btn-inactive {
   opacity: 0;
-  cursor: pointer;
 
   transition:
     opacity 250ms ease-in-out,
@@ -80,6 +77,7 @@
 
 .ruio-element-select-btn-active {
   opacity: 1;
+  cursor: pointer;
 
   transform: translateY(0);
 }
@@ -93,11 +91,11 @@
   opacity: 0;
   border: none;
 
-  cursor: pointer;
   fill: #1c2120;
 }
 
 .ruio-settings-btn-active {
+  cursor: pointer;
   transform: translateY(0);
   opacity: 1;
 }
@@ -138,16 +136,4 @@
     opacity 250ms ease-in-out;
   transform: rotate(-10deg);
   opacity: 1;
-}
-
-/* SettingsModal */
-.ruio-btn-close-modal {
-  /* position: absolute; */
-  cursor: pointer !important;
-  width: 3rem !important;
-  height: 3rem !important;
-  outline: none !important;
-  pointer-events: all !important;
-  /* z-index: 9999 !important; */
-  box-sizing: border-box !important;
 }

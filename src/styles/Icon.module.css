@@ -12,6 +12,7 @@
   /* display: flex;
   justify-content: center;
   align-items: center; */
+  cursor: pointer;
   justify-self: flex-end;
   background-color: inherit;
   width: 1.5rem;
@@ -23,6 +24,7 @@
 }
 
 .chevron {
+  cursor: pointer;
   background-color: transparent;
   padding: 0 0.75rem;
   width: 2rem;
