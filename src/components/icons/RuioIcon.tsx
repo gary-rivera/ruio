@@ -1,4 +1,6 @@
 import { ReactNode, MouseEvent, useState, useCallback, useMemo, memo } from 'react'
+import { useRuioContext } from '@context/RuioContextProvider'
+
 import buttonStyles from '../../styles/Button.module.css'
 
 type RuioIconProps = {
@@ -22,13 +24,14 @@ function RuioIcon({
   pulseEnabled = true,
   shouldMemoize = true,
 }: RuioIconProps) {
+  const { ruioEnabled } = useRuioContext()
   const [shouldPulse, setShouldPulse] = useState(false)
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       onClick && onClick(event)
       // TODO: reenable, just debugging
-      if (false && pulseEnabled) {
+      if (pulseEnabled) {
         setShouldPulse(true)
 
         setTimeout(() => {
