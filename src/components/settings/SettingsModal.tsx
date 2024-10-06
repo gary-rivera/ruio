@@ -6,6 +6,8 @@ import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
 
 import settingsModalStyles from '../../styles/SettingsModal.module.css'
+import settingsRowStyles from '../../styles/SettingsRow.module.css'
+
 import buttonStyles from '../../styles/Button.module.css'
 import inputStyles from '../../styles/Input.module.css'
 
@@ -16,15 +18,13 @@ type SettingsModalProps = {
   footer?: ReactNode
 }
 
-const boxShadow = '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'
-
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { depth, setDepth } = useRuioContext()
 
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
 
-  function adjustDepthStyling(operation: 'increment' | 'decrement') {
+  function adjustDepth(operation: 'increment' | 'decrement') {
     const newDepth = operation === 'increment' ? depth + 1 : depth - 1
     setDepth(newDepth)
     setTempDepth(newDepth.toString())
@@ -61,35 +61,21 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           <SettingsRow
             title="Depth"
             containerID="ruio-settings-depth-row"
-            inputContainerClassName="ruio-settings-depth-input"
-            inputContainerStyling={{
-              backgroundColor: 'inherit',
-              justifyContent: 'space-between',
-              boxShadow: 'none',
-              gridTemplateColumns: '1fr 1fr 1fr',
-              padding: 0,
-            }}
+            inputContainerClassName={settingsRowStyles.depthControlContainer}
             children={
               <>
                 <button
-                  className={buttonStyles['ruio-btn']}
-                  onClick={() => adjustDepthStyling('decrement')}
-                  style={{
-                    justifySelf: 'start',
-                    fontSize: 'inherit',
-                    width: '2rem',
-                    height: 'inherit',
-                    cursor: 'pointer',
-                    backgroundColor: '#3C3F3E',
-                    borderRadius: '8px',
-                    color: '#FFFFFF',
-                    boxShadow,
-                  }}
+                  className={`
+                    ${buttonStyles['ruio-btn']}
+                    ${settingsRowStyles.settingRowButton}
+                    ${settingsRowStyles.depthControlButtonLeft}
+                  `}
+                  onClick={() => adjustDepth('decrement')}
                 >
                   -
                 </button>
                 <input
-                  className={inputStyles['ruio-input']}
+                  className={`${inputStyles['ruio-input']} ${settingsRowStyles.depthControlInput}`}
                   type="text"
                   value={tempDepth}
                   onChange={handleDepthChange}
@@ -97,30 +83,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     e.key === 'Enter' && handleDepthConfirm()
                   }
-                  style={{
-                    justifySelf: 'center',
-                    alignSelf: 'center',
-                    width: '2.5rem',
-                    fontSize: 'inherit',
-                    textAlign: 'center',
-                  }}
                 />
                 <button
-                  className={buttonStyles['ruio-btn']}
-                  onClick={() => adjustDepthStyling('increment')}
-                  style={{
-                    justifySelf: 'end',
-                    fontSize: 'inherit',
-                    padding: '0 0.75rem',
-                    width: '2rem',
-                    height: 'inherit',
-
-                    cursor: 'pointer',
-                    backgroundColor: '#3C3F3E',
-                    borderRadius: '8px',
-                    color: '#FFFFFF',
-                    boxShadow,
-                  }}
+                  className={`${buttonStyles['ruio-btn']} ${settingsRowStyles.settingRowButton} ${settingsRowStyles.depthControlButtonLeft}`}
+                  onClick={() => adjustDepth('increment')}
                 >
                   +
                 </button>
@@ -131,14 +97,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           <SettingsRow
             title="Theme"
             containerID="ruio-settings-theme-row"
-            inputContainerClassName="ruio-theme-input-control"
-            inputContainerStyling={{
-              userSelect: 'none',
-              cursor: 'pointer',
-
-              display: 'grid',
-              gridTemplateColumns: '1fr auto',
-            }}
+            inputContainerClassName={`
+              ${settingsRowStyles.themeControlContainer}
+              ${themeDropdownIsOpen ? settingsRowStyles.controlContainerActive : ''}
+            `}
             children={
               <>
                 <ColorPaletteDropdown isOpen={themeDropdownIsOpen} setIsOpen={setThemeDropdownIsOpen} />

@@ -1,0 +1,75 @@
+.settingRowContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.setttingRowTitle {
+  margin: 0;
+  font-weight: 400;
+}
+
+.settingControlContainer {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  width: 100%;
+  max-width: 6.5rem;
+  background-color: #3c3f3e;
+  border-radius: 8px;
+  height: 2rem;
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.controlContainerActive {
+  outline: 0.01rem solid #06e5d5;
+}
+
+.settingRowButton {
+  font-size: inherit;
+  width: 2rem;
+  height: inherit;
+  cursor: pointer;
+  background-color: #3c3f3e;
+  border-radius: 8px;
+  color: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 0 0.75rem;
+}
+
+.depthControlContainer {
+  background-color: transparent;
+  justify-content: space-between;
+  box-shadow: none;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0;
+}
+
+.depthControlButtonLeft {
+  justify-self: start;
+}
+
+.depthControlButtonRight {
+  justify-self: end;
+}
+
+.depthControlInput {
+  justify-self: center;
+  align-self: center;
+  width: 2.5rem;
+  font-size: inherit;
+  text-align: center;
+}
+
+.themeControlContainer {
+  user-select: none;
+  cursor: pointer;
+
+  grid-template-columns: 1fr auto;
+}
+.themeControlContainer:focus {
+  outline: 0.01rem solid #06e5d5;
+}
+
