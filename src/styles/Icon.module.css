@@ -9,9 +9,6 @@
 }
 
 .close-modal-btn {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   cursor: pointer;
   justify-self: flex-end;
   background-color: inherit;
@@ -31,8 +28,11 @@
   height: inherit;
   position: absolute;
   right: 0;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 8px;
+}
+
+.chevron:focus {
+  outline: none;
 }
 
 .chevronInactive {
@@ -42,4 +42,13 @@
 .chevronActive {
   transform: rotate(180deg);
   transition: transform 300ms ease;
+}
+
+.checkmark {
+  cursor: inherit;
+  background-color: transparent;
+  width: 1rem;
+  height: 1rem;
+  height: inherit;
+  position: absolute;
 }

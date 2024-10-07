@@ -40,6 +40,7 @@
 
 .dropdownMenu::-webkit-scrollbar {
   width: 5px;
+  margin-top: 8px;
 }
 
 .dropdownMenu::-webkit-scrollbar-thumb {
@@ -54,4 +55,51 @@
 .dropdownMenu {
   scrollbar-width: thin;
   scrollbar-color: #565a59 transparent;
+}
+
+.dropdownItemContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-weight: 200;
+  font-size: 0.75rem;
+  padding: 0.7rem 0;
+}
+
+/* .dropdownItemContainer:hover {
+  background-color: #565a59;
+} */
+
+.dropdownMenuItemActive {
+  background-color: #565a59;
+}
+
+.dropdownItemIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+.dropdownItemDetails {
+  width: 75%;
+}
+
+.dropdownItemTitle {
+  margin-bottom: 0.3rem;
+}
+
+.dropdownItemColorPalette {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  height: 0.55rem;
+  width: 80%;
+  margin: 0;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.dropdownItemColorSwatch {
+  flex: 1;
 }

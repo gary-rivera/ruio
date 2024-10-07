@@ -1,12 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { colorPalettesMap } from '@utils/colorPalettes'
 import { useRuioContext } from '@context/RuioContextProvider'
-import ChevronIcon from '@components/icons/ChevronIcon'
+import CheckmarkIcon from '@components/icons/CheckmarkIcon'
 
 import styles from '../../styles/ColorPaletteDropdown.module.css'
-import buttonStyles from '../../styles/Button.module.css'
-import spanStyles from '../../styles/Span.module.css'
-import divStyles from '../../styles/Div.module.css'
 
 type ColorPaletteDropdownProps = {
   isOpen: boolean
@@ -15,11 +12,9 @@ type ColorPaletteDropdownProps = {
 
 function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) {
   const { currentColorPalette, setCurrentColorPalette } = useRuioContext()
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const dropdownRef = useRef<HTMLDivElement | null>(null)
 
-  const handleOpenDropdown = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!isOpen) setIsOpen(true)
-  }
   const handleThemeSelect = (event: React.MouseEvent<HTMLDivElement>) => {
     const paletteKey = event.currentTarget.getAttribute('data-palette-key')
     if (paletteKey) setCurrentColorPalette(paletteKey)
@@ -34,9 +29,12 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
     }
   }
 
-  const handleDropdownItemHover = (event: React.MouseEvent<HTMLDivElement>) => {}
-
-  useEffect(() => {}, [isOpen, dropdownRef])
+  useEffect(() => {
+    if (!hoveredIndex) {
+      const colorPaletteKeys = Object.keys(colorPalettesMap)
+      setHoveredIndex(colorPaletteKeys.indexOf(currentColorPalette))
+    }
+  }, [])
 
   return (
     <div className={styles.colorPaletteDropdownControl} ref={dropdownRef}>
@@ -45,65 +43,32 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
       <div
         className={`${styles.dropdownMenu} ${isOpen ? styles.dropdownMenuOpen : ''}`}
         ref={dropdownRef}
-        onMouseLeave={handleMouseLeave}
+        // onMouseLeave={handleMouseLeave}
       >
-        {Object.entries(colorPalettesMap).map(([paletteKey, colors]) => {
+        {Object.entries(colorPalettesMap).map(([paletteKey, colors], index) => {
           const itemIsCurrentTheme = paletteKey === currentColorPalette
+
           return (
             <div
               key={paletteKey}
-              data-palette-key={paletteKey} // for state updates :)
-              className={`${itemIsCurrentTheme ? divStyles['ruio-dropdown-list-item-active-theme'] : ''} ${divStyles['ruio-dropdown-list-item']}`}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                fontWeight: '200',
-                fontSize: '0.75rem',
-                padding: '0.7rem 0rem',
-              }}
+              data-palette-key={paletteKey}
+              className={`
+                ${styles.dropdownItemContainer}
+                ${index === hoveredIndex ? styles.dropdownMenuItemActive : ''}
+              `}
               onClick={handleThemeSelect}
+              onMouseEnter={() => setHoveredIndex(index)} // Set hovered index on mouse enter
             >
-              <div
-                className="selected-icon"
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  width: '25%',
-                }}
-              >
-                {/* TODO: add an svg */}
-                {itemIsCurrentTheme && 'x'}
-              </div>
-              <div
-                className="color-display-item"
-                style={{
-                  width: '75%',
-                }}
-              >
-                <div
-                  className="ruio-theme-title"
-                  style={{
-                    marginBottom: '0.3rem',
-                  }}
-                >
-                  {paletteKey}
-                </div>
-                <ul
-                  className="color-palette"
-                  style={{
-                    listStyle: 'none',
-                    display: 'flex',
-                    padding: 0,
-                    height: '0.55rem',
-                    width: '80%',
-                    margin: 0,
-                    borderRadius: '50px',
-                    // overflow: 'hidden',
-                  }}
-                >
+              <div className={styles.dropdownItemIcon}>{itemIsCurrentTheme && <CheckmarkIcon />}</div>
+              <div className={styles.dropdownItemDetails}>
+                <div className={styles.dropdownItemTitle}>{paletteKey}</div>
+                <ul className={styles.dropdownItemColorPalette}>
                   {colors.map((color) => (
-                    <li key={color} style={{ flex: 1, backgroundColor: color }} />
+                    <li
+                      key={color}
+                      className={styles.dropdownItemColorSwatch}
+                      style={{ backgroundColor: color }}
+                    />
                   ))}
                 </ul>
               </div>
