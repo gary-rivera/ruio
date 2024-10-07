@@ -72,4 +72,8 @@
 .themeControlContainer:focus {
   outline: 0.01rem solid #06e5d5;
 }
+.themeInput {
+}
 
+.themeControlButton {
+}

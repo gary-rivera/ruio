@@ -43,3 +43,12 @@
   transform: rotate(180deg);
   transition: transform 300ms ease;
 }
+
+.checkmark {
+  cursor: inherit;
+  background-color: transparent;
+  width: 1rem;
+  height: 1rem;
+  height: inherit;
+  position: absolute;
+}

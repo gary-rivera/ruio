@@ -84,21 +84,3 @@
   transform: scaleX(0.1) scaleY(1) rotate(0deg);
   opacity: 0;
 }
-
-/* ElementSelectIcon.tsx */
-.ruio-icon {
-  width: auto;
-  height: auto;
-  transition: transform 250ms ease-in-out;
-}
-.ruio-icon:hover {
-  transform: scale(1.05);
-}
-
-/* ColorPaletteDropdown */
-.ruio-dropdown-list-item-active-theme {
-  background-color: #565a59;
-}
-
-.ruio-dropdown-list-item {
-}
