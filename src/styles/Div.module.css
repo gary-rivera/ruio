@@ -12,6 +12,7 @@
   font-family: 'Outfit', sans-serif;
   font-weight: 400;
 
+  z-index: 100000; /* TODO: mention in readme that this is the z-index threshold to see ruio ui */
   position: fixed;
   bottom: 40px;
   right: 40px;
