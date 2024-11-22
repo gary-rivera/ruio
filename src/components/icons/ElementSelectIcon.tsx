@@ -6,7 +6,6 @@ import IconProps from '../../types/IconTypes'
 // styling modules
 import buttonStyles from '../../styles/Button.module.css'
 import svgStyles from '../../styles/SVG.module.css'
-import divStyles from '../../styles/Div.module.css'
 
 function ElementSelectIcon({ onClick }: IconProps) {
   const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
