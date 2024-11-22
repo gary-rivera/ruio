@@ -4,6 +4,7 @@ import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
+// import CloseModalIconv2 from '@components/icons/Iconv2'
 
 import settingsModalStyles from '../../styles/SettingsModal.module.css'
 import settingsRowStyles from '../../styles/SettingsRow.module.css'
@@ -50,7 +51,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       <div className={settingsModalStyles.mainContent}>
         <div className={settingsModalStyles.header}>
           <h2 className={settingsModalStyles.title}>Settings</h2>
-          <CloseModalIcon onClick={onClose} />
+
+          <CloseModalIcon onClick={onClose} buttonStyleKey="close-modal-btn" />
         </div>
         <section className={settingsModalStyles.category}>
           <div className={settingsModalStyles.categorySubtitleSection}>
@@ -112,6 +114,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             setIsOpen={setThemeDropdownIsOpen}
           />
 
+          {/* outline vs. border toggle */}
+          {/* toggle annotations toggle (meta details about element such as class, dimensions) */}
+          {/* toggle horizontal/vertical halfway line */}
+
           {/* <SettingsRow
             title="Border/Outline"
             containerID="ruio-settings-opacity-row"
@@ -139,7 +145,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       </div>
 
       <footer className={settingsModalStyles.modalFooter}>
-        <span className={settingsModalStyles.reportIssue}> Report an issue</span>
+        {/* <span className={settingsModalStyles.reportIssue}> Report an issue</span> */}
+        {/* TODO: instead of report issue, put description of the setting being hovered over */}
       </footer>
     </div>
   )

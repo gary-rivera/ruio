@@ -7,7 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-src/assets/svg
 .tsc-out
 node_modules
 dist
@@ -24,6 +23,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.svg
 *.fig
 ruio-inception.jpg

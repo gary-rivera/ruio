@@ -41,14 +41,8 @@
 .close-modal-svg {
   max-width: 0.85rem;
   max-height: 0.85rem;
-  fill: none;
-  /* stroke: #eaf8ef; */
-}
 
-.close-modal-svg path:hover {
-  box-shadow:
-    rgba(0, 0, 0, 0.16) 0px 1px 4px,
-    rgb(51, 51, 51) 0px 0px 0px 3px;
+  stroke: rgba(234, 248, 239, 1);
 }
 
 .ruio-chevron-svg {

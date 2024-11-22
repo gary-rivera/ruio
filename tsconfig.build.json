@@ -13,7 +13,7 @@
       "@root/*": ["src/*"],
       "@context/*": ["src/context/*"],
       "@controllers/*": ["src/controllers/*"],
-			"ruio": ["node_modules/ruio"]
+      "ruio": ["node_modules/ruio"]
     },
     "outDir": "./dist"
   },

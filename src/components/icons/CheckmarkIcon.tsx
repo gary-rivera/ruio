@@ -8,7 +8,7 @@ type ChevronIconProps = {
   isOpen?: boolean
 }
 
-function ChevronIcon({ isOpen }: ChevronIconProps) {
+function CheckmarkIcon({ isOpen }: ChevronIconProps) {
   return (
     <RuioIcon
       id="ruio-chevron"
@@ -30,4 +30,4 @@ function ChevronIcon({ isOpen }: ChevronIconProps) {
   )
 }
 
-export default ChevronIcon
+export default CheckmarkIcon
