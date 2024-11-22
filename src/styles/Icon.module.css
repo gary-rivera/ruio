@@ -9,12 +9,15 @@
 }
 
 .close-modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  justify-self: flex-end;
   background-color: inherit;
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: calc(1.5rem * (0.03125 * 3)); /* triple to the relative containing modal */
+  padding: 7px;
+  border-radius: 5px; /* triple to the relative containing modal */
 }
 .close-modal-btn:hover {
   background-color: #565a59;
