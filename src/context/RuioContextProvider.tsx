@@ -2,19 +2,22 @@ import React, { createContext, useState, useEffect, ReactNode, useContext, useRe
 import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 import { debounce } from '@utils/debounce'
+import { getRootSelectorLocalStorageValue, getRuioEnabledLocalStorageValue } from '@utils/config'
 import { UI_DEPTH, COLOR_PALETTE } from '@constants/index'
 
 interface RuioContextProps {
   ruioEnabled: boolean // are ruio related state +/- interactions enabled
-  setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // toggle ruio related state/interactions
+  setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // dispatcher for ruio
+
   depth: number // depth of the amount of elements to apply outline UI to
   setDepth: React.Dispatch<React.SetStateAction<number>>
-  parentAppRootElement: HTMLElement | null // the root of the parent react application
-  setParentAppRootElement: React.Dispatch<React.SetStateAction<HTMLElement | null>>
-  selectedRootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
+
+  rootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
+
   isElementSelectionModeActive: boolean // is element selection mode active -- aka are there hover and click events drilled into the DOM
   setIsElementSelectionModeActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element selection mode
   toggleElementSelectionMode: () => void // cb to toggle element selection mode (for clarity, might remove)
+
   currentColorPalette: string // the key of the current color palette aka theme
   setCurrentColorPalette: React.Dispatch<React.SetStateAction<string>> // setter for the color palette theme
 }
@@ -23,34 +26,22 @@ const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
 export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [ruioEnabled, setRuioEnabled] = useState(false)
-  const [depth, setDepth] = useState(3)
-  const [selectedRootElement, setSelectedRootElement] = useState<HTMLElement | null>(null)
+  const [depth, setDepth] = useState(UI_DEPTH)
+  const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
   const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
-  const [parentAppRootElement, setParentAppRootElement] = useState<HTMLElement | null>(
-    document.querySelector('#root') as HTMLElement | null,
-  )
-  const [currentColorPalette, setCurrentColorPalette] = useState<string>('default')
+  const [currentColorPalette, setCurrentColorPalette] = useState<string>(COLOR_PALETTE)
 
-  // if current element has standard react root class element and the current selected element isn't the root class element, dont apply the ui outlining styles
-  const controlPanelRef = useRef<HTMLDivElement | null>(null)
+  // persist ruioEnabled & rootElement state across refreshes
   useEffect(() => {
-    if (ruioEnabled && controlPanelRef.current) {
-      controlPanelRef.current.style.display = 'block'
-    } else if (controlPanelRef.current) {
-      controlPanelRef.current.style.display = 'none'
-    }
-  }, [ruioEnabled])
+    setRuioEnabled(getRuioEnabledLocalStorageValue())
 
-  // TODO: use this to store the previous selected root element for when a user exits element selection mode without picking an element
-  const previousSelectedRootElementRef = useRef<HTMLElement | null>(null)
+    const selector = getRootSelectorLocalStorageValue()
+    setRootElement(document.querySelector(selector) as HTMLElement)
+  }, [])
 
-  /**
-   * Triggers element selection mode by toggling the active state.
-   * Wrapped in useCallback to maintain referential equality in contextValue.
-   */
-  const toggleElementSelectionMode = () => {
-    setIsElementSelectionModeActive((prev) => !prev)
-  }
+  // TODO: set these values from local storage via an object that has the keys for each value
+  // check if localStorage has a value for depth and set it if it does
+  // check if localStorage has a value for currentColorPalette and set it if it does
 
   useEffect(() => {
     if (ruioEnabled && isElementSelectionModeActive) {
@@ -60,7 +51,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
       const debouncedSetSelection = debounce((element: HTMLElement) => {
         setIsElementSelectionModeActive(false)
-        setSelectedRootElement(element)
+        setRootElement(element)
       }, 50)
 
       const cleanupElementSelectionEvents = ElementInteractionController(
@@ -76,11 +67,19 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     }
   }, [isElementSelectionModeActive, depth, ruioEnabled])
 
+  // TODO: move this to its own context provider (ElementSelectContextProvider)
   useEffect(() => {
-    if (selectedRootElement) {
-      applyOutlineUI(selectedRootElement, depth, ruioEnabled, currentColorPalette)
+    if (rootElement) {
+      applyOutlineUI(rootElement, depth, ruioEnabled, currentColorPalette)
     }
-  }, [depth, selectedRootElement, ruioEnabled, currentColorPalette])
+  }, [depth, rootElement, ruioEnabled, currentColorPalette])
+
+  /**
+   * Triggers element selection mode by toggling the active state.
+   */
+  const toggleElementSelectionMode = () => {
+    setIsElementSelectionModeActive((prev) => !prev)
+  }
 
   const contextValue = useMemo(
     () => ({
@@ -88,22 +87,17 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
       setRuioEnabled,
       depth,
       setDepth,
-      parentAppRootElement,
-      setParentAppRootElement,
-      selectedRootElement,
+      rootElement,
       isElementSelectionModeActive,
       setIsElementSelectionModeActive,
       toggleElementSelectionMode,
       currentColorPalette,
       setCurrentColorPalette,
     }),
-    // TODO: verify -- is it necessary to include all of these deps?
     [
       ruioEnabled,
       depth,
-      parentAppRootElement,
-      setParentAppRootElement,
-      selectedRootElement,
+      rootElement,
       isElementSelectionModeActive,
       toggleElementSelectionMode,
       currentColorPalette,
@@ -114,9 +108,6 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
 }
 
-/**
- * Custom hook to access the Ruio context.
- */
 export const useRuioContext = () => {
   const context = useContext(RuioContext)
   if (!context) {
