@@ -7,23 +7,6 @@ export const colorPalettesMap: Record<string, string[]> = {
     '#005F60', // Ruio Cyan
     '#FD5901', // Blood Orange
   ],
-  // light: [
-  //   '#FFCCCC', // Light Red
-  //   '#CCE5FF', // Light Blue
-  //   '#CCFFCC', // Light Green
-  //   '#FFF5CC', // Light Yellow
-  //   '#FFCCE5', // Light Pink
-  //   '#CCFFF5', // Light Teal
-  // ],
-  // dark: [
-  //   '#990000', // Dark Red
-  //   '#003366', // Dark Blue
-  //   '#006600', // Dark Green
-  //   '#996600', // Dark Yellow/Brown
-  //   '#660033', // Dark Pink
-  //   '#003333', // Dark Teal
-  // ],
-  // didnt realize the negative connotation ._.
   roygbiv: [
     '#CD001A', // Red
     '#EF6A00', // Orange

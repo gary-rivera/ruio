@@ -23,14 +23,14 @@ const TestComponent = () => {
     setDepth,
     isElementSelectionModeActive,
     setIsElementSelectionModeActive,
-    selectedRootElement,
+    rootElement,
   } = useRuioContext()
 
   return (
     <div>
       <div data-testid="ruioEnabled">{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
       <div data-testid="depth">{depth}</div>
-      <div data-testid="selectedRootElement">{selectedRootElement?.tagName || 'None'}</div>
+      <div data-testid="rootElement">{rootElement?.tagName || 'None'}</div>
       <button
         data-testid="select-element-mode"
         onClick={() => {
@@ -104,7 +104,7 @@ describe('RuioContextProvider', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('selectedRootElement').textContent).toBe(mockElement.tagName)
+      expect(screen.getByTestId('rootElement').textContent).toBe(mockElement.tagName)
     })
   })
 
@@ -173,7 +173,7 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    expect(screen.getByTestId('selectedRootElement').textContent).toBe('None')
+    expect(screen.getByTestId('rootElement').textContent).toBe('None')
   })
 
   test('should call applyOutlineUI with correct arguments when borders are enabled', async () => {

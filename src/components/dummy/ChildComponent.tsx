@@ -10,6 +10,7 @@ const ChildComponent: React.FC = () => {
         borderRadius: '25px',
         border: '1px solid black',
       }}
+      id="ruio-child-component"
     >
       <h2>Child Component</h2>
       <p>This is the child component.</p>

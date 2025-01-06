@@ -1,4 +1,5 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
+import { setLocalStorageValue } from '@utils/config'
 
 import buttonStyles from '../styles/Button.module.css'
 import divStyles from '../styles/Div.module.css'
@@ -18,6 +19,7 @@ function RuioToggleController() {
         ${buttonStyles['ruio-btn-primary']} ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}`}
         onClick={() => {
           setRuioEnabled(!ruioEnabled)
+          setLocalStorageValue('ruioEnabled', (!ruioEnabled).toString())
         }}
       >
         <div
