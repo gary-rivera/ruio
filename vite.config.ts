@@ -36,6 +36,7 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@root': path.resolve(__dirname, './src'),
       '@controllers': path.resolve(__dirname, './src/controllers'),
+      '@constants': path.resolve(__dirname, './src/constants/'),
       '@context': path.resolve(__dirname, './src/context'),
     },
   },

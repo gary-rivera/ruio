@@ -9,6 +9,7 @@
       "@root/*": ["src/*"],
       "@context/*": ["src/context/*"],
       "@controllers/*": ["src/controllers/*"],
+      "@constants/*": ["src/constants/*"],
       "@tests/*": ["src/tests/*"]
     },
     "target": "ESNext",

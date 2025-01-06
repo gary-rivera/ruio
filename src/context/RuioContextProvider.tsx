@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, ReactNode, useContext, useRe
 import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 import { debounce } from '@utils/debounce'
+import { UI_DEPTH, COLOR_PALETTE } from '@constants/index'
 
 interface RuioContextProps {
   ruioEnabled: boolean // are ruio related state +/- interactions enabled

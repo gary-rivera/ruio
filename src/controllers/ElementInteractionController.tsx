@@ -1,3 +1,5 @@
+import { setLocalStorageValue, parseSelectorFromSelectedElement } from '@utils/config'
+
 const DEFAULT_ROOT_ELEMENT = 'root'
 
 /**
