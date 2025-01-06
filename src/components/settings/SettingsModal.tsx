@@ -4,7 +4,7 @@ import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
-// import CloseModalIconv2 from '@components/icons/Iconv2'
+import UIStylingRadioSelect from '@components/settings/UIStylingRadioSelect'
 
 import settingsModalStyles from '../../styles/SettingsModal.module.css'
 import settingsRowStyles from '../../styles/SettingsRow.module.css'
@@ -120,36 +120,19 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           {/* toggle annotations toggle (meta details about element such as class, dimensions) */}
           {/* toggle horizontal/vertical halfway line */}
 
-          {/* <SettingsRow
-            title="Border/Outline"
+          <SettingsRow
+            title="CSS Prop"
             containerID="ruio-settings-opacity-row"
-            inputContainerClassName="ruio-opacity-input-control"
-            inputContainerStyling={{ display: 'flex', alignItems: 'center' }}
-            children={
-              <>
-                <span
-                  style={{
-                    maxWidth: '1.5rem',
-                    padding: 0,
-                    textAlign: 'center',
-                    fontSize: '0.9rem',
-                    fontWeight: '300',
-                    marginRight: '0.1rem',
-                  }}
-                >
-                  100
-                </span>
-                <span style={{ color: 'gray', alignSelf: 'center' }}>%</span>
-              </>
-            }
-          /> */}
+            inputContainerClassName={settingsRowStyles.UIStylingContainer}
+            children={<UIStylingRadioSelect />}
+          />
         </section>
       </div>
 
-      <footer className={settingsModalStyles.modalFooter}>
-        {/* <span className={settingsModalStyles.reportIssue}> Report an issue</span> */}
-        {/* TODO: instead of report issue, put description of the setting being hovered over */}
-      </footer>
+      {/* <footer className={settingsModalStyles.modalFooter}> */}
+      {/* <span className={settingsModalStyles.reportIssue}> Report an issue</span> */}
+      {/* TODO: instead of report issue, put description of the setting being hovered over? */}
+      {/* </footer> */}
     </div>
   )
 }

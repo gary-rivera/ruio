@@ -6,6 +6,7 @@
 .dropdownMenu {
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   width: 10rem;
 

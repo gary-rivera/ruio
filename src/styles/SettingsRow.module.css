@@ -72,8 +72,11 @@
 .themeControlContainer:focus {
   outline: 0.01rem solid #06e5d5;
 }
-.themeInput {
-}
 
-.themeControlButton {
+.UIStylingContainer {
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  gap: 0;
+  overflow: hidden;
 }
