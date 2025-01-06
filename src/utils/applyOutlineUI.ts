@@ -8,13 +8,11 @@ export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 export const applyOutlineUI = ({
   element,
   depth,
-  apply,
   currentColorPalette,
   styleProp = 'outline',
 }: {
   element: HTMLElement
   depth: number
-  apply: boolean
   currentColorPalette: string
   styleProp?: string
 }) => {
@@ -31,13 +29,13 @@ export const applyOutlineUI = ({
 
     if (el.tagName === 'SCRIPT') return
 
+    // NOTE: does this ever get cleaned up? or does the set just grow indefinitely?
     elements.add(el)
 
     // Apply styles only when necessary
     requestAnimationFrame(() => {
-      // Use the colors array instead of a hard-coded palette key
       const outlineColor = getRelativeDepthColor(colors, currentDepth)
-      el.style.outline = apply ? `2px solid ${outlineColor}` : ''
+      el.style.outline = `2px solid ${outlineColor}`
     })
 
     Array.from(el.children).forEach((child) => {
