@@ -3,7 +3,6 @@ import { applyOutlineUI, resetPreviouslyAppliedElements } from './applyOutlineUI
 const defaultProps = {
   element: document.createElement('div'),
   depth: 2,
-  apply: true,
   currentColorPalette: 'default',
 }
 
@@ -57,27 +56,12 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
     }).not.toThrow()
   })
 
-  test('does not fail when apply is false', () => {
-    expect(() => {
-      applyOutlineUI({ ...defaultProps, apply: false })
-    }).not.toThrow()
-  })
-
   // Functional Tests
   test('applies borders to the element and its children', () => {
     applyOutlineUI({ ...defaultProps, depth: 1 })
 
     expect(element.style.outline).toBe('2px solid #990000')
     expect(childElement.style.outline).toBe('2px solid #003366')
-  })
-
-  test('removes borders when apply is false', () => {
-    applyOutlineUI({ ...defaultProps, depth: 1 })
-
-    applyOutlineUI({ ...defaultProps, depth: 1, apply: false })
-
-    expect(element.style.outline).toBe('')
-    expect(childElement.style.outline).toBe('')
   })
 
   test('applies borders only up to the given depth', () => {
