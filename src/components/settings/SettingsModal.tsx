@@ -19,6 +19,8 @@ type SettingsModalProps = {
   footer?: ReactNode
 }
 
+// TODO: add settings row for border/outline toggle
+// TODO: add settings row to clear local storage
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { depth, setDepth } = useRuioContext()
 
