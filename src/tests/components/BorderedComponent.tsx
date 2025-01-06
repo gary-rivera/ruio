@@ -12,7 +12,7 @@ export const BorderedComponent: React.FC<BorderedComponentProps> = ({ depth, app
 
   useEffect(() => {
     if (containerRef.current) {
-      applyOutlineUI(containerRef.current, depth, apply, 'default')
+      applyOutlineUI({ element: containerRef.current, depth, apply, currentColorPalette: 'default' })
     }
   }, [depth, apply])
 

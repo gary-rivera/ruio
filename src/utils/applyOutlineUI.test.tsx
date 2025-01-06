@@ -1,5 +1,12 @@
 import { applyOutlineUI, resetPreviouslyAppliedElements } from './applyOutlineUI'
 
+const defaultProps = {
+  element: document.createElement('div'),
+  depth: 2,
+  apply: true,
+  currentColorPalette: 'default',
+}
+
 describe('applyOutlineUI Smoke and Functionality Tests', () => {
   let element: HTMLElement
   let childElement: HTMLElement
@@ -33,39 +40,41 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
   // Smoke Tests
   test('runs without errors on valid input', () => {
     expect(() => {
-      applyOutlineUI(element, 2, true, 'default')
+      applyOutlineUI({ ...defaultProps })
     }).not.toThrow()
   })
 
   test('handles empty elements without throwing', () => {
     const emptyElement = document.createElement('div')
     expect(() => {
-      applyOutlineUI(emptyElement, 2, true, 'default')
+      applyOutlineUI({ ...defaultProps, element: emptyElement })
     }).not.toThrow()
   })
 
   test('does not fail on depth 0', () => {
     expect(() => {
-      applyOutlineUI(element, 0, true, 'default')
+      applyOutlineUI({ ...defaultProps, depth: 0 })
     }).not.toThrow()
   })
 
   test('does not fail when apply is false', () => {
     expect(() => {
-      applyOutlineUI(element, 2, false, 'default')
+      applyOutlineUI({ ...defaultProps, apply: false })
     }).not.toThrow()
   })
 
   // Functional Tests
   test('applies borders to the element and its children', () => {
-    applyOutlineUI(element, 1, true, 'default')
+    applyOutlineUI({ ...defaultProps, depth: 1 })
+
     expect(element.style.outline).toBe('2px solid #990000')
     expect(childElement.style.outline).toBe('2px solid #003366')
   })
 
   test('removes borders when apply is false', () => {
-    applyOutlineUI(element, 1, true, 'default')
-    applyOutlineUI(element, 1, false, 'default')
+    applyOutlineUI({ ...defaultProps, depth: 1 })
+
+    applyOutlineUI({ ...defaultProps, depth: 1, apply: false })
 
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('')
@@ -75,7 +84,7 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
     const deepChildElement = document.createElement('div')
     childElement.appendChild(deepChildElement)
 
-    applyOutlineUI(element, 1, true, 'default')
+    applyOutlineUI({ ...defaultProps, depth: 1 })
 
     expect(element.style.outline).toBe('2px solid #990000')
     expect(childElement.style.outline).toBe('2px solid #003366')
@@ -83,10 +92,10 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
   })
 
   test('removes border from previously applied elements not in the current list', () => {
-    applyOutlineUI(element, 1, true, 'default')
+    applyOutlineUI({ ...defaultProps, depth: 1 })
     expect(element.style.outline).toBe('2px solid #990000')
 
-    applyOutlineUI(childElement, 1, true, 'default')
+    applyOutlineUI({ ...defaultProps, depth: 1 })
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('2px solid #990000')
   })

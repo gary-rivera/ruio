@@ -5,12 +5,19 @@ export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 // TODO: add root class or id configuration to settings icon modal
 // TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements (performance for small vs. large data sets)
 // ref. sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
-export const applyOutlineUI = (
-  element: HTMLElement,
-  depth: number,
-  apply: boolean,
-  currentColorPalette: string,
-) => {
+export const applyOutlineUI = ({
+  element,
+  depth,
+  apply,
+  currentColorPalette,
+  styleProp = 'outline',
+}: {
+  element: HTMLElement
+  depth: number
+  apply: boolean
+  currentColorPalette: string
+  styleProp?: string
+}) => {
   if (!currentColorPalette) {
     console.warn('currentColorPalette is undefined; defaulting to "default" palette.')
     currentColorPalette = 'default'

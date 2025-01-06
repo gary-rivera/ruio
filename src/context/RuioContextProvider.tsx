@@ -30,6 +30,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
   const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
   const [currentColorPalette, setCurrentColorPalette] = useState<string>(COLOR_PALETTE)
+  const [styleProp, setStyleProp] = useState<string>('outline')
 
   // persist ruioEnabled & rootElement state across refreshes
   useEffect(() => {
@@ -46,7 +47,7 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   useEffect(() => {
     if (ruioEnabled && isElementSelectionModeActive) {
       const debouncedApplyOutline = debounce((element: HTMLElement) => {
-        applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
+        applyOutlineUI({ element, depth, apply: ruioEnabled, currentColorPalette })
       }, 50)
 
       const debouncedSetSelection = debounce((element: HTMLElement) => {
@@ -70,7 +71,13 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
   // TODO: move this to its own context provider (ElementSelectContextProvider)
   useEffect(() => {
     if (rootElement) {
-      applyOutlineUI(rootElement, depth, ruioEnabled, currentColorPalette)
+      applyOutlineUI({
+        element: rootElement,
+        depth,
+        apply: ruioEnabled,
+        currentColorPalette,
+        styleProp,
+      })
     }
   }, [depth, rootElement, ruioEnabled, currentColorPalette])
 
