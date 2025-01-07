@@ -70,7 +70,7 @@ export const ElementInteractionController = (
             const [property] = style.split(':').map((s) => s.trim())
             return !stylesToFilterOut.includes(property)
           })
-          .join('; ')
+          .join(';')
       }
 
       // Apply the filtered styles or remove the style attribute if empty
