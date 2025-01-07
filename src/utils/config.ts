@@ -33,9 +33,34 @@ export const getRootSelectorLocalStorageValue = () => {
 // helper function to append the proper selector identifier to the root element on root selection
 export const parseSelectorFromSelectedElement = (selectedElement: HTMLElement) => {
   if (selectedElement.id) return `#${selectedElement.id}`
-  if (selectedElement.className) return `.${selectedElement.className}`
-  if (selectedElement.classList) return `.${selectedElement.classList[0]}`
-  return ''
+
+  if (selectedElement.className && !selectedElement.className.startsWith('ruio')) {
+    return `.${selectedElement.className}`
+  }
+
+  return generateElementPath(selectedElement)
+}
+
+const generateElementPath = (element: HTMLElement): string => {
+  if (element.tagName === 'BODY') return 'body'
+  let path: string = element.tagName.toLowerCase()
+
+  if (element.id) return `#${element.id}`
+
+  if (element.parentNode) {
+    const siblings = Array.from(element.parentNode.children).filter(
+      (sibling) => sibling.tagName === element.tagName,
+    )
+
+    if (siblings.length > 1) {
+      const index = siblings.indexOf(element) + 1
+      path += `:nth-of-type(${index})`
+    }
+
+    return `${generateElementPath(element.parentNode as HTMLElement)} > ${path}`
+  }
+
+  return path
 }
 
 export const setLocalStorageValue = (key: keyof ConfigLocalState, value: string) => {

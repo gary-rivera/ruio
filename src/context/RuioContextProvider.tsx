@@ -36,6 +36,8 @@ export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     setRuioEnabled(getRuioEnabledLocalStorageValue())
 
     const selector = getRootSelectorLocalStorageValue()
+    if (!selector) return
+
     setRootElement(document.querySelector(selector) as HTMLElement)
   }, [])
 

@@ -119,7 +119,10 @@ export const ElementInteractionController = (
 
     const target = event.target as HTMLElement
     if (isValidTarget(target)) {
-      setLocalStorageValue('rootElementSelector', parseSelectorFromSelectedElement(target))
+      const selector = parseSelectorFromSelectedElement(target)
+      if (selector) {
+        setLocalStorageValue('rootElementSelector', selector)
+      }
 
       removeHoverStyles(target)
       onClick(target)
