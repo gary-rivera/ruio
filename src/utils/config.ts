@@ -22,7 +22,7 @@ export const getLocalStorageValue = (key: keyof ConfigLocalState) => {
 
 export const getRuioEnabledLocalStorageValue = () => {
   const storedValue = getLocalStorageValue('ruioEnabled')
-  return Boolean(storedValue) as boolean
+  return storedValue === 'true'
 }
 
 export const getRootSelectorLocalStorageValue = () => {
