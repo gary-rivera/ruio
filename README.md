@@ -26,10 +26,17 @@
 
 ## Installation
 
-You can install Ruio via npm:
+You can install Ruio using your preferred package manager:
 
 ```bash
+# npm
 npm install ruio
+
+# yarn
+yarn add ruio
+
+# bun
+bun add ruio
 ```
 
 ## Usage
@@ -84,22 +91,43 @@ Applying `ruio-exclude` class to elements that you don't want to be considered f
 git clone https://github.com/gary-rivera/ruio.git
 ```
 
-2. Install dependencies:
+2. Install dependencies using your preferred package manager:
 
 ```bash
+# npm
 npm install
+
+# yarn
+yarn install
+
+# bun
+bun install
 ```
 
 3. Start the development server:
 
 ```bash
+# npm
 npm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
 
 4. You can also run tests to ensure everything is working correctly:
 
 ```bash
+# npm
 npm run test
+
+# yarn
+yarn test
+
+# bun
+bun test
 ```
 
 ### Trying it out
