@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext, useRef, useMemo } from 'react'
+import React, { createContext, useState, useEffect, ReactNode, ReactElement, useContext, useRef, useMemo } from 'react'
 import { applyOutlineUI } from '../utils/applyOutlineUI'
 import { ElementInteractionController } from '../controllers/ElementInteractionController'
 import { debounce } from '@utils/debounce'
@@ -24,7 +24,11 @@ interface RuioContextProps {
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
-export const RuioContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+type RuioContextProviderProps = {
+  children: ReactNode
+}
+
+export const RuioContextProvider = ({ children }: RuioContextProviderProps): ReactElement => {
   const [ruioEnabled, setRuioEnabled] = useState(false)
   const [depth, setDepth] = useState(UI_DEPTH)
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
