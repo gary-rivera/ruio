@@ -26,8 +26,10 @@ export const getRuioEnabledLocalStorageValue = () => {
 }
 
 export const getRootSelectorLocalStorageValue = () => {
-  const storedValue = getLocalStorageValue('rootElementSelector') as string
-  return storedValue ?? ROOT_ELEMENT_SELECTOR
+  // Only return a value if it exists in localStorage
+  // Don't return a default - let the caller decide what to do
+  const storedValue = localStorage.getItem('rootElementSelector')
+  return storedValue || ''
 }
 
 // helper function to append the proper selector identifier to the root element on root selection

@@ -1,8 +1,7 @@
-import React, { createContext, useState, useEffect, ReactNode, ReactElement, useContext, useRef, useMemo } from 'react'
-import { applyOutlineUI } from '../utils/applyOutlineUI'
-import { ElementInteractionController } from '../controllers/ElementInteractionController'
-import { debounce } from '@utils/debounce'
-import { getRootSelectorLocalStorageValue, getRuioEnabledLocalStorageValue } from '@utils/config'
+import React, { createContext, useState, useEffect, ReactNode, ReactElement, useContext, useMemo, useCallback } from 'react'
+import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { useLocalStorageState } from '@hooks/useLocalStorageState'
+import { useElementSelection } from '@hooks/useElementSelection'
 import { UI_DEPTH, COLOR_PALETTE } from '@constants/index'
 
 interface RuioContextProps {
@@ -29,83 +28,64 @@ type RuioContextProviderProps = {
 }
 
 export const RuioContextProvider = ({ children }: RuioContextProviderProps): ReactElement => {
-  const [ruioEnabled, setRuioEnabled] = useState(false)
+  // Custom hooks for separated concerns
+  const localStorage = useLocalStorageState()
   const [depth, setDepth] = useState(UI_DEPTH)
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
-  const [isElementSelectionModeActive, setIsElementSelectionModeActive] = useState(false)
   const [currentColorPalette, setCurrentColorPalette] = useState<string>(COLOR_PALETTE)
 
-  // persist ruioEnabled & rootElement state across refreshes
+  // Initialize rootElement from localStorage selector
   useEffect(() => {
-    setRuioEnabled(getRuioEnabledLocalStorageValue())
-
-    const selector = getRootSelectorLocalStorageValue()
-    setRootElement(document.querySelector(selector) as HTMLElement)
-  }, [])
-
-  // TODO: set these values from local storage via an object that has the keys for each value
-  // check if localStorage has a value for depth and set it if it does
-  // check if localStorage has a value for currentColorPalette and set it if it does
-
-  useEffect(() => {
-    if (ruioEnabled && isElementSelectionModeActive) {
-      const debouncedApplyOutline = debounce((element: HTMLElement) => {
-        applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
-      }, 50)
-
-      const debouncedSetSelection = debounce((element: HTMLElement) => {
-        setIsElementSelectionModeActive(false)
+    if (localStorage.rootSelector) {
+      const element = document.querySelector(localStorage.rootSelector) as HTMLElement
+      if (element) {
         setRootElement(element)
-      }, 50)
-
-      const cleanupElementSelectionEvents = ElementInteractionController(
-        debouncedApplyOutline,
-        debouncedSetSelection,
-      )
-
-      return () => {
-        if (cleanupElementSelectionEvents) {
-          cleanupElementSelectionEvents()
-        }
       }
     }
-  }, [isElementSelectionModeActive, depth, ruioEnabled])
+  }, [localStorage.rootSelector])
 
-  // TODO: move this to its own context provider (ElementSelectContextProvider)
+  // Callback for when an element is selected in selection mode
+  const handleElementSelected = useCallback((element: HTMLElement) => {
+    setRootElement(element)
+  }, [])
+
+  // Element selection mode hook
+  const elementSelection = useElementSelection({
+    ruioEnabled: localStorage.ruioEnabled,
+    depth,
+    currentColorPalette,
+    onElementSelected: handleElementSelected,
+  })
+
+  // Apply outline UI when settings or root element change
   useEffect(() => {
     if (rootElement) {
-      applyOutlineUI(rootElement, depth, ruioEnabled, currentColorPalette)
+      applyOutlineUI(rootElement, depth, localStorage.ruioEnabled, currentColorPalette)
     }
-  }, [depth, rootElement, ruioEnabled, currentColorPalette])
-
-  /**
-   * Triggers element selection mode by toggling the active state.
-   */
-  const toggleElementSelectionMode = () => {
-    setIsElementSelectionModeActive((prev) => !prev)
-  }
+  }, [depth, rootElement, localStorage.ruioEnabled, currentColorPalette])
 
   const contextValue = useMemo(
     () => ({
-      ruioEnabled,
-      setRuioEnabled,
+      ruioEnabled: localStorage.ruioEnabled,
+      setRuioEnabled: localStorage.setRuioEnabled,
       depth,
       setDepth,
       rootElement,
-      isElementSelectionModeActive,
-      setIsElementSelectionModeActive,
-      toggleElementSelectionMode,
+      isElementSelectionModeActive: elementSelection.isActive,
+      setIsElementSelectionModeActive: elementSelection.setIsActive,
+      toggleElementSelectionMode: elementSelection.toggle,
       currentColorPalette,
       setCurrentColorPalette,
     }),
     [
-      ruioEnabled,
+      localStorage.ruioEnabled,
+      localStorage.setRuioEnabled,
       depth,
       rootElement,
-      isElementSelectionModeActive,
-      toggleElementSelectionMode,
+      elementSelection.isActive,
+      elementSelection.setIsActive,
+      elementSelection.toggle,
       currentColorPalette,
-      setCurrentColorPalette,
     ],
   )
 

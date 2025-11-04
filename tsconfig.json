@@ -10,6 +10,7 @@
       "@context/*": ["src/context/*"],
       "@controllers/*": ["src/controllers/*"],
       "@constants/*": ["src/constants/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@tests/*": ["src/tests/*"]
     },
     "target": "ESNext",
