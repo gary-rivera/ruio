@@ -1,10 +1,10 @@
-> ⚠️ **Disclaimer**: Ruio is currently in an unstable state and is still under active development. Features, UI, and behaviors may change frequently. Use it with caution (for now :D).
-
 <div align="center">
   <a href="https://www.npmjs.com/package/ruio">
     <img src="./docs/ruio-banner.png" alt="ruio banner" />
   </a>
 </div>
+
+> ⚠️ **Disclaimer**: Ruio is currently in an unstable state and is still under active development. Features, UI, and behaviors may change frequently. Use it with caution (for now :D).
 
 <div align="center">
   <h1 align="center">ruio</h1>
