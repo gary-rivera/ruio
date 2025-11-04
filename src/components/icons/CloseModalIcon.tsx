@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react'
-import CloseModalSvg from '@assets/svg/ruio-close-icon.svg?react'
+import RuioIcon from '@components/icons/RuioIcon'
 
 import buttonStyles from '../../styles/Button.module.css'
 import iconStyles from '../../styles/Icon.module.css'
@@ -12,15 +12,25 @@ type CloseModalIconv2Props = {
 
 function CloseModalIconv2({ onClick, buttonStyleKey = '' }: CloseModalIconv2Props) {
   return (
-    <button
-      className={`
-      ${buttonStyles['ruio-btn']}
-      ${iconStyles[buttonStyleKey]}
-    `}
-      onClick={(event) => onClick(event)}
+    <RuioIcon
+      id="ruio-close-modal-icon"
+      onClick={onClick}
+      buttonClassName={`
+        ${buttonStyles['ruio-btn']}
+        ${iconStyles[buttonStyleKey]}
+      `}
+      svgClassName={svgStyles['close-modal-svg']}
+      svgViewBox="0 0 94 93"
+      pulseEnabled={false}
     >
-      <CloseModalSvg className={svgStyles['close-modal-svg']} />
-    </button>
+      <>
+        <path
+          d="M11.9981 11.291L82.7088 82.0017M11.291 82.0017L82.0017 11.291"
+          strokeWidth="22"
+          strokeLinecap="round"
+        />
+      </>
+    </RuioIcon>
   )
 }
 

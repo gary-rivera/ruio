@@ -3,8 +3,12 @@ import { createPortal } from 'react-dom'
 import { RuioContextProvider } from '@root/context/RuioContextProvider'
 import RuioUIContainer from './RuioUIContainer'
 
+type RuioWrapperProps = {
+  children: ReactNode
+}
+
 // Single point of entry to ease the process of handling context throughout the module
-const RuioWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
+const RuioWrapper = ({ children }: RuioWrapperProps) => {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
