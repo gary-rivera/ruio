@@ -25,11 +25,29 @@ export const ElementInteractionController = (
 
   // TODO: add a tooltip to clarify this element is excluded from border styles or element selection
 
+  /**
+   * Checks if an element takes up the entire viewport (or nearly all of it).
+   * Elements that fill the viewport are typically not useful to inspect.
+   *
+   * @param {HTMLElement} element - The element to check.
+   * @returns {boolean} - True if the element fills 95% or more of the viewport.
+   */
+  const isFullViewport = (element: HTMLElement): boolean => {
+    const rect = element.getBoundingClientRect()
+    const viewportThreshold = 0.95
+
+    return (
+      rect.width >= window.innerWidth * viewportThreshold &&
+      rect.height >= window.innerHeight * viewportThreshold
+    )
+  }
+
   const isValidTarget = (target: HTMLElement) => {
     const targetIsDescendantOfRoot = target.closest(`#${DEFAULT_ROOT_ELEMENT}`)
     const targetIsDescendantOfRuio = target.closest('[id^="ruio-exclude"]')
+    const targetFillsViewport = isFullViewport(target)
 
-    return targetIsDescendantOfRoot && !targetIsDescendantOfRuio
+    return targetIsDescendantOfRoot && !targetIsDescendantOfRuio && !targetFillsViewport
   }
 
   const originalStyles = new Map<HTMLElement, string>()
