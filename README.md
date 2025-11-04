@@ -9,12 +9,33 @@
 <div align="center">
   <h1 align="center">ruio</h1>
   <h3 align="center">Lightweight React DOM troubleshooter</h3>
+
   <p>
-    A developer tool designed for React applications that allows you to dynamically apply real-time border styles to elements at the click of a button. Inspired by the Google Chrome Inspect Tool, Ruio provides instant visual feedback to help developers identify layout issues and refine applications user interfaces.
+    <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
+    <img src="https://img.shields.io/npm/l/ruio" alt="license">
+    <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
   </p>
+
+  <p>
+    <strong>Instantly visualize React component hierarchy</strong> with dynamic border outlines—like Chrome DevTools for your component tree.
+  </p>
+
+  <div style="margin: 2rem 0;">
+    <video
+      src="https://github.com/user-attachments/assets/1b226b6d-6bf1-43ed-b016-d685baa722b6"
+      controls
+      style="max-width: 800px; width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+    </video>
+    <p style="margin-top: 0.5rem; color: #666; font-size: 0.9em;">
+      <em>Exploring Excalidraw's UI structure with ruio</em>
+    </p>
+  </div>
+
 </div>
 
-![npm](https://img.shields.io/npm/v/ruio) ![license](https://img.shields.io/npm/l/ruio)
+<p align="center">
+  A developer tool for React applications that provides instant visual feedback to help you identify layout issues, understand nested structures, and refine your UI—all without opening DevTools.
+</p>
 
 ## Features
 
