@@ -4,40 +4,28 @@
   </a>
 </div>
 
-> ⚠️ **Disclaimer**: Ruio is currently in an unstable state and is still under active development. Features, UI, and behaviors may change frequently. Use it with caution (for now :D).
-
 <div align="center">
-  <h1 align="center">ruio</h1>
-  <h3 align="center">Lightweight React DOM troubleshooter</h3>
-
-  <p>
+  <!-- <h1 align="center">ruio</h1> -->
+   <p align="center">
     <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
-    <img src="https://img.shields.io/npm/l/ruio" alt="license">
     <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
+    <img src="https://img.shields.io/npm/l/ruio" alt="license">
   </p>
-
-  <p>
-    <strong>Instantly visualize React component hierarchy</strong> with dynamic border outlines—like Chrome DevTools for your component tree.
-  </p>
-
-  <div style="margin: 2rem 0;">
-    <video
-      src="https://github.com/user-attachments/assets/1b226b6d-6bf1-43ed-b016-d685baa722b6"
-      controls
-      style="max-width: 800px; width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-    </video>
-    <p style="margin-top: 0.5rem; color: #666; font-size: 0.9em;">
-      <em>Exploring Excalidraw's UI structure with ruio</em>
-    </p>
-  </div>
-
 </div>
 
-<p align="center">
-  A developer tool for React applications that provides instant visual feedback to help you identify layout issues, understand nested structures, and refine your UI—all without opening DevTools.
-</p>
+## Overview
+<div align="left"> 
+  <p>
+    <strong>Instantly visualize and debug React component hierarchy with dynamic border outlines</strong>
+  </p>
+  <p>
+    A developer tool to help isolate complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
+  </p>
+</div>
 
-## Features
+  <a href="https://github.com/user-attachments/assets/5f6c233a-bf19-42b1-aeda-163f6c69dc17">
+    <img src="https://github.com/user-attachments/assets/fe850828-6e5b-4310-88bb-e2e8605534f9" width="75%" alt="ruio demo">
+  </a>
 
 - **Dynamic Border Styling**: Visualize borders on any element within your React app.
 - **Element Selection Mode**: Mimics the hover effect of Chrome DevTools to highlight elements on the page.
@@ -117,9 +105,7 @@ For detailed information and guides, check out the following documentation:
 - **[Contributing Guide](./docs/CONTRIBUTING.md)** - Guidelines for contributing to the project
 - **[Changelog](./docs/CHANGELOG.md)** - Version history and release notes
 
-## Development
-
-### To start developing Ruio locally:
+## Local Development
 
 1. Clone the repository:
 
@@ -153,7 +139,7 @@ yarn dev
 bun run dev
 ```
 
-4. You can also run tests to ensure everything is working correctly:
+4. To run tests:
 
 ```bash
 # npm
@@ -168,11 +154,7 @@ bun test
 
 ### Trying it out
 
-You can test ruio with the example React project:
-
-react-redux-realworld-example-app [repo](https://github.com/gothinkster/react-redux-realworld-example-app)
-
-_Note: since the referenced project is no longer maintained, you may have to use the `--force` flag to override dependency conflicts_
+To see `ruio` in action in a [real world example](https://gary-rivera.github.io/calculator/). 
 
 ## Contributing
 
