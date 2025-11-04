@@ -28,6 +28,7 @@ const config: Config.InitialOptions = {
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@constants/(.*)$': '<rootDir>/src/constants/$1',
     '^@controllers/(.*)$': '<rootDir>/src/controllers/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@root/(.*)$': '<rootDir>/src/$1',
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
   },
