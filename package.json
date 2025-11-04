@@ -17,6 +17,7 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md",
     "LICENSE",
     "*.css"
@@ -43,7 +44,9 @@
     "ui",
     "borders",
     "highlight",
-    "npm-package"
+    "npm-package",
+    "yarn",
+    "bun"
   ],
   "license": "MIT",
   "peerDependencies": {
