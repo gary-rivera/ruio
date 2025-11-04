@@ -17,32 +17,27 @@
     },
     "outDir": "./dist"
   },
-  "include": ["src/components/RuioWrapper.tsx", "src/types/cssModules.d.ts"], // Include your entry point and the global types file
+  "include": [
+    "src/components/**/*",
+    "src/context/**/*",
+    "src/controllers/**/*",
+    "src/utils/**/*",
+    "src/constants/**/*",
+    "src/assets/**/*",
+    "src/types/**/*",
+    "src/vite-env.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "dist",
+    "test",
     "public",
-    "tests",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
-    "**/__tests__/**",
-    "**/__mocks__/**",
-    "**/__snapshots__/**",
-    "src/dummy",
+    "src/components/dummy/**/*",
     "src/main.tsx",
-    "src/App.tsx",
-    "jest.config.ts",
-    "jest.setup.ts",
-    "tsconfig.json",
-    "tsconfig.build.json",
-    "*.fig",
-    "*.snap",
-    "*.svg",
-    "*.tsbuildinfo",
-    "*.eslint.js",
-    ".vscode",
-    ".DS_Store"
+    "src/App.tsx"
   ]
 }
