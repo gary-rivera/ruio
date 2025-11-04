@@ -1,4 +1,4 @@
-import { applyOutlineUI, resetPreviouslyAppliedElements } from './applyOutlineUI'
+import { applyOutlineUI, resetPreviouslyAppliedElements } from '@utils/applyOutlineUI'
 
 describe('applyOutlineUI Smoke and Functionality Tests', () => {
   let element: HTMLElement
@@ -59,8 +59,8 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
   // Functional Tests
   test('applies borders to the element and its children', () => {
     applyOutlineUI(element, 1, true, 'default')
-    expect(element.style.outline).toBe('2px solid #990000')
-    expect(childElement.style.outline).toBe('2px solid #003366')
+    expect(element.style.outline).toBe('2px solid #249EA0')
+    expect(childElement.style.outline).toBe('2px solid #FAAB36')
   })
 
   test('removes borders when apply is false', () => {
@@ -77,17 +77,17 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
 
     applyOutlineUI(element, 1, true, 'default')
 
-    expect(element.style.outline).toBe('2px solid #990000')
-    expect(childElement.style.outline).toBe('2px solid #003366')
+    expect(element.style.outline).toBe('2px solid #249EA0')
+    expect(childElement.style.outline).toBe('2px solid #FAAB36')
     expect(deepChildElement.style.outline).toBe('')
   })
 
   test('removes border from previously applied elements not in the current list', () => {
     applyOutlineUI(element, 1, true, 'default')
-    expect(element.style.outline).toBe('2px solid #990000')
+    expect(element.style.outline).toBe('2px solid #249EA0')
 
     applyOutlineUI(childElement, 1, true, 'default')
     expect(element.style.outline).toBe('')
-    expect(childElement.style.outline).toBe('2px solid #990000')
+    expect(childElement.style.outline).toBe('2px solid #249EA0')
   })
 })

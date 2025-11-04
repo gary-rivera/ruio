@@ -30,7 +30,9 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "preview": "vite preview",
     "clean": "rm -rf ./dist node_modules && npm install && npx tsc --build --clean",
-    "test": "jest --watch",
+    "test": "jest --config test/jest.config.ts",
+    "test:watch": "jest --config test/jest.config.ts --watch",
+    "test:ci": "jest --config test/jest.config.ts --ci",
     "prepare": "npm run build",
     "prepublishOnly": "npm test"
   },
