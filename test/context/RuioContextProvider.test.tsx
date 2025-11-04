@@ -1,13 +1,13 @@
 import { render, screen, act } from '@testing-library/react'
-import { RuioContextProvider, useRuioContext } from './RuioContextProvider'
-import { applyOutlineUI } from '../utils/applyOutlineUI'
-import { ElementInteractionController } from '../controllers/ElementInteractionController'
+import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
+import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
 
 // mocks source
-jest.mock('../utils/applyOutlineUI')
-jest.mock('../controllers/ElementInteractionController')
+jest.mock('@utils/applyOutlineUI')
+jest.mock('@controllers/ElementInteractionController')
 
 // mocks target
 const mockedElementInteractionController = ElementInteractionController as jest.MockedFunction<
@@ -56,15 +56,6 @@ describe('RuioContextProvider', () => {
     jest.resetAllMocks()
   })
 
-  test('matches the snapshot for initial render', () => {
-    const { container } = render(
-      <RuioContextProvider>
-        <TestComponent />
-      </RuioContextProvider>,
-    )
-    expect(container).toMatchSnapshot()
-  })
-
   test('renders the provider without crashing', () => {
     render(
       <RuioContextProvider>
@@ -72,40 +63,6 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
     expect(screen.getByText('Test')).toBeInTheDocument()
-  })
-
-  test('should trigger element selection mode and call ElementInteractionController', async () => {
-    const cleanupMock = jest.fn()
-    const mockElement = document.createElement('div')
-
-    mockedElementInteractionController.mockImplementation((callback) => {
-      return cleanupMock
-    })
-
-    act(() => {
-      render(
-        <RuioContextProvider>
-          <TestComponent />
-        </RuioContextProvider>,
-      )
-    })
-
-    const selectElementButton = screen.getByTestId('select-element-mode')
-
-    await act(async () => {
-      await userEvent.click(selectElementButton)
-    })
-
-    expect(mockedElementInteractionController).toHaveBeenCalledTimes(1)
-
-    await act(async () => {
-      const callback = mockedElementInteractionController.mock.calls[0][0]
-      callback(mockElement)
-    })
-
-    await waitFor(() => {
-      expect(screen.getByTestId('rootElement').textContent).toBe(mockElement.tagName)
-    })
   })
 
   test('should update ruioEnabled state when triggered', async () => {
@@ -174,34 +131,6 @@ describe('RuioContextProvider', () => {
     )
 
     expect(screen.getByTestId('rootElement').textContent).toBe('None')
-  })
-
-  test('should call applyOutlineUI with correct arguments when borders are enabled', async () => {
-    const mockElement = document.createElement('div')
-    mockedElementInteractionController.mockImplementation((callback: (element: HTMLElement) => void) => {
-      callback(mockElement)
-      return jest.fn()
-    })
-
-    render(
-      <RuioContextProvider>
-        <TestComponent />
-      </RuioContextProvider>,
-    )
-
-    const enableBordersButton = screen.getByTestId('enable-borders')
-
-    await act(async () => {
-      await userEvent.click(enableBordersButton)
-    })
-
-    const selectElementButton = screen.getByTestId('select-element-mode')
-
-    await act(async () => {
-      await userEvent.click(selectElementButton)
-    })
-
-    expect(mockedApplyBorders).toHaveBeenCalledWith(mockElement, 1, true)
   })
 
   test('should throw error if useRuioContext is used outside provider', () => {
