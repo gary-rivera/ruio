@@ -30,20 +30,14 @@
   "exclude": [
     "node_modules",
     "dist",
+    "test",
     "public",
-    "src/tests/**/*",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
-    "**/__tests__/**",
-    "**/__mocks__/**",
-    "**/__snapshots__/**",
     "src/components/dummy/**/*",
     "src/main.tsx",
-    "src/App.tsx",
-    "jest.config.ts",
-
-    "jest.setup.ts"
+    "src/App.tsx"
   ]
 }

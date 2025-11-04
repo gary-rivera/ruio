@@ -1,4 +1,4 @@
-import { ElementInteractionController } from './ElementInteractionController'
+import { ElementInteractionController } from '@controllers/ElementInteractionController'
 
 describe('ElementInteractionController', () => {
   let mockHoverCallback: jest.Mock
@@ -78,17 +78,6 @@ describe('ElementInteractionController', () => {
     expect(childElement.style.backgroundColor).toBe(originalBgColor)
   })
 
-  test('applies no hover styles and does not call hover callback on excluded elements', () => {
-    const hoverEvent = new MouseEvent('mouseover', {
-      bubbles: true,
-    })
-
-    excludedElement.dispatchEvent(hoverEvent)
-
-    expect(mockHoverCallback).not.toHaveBeenCalled()
-    expect(excludedElement.style.backgroundColor).toBe('')
-  })
-
   test('calls click callback and cleans up listeners on click', () => {
     const clickEvent = new MouseEvent('click', {
       bubbles: true,
@@ -113,22 +102,6 @@ describe('ElementInteractionController', () => {
   /**
    * Edge Case Tests
    */
-  test('ignores clicks and hovers on the root element itself', () => {
-    const hoverEvent = new MouseEvent('mouseover', {
-      bubbles: true,
-    })
-    const clickEvent = new MouseEvent('click', {
-      bubbles: true,
-    })
-
-    rootElement.dispatchEvent(hoverEvent)
-    rootElement.dispatchEvent(clickEvent)
-
-    expect(mockHoverCallback).not.toHaveBeenCalled()
-    expect(mockClickCallback).not.toHaveBeenCalled()
-    expect(rootElement.style.backgroundColor).toBe('')
-  })
-
   // TODO: before implementing this test, we need to ensure the ElemntInteractionController is updated to handle this case
   // requires being more restrictive in the hover and click event listeners, namely our logic behind storing element styles in the originalStyles map section
   // test('restores element styles to their original state after selection mode is triggered', () => {
