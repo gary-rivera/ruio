@@ -1,5 +1,7 @@
 <!-- github only start -->
-<img src="./docs/ruio-banner.png" alt="ruio banner"/>
+<div align="center" style="width: 100%; max-width: 100%;">
+    <img src="./docs/ruio-banner.png" alt="ruio banner" style="width: 100%; max-width: 1200px; height: auto;"/>
+</div>
 <!-- github only end -->
 
 <div align="center">
