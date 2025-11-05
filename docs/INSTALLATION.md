@@ -4,28 +4,15 @@
 
 You can install ruio using your preferred package manager:
 
-### npm
-
 ```bash
+# npm
 npm install ruio
-```
 
-### Yarn
-
-```bash
+# yarn
 yarn add ruio
-```
 
-### Bun
-
-```bash
+# bun
 bun add ruio
-```
-
-### pnpm
-
-```bash
-pnpm add ruio
 ```
 
 ## Requirements
@@ -79,6 +66,7 @@ If you encounter version conflicts with React:
 If you get "Module not found" errors:
 
 1. Clear your package manager cache:
+
    ```bash
    npm cache clean --force
    # or
