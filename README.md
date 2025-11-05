@@ -97,6 +97,15 @@ Applying `ruio-exclude` class to elements that you don't want to be considered f
 <div className="ruio-exclude">{/* Content that shouldn't be affected by Ruio */}</div>
 ```
 
+## Examples
+
+Check out the [`/examples`](./examples) directory for working examples:
+
+- **vite/** - Minimal starter showing basic setup
+- **blog/** - Realistic blog layout with nested components
+
+Run `npm run dev` to see the examples locally.
+
 ## Documentation
 
 For detailed information and guides, check out the following documentation:
