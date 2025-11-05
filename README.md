@@ -1,7 +1,8 @@
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/65045826/509903879-5600d179-ddfb-45fb-99e2-5c4b5f658bad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20251105%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251105T032027Z&X-Amz-Expires=300&X-Amz-Signature=6d8c93fbaf726c024743dbd79aa0b31f4842c9250611d457c802d8284fc9c91e&X-Amz-SignedHeaders=host" alt="ruio banner" width="100%"/>
-
+<!-- github only start -->
+<img src="./docs/ruio-banner.png" alt="ruio banner"/>
+<!-- github only end -->
 <div align="center">
-  <!-- <h1 align="center">ruio</h1> -->
+
    <p align="center">
     <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
     <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
@@ -11,12 +12,13 @@
 
 ### Overview
 
-**Instantly visualize and debug React component hierarchy with dynamic border outlines**
-
-A developer tool to help isolate complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
-
-[![ruio demo](https://github.com/user-attachments/assets/fe850828-6e5b-4310-88bb-e2e8605534f9)](https://github.com/user-attachments/assets/5f6c233a-bf19-42b1-aeda-163f6c69dc17)
-
+**A developer tool to visualize and debug React component hierarchy.**  Helps to troubleshoot complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
+<div align="center">
+  <a href"https://github.com/user-attachments/assets/1b226b6d-6bf1-43ed-b016-d685baa722b6">
+    <img src="https://github.com/user-attachments/assets/9aad57f6-4df2-49b2-805c-2f9780c924a5" alt="demo gif"
+  </a>
+</div>
+    
 - **Dynamic Border Styling**: Visualize borders on any element within your React app.
 - **Element Selection Mode**: Mimics the hover effect of Chrome DevTools to highlight elements on the page.
 - **Click-to-Select**: Make any element the new root with a click.
