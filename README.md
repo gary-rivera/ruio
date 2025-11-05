@@ -20,14 +20,17 @@
     <img src="https://github.com/user-attachments/assets/9aad57f6-4df2-49b2-805c-2f9780c924a5" alt="demo gif"
   </a>
 </div>
-    
-- **Dynamic Border Styling**: Visualize borders on any element within your React app.
-- **Element Selection Mode**: Mimics the hover effect of Chrome DevTools to highlight elements on the page.
-- **Click-to-Select**: Make any element the new root with a click.
-- **Toggle Logic**: Enable and disable border styling on the fly as well as memory of selected root element.
-- **Reset Functionality**: Automatically clear all applied border styles.
-- **Highly Configurable**: Works with different project structures and exists on top of any existing architectures.
 
+<ul>
+  <li><strong>Dynamic Border Styling</strong> Visualize borders on any element within your React app.</li>
+  <li><strong>Element Selection Mode</strong> Mimics the hover effect of Chrome DevTools to highlight elements on the page.</li>
+  <li><strong>Click-to-Select</strong> Make any element the new root with a click.</li>
+  <li><strong>Toggle Logic</strong> Enable and disable border styling on the fly as well as memory of selected root element.</li>
+  <li><strong>Reset Functionality</strong> Automatically clear all applied border styles.</li>
+  <li><strong>Highly Configurable</strong> Works with different project structures and exists on top of any existing architectures.</li>
+</ul>
+
+</div>
 ## Quick Start
 
 ### Installation
