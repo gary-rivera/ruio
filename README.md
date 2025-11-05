@@ -17,7 +17,7 @@
 **A developer tool to visualize and debug React component hierarchy.**  Helps to troubleshoot complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
 <div align="center">
   <a href="https://github.com/user-attachments/assets/1b226b6d-6bf1-43ed-b016-d685baa722b6">
-    <img src="https://github.com/user-attachments/assets/9aad57f6-4df2-49b2-805c-2f9780c924a5" alt="demo gif"
+    <img src="https://github.com/user-attachments/assets/9aad57f6-4df2-49b2-805c-2f9780c924a5" alt="demo gif">
   </a>
 </div>
 
