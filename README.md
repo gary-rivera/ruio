@@ -83,7 +83,7 @@ function App() {
   <li><strong><a href="docs/USAGE.md">Usage Guide</a></strong> - Feature walkthrough and workflows</li>
   <li><strong><a href="docs/CONFIGURATION.md">Configuration</a></strong> - Element exclusion, environment settings, and planned features</li>
   <li><strong><a href="docs/EXAMPLES.md">Examples</a></strong> - Working examples and common patterns</li>
-  <li><strong><a href="docs/API.md">API Reference</a></strong> - PI documentation for components and hooks</li>
+  <li><strong><a href="docs/API.md">API Reference</a></strong> - API documentation for components and hooks</li>
   <li><strong><a href="docs/CHANGELOG.md">Changelog</a></strong> - Version history and release notes</li>
   <li><strong><a href="docs/CONTRIBUTING.md">Contributions Guide</a></strong></li>
 </ul>

@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - gitbook-configuration
+      - gitbook/fix-gh-action
     paths:
       - 'README.md'
       - 'docs/**'
@@ -19,5 +21,10 @@ jobs:
       - name: Trigger GitBook sync
         run: |
           echo "Documentation files changed. GitBook will auto-sync if integration is enabled."
-          echo "Changed files:"
-          git diff --name-only HEAD~1 HEAD
+          echo "Changed files in this push:"
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            git diff --name-only HEAD~1 HEAD
+          else
+            echo "First commit or no previous commit to compare"
+            git show --name-only --format="" HEAD
+          fi
