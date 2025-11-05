@@ -116,6 +116,7 @@ Use clear and descriptive commit messages:
 - `chore:` for maintenance tasks
 
 Example:
+
 ```
 feat: add keyboard shortcuts for element selection
 fix: resolve hover state bug on nested elements
@@ -136,8 +137,6 @@ docs: update installation instructions for bun
 - [ ] Code is properly formatted and linted
 - [ ] TypeScript type checking passes
 - [ ] Documentation updated (if applicable)
-- [ ] Commit messages follow guidelines
-- [ ] PR description clearly explains the changes
 
 ## Reporting Bugs
 
@@ -157,6 +156,10 @@ We welcome feature requests! Please open an issue and include:
 - A clear description of the feature
 - Use cases and benefits
 - Any implementation ideas (optional)
+
+## For Maintainers
+
+See [RELEASE.md](./RELEASE.md) for information about cutting releases.
 
 ## Questions?
 
