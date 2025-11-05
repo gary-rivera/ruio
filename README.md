@@ -1,4 +1,4 @@
-<img src="./docs/ruio-banner.png" alt="ruio banner" width="100%"/>
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/65045826/509903879-5600d179-ddfb-45fb-99e2-5c4b5f658bad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20251105%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251105T032027Z&X-Amz-Expires=300&X-Amz-Signature=6d8c93fbaf726c024743dbd79aa0b31f4842c9250611d457c802d8284fc9c91e&X-Amz-SignedHeaders=host" alt="ruio banner" width="100%"/>
 
 <div align="center">
   <!-- <h1 align="center">ruio</h1> -->
