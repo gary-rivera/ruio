@@ -1,20 +1,21 @@
 # Table of Contents
 
-- [Introduction](../README.md)
+## Overview
+
+- [Introduction](README.md)
 
 ## Getting Started
 
-- [Installation](../README.md#installation)
-- [Usage](../README.md#usage)
-- [Examples](../README.md#examples)
+- [Installation](INSTALLATION.md)
+- [Usage Guide](USAGE.md)
+- [Examples](EXAMPLES.md)
 
-## Documentation
+## Reference
 
 - [API Reference](API.md)
-- [Configuration](../README.md#configuration)
+- [Configuration](CONFIGURATION.md)
 
 ## Development
 
-- [Local Development](../README.md#local-development)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
