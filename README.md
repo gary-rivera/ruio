@@ -33,8 +33,17 @@ A developer tool to help isolate complex layout issues, understand nested struct
 
 ### Installation
 
+You can install using your preferred package manager:
+
 ```bash
+# npm
 npm install ruio
+
+# yarn
+yarn add ruio
+
+# bun
+bun add ruio
 ```
 
 ### Basic Usage
