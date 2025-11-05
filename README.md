@@ -14,7 +14,8 @@
 
 ### Overview
 
-**A developer tool to visualize and debug React component hierarchy.**  Helps to troubleshoot complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
+**A developer tool to visualize and debug React component hierarchy.** Helps to troubleshoot complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
+
 <div align="center">
   <a href="https://github.com/user-attachments/assets/1b226b6d-6bf1-43ed-b016-d685baa722b6">
     <img src="https://github.com/user-attachments/assets/9aad57f6-4df2-49b2-805c-2f9780c924a5" alt="demo gif"/>
@@ -22,12 +23,24 @@
 </div>
 
 <ul>
-  <li><strong>Dynamic Border Styling</strong> Visualize borders on any element within your React app.</li>
-  <li><strong>Element Selection Mode</strong> Mimics the hover effect of Chrome DevTools to highlight elements on the page.</li>
-  <li><strong>Click-to-Select</strong> Make any element the new root with a click.</li>
-  <li><strong>Toggle Logic</strong> Enable and disable border styling on the fly as well as memory of selected root element.</li>
-  <li><strong>Reset Functionality</strong> Automatically clear all applied border styles.</li>
-  <li><strong>Highly Configurable</strong> Works with different project structures and exists on top of any existing architectures.</li>
+  <li>
+    <span><strong>Dynamic Border Styling - </strong> Visualize borders on any element within your React app.</span>
+  </li>
+  <li>
+    <span><strong>Element Selection Mode</strong> Mimics the hover effect of Chrome DevTools to highlight elements on the page.</span>
+  </li>
+  <li>
+    <span><strong>Click-to-Select</strong> Make any element the new root with a click.</span>
+  </li>
+  <li>
+    <span><strong>Toggle Logic</strong> Enable and disable border styling on the fly as well as memory of selected root element.</span>
+  </li>
+  <li>
+    <span><strong>Reset Functionality</strong> Automatically clear all applied border styles.</span>
+  </li>
+  <li>
+    <span><strong>Highly Configurable</strong> Works with different project structures and exists on top of any existing architectures.</span>
+  </li>
 </ul>
 
 ## Quick Start
