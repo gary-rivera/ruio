@@ -112,6 +112,29 @@ ruio automatically detects the environment using `process.env.NODE_ENV`:
 // - Safe to include in production builds
 ```
 
+### Enabling in Production (Demo Apps)
+
+For production demo apps or staging environments, you can override the default behavior:
+
+```typescript
+import RuioContextProvider from 'ruio'
+
+function App() {
+  return (
+    <RuioContextProvider showInProduction={true}>
+      {/* Your App Components */}
+    </RuioContextProvider>
+  )
+}
+```
+
+**Use Cases:**
+- Demo applications where you want to showcase ruio
+- Staging environments for debugging
+- Production apps where you need to visualize component hierarchy
+
+**Note:** Only use `showInProduction` when you intentionally want ruio visible to end users.
+
 ### Custom Environment Detection
 
 If you need custom environment detection, you can conditionally render the provider:
@@ -130,6 +153,20 @@ function App() {
       )}
       {!isDevelopment && !isStaging && <YourApp />}
     </>
+  )
+}
+```
+
+Or use the `showInProduction` prop for simpler cases:
+
+```typescript
+function App() {
+  const isStaging = process.env.REACT_APP_ENV === 'staging'
+
+  return (
+    <RuioContextProvider showInProduction={isStaging}>
+      <YourApp />
+    </RuioContextProvider>
   )
 }
 ```

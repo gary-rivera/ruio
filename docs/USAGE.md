@@ -173,7 +173,6 @@ function MyCustomControls() {
 ## Tips and Best Practices
 
 - **Exclude UI Elements**: Use `ruio-exclude` on modals, tooltips, and navigation to keep the visualization focused (see [Configuration](CONFIGURATION.md))
-- **Reset Root**: Click the home icon to reset the root element back to the document
 - **Keyboard Navigation**: Keep the toggle accessible for quick enable/disable (keyboard shortcuts coming soon!)
 - **Color Patterns**: Learn the color sequence to quickly identify depth levels
 
