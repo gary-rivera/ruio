@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - gitbook-configuration
+      - gitbook/fix-gh-action
     paths:
       - 'README.md'
       - 'docs/**'
