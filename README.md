@@ -1,8 +1,4 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/ruio">
-    <img src="./docs/ruio-banner.png" alt="ruio banner" width="100%"/>
-  </a>
-</div>
+<img src="./docs/ruio-banner.png" alt="ruio banner" width="100%"/>
 
 <div align="center">
   <!-- <h1 align="center">ruio</h1> -->
@@ -14,6 +10,7 @@
 </div>
 
 # react-ui-outliner
+
 ### Overview
 
 **Instantly visualize and debug React component hierarchy with dynamic border outlines**
