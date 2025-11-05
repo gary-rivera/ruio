@@ -1,0 +1,23 @@
+name: Sync GitBook
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'README.md'
+      - 'docs/**'
+      - '.gitbook.yaml'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger GitBook sync
+        run: |
+          echo "Documentation files changed. GitBook will auto-sync if integration is enabled."
+          echo "Changed files:"
+          git diff --name-only HEAD~1 HEAD
