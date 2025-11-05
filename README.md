@@ -5,12 +5,15 @@
 </div>
 
 <div align="center">
-  <h1>ruio</h1>
-  <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
-  <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
- <img src="https://img.shields.io/npm/l/ruio" alt="license">
+  <!-- <h1 align="center">ruio</h1> -->
+   <p align="center">
+    <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
+    <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
+    <img src="https://img.shields.io/npm/l/ruio" alt="license">
+  </p>
 </div>
 
+# react-ui-outliner
 ### Overview
 
 **Instantly visualize and debug React component hierarchy with dynamic border outlines**
