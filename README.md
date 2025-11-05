@@ -1,8 +1,6 @@
-<!-- github only start -->
 <div align="center" style="width: 100%; max-width: 100%;">
     <img src="./docs/ruio-banner.png" alt="ruio banner" style="width: 100%; max-width: 1200px; height: auto;"/>
 </div>
-<!-- github only end -->
 
 <div align="center">
    <p>
@@ -12,9 +10,9 @@
   </p>
 </div>
 
-### Overview
+<h3>Overview</h3>
 
-**A developer tool to visualize and debug React component hierarchy.** Helps to troubleshoot complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.
+<p><strong>A developer tool to visualize and debug React component hierarchy.</strong> Helps to troubleshoot complex layout issues, understand nested structures, and refine your UI by applying dynamic styling to highlight component archtitecture.</p>
 
 <div align="center">
   <a href="https://github.com/user-attachments/assets/1b226b6d-6bf1-43ed-b016-d685baa722b6">
@@ -45,11 +43,11 @@
     </ul>
 </div>
 
-## Quick Start
+<h2>Quick Start</h2>
 
-### Installation
+<h3>Installation</h3>
 
-You can install using your preferred package manager:
+<p>You can install using your preferred package manager:</p>
 
 ```bash
 # npm
@@ -62,9 +60,9 @@ yarn add ruio
 bun add ruio
 ```
 
-### Basic Usage
+<h3>Basic Usage</h3>
 
-Wrap your application with the `RuioContextProvider`:
+<p>Wrap your application with the <code>RuioContextProvider</code>:</p>
 
 ```typescript
 import RuioContextProvider from 'ruio'
@@ -78,20 +76,22 @@ function App() {
 }
 ```
 
-## Documentation
+<h2>Documentation</h2>
 
-- **[Installation Guide](docs/INSTALLATION.md)** - Setup, requirements, and troubleshooting
-- **[Usage Guide](docs/USAGE.md)** - Feature walkthrough and workflows
-- **[Configuration](docs/CONFIGURATION.md)** - Element exclusion, environment settings, and planned features
-- **[Examples](docs/EXAMPLES.md)** - Working examples and common patterns
-- **[API Reference](docs/API.md)** - PI documentation for components and hooks
-- **[Changelog](docs/CHANGELOG.md)** - Version history and release notes
-- **[Contributions Guide](docs/CONTRIBUTING.md)**
+<ul>
+  <li><strong><a href="docs/INSTALLATION.md">Installation Guide</a></strong> - Setup, requirements, and troubleshooting</li>
+  <li><strong><a href="docs/USAGE.md">Usage Guide</a></strong> - Feature walkthrough and workflows</li>
+  <li><strong><a href="docs/CONFIGURATION.md">Configuration</a></strong> - Element exclusion, environment settings, and planned features</li>
+  <li><strong><a href="docs/EXAMPLES.md">Examples</a></strong> - Working examples and common patterns</li>
+  <li><strong><a href="docs/API.md">API Reference</a></strong> - PI documentation for components and hooks</li>
+  <li><strong><a href="docs/CHANGELOG.md">Changelog</a></strong> - Version history and release notes</li>
+  <li><strong><a href="docs/CONTRIBUTING.md">Contributions Guide</a></strong></li>
+</ul>
 
-## Contributing
+<h2>Contributing</h2>
 
-Contributions are welcome. See [Contributing Guide](docs/CONTRIBUTING.md) for details.
+<p>Contributions are welcome. See <a href="docs/CONTRIBUTING.md">Contributing Guide</a> for details.</p>
 
-### License
+<h3>License</h3>
 
-`ruio` is licensed under the MIT License. See the [LICENSE](LICENSE/) file for more details.
+<p><code>ruio</code> is licensed under the MIT License. See the <a href="LICENSE/">LICENSE</a> file for more details.</p>
