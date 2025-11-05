@@ -9,8 +9,6 @@
   </p>
 </div>
 
-# react-ui-outliner
-
 ### Overview
 
 **Instantly visualize and debug React component hierarchy with dynamic border outlines**
