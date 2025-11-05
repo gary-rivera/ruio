@@ -2,7 +2,7 @@
 
 ## Overview
 
-- [Introduction](../README.md)
+- [Introductions](../README.md)
 
 ## Getting Started
 
