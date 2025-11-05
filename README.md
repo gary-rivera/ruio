@@ -30,8 +30,6 @@
   <li><strong>Highly Configurable</strong> Works with different project structures and exists on top of any existing architectures.</li>
 </ul>
 
-</div>
-
 ## Quick Start
 
 ### Installation
