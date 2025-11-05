@@ -14,7 +14,8 @@
 </div>
 
 ## Overview
-<div align="left"> 
+
+<div align="left">
   <p>
     <strong>Instantly visualize and debug React component hierarchy with dynamic border outlines</strong>
   </p>
@@ -97,6 +98,15 @@ Applying `ruio-exclude` class to elements that you don't want to be considered f
 <div className="ruio-exclude">{/* Content that shouldn't be affected by Ruio */}</div>
 ```
 
+## Examples
+
+Check out the [`/examples`](./examples) directory for working examples:
+
+- **vite-simple/** - Minimal starter showing basic setup
+- **blog/** - Realistic blog layout with nested components
+
+Run `npm run dev` to see the examples locally.
+
 ## Documentation
 
 For detailed information and guides, check out the following documentation:
@@ -154,7 +164,7 @@ bun test
 
 ### Trying it out
 
-To see `ruio` in action in a [real world example](https://gary-rivera.github.io/calculator/). 
+To see `ruio` in action in a [real world example](https://gary-rivera.github.io/calculator/).
 
 ## Contributing
 

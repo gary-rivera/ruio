@@ -22,6 +22,7 @@
     "src/components/**/*",
     "src/context/**/*",
     "src/controllers/**/*",
+    "src/hooks/**/*",
     "src/utils/**/*",
     "src/constants/**/*",
     "src/assets/**/*",
@@ -33,12 +34,10 @@
     "dist",
     "test",
     "public",
+    "examples",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "src/components/dummy/**/*",
-    "src/main.tsx",
-    "src/App.tsx"
+    "**/*.spec.tsx"
   ]
 }
