@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - gitbook-configuration
     paths:
       - 'README.md'
       - 'docs/**'
