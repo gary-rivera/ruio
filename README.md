@@ -1,9 +1,9 @@
 <!-- github only start -->
 <img src="./docs/ruio-banner.png" alt="ruio banner"/>
 <!-- github only end -->
-<div align="center">
 
-   <p align="center">
+<div align="center">
+   <p>
     <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
     <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
     <img src="https://img.shields.io/npm/l/ruio" alt="license">
