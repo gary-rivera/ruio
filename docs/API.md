@@ -39,14 +39,16 @@ function App() {
 
 ### Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `children` | `ReactNode` | Yes | Your application components |
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `ReactNode` | Yes | - | Your application components |
+| `showInProduction` | `boolean` | No | `false` | Override to show ruio UI in production environments. Useful for demo apps. |
 
 ### Behavior
 
 - Automatically detects development vs. production environment
 - Only renders the ruio UI toggle in development mode (`process.env.NODE_ENV !== 'production'`)
+- Can be overridden with `showInProduction` prop to enable in production (useful for demos)
 - Creates a portal for the ruio UI controls to avoid CSS conflicts
 - Persists settings (enabled state, root element) in `localStorage`
 
@@ -223,6 +225,19 @@ function Modal({ children }) {
         {children}
       </div>
     </div>
+  )
+}
+```
+
+### Production Demo App
+
+```typescript
+// Enable ruio in a production demo app
+function App() {
+  return (
+    <RuioContextProvider showInProduction={true}>
+      <YourApp />
+    </RuioContextProvider>
   )
 }
 ```
