@@ -35,6 +35,7 @@ ruio only displays its UI controls in development mode. It checks `process.env.N
 Once your app is running in development mode, you'll see the ruio toggle button in the corner of your screen.
 
 **Click the toggle button to:**
+
 - Enable/disable border visualization
 - Access element selection mode
 - View the settings panel
@@ -56,6 +57,7 @@ Click the crosshair icon to enter **Element Selection Mode**:
 3. **Focused Visualization**: Only the selected element and its descendants will show borders
 
 This is useful for:
+
 - Focusing on specific parts of your UI
 - Debugging deeply nested components
 - Isolating layout issues in complex component trees
@@ -104,17 +106,17 @@ function CustomComponent() {
 
 **Available Properties:**
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `ruioEnabled` | `boolean` | Whether ruio is currently enabled |
-| `setRuioEnabled` | `function` | Toggle ruio on/off |
-| `depth` | `number` | Current visualization depth |
-| `setDepth` | `function` | Set visualization depth |
-| `rootElement` | `HTMLElement \| null` | Currently selected root element |
-| `isElementSelectionModeActive` | `boolean` | Whether selection mode is active |
-| `toggleElementSelectionMode` | `function` | Toggle selection mode |
-| `currentColorPalette` | `string` | Current color palette key |
-| `setCurrentColorPalette` | `function` | Change color palette |
+| Property                       | Type                  | Description                       |
+| ------------------------------ | --------------------- | --------------------------------- |
+| `ruioEnabled`                  | `boolean`             | Whether ruio is currently enabled |
+| `setRuioEnabled`               | `function`            | Toggle ruio on/off                |
+| `depth`                        | `number`              | Current visualization depth       |
+| `setDepth`                     | `function`            | Set visualization depth           |
+| `rootElement`                  | `HTMLElement \| null` | Currently selected root element   |
+| `isElementSelectionModeActive` | `boolean`             | Whether selection mode is active  |
+| `toggleElementSelectionMode`   | `function`            | Toggle selection mode             |
+| `currentColorPalette`          | `string`              | Current color palette key         |
+| `setCurrentColorPalette`       | `function`            | Change color palette              |
 
 ### Building Custom Controls
 
@@ -173,7 +175,6 @@ function MyCustomControls() {
 ## Tips and Best Practices
 
 - **Exclude UI Elements**: Use `ruio-exclude` on modals, tooltips, and navigation to keep the visualization focused (see [Configuration](CONFIGURATION.md))
-- **Keyboard Navigation**: Keep the toggle accessible for quick enable/disable (keyboard shortcuts coming soon!)
 - **Color Patterns**: Learn the color sequence to quickly identify depth levels
 
 ## Next Steps
