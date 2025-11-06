@@ -181,8 +181,14 @@ describe('RuioContextProvider', () => {
   })
 
   test('should restore root element from localStorage on load', async () => {
-    // Setup localStorage with a saved root selector
-    localStorage.setItem('rootElementSelector', '#test-root')
+    // Setup localStorage with a saved root selector using unified config
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#test-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     // Create a test element in the DOM
     const testRoot = document.createElement('div')
@@ -249,7 +255,13 @@ describe('RuioContextProvider', () => {
     level2.appendChild(level3)
     document.body.appendChild(testRoot)
 
-    localStorage.setItem('rootElementSelector', '#test-root')
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#test-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     render(
       <RuioContextProvider>
@@ -276,7 +288,13 @@ describe('RuioContextProvider', () => {
     level1.appendChild(level2)
     document.body.appendChild(testRoot)
 
-    localStorage.setItem('rootElementSelector', '#shallow-root')
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#shallow-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     render(
       <RuioContextProvider>
@@ -320,7 +338,13 @@ describe('RuioContextProvider', () => {
     emptyRoot.id = 'empty-root'
     document.body.appendChild(emptyRoot)
 
-    localStorage.setItem('rootElementSelector', '#empty-root')
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#empty-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     render(
       <RuioContextProvider>

@@ -15,13 +15,20 @@ describe('useLocalStorageState', () => {
   })
 
   test('initializes with values from localStorage', () => {
-    localStorage.setItem('ruioEnabled', 'true')
-    localStorage.setItem('rootElementSelector', '#app')
+    const config = {
+      ruioEnabled: true,
+      depth: 5,
+      currentColorPalette: 'neon',
+      rootElementSelector: '#app',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     const { result } = renderHook(() => useLocalStorageState())
 
     expect(result.current.ruioEnabled).toBe(true)
     expect(result.current.rootSelector).toBe('#app')
+    expect(result.current.depth).toBe(5)
+    expect(result.current.currentColorPalette).toBe('neon')
   })
 
   test('persists ruioEnabled to localStorage when changed', () => {
@@ -32,7 +39,9 @@ describe('useLocalStorageState', () => {
     })
 
     expect(result.current.ruioEnabled).toBe(true)
-    expect(localStorage.getItem('ruioEnabled')).toBe('true')
+
+    const stored = JSON.parse(localStorage.getItem('ruio-config') || '{}')
+    expect(stored.ruioEnabled).toBe(true)
   })
 
   test('persists rootSelector to localStorage when changed', () => {
@@ -43,7 +52,35 @@ describe('useLocalStorageState', () => {
     })
 
     expect(result.current.rootSelector).toBe('#my-root')
-    expect(localStorage.getItem('rootElementSelector')).toBe('#my-root')
+
+    const stored = JSON.parse(localStorage.getItem('ruio-config') || '{}')
+    expect(stored.rootElementSelector).toBe('#my-root')
+  })
+
+  test('persists depth to localStorage when changed', () => {
+    const { result } = renderHook(() => useLocalStorageState())
+
+    act(() => {
+      result.current.setDepth(10)
+    })
+
+    expect(result.current.depth).toBe(10)
+
+    const stored = JSON.parse(localStorage.getItem('ruio-config') || '{}')
+    expect(stored.depth).toBe(10)
+  })
+
+  test('persists currentColorPalette to localStorage when changed', () => {
+    const { result } = renderHook(() => useLocalStorageState())
+
+    act(() => {
+      result.current.setCurrentColorPalette('dynamic')
+    })
+
+    expect(result.current.currentColorPalette).toBe('dynamic')
+
+    const stored = JSON.parse(localStorage.getItem('ruio-config') || '{}')
+    expect(stored.currentColorPalette).toBe('dynamic')
   })
 
   test('updates ruioEnabled using function callback', () => {
@@ -58,7 +95,9 @@ describe('useLocalStorageState', () => {
     })
 
     expect(result.current.ruioEnabled).toBe(false)
-    expect(localStorage.getItem('ruioEnabled')).toBe('false')
+
+    const stored = JSON.parse(localStorage.getItem('ruio-config') || '{}')
+    expect(stored.ruioEnabled).toBe(false)
   })
 
   test('updates rootSelector using function callback', () => {
@@ -73,7 +112,9 @@ describe('useLocalStorageState', () => {
     })
 
     expect(result.current.rootSelector).toBe('#initial-modified')
-    expect(localStorage.getItem('rootElementSelector')).toBe('#initial-modified')
+
+    const stored = JSON.parse(localStorage.getItem('ruio-config') || '{}')
+    expect(stored.rootElementSelector).toBe('#initial-modified')
   })
 
   test('maintains referential equality of setters across renders', () => {

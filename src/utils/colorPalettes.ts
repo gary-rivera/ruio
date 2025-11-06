@@ -31,6 +31,7 @@ export const colorPalettesMap: Record<string, string[]> = {
     '#555B6E', // Slate Blue
     '#EAF8EF', // Soft Terracotta
   ],
+  dynamic: [], // Special case: colors are calculated per-element based on contrast
 }
 
 export const getRelativeDepthColor = (colors: string[], currentDepth: number): string => {

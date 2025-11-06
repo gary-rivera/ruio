@@ -1,4 +1,4 @@
-import { setLocalStorageValue, parseSelectorFromSelectedElement } from '@utils/config'
+import { setConfigValueAtKey, parseSelectorFromSelectedElement } from '@utils/config'
 
 const DEFAULT_ROOT_ELEMENT = 'root'
 
@@ -137,7 +137,7 @@ export const ElementInteractionController = (
 
     const target = event.target as HTMLElement
     if (isValidTarget(target)) {
-      setLocalStorageValue('rootElementSelector', parseSelectorFromSelectedElement(target))
+      setConfigValueAtKey('rootElementSelector', parseSelectorFromSelectedElement(target))
 
       removeHoverStyles(target)
       onClick(target)
