@@ -90,6 +90,6 @@
   transform: scale(0.01) !important;
   opacity: 0 !important;
   transition:
-    transform 200ms ease-in-out,
-    opacity 200ms ease-in-out !important;
+    transform 100ms ease-in-out,
+    opacity 100ms ease-in-out !important;
 }

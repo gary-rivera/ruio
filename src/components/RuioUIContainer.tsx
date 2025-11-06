@@ -32,7 +32,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
 
   const getIconContainerClass = (iconType: 'settings' | 'elementSelect') => {
     const baseClass = iconStyles['icon-container']
-    const isElementSelectActive = isElementSelectionModeActive || isOpen.elementSelectOpen
+    const isElementSelectActive = isElementSelectionModeActive
     const isSettingsActive = isOpen.settingsOpen
 
     const isActive = iconType === 'settings' ? isSettingsActive : isElementSelectActive
@@ -71,7 +71,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
         </div>
       </div>
       <RuioToggleController
-        isDimmed={isElementSelectionModeActive || isOpen.elementSelectOpen || isOpen.settingsOpen}
+        isDimmed={isElementSelectionModeActive || isOpen.settingsOpen}
       />
     </div>
   )

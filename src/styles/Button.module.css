@@ -110,8 +110,8 @@
 
   padding: 3px;
   transition:
-    transform 200ms ease-in-out,
-    opacity 200ms ease-in-out;
+    transform 100ms ease-in-out,
+    opacity 100ms ease-in-out;
 }
 
 .ruio-btn-primary:hover {
@@ -141,10 +141,10 @@
 
 .ruio-logo-btn-enabled.ruio-btn-primary-dimmed {
   opacity: 0.4 !important;
-  transform: rotate(-10deg) scale(0.9524) !important;
+  transform: rotate(-10deg) scale(0.8) !important;
 }
 
 .ruio-logo-btn-disabled.ruio-btn-primary-dimmed {
   opacity: 0.4 !important;
-  transform: scale(0.9524) !important;
+  transform: scale(0.8) !important;
 }
