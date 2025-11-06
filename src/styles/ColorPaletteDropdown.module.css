@@ -103,3 +103,10 @@
 .dropdownItemColorSwatch {
   flex: 1;
 }
+
+.dropdownItemDescription {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  font-style: italic;
+  width: 80%;
+}

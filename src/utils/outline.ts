@@ -1,5 +1,6 @@
 // sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
 import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
+import { generateContrastingColor } from '@utils/colorContrast'
 
 export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 
@@ -19,6 +20,7 @@ export const applyOutlineUI = (
 
   const colors = colorPalettesMap[currentColorPalette]
   const elements = new Set<HTMLElement>()
+  const isDynamicPalette = currentColorPalette === 'dynamic'
 
   const traverse = (el: HTMLElement, currentDepth: number) => {
     if (!el || currentDepth > depth) return
@@ -28,7 +30,9 @@ export const applyOutlineUI = (
     elements.add(el)
 
     requestAnimationFrame(() => {
-      const outlineColor = getRelativeDepthColor(colors, currentDepth)
+      const outlineColor = isDynamicPalette
+        ? generateContrastingColor(el, currentDepth)
+        : getRelativeDepthColor(colors, currentDepth)
       el.style.outline = apply ? `2px solid ${outlineColor}` : ''
     })
 

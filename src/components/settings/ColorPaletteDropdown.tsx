@@ -62,15 +62,21 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
               <div className={styles.dropdownItemIcon}>{itemIsCurrentTheme && <CheckmarkIcon />}</div>
               <div className={styles.dropdownItemDetails}>
                 <div className={styles.dropdownItemTitle}>{paletteKey}</div>
-                <ul className={styles.dropdownItemColorPalette}>
-                  {colors.map((color) => (
-                    <li
-                      key={color}
-                      className={styles.dropdownItemColorSwatch}
-                      style={{ backgroundColor: color }}
-                    />
-                  ))}
-                </ul>
+                {paletteKey === 'dynamic' ? (
+                  <div className={styles.dropdownItemDescription}>
+                    Auto-calculated based on element colors
+                  </div>
+                ) : (
+                  <ul className={styles.dropdownItemColorPalette}>
+                    {colors.map((color) => (
+                      <li
+                        key={color}
+                        className={styles.dropdownItemColorSwatch}
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           )
