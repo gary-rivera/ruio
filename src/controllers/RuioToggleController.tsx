@@ -5,7 +5,11 @@ import buttonStyles from '../styles/Button.module.css'
 import divStyles from '../styles/Div.module.css'
 import svgStyles from '../styles/SVG.module.css'
 
-function RuioToggleController() {
+type RuioToggleControllerProps = {
+  isDimmed?: boolean
+}
+
+function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
   const { ruioEnabled, setRuioEnabled } = useRuioContext()
 
   return (
@@ -16,7 +20,9 @@ function RuioToggleController() {
       <button
         className={`
         ${buttonStyles['ruio-btn']}
-        ${buttonStyles['ruio-btn-primary']} ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}`}
+        ${buttonStyles['ruio-btn-primary']}
+        ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}
+        ${isDimmed ? buttonStyles['ruio-btn-primary-dimmed'] : ''}`}
         onClick={() => {
           setRuioEnabled(!ruioEnabled)
           setLocalStorageValue('ruioEnabled', (!ruioEnabled).toString())
