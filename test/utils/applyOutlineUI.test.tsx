@@ -1,4 +1,5 @@
 import { applyOutlineUI, resetPreviouslyAppliedElements } from '@utils/applyOutlineUI'
+import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
 describe('applyOutlineUI Smoke and Functionality Tests', () => {
   let element: HTMLElement

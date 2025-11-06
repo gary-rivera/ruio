@@ -4,16 +4,17 @@ import { applyOutlineUI } from '@utils/applyOutlineUI'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
+import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
 
 // mocks source
-jest.mock('@utils/applyOutlineUI')
-jest.mock('@controllers/ElementInteractionController')
+vi.mock('@utils/applyOutlineUI')
+vi.mock('@controllers/ElementInteractionController')
 
 // mocks target
-const mockedElementInteractionController = ElementInteractionController as jest.MockedFunction<
+const mockedElementInteractionController = ElementInteractionController as Mock<
   typeof ElementInteractionController
 >
-const mockedApplyBorders = applyOutlineUI as jest.MockedFunction<typeof applyOutlineUI>
+const mockedApplyBorders = applyOutlineUI as Mock<typeof applyOutlineUI>
 
 const TestComponent = () => {
   const {
@@ -53,7 +54,7 @@ const TestComponent = () => {
 
 describe('RuioContextProvider', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
+    vi.resetAllMocks()
     localStorage.clear()
   })
 
@@ -99,7 +100,7 @@ describe('RuioContextProvider', () => {
   })
 
   test('should call cleanup function when selection mode is triggered', async () => {
-    const cleanupMock = jest.fn()
+    const cleanupMock = vi.fn()
 
     mockedElementInteractionController.mockReturnValue(cleanupMock)
 
@@ -209,7 +210,7 @@ describe('RuioContextProvider', () => {
   })
 
   test('should throw error if useRuioContext is used outside provider', () => {
-    const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const consoleErrorMock = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     const TestInvalidComponent = () => {
       const { ruioEnabled } = useRuioContext()
