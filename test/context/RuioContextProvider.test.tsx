@@ -7,7 +7,14 @@ import { waitFor } from '@testing-library/react'
 import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
 
 // mocks source
-vi.mock('@utils/applyOutlineUI')
+vi.mock('@utils/applyOutlineUI', async () => {
+  const actual = await vi.importActual<typeof import('@utils/applyOutlineUI')>('@utils/applyOutlineUI')
+  return {
+    ...actual,
+    applyOutlineUI: vi.fn(),
+    resetPreviouslyAppliedElements: vi.fn(),
+  }
+})
 vi.mock('@controllers/ElementInteractionController')
 
 // mocks target
@@ -22,6 +29,7 @@ const TestComponent = () => {
     setRuioEnabled,
     depth,
     setDepth,
+    maxDepth,
     isElementSelectionModeActive,
     setIsElementSelectionModeActive,
     rootElement,
@@ -31,6 +39,7 @@ const TestComponent = () => {
     <div>
       <div data-testid="ruioEnabled">{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
       <div data-testid="depth">{depth}</div>
+      <div data-testid="maxDepth">{maxDepth}</div>
       <div data-testid="rootElement">{rootElement?.tagName || 'None'}</div>
       <button
         data-testid="select-element-mode"
@@ -45,6 +54,9 @@ const TestComponent = () => {
       </button>
       <button data-testid="set-depth" onClick={() => setDepth(5)}>
         Set Depth to 5
+      </button>
+      <button data-testid="set-depth-high" onClick={() => setDepth(100)}>
+        Set Depth to 100
       </button>
     </div>
   )
@@ -222,5 +234,105 @@ describe('RuioContextProvider', () => {
     )
 
     consoleErrorMock.mockRestore()
+  })
+
+  test('should calculate maxDepth when rootElement is set', async () => {
+    // Create a nested DOM structure with 3 levels
+    const testRoot = document.createElement('div')
+    testRoot.id = 'test-root'
+    const level1 = document.createElement('div')
+    const level2 = document.createElement('div')
+    const level3 = document.createElement('div')
+
+    testRoot.appendChild(level1)
+    level1.appendChild(level2)
+    level2.appendChild(level3)
+    document.body.appendChild(testRoot)
+
+    localStorage.setItem('rootElementSelector', '#test-root')
+
+    render(
+      <RuioContextProvider>
+        <TestComponent />
+      </RuioContextProvider>,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByTestId('maxDepth').textContent).toBe('3')
+    })
+
+    document.body.removeChild(testRoot)
+    localStorage.clear()
+  })
+
+  test('should automatically clamp depth when it exceeds maxDepth', async () => {
+    // Create a shallow DOM structure with only 2 levels
+    const testRoot = document.createElement('div')
+    testRoot.id = 'shallow-root'
+    const level1 = document.createElement('div')
+    const level2 = document.createElement('div')
+
+    testRoot.appendChild(level1)
+    level1.appendChild(level2)
+    document.body.appendChild(testRoot)
+
+    localStorage.setItem('rootElementSelector', '#shallow-root')
+
+    render(
+      <RuioContextProvider>
+        <TestComponent />
+      </RuioContextProvider>,
+    )
+
+    // Wait for rootElement to be set
+    await waitFor(() => {
+      expect(screen.getByTestId('rootElement').textContent).toBe('DIV')
+    })
+
+    // Try to set depth to 100, which exceeds maxDepth of 2
+    const setDepthHighButton = screen.getByTestId('set-depth-high')
+    await act(async () => {
+      await userEvent.click(setDepthHighButton)
+    })
+
+    // Depth should be clamped to maxDepth of 2
+    await waitFor(() => {
+      expect(screen.getByTestId('depth').textContent).toBe('2')
+    })
+
+    document.body.removeChild(testRoot)
+    localStorage.clear()
+  })
+
+  test('maxDepth defaults to high value when no rootElement is set', () => {
+    render(
+      <RuioContextProvider>
+        <TestComponent />
+      </RuioContextProvider>,
+    )
+
+    // When no rootElement is set, maxDepth should be high (100) to allow free setting
+    expect(screen.getByTestId('maxDepth').textContent).toBe('100')
+  })
+
+  test('should handle edge case where rootElement has no children', async () => {
+    const emptyRoot = document.createElement('div')
+    emptyRoot.id = 'empty-root'
+    document.body.appendChild(emptyRoot)
+
+    localStorage.setItem('rootElementSelector', '#empty-root')
+
+    render(
+      <RuioContextProvider>
+        <TestComponent />
+      </RuioContextProvider>,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByTestId('maxDepth').textContent).toBe('0')
+    })
+
+    document.body.removeChild(emptyRoot)
+    localStorage.clear()
   })
 })
