@@ -15,7 +15,7 @@ vi.mock('@controllers/RuioToggleController', () => ({
 }))
 
 // Mock applyOutlineUI and ElementInteractionController
-vi.mock('@utils/applyOutlineUI', () => ({
+vi.mock('@utils/outline', () => ({
   applyOutlineUI: vi.fn(),
   resetPreviouslyAppliedElements: vi.fn(),
 }))

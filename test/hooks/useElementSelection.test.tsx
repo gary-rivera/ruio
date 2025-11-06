@@ -1,11 +1,11 @@
 import { renderHook, act } from '@testing-library/react'
 import { useElementSelection } from '@hooks/useElementSelection'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { applyOutlineUI } from '@utils/outline'
 import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
 
 vi.mock('@controllers/ElementInteractionController')
-vi.mock('@utils/applyOutlineUI')
+vi.mock('@utils/outline')
 
 describe('useElementSelection', () => {
   const mockOnElementSelected = vi.fn()

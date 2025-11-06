@@ -1,4 +1,4 @@
-import { ReactNode, ChangeEvent, useState, memo } from 'react'
+import { ReactNode, ChangeEvent, useState, useEffect, memo } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
@@ -14,12 +14,23 @@ import inputStyles from '../../styles/Input.module.css'
 
 type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string; footer?: ReactNode }
 
+// Visual feedback configuration
+const FLASH_DURATION_MS = 600
+const MIN_DEPTH = 0
+const APPROACHING_MIN_DEPTH = 1
+
+// Visual feedback colors
+const LIMIT_REACHED_COLOR = '#e74c3c'
+const APPROACHING_LIMIT_COLOR = '#f39c12'
+const TRANSITION_TIMING = 'color 0.15s ease-in-out'
+
 // TODO: add settings row for border/outline toggle
 // TODO: add settings row to clear local storage
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const {
     depth,
     setDepth,
+    maxDepth,
     ruioEnabled,
     currentColorPalette,
     rootElement,
@@ -28,26 +39,79 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
+  const [showLimitFlash, setShowLimitFlash] = useState<boolean>(false)
+  const [showWarningFlash, setShowWarningFlash] = useState<boolean>(false)
 
-  function adjustDepth(operation: 'increment' | 'decrement') {
-    const newDepth = operation === 'increment' ? depth + 1 : depth - 1
-    setDepth(newDepth)
-    setTempDepth(newDepth.toString())
+  // keep user input depth in sync with actual depth
+  useEffect(() => {
+    setTempDepth(depth.toString())
+  }, [depth])
+
+  const clampDepthToValidRange = (value: number): number => {
+    return Math.max(MIN_DEPTH, Math.min(value, maxDepth))
+  }
+
+  const triggerFlashFeedback = (flashType: 'limit' | 'warning'): void => {
+    const setFlashState = flashType === 'limit' ? setShowLimitFlash : setShowWarningFlash
+    setFlashState(true)
+    setTimeout(() => setFlashState(false), FLASH_DURATION_MS)
+  }
+
+  const calculateDepthAfterOperation = (operation: 'increment' | 'decrement'): number => {
+    return operation === 'increment' ? depth + 1 : depth - 1
+  }
+
+  const isAtOrBeyondLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
+    const atMaximum = operation === 'increment' && (newDepth >= maxDepth || depth >= maxDepth)
+    const atMinimum = operation === 'decrement' && (newDepth <= MIN_DEPTH || depth <= MIN_DEPTH)
+    return atMaximum || atMinimum
+  }
+
+  const isApproachingLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
+    const approachingMaximum = operation === 'increment' && newDepth === maxDepth - 1
+    const approachingMinimum = operation === 'decrement' && newDepth === APPROACHING_MIN_DEPTH
+    return approachingMaximum || approachingMinimum
+  }
+
+  const getDepthInputColor = (): string => {
+    if (showLimitFlash) return LIMIT_REACHED_COLOR
+    if (showWarningFlash) return APPROACHING_LIMIT_COLOR
+    return '' // default color
+  }
+
+  function adjustDepth(operation: 'increment' | 'decrement'): void {
+    const requestedDepth = calculateDepthAfterOperation(operation)
+    const validDepth = clampDepthToValidRange(requestedDepth)
+
+    // which visual feedback to provide given current depth
+    if (isAtOrBeyondLimit(validDepth, operation)) {
+      triggerFlashFeedback('limit')
+    } else if (isApproachingLimit(validDepth, operation)) {
+      triggerFlashFeedback('warning')
+    }
+
+    setDepth(validDepth)
+    setTempDepth(validDepth.toString())
   }
 
   function handleDepthChange(event: ChangeEvent<HTMLInputElement>) {
     setTempDepth(event.target.value)
   }
 
-  function handleDepthConfirm() {
-    const value = parseInt(tempDepth, 10)
-    if (!isNaN(value)) {
-      setDepth(value)
+  function handleDepthConfirm(): void {
+    const parsedValue = parseInt(tempDepth, 10)
+
+    if (isNaN(parsedValue)) {
+      setTempDepth(depth.toString())
+      return
     }
-    setTempDepth(value.toString())
+
+    const validDepth = clampDepthToValidRange(parsedValue)
+    setDepth(validDepth)
+    setTempDepth(validDepth.toString())
   }
 
-  function handleReportIssue() {
+  function handleReportIssue(): void {
     const issueUrl = generateGitHubIssueUrl({
       ruioEnabled,
       depth,
@@ -66,7 +130,6 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       <div className={settingsModalStyles.mainContent}>
         <div className={settingsModalStyles.header}>
           <h2 className={settingsModalStyles.title}>Settings</h2>
-
           <CloseModalIcon onClick={onClose} buttonStyleKey="close-modal-btn" />
         </div>
         <section className={settingsModalStyles.category}>
@@ -100,6 +163,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     e.key === 'Enter' && handleDepthConfirm()
                   }
+                  style={{ color: getDepthInputColor(), transition: TRANSITION_TIMING }}
                 />
                 <button
                   className={`${buttonStyles['ruio-btn']} ${settingsRowStyles.settingRowButton} ${settingsRowStyles.depthControlButtonLeft}`}

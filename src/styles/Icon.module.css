@@ -12,7 +12,7 @@
 
 .icon-dimmed {
   opacity: 0.4;
-  transform: scale(0.8); /* 1/1.05 - exact inverse of hover scale */
+  transform: scale(0.8);
 }
 
 .settings-icon {

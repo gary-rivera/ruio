@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { applyOutlineUI } from '@utils/outline'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import { debounce } from '@utils/debounce'
 
@@ -57,9 +57,5 @@ export const useElementSelection = ({
     }
   }, [isActive, depth, ruioEnabled, currentColorPalette, onElementSelected])
 
-  return {
-    isActive,
-    setIsActive,
-    toggle,
-  }
+  return { isActive, setIsActive, toggle }
 }

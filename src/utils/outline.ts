@@ -1,10 +1,11 @@
+// sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
 import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
 
 export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 
 // TODO: add root class or id configuration to settings icon modal
 // TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements (performance for small vs. large data sets)
-// ref. sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
+
 export const applyOutlineUI = (
   element: HTMLElement,
   depth: number,
@@ -20,15 +21,13 @@ export const applyOutlineUI = (
   const elements = new Set<HTMLElement>()
 
   const traverse = (el: HTMLElement, currentDepth: number) => {
-    if (!el || currentDepth > depth) return // NOTE: temporary, while we get depth-down figure out
+    if (!el || currentDepth > depth) return
 
     if (el.tagName === 'SCRIPT') return
 
     elements.add(el)
 
-    // Apply styles only when necessary
     requestAnimationFrame(() => {
-      // Use the colors array instead of a hard-coded palette key
       const outlineColor = getRelativeDepthColor(colors, currentDepth)
       el.style.outline = apply ? `2px solid ${outlineColor}` : ''
     })
@@ -45,6 +44,7 @@ export const applyOutlineUI = (
   requestAnimationFrame(() => {
     previouslyAppliedElements.forEach((el) => {
       // Remove outline if not in the new set of elements
+      // NOTE: this may overwrite elements that have an outline style already applied
       if (!elements.has(el)) el.style.outline = ''
     })
 
@@ -52,7 +52,40 @@ export const applyOutlineUI = (
   })
 }
 
-// Export a reset function for testing
+/**
+ * Calculates the maximum depth of the DOM tree starting from a root element.
+ * Ignores script tags and counts the deepest path from root to leaf.
+ *
+ * @param element - The root element to calculate depth from
+ * @returns The maximum depth (0 for elements with no children)
+ */
+export const calculateMaxDepth = (element: HTMLElement | null): number => {
+  if (!element) return 0
+
+  let maxDepthFound = 0
+
+  const shouldSkipElement = (el: HTMLElement) => !el || el.tagName === 'SCRIPT'
+
+  const getHtmlElementChildren = (el: HTMLElement): HTMLElement[] => {
+    return Array.from(el.children).filter((child) => child instanceof HTMLElement) as HTMLElement[]
+  }
+
+  const traverseAndTrackDepth = (el: HTMLElement, currentDepth: number) => {
+    if (shouldSkipElement(el)) return
+
+    maxDepthFound = Math.max(maxDepthFound, currentDepth)
+
+    const childElements = getHtmlElementChildren(el)
+    childElements.forEach((child) => {
+      traverseAndTrackDepth(child, currentDepth + 1)
+    })
+  }
+
+  traverseAndTrackDepth(element, 0)
+  return maxDepthFound
+}
+
+// for testing
 export const resetPreviouslyAppliedElements = () => {
   previouslyAppliedElements.clear()
 }
