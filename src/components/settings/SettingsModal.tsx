@@ -4,7 +4,7 @@ import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
-// import CloseModalIconv2 from '@components/icons/Iconv2'
+import { generateGitHubIssueUrl } from '@utils/githubIssue'
 
 import settingsModalStyles from '../../styles/SettingsModal.module.css'
 import settingsRowStyles from '../../styles/SettingsRow.module.css'
@@ -12,17 +12,19 @@ import settingsRowStyles from '../../styles/SettingsRow.module.css'
 import buttonStyles from '../../styles/Button.module.css'
 import inputStyles from '../../styles/Input.module.css'
 
-type SettingsModalProps = {
-  isOpen: boolean
-  onClose: () => void
-  title?: string
-  footer?: ReactNode
-}
+type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string; footer?: ReactNode }
 
 // TODO: add settings row for border/outline toggle
 // TODO: add settings row to clear local storage
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  const { depth, setDepth } = useRuioContext()
+  const {
+    depth,
+    setDepth,
+    ruioEnabled,
+    currentColorPalette,
+    rootElement,
+    isElementSelectionModeActive,
+  } = useRuioContext()
 
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
@@ -43,6 +45,17 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       setDepth(value)
     }
     setTempDepth(value.toString())
+  }
+
+  function handleReportIssue() {
+    const issueUrl = generateGitHubIssueUrl({
+      ruioEnabled,
+      depth,
+      currentColorPalette,
+      rootElement,
+      isElementSelectionModeActive,
+    })
+    window.open(issueUrl, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -147,8 +160,23 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       </div>
 
       <footer className={settingsModalStyles.modalFooter}>
-        {/* <span className={settingsModalStyles.reportIssue}> Report an issue</span> */}
-        {/* TODO: instead of report issue, put description of the setting being hovered over */}
+        <span className={settingsModalStyles.reportIssue} onClick={handleReportIssue}>
+          <svg
+            className={settingsModalStyles.reportIssueIcon}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 8L3 11.6923L7 16M17 8L21 11.6923L17 16M14 4L10 20"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Report an issue
+        </span>
       </footer>
     </div>
   )

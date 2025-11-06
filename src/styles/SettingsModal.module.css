@@ -94,4 +94,20 @@
 .reportIssue {
   color: #5e5e5e;
   margin-left: 2rem;
+  cursor: pointer;
+  transition: color 150ms ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-style: italic;
+}
+
+.reportIssue:hover {
+  color: #06e5d5;
+}
+
+.reportIssueIcon {
+  width: 1rem;
+  height: 1rem;
+  transition: color 150ms ease-in-out;
 }
