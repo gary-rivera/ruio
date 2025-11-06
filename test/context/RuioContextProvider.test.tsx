@@ -1,14 +1,14 @@
 import { render, screen, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { applyOutlineUI } from '@utils/outline'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
 import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
 
 // mocks source
-vi.mock('@utils/applyOutlineUI', async () => {
-  const actual = await vi.importActual<typeof import('@utils/applyOutlineUI')>('@utils/applyOutlineUI')
+vi.mock('@utils/outline', async () => {
+  const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
     applyOutlineUI: vi.fn(),

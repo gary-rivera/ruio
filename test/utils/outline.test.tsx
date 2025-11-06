@@ -1,4 +1,4 @@
-import { applyOutlineUI, resetPreviouslyAppliedElements, calculateMaxDepth } from '@utils/applyOutlineUI'
+import { applyOutlineUI, resetPreviouslyAppliedElements, calculateMaxDepth } from '@utils/outline'
 import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
 describe('applyOutlineUI Smoke and Functionality Tests', () => {

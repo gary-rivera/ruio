@@ -6,8 +6,8 @@ import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest'
 import * as githubIssue from '@utils/githubIssue'
 
 // Mock the utilities
-vi.mock('@utils/applyOutlineUI', async () => {
-  const actual = await vi.importActual<typeof import('@utils/applyOutlineUI')>('@utils/applyOutlineUI')
+vi.mock('@utils/outline', async () => {
+  const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
     applyOutlineUI: vi.fn(),

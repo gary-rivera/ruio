@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
-import { applyOutlineUI, calculateMaxDepth } from '@utils/applyOutlineUI'
+import { applyOutlineUI, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementSelection } from '@hooks/useElementSelection'
 import { UI_DEPTH, COLOR_PALETTE } from '@constants/index'
