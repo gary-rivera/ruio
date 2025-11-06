@@ -60,12 +60,10 @@ export const generateGitHubIssueUrl = (ruioState: RuioState): string => {
 - **User Agent:** ${userAgent}
 
 ## Description
-
 <!-- the more details the better :) -->
 
 
 ## Steps to Reproduce
-
 1.
 2.
 3.
