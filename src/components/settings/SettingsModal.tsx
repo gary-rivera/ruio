@@ -14,6 +14,16 @@ import inputStyles from '../../styles/Input.module.css'
 
 type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string; footer?: ReactNode }
 
+// Visual feedback configuration
+const FLASH_DURATION_MS = 600
+const MIN_DEPTH = 0
+const APPROACHING_MIN_DEPTH = 1
+
+// Visual feedback colors
+const LIMIT_REACHED_COLOR = '#e74c3c'
+const APPROACHING_LIMIT_COLOR = '#f39c12'
+const TRANSITION_TIMING = 'color 0.15s ease-in-out'
+
 // TODO: add settings row for border/outline toggle
 // TODO: add settings row to clear local storage
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
@@ -32,56 +42,76 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [showLimitFlash, setShowLimitFlash] = useState<boolean>(false)
   const [showWarningFlash, setShowWarningFlash] = useState<boolean>(false)
 
-  // Sync tempDepth with depth changes (e.g., when depth is automatically clamped)
+  // keep user input depth in sync with actual depth
   useEffect(() => {
     setTempDepth(depth.toString())
   }, [depth])
 
-  function adjustDepth(operation: 'increment' | 'decrement') {
-    const newDepth = operation === 'increment' ? depth + 1 : depth - 1
-    const clampedDepth = Math.max(0, Math.min(newDepth, maxDepth))
+  const clampDepthToValidRange = (value: number): number => {
+    return Math.max(MIN_DEPTH, Math.min(value, maxDepth))
+  }
 
-    // Check if we reached or exceeded a limit
-    const hitLimit =
-      (operation === 'increment' && (clampedDepth >= maxDepth || depth >= maxDepth)) ||
-      (operation === 'decrement' && (clampedDepth <= 0 || depth <= 0))
+  const triggerFlashFeedback = (flashType: 'limit' | 'warning'): void => {
+    const setFlashState = flashType === 'limit' ? setShowLimitFlash : setShowWarningFlash
+    setFlashState(true)
+    setTimeout(() => setFlashState(false), FLASH_DURATION_MS)
+  }
 
-    // Check if we're approaching the limit (one away from max or min)
-    const approachingLimit =
-      (operation === 'increment' && clampedDepth === maxDepth - 1) ||
-      (operation === 'decrement' && clampedDepth === 1)
+  const calculateDepthAfterOperation = (operation: 'increment' | 'decrement'): number => {
+    return operation === 'increment' ? depth + 1 : depth - 1
+  }
 
-    if (hitLimit) {
-      // Trigger the red flash
-      setShowLimitFlash(true)
-      setTimeout(() => setShowLimitFlash(false), 600)
-    } else if (approachingLimit) {
-      // Trigger the warning flash
-      setShowWarningFlash(true)
-      setTimeout(() => setShowWarningFlash(false), 600)
+  const isAtOrBeyondLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
+    const atMaximum = operation === 'increment' && (newDepth >= maxDepth || depth >= maxDepth)
+    const atMinimum = operation === 'decrement' && (newDepth <= MIN_DEPTH || depth <= MIN_DEPTH)
+    return atMaximum || atMinimum
+  }
+
+  const isApproachingLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
+    const approachingMaximum = operation === 'increment' && newDepth === maxDepth - 1
+    const approachingMinimum = operation === 'decrement' && newDepth === APPROACHING_MIN_DEPTH
+    return approachingMaximum || approachingMinimum
+  }
+
+  const getDepthInputColor = (): string => {
+    if (showLimitFlash) return LIMIT_REACHED_COLOR
+    if (showWarningFlash) return APPROACHING_LIMIT_COLOR
+    return '' // default color
+  }
+
+  function adjustDepth(operation: 'increment' | 'decrement'): void {
+    const requestedDepth = calculateDepthAfterOperation(operation)
+    const validDepth = clampDepthToValidRange(requestedDepth)
+
+    // which visual feedback to provide given current depth
+    if (isAtOrBeyondLimit(validDepth, operation)) {
+      triggerFlashFeedback('limit')
+    } else if (isApproachingLimit(validDepth, operation)) {
+      triggerFlashFeedback('warning')
     }
 
-    setDepth(clampedDepth)
-    setTempDepth(clampedDepth.toString())
+    setDepth(validDepth)
+    setTempDepth(validDepth.toString())
   }
 
   function handleDepthChange(event: ChangeEvent<HTMLInputElement>) {
     setTempDepth(event.target.value)
   }
 
-  function handleDepthConfirm() {
-    const value = parseInt(tempDepth, 10)
-    if (!isNaN(value)) {
-      const clampedValue = Math.max(0, Math.min(value, maxDepth))
-      setDepth(clampedValue)
-      setTempDepth(clampedValue.toString())
-    } else {
-      // Reset to current depth if invalid
+  function handleDepthConfirm(): void {
+    const parsedValue = parseInt(tempDepth, 10)
+
+    if (isNaN(parsedValue)) {
       setTempDepth(depth.toString())
+      return
     }
+
+    const validDepth = clampDepthToValidRange(parsedValue)
+    setDepth(validDepth)
+    setTempDepth(validDepth.toString())
   }
 
-  function handleReportIssue() {
+  function handleReportIssue(): void {
     const issueUrl = generateGitHubIssueUrl({
       ruioEnabled,
       depth,
@@ -133,10 +163,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     e.key === 'Enter' && handleDepthConfirm()
                   }
-                  style={{
-                    color: showLimitFlash ? '#e74c3c' : showWarningFlash ? '#f39c12' : '',
-                    transition: 'color 0.15s ease-in-out',
-                  }}
+                  style={{ color: getDepthInputColor(), transition: TRANSITION_TIMING }}
                 />
                 <button
                   className={`${buttonStyles['ruio-btn']} ${settingsRowStyles.settingRowButton} ${settingsRowStyles.depthControlButtonLeft}`}
