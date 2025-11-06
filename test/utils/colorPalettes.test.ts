@@ -8,12 +8,18 @@ describe('colorPalettes', () => {
       expect(colorPalettesMap).toHaveProperty('roygbiv')
       expect(colorPalettesMap).toHaveProperty('neon')
       expect(colorPalettesMap).toHaveProperty('minima')
+      expect(colorPalettesMap).toHaveProperty('dynamic')
     })
 
-    test('each palette has at least one color', () => {
-      Object.values(colorPalettesMap).forEach((palette) => {
-        expect(palette.length).toBeGreaterThan(0)
-      })
+    test('static palettes have colors', () => {
+      expect(colorPalettesMap.default.length).toBeGreaterThan(0)
+      expect(colorPalettesMap.roygbiv.length).toBeGreaterThan(0)
+      expect(colorPalettesMap.neon.length).toBeGreaterThan(0)
+      expect(colorPalettesMap.minima.length).toBeGreaterThan(0)
+    })
+
+    test('dynamic palette is empty (colors generated dynamically)', () => {
+      expect(colorPalettesMap.dynamic).toEqual([])
     })
 
     test('default palette has expected length', () => {

@@ -25,7 +25,12 @@ describe('SettingsModal - Report Issue Feature', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     localStorage.clear()
-    localStorage.setItem('ruioEnabled', 'true')
+    const config = {
+      ruioEnabled: true,
+      depth: 3,
+      currentColorPalette: 'default',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     // Mock window.open
     windowOpenSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
@@ -214,7 +219,13 @@ describe('SettingsModal - Depth Limiting', () => {
     testRoot.appendChild(level1)
     document.body.appendChild(testRoot)
 
-    localStorage.setItem('rootElementSelector', '#shallow-root')
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#shallow-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     render(
       <RuioContextProvider>
@@ -247,7 +258,13 @@ describe('SettingsModal - Depth Limiting', () => {
     testRoot.appendChild(level1)
     document.body.appendChild(testRoot)
 
-    localStorage.setItem('rootElementSelector', '#shallow-root')
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#shallow-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     render(
       <RuioContextProvider>
@@ -293,7 +310,13 @@ describe('SettingsModal - Depth Limiting', () => {
     level4.appendChild(level5)
     document.body.appendChild(testRoot)
 
-    localStorage.setItem('rootElementSelector', '#test-root')
+    const config = {
+      ruioEnabled: false,
+      depth: 3,
+      currentColorPalette: 'default',
+      rootElementSelector: '#test-root',
+    }
+    localStorage.setItem('ruio-config', JSON.stringify(config))
 
     render(
       <RuioContextProvider>
