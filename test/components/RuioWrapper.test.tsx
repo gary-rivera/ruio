@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import RuioWrapper from '@components/RuioWrapper'
+import { describe, it, expect } from 'vitest'
 
 describe('RuioWrapper', () => {
   it('should render without crashing', () => {

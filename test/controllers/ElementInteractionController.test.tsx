@@ -1,8 +1,9 @@
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
+import { describe, it, test, expect, beforeEach, afterEach, vi } from 'vitest'
 
 describe('ElementInteractionController', () => {
-  let mockHoverCallback: jest.Mock
-  let mockClickCallback: jest.Mock
+  let mockHoverCallback: ReturnType<typeof vi.fn>
+  let mockClickCallback: ReturnType<typeof vi.fn>
   let rootElement: HTMLElement
   let childElement: HTMLElement
   let excludedElement: HTMLElement
@@ -20,8 +21,8 @@ describe('ElementInteractionController', () => {
     excludedElement = document.createElement('div')
     rootElement.appendChild(excludedElement)
 
-    mockHoverCallback = jest.fn()
-    mockClickCallback = jest.fn()
+    mockHoverCallback = vi.fn()
+    mockClickCallback = vi.fn()
 
     cleanup = ElementInteractionController(mockHoverCallback, mockClickCallback)
   })
