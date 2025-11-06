@@ -1,5 +1,4 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import { setLocalStorageValue } from '@utils/config'
 
 import buttonStyles from '../styles/Button.module.css'
 import divStyles from '../styles/Div.module.css'
@@ -25,7 +24,6 @@ function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
         ${isDimmed ? buttonStyles['ruio-btn-primary-dimmed'] : ''}`}
         onClick={() => {
           setRuioEnabled(!ruioEnabled)
-          setLocalStorageValue('ruioEnabled', (!ruioEnabled).toString())
         }}
       >
         <div
