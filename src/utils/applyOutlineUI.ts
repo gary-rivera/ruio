@@ -52,6 +52,31 @@ export const applyOutlineUI = (
   })
 }
 
+// Calculate the maximum depth of children elements from a given root element
+export const calculateMaxDepth = (element: HTMLElement | null): number => {
+  if (!element) return 0
+
+  let maxDepth = 0
+
+  const traverse = (el: HTMLElement, currentDepth: number) => {
+    if (!el || el.tagName === 'SCRIPT') return
+
+    maxDepth = Math.max(maxDepth, currentDepth)
+
+    const children = Array.from(el.children).filter((child) => child instanceof HTMLElement)
+
+    // Only continue if there are actual children
+    if (children.length > 0) {
+      children.forEach((child) => {
+        traverse(child as HTMLElement, currentDepth + 1)
+      })
+    }
+  }
+
+  traverse(element, 0)
+  return maxDepth
+}
+
 // Export a reset function for testing
 export const resetPreviouslyAppliedElements = () => {
   previouslyAppliedElements.clear()

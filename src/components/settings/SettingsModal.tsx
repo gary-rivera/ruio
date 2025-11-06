@@ -1,4 +1,4 @@
-import { ReactNode, ChangeEvent, useState, memo } from 'react'
+import { ReactNode, ChangeEvent, useState, useEffect, memo } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
@@ -20,6 +20,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const {
     depth,
     setDepth,
+    maxDepth,
     ruioEnabled,
     currentColorPalette,
     rootElement,
@@ -28,11 +29,40 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
+  const [showLimitFlash, setShowLimitFlash] = useState<boolean>(false)
+  const [showWarningFlash, setShowWarningFlash] = useState<boolean>(false)
+
+  // Sync tempDepth with depth changes (e.g., when depth is automatically clamped)
+  useEffect(() => {
+    setTempDepth(depth.toString())
+  }, [depth])
 
   function adjustDepth(operation: 'increment' | 'decrement') {
     const newDepth = operation === 'increment' ? depth + 1 : depth - 1
-    setDepth(newDepth)
-    setTempDepth(newDepth.toString())
+    const clampedDepth = Math.max(0, Math.min(newDepth, maxDepth))
+
+    // Check if we reached or exceeded a limit
+    const hitLimit =
+      (operation === 'increment' && (clampedDepth >= maxDepth || depth >= maxDepth)) ||
+      (operation === 'decrement' && (clampedDepth <= 0 || depth <= 0))
+
+    // Check if we're approaching the limit (one away from max or min)
+    const approachingLimit =
+      (operation === 'increment' && clampedDepth === maxDepth - 1) ||
+      (operation === 'decrement' && clampedDepth === 1)
+
+    if (hitLimit) {
+      // Trigger the red flash
+      setShowLimitFlash(true)
+      setTimeout(() => setShowLimitFlash(false), 600)
+    } else if (approachingLimit) {
+      // Trigger the warning flash
+      setShowWarningFlash(true)
+      setTimeout(() => setShowWarningFlash(false), 600)
+    }
+
+    setDepth(clampedDepth)
+    setTempDepth(clampedDepth.toString())
   }
 
   function handleDepthChange(event: ChangeEvent<HTMLInputElement>) {
@@ -42,9 +72,13 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   function handleDepthConfirm() {
     const value = parseInt(tempDepth, 10)
     if (!isNaN(value)) {
-      setDepth(value)
+      const clampedValue = Math.max(0, Math.min(value, maxDepth))
+      setDepth(clampedValue)
+      setTempDepth(clampedValue.toString())
+    } else {
+      // Reset to current depth if invalid
+      setTempDepth(depth.toString())
     }
-    setTempDepth(value.toString())
   }
 
   function handleReportIssue() {
@@ -66,7 +100,6 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       <div className={settingsModalStyles.mainContent}>
         <div className={settingsModalStyles.header}>
           <h2 className={settingsModalStyles.title}>Settings</h2>
-
           <CloseModalIcon onClick={onClose} buttonStyleKey="close-modal-btn" />
         </div>
         <section className={settingsModalStyles.category}>
@@ -100,6 +133,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     e.key === 'Enter' && handleDepthConfirm()
                   }
+                  style={{
+                    color: showLimitFlash ? '#e74c3c' : showWarningFlash ? '#f39c12' : '',
+                    transition: 'color 0.15s ease-in-out',
+                  }}
                 />
                 <button
                   className={`${buttonStyles['ruio-btn']} ${settingsRowStyles.settingRowButton} ${settingsRowStyles.depthControlButtonLeft}`}

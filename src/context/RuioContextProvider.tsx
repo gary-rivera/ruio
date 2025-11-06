@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode, ReactElement, useContext, useMemo, useCallback } from 'react'
-import { applyOutlineUI } from '@utils/applyOutlineUI'
+import { applyOutlineUI, calculateMaxDepth } from '@utils/applyOutlineUI'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementSelection } from '@hooks/useElementSelection'
 import { UI_DEPTH, COLOR_PALETTE } from '@constants/index'
@@ -10,6 +10,8 @@ interface RuioContextProps {
 
   depth: number // depth of the amount of elements to apply outline UI to
   setDepth: React.Dispatch<React.SetStateAction<number>>
+
+  maxDepth: number // maximum available depth in the current DOM tree
 
   rootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
 
@@ -31,6 +33,7 @@ export const RuioContextProvider = ({ children }: RuioContextProviderProps): Rea
   // Custom hooks for separated concerns
   const localStorage = useLocalStorageState()
   const [depth, setDepth] = useState(UI_DEPTH)
+  const [maxDepth, setMaxDepth] = useState(100) // Default to high value when no rootElement
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
   const [currentColorPalette, setCurrentColorPalette] = useState<string>(COLOR_PALETTE)
 
@@ -43,6 +46,24 @@ export const RuioContextProvider = ({ children }: RuioContextProviderProps): Rea
       }
     }
   }, [localStorage.rootSelector])
+
+  // Calculate maxDepth whenever rootElement changes and clamp depth if needed
+  useEffect(() => {
+    if (rootElement) {
+      const calculatedMaxDepth = calculateMaxDepth(rootElement)
+      setMaxDepth(calculatedMaxDepth)
+
+      // Automatically clamp current depth to maxDepth when rootElement changes
+      setDepth((currentDepth) => Math.min(currentDepth, calculatedMaxDepth))
+    }
+  }, [rootElement])
+
+  // Ensure depth is always clamped to maxDepth
+  useEffect(() => {
+    if (depth > maxDepth) {
+      setDepth(maxDepth)
+    }
+  }, [depth, maxDepth])
 
   // Callback for when an element is selected in selection mode
   const handleElementSelected = useCallback((element: HTMLElement) => {
@@ -70,6 +91,7 @@ export const RuioContextProvider = ({ children }: RuioContextProviderProps): Rea
       setRuioEnabled: localStorage.setRuioEnabled,
       depth,
       setDepth,
+      maxDepth,
       rootElement,
       isElementSelectionModeActive: elementSelection.isActive,
       setIsElementSelectionModeActive: elementSelection.setIsActive,
@@ -81,6 +103,7 @@ export const RuioContextProvider = ({ children }: RuioContextProviderProps): Rea
       localStorage.ruioEnabled,
       localStorage.setRuioEnabled,
       depth,
+      maxDepth,
       rootElement,
       elementSelection.isActive,
       elementSelection.setIsActive,
