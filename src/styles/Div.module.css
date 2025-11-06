@@ -85,3 +85,11 @@
   transform: scaleX(0.1) scaleY(1) rotate(0deg);
   opacity: 0;
 }
+
+.ruio-logo-div-bg-dimmed {
+  transform: scale(0.01) !important;
+  opacity: 0 !important;
+  transition:
+    transform 200ms ease-in-out,
+    opacity 200ms ease-in-out !important;
+}

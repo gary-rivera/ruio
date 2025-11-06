@@ -15,7 +15,7 @@ function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
   return (
     <div className={`${divStyles['ruio-toggle-container']}`}>
       <div
-        className={`${divStyles['ruio-logo-div-bg']} ${ruioEnabled ? divStyles['ruio-logo-div-bg-active'] : divStyles['ruio-logo-div-bg-inactive']}`}
+        className={`${divStyles['ruio-logo-div-bg']} ${ruioEnabled ? divStyles['ruio-logo-div-bg-active'] : divStyles['ruio-logo-div-bg-inactive']} ${isDimmed ? divStyles['ruio-logo-div-bg-dimmed'] : ''}`}
       />
       <button
         className={`
