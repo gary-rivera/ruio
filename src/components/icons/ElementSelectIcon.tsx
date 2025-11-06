@@ -12,6 +12,7 @@ function ElementSelectIcon({ onClick }: IconProps) {
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     toggleElementSelectionMode()
+    onClick?.(event)
   }
 
   return (

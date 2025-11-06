@@ -1,5 +1,18 @@
 .icon-container {
   position: relative;
+  transition:
+    transform 100ms ease-in-out,
+    opacity 100ms ease-in-out;
+}
+
+.icon-active {
+  transform: scale(1.15);
+  opacity: 1;
+}
+
+.icon-dimmed {
+  opacity: 0.4;
+  transform: scale(0.8); /* 1/1.05 - exact inverse of hover scale */
 }
 
 .settings-icon {

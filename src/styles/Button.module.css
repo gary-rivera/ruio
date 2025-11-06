@@ -8,9 +8,9 @@
   background-color: #1c2120;
 }
 
-.ruio-btn:focus {
+/* .ruio-btn:focus {
   outline: 0.01rem solid #06e5d5;
-}
+} */
 
 @keyframes pulse {
   0% {
@@ -109,6 +109,9 @@
   align-items: center;
 
   padding: 3px;
+  transition:
+    transform 100ms ease-in-out,
+    opacity 100ms ease-in-out;
 }
 
 .ruio-btn-primary:hover {
@@ -134,4 +137,14 @@
     opacity 250ms ease-in-out;
   transform: rotate(-10deg);
   opacity: 1;
+}
+
+.ruio-logo-btn-enabled.ruio-btn-primary-dimmed {
+  opacity: 0.4 !important;
+  transform: rotate(-10deg) scale(0.8) !important;
+}
+
+.ruio-logo-btn-disabled.ruio-btn-primary-dimmed {
+  opacity: 0.4 !important;
+  transform: scale(0.8) !important;
 }
