@@ -6,6 +6,7 @@
    <p>
     <img src="https://img.shields.io/npm/v/ruio" alt="npm version">
     <img src="https://img.shields.io/npm/dm/ruio" alt="downloads">
+    <img src="https://img.shields.io/bundlephobia/min/ruio" alt="bundle size" />
     <img src="https://img.shields.io/npm/l/ruio" alt="license">
   </p>
 </div>
