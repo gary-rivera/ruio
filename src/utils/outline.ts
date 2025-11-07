@@ -4,8 +4,24 @@ import { generateContrastingColor } from '@utils/colorContrast'
 
 export let previouslyAppliedElements: Set<HTMLElement> = new Set()
 
-// TODO: add root class or id configuration to settings icon modal
+// Cache for dynamic color calculations - cleared when root element changes or palette changes
+// Key format: `${elementUniqueId}_${depth}`
+let dynamicColorCache: Map<string, string> = new Map()
+let cacheRootElement: HTMLElement | null = null
+let cachePalette: string | null = null
+
 // TODO: offer a way to toggle between Sets and Array for previouslyAppliedElements (performance for small vs. large data sets)
+
+// Generate a unique key for caching based on element attributes
+const getElementCacheKey = (el: HTMLElement, depth: number): string => {
+  // Use a combination of attributes that uniquely identify the element and its position in the DOM
+  const id = el.id || ''
+  const className = el.className || ''
+  const tagName = el.tagName
+  const pathIndex = Array.from(el.parentElement?.children || []).indexOf(el)
+
+  return `${tagName}_${id}_${className}_${pathIndex}_${depth}`
+}
 
 export const applyOutlineUI = (
   element: HTMLElement,
@@ -14,8 +30,15 @@ export const applyOutlineUI = (
   currentColorPalette: string,
 ) => {
   if (!currentColorPalette) {
-    console.warn('currentColorPalette is undefined; defaulting to "default" palette.')
-    currentColorPalette = 'default'
+    console.warn('currentColorPalette is undefined; defaulting to "dynamic" palette.')
+    currentColorPalette = 'dynamic'
+  }
+
+  // Clear cache if root element or palette changed
+  if (cacheRootElement !== element || cachePalette !== currentColorPalette) {
+    dynamicColorCache.clear()
+    cacheRootElement = element
+    cachePalette = currentColorPalette
   }
 
   const colors = colorPalettesMap[currentColorPalette]
@@ -30,9 +53,24 @@ export const applyOutlineUI = (
     elements.add(el)
 
     requestAnimationFrame(() => {
-      const outlineColor = isDynamicPalette
-        ? generateContrastingColor(el, currentDepth)
-        : getRelativeDepthColor(colors, currentDepth)
+      let outlineColor: string
+
+      if (isDynamicPalette) {
+        // Try to get from cache first
+        const cacheKey = getElementCacheKey(el, currentDepth)
+        const cachedColor = dynamicColorCache.get(cacheKey)
+
+        if (cachedColor) {
+          outlineColor = cachedColor
+        } else {
+          // Calculate and cache the color
+          outlineColor = generateContrastingColor(el, currentDepth)
+          dynamicColorCache.set(cacheKey, outlineColor)
+        }
+      } else {
+        outlineColor = getRelativeDepthColor(colors, currentDepth)
+      }
+
       el.style.outline = apply ? `2px solid ${outlineColor}` : ''
     })
 
@@ -92,4 +130,11 @@ export const calculateMaxDepth = (element: HTMLElement | null): number => {
 // for testing
 export const resetPreviouslyAppliedElements = () => {
   previouslyAppliedElements.clear()
+}
+
+// for testing and manual cache clearing
+export const clearDynamicColorCache = () => {
+  dynamicColorCache.clear()
+  cacheRootElement = null
+  cachePalette = null
 }
