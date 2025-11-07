@@ -1,3 +1,5 @@
+@import url('@root/styles/variables.css');
+
 .toggleContainer {
   margin-top: 2px;
   display: flex;
@@ -5,7 +7,7 @@
   justify-content: center;
   position: relative;
 
-  transition: transform 250ms ease-in-out;
+  transition: transform var(--ruio-timing-slow) var(--ruio-ease);
 }
 
 .toggleContainer:hover {
@@ -18,24 +20,20 @@
   padding: 0;
   margin: 0;
 
-  background-color: #1c2120;
-  border-radius: 8px;
+  background-color: var(--ruio-color-bg-dark);
+  border-radius: var(--ruio-radius-md);
   width: 45px;
   height: 38px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 3px;
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+  transition: var(--ruio-transition-slow);
 }
 
 .button:hover {
   opacity: 1;
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+  transition: var(--ruio-transition-slow);
   transform: scale(1.05);
 }
 
@@ -67,18 +65,14 @@
 
 .logoEnabled,
 .logoEnabled:hover {
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+  transition: var(--ruio-transition-slow);
   transform: rotate(-10deg);
   opacity: 1;
 }
 
 .logoDisabled,
 .logoDisabled:hover {
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+  transition: var(--ruio-transition-slow);
   transform: scale(1);
   opacity: 0.5;
 }
@@ -105,15 +99,15 @@
 
 .logoDivActive {
   transition:
-    transform 250ms ease-in-out,
-    opacity 150ms ease-in-out;
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
   transform: scale(0.9) rotate(10deg);
 }
 
 .logoDivInactive {
   transition:
-    transform 250ms ease-in-out,
-    opacity 150ms ease-in-out;
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
   transform: scale(1);
 }
 
@@ -122,29 +116,29 @@
   bottom: 0;
   right: 0;
 
-  border-radius: 12px;
+  border-radius: var(--ruio-radius-xl);
   transition:
-    transform 250ms ease-in-out,
-    opacity 150ms ease-in-out;
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
   will-change: opacity;
   width: 100%;
   height: 100%;
 }
 
 .logoDivBgActive {
-  background: #06e5d5;
+  background: var(--ruio-color-accent);
   transition:
-    transform 250ms ease-in-out,
-    opacity 150ms ease-in-out;
-  transform: scaleX(1.1) scaleY(1.03) rotate(3deg);
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  transform: scale(1.1, 1.03) rotate(3deg);
   opacity: 1;
 }
 
 .logoDivBgInactive {
   transition:
-    transform 250ms ease-in-out,
-    opacity 150ms ease-in-out;
-  transform: scaleX(0.1) scaleY(1) rotate(0deg);
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  transform: scale(0.1, 1) rotate(0deg);
   opacity: 0;
 }
 
@@ -152,11 +146,9 @@
 .logoDivBg.logoDivBgDimmed {
   transform: scale(0.01);
   opacity: 0;
-  transition:
-    transform 100ms ease-in-out,
-    opacity 100ms ease-in-out;
+  transition: var(--ruio-transition-fast);
 }
 
 .svg {
-  fill: #eaf8ef;
+  fill: var(--ruio-color-light);
 }

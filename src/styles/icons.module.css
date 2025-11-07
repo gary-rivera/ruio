@@ -9,6 +9,8 @@
  * - Hover effects and transitions
  */
 
+@import url('./variables.css');
+
 /* ============================================
 BASE BUTTON STYLES (used by most icons)
    ============================================ */
@@ -18,10 +20,10 @@ BASE BUTTON STYLES (used by most icons)
   composes: buttonReset from '@root/styles/base.module.css';
   composes: transitionMedium from '@root/styles/base.module.css';
 
-  background-color: #1c2120;
+  background-color: var(--ruio-color-bg-dark);
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: var(--ruio-radius-lg);
 }
 
 .iconButton:hover {
@@ -30,9 +32,7 @@ BASE BUTTON STYLES (used by most icons)
 
 /* Active/Inactive states for secondary icons */
 .iconButtonInactive {
-  transition:
-    opacity 250ms ease-in-out,
-    transform 250ms ease-in-out;
+  transition: var(--ruio-transition-slow);
   transform: translateY(20px);
   opacity: 0;
 }
@@ -58,18 +58,18 @@ BASE BUTTON STYLES (used by most icons)
   width: 1.5rem;
   height: 1.5rem;
   padding: 7px;
-  border-radius: 5px;
-  transition: background-color 150ms ease-in-out;
+  border-radius: var(--ruio-radius-sm);
+  transition: var(--ruio-transition-bg);
 }
 
 .closeButton:hover {
-  background-color: #565a59;
+  background-color: var(--ruio-color-gray-medium);
 }
 
 .closeSvg {
   max-width: 0.85rem;
   max-height: 0.85rem;
-  stroke: rgba(234, 248, 239, 1);
+  stroke: var(--ruio-color-light);
 }
 
 /* ============================================
@@ -86,7 +86,7 @@ BASE BUTTON STYLES (used by most icons)
   height: inherit;
   position: absolute;
   right: 0;
-  border-radius: 8px;
+  border-radius: var(--ruio-radius-md);
 }
 
 .chevronButton:focus {
@@ -95,12 +95,12 @@ BASE BUTTON STYLES (used by most icons)
 
 .chevronInactive {
   transform: rotate(0deg);
-  transition: transform 300ms ease;
+  transition: transform var(--ruio-timing-slower) var(--ruio-ease);
 }
 
 .chevronActive {
   transform: rotate(180deg);
-  transition: transform 300ms ease;
+  transition: transform var(--ruio-timing-slower) var(--ruio-ease);
 }
 
 .chevronSvg {
@@ -133,29 +133,29 @@ BASE BUTTON STYLES (used by most icons)
 
 /* Default SVG styling for secondary icons */
 .iconSvg {
-  border-radius: 10px;
-  fill: #1c2120;
+  border-radius: var(--ruio-radius-lg);
+  fill: var(--ruio-color-bg-dark);
 }
 
 /* Settings icon specific SVG parts */
 .svgOutline {
-  fill: #1c2120;
-  stroke: #06e5d5;
+  fill: var(--ruio-color-bg-dark);
+  stroke: var(--ruio-color-accent);
 }
 
 .svgBarBg {
   fill: none;
-  stroke: #eaf8ef;
+  stroke: var(--ruio-color-light);
   opacity: 0.9;
 }
 
 .svgDial {
   fill: none;
-  stroke: #eaf8ef;
+  stroke: var(--ruio-color-light);
 }
 
 /* Element select icon specific SVG parts */
 .svgMousePointer {
-  fill: #1c2120;
-  stroke: #eaf8ef;
+  fill: var(--ruio-color-bg-dark);
+  stroke: var(--ruio-color-light);
 }

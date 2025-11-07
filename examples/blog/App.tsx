@@ -9,10 +9,21 @@ import Footer from './components/Footer'
 const App: React.FC = () => {
   return (
     <RuioWrapper>
-      <div style={{ minHeight: '100vh', background: '#f9fafb' }}>
+      <div
+        style={{ fontFamily: 'Inter, system-ui, sans-serif', minHeight: '100vh', background: '#f9fafb' }}
+      >
         <Header />
 
-        <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem', display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem' }}>
+        <main
+          style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '2rem',
+            display: 'grid',
+            gridTemplateColumns: '1fr 320px',
+            gap: '2rem',
+          }}
+        >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <BlogPost />
             <CommentsSection />

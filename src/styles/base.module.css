@@ -5,6 +5,8 @@
  * Import this in components that need base resets or common patterns
  */
 
+@import url('./variables.css');
+
 /* ============================================
    BUTTON RESET
    ============================================ */
@@ -54,7 +56,7 @@
 }
 
 .pulse {
-  animation: pulse 150ms ease-out;
+  animation: pulse var(--ruio-timing-medium) var(--ruio-ease-out);
 }
 
 /* ============================================
@@ -62,19 +64,13 @@
    ============================================ */
 
 .transitionFast {
-  transition:
-    transform 100ms ease-in-out,
-    opacity 100ms ease-in-out;
+  transition: var(--ruio-transition-fast);
 }
 
 .transitionMedium {
-  transition:
-    transform 150ms ease-in-out,
-    opacity 150ms ease-in-out;
+  transition: var(--ruio-transition-medium);
 }
 
 .transitionSlow {
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+  transition: var(--ruio-transition-slow);
 }
