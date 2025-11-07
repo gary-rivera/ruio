@@ -21,7 +21,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: false,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -34,7 +34,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: false,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -57,7 +57,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: false,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -70,7 +70,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -83,7 +83,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -100,7 +100,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -121,7 +121,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )
@@ -145,7 +145,7 @@ describe('useElementSelection', () => {
       useElementSelection({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         onElementSelected: mockOnElementSelected,
       }),
     )

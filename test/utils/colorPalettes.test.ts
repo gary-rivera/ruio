@@ -4,7 +4,6 @@ import { describe, test, expect } from 'vitest'
 describe('colorPalettes', () => {
   describe('colorPalettesMap', () => {
     test('contains expected palette keys', () => {
-      expect(colorPalettesMap).toHaveProperty('default')
       expect(colorPalettesMap).toHaveProperty('roygbiv')
       expect(colorPalettesMap).toHaveProperty('neon')
       expect(colorPalettesMap).toHaveProperty('minima')
@@ -12,7 +11,6 @@ describe('colorPalettes', () => {
     })
 
     test('static palettes have colors', () => {
-      expect(colorPalettesMap.default.length).toBeGreaterThan(0)
       expect(colorPalettesMap.roygbiv.length).toBeGreaterThan(0)
       expect(colorPalettesMap.neon.length).toBeGreaterThan(0)
       expect(colorPalettesMap.minima.length).toBeGreaterThan(0)
@@ -20,10 +18,6 @@ describe('colorPalettes', () => {
 
     test('dynamic palette is empty (colors generated dynamically)', () => {
       expect(colorPalettesMap.dynamic).toEqual([])
-    })
-
-    test('default palette has expected length', () => {
-      expect(colorPalettesMap.default).toHaveLength(6)
     })
   })
 

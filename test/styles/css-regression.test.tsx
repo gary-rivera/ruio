@@ -60,7 +60,7 @@ describe('CSS Regression Tests', () => {
       JSON.stringify({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
       }),
     )
   })

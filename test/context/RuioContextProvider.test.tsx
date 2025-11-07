@@ -62,8 +62,6 @@ const TestComponent = () => {
   )
 }
 
-// TODO: test for toggle element selection mode to deactivate on click of an element
-
 describe('RuioContextProvider', () => {
   beforeEach(() => {
     vi.resetAllMocks()
@@ -185,7 +183,7 @@ describe('RuioContextProvider', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#test-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
@@ -261,7 +259,7 @@ describe('RuioContextProvider', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#test-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
@@ -294,7 +292,7 @@ describe('RuioContextProvider', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#shallow-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
@@ -344,7 +342,7 @@ describe('RuioContextProvider', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#empty-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))

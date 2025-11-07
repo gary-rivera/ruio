@@ -55,7 +55,7 @@ describe('config', () => {
     })
 
     test('overwrites existing config', () => {
-      const config1: ConfigLocalState = { ruioEnabled: false, depth: 3, currentColorPalette: 'default' }
+      const config1: ConfigLocalState = { ruioEnabled: false, depth: 3, currentColorPalette: 'dynamic' }
       const config2: ConfigLocalState = { ruioEnabled: true, depth: 10, currentColorPalette: 'roygbiv' }
       saveConfig(config1)
       saveConfig(config2)
@@ -74,11 +74,11 @@ describe('config', () => {
     test('returns default value when no stored value exists', () => {
       expect(getConfigValue('depth')).toBe(3)
       expect(getConfigValue('ruioEnabled')).toBe(false)
-      expect(getConfigValue('currentColorPalette')).toBe('default')
+      expect(getConfigValue('currentColorPalette')).toBe('dynamic')
     })
 
     test('returns default when config exists but key is missing', () => {
-      const partialConfig = { ruioEnabled: true, depth: 3, currentColorPalette: 'default' }
+      const partialConfig = { ruioEnabled: true, depth: 3, currentColorPalette: 'dynamic' }
       saveConfig(partialConfig)
       expect(getConfigValue('rootElementSelector')).toBe('#root')
     })
@@ -132,7 +132,7 @@ describe('config', () => {
       expect(config).toEqual({
         ruioEnabled: false,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
         rootElementSelector: '#root',
       })
     })
