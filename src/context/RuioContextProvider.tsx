@@ -32,11 +32,21 @@ interface RuioContextProps {
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
 
-type RuioContextProviderProps = { children: ReactNode }
+type RuioContextProviderProps = {
+  children: ReactNode
+  /**
+   * Optional CSS selector for the default root element.
+   * If not provided, ruio will auto-detect common patterns.
+   */
+  defaultRootSelector?: string
+}
 
 const DEFAULT_MAX_DEPTH_WITHOUT_ROOT = 100
 
-export const RuioContextProvider = ({ children }: RuioContextProviderProps): ReactElement => {
+export const RuioContextProvider = ({
+  children,
+  defaultRootSelector,
+}: RuioContextProviderProps): ReactElement => {
   const localStorageState = useLocalStorageState()
 
   // local state fallback for SSR compatibility
@@ -48,15 +58,55 @@ export const RuioContextProvider = ({ children }: RuioContextProviderProps): Rea
   const currentColorPalette = localStorageState.currentColorPalette
   const setCurrentColorPalette = localStorageState.setCurrentColorPalette
 
-  // on mount restore previously selected root element from localStorage
+  // on mount restore previously selected root element from localStorage or auto-detect
   useEffect(() => {
+    // Priority 1: User's saved selection from localStorage
     if (localStorageState.rootSelector) {
       const element = document.querySelector(localStorageState.rootSelector) as HTMLElement
       if (element) {
         setRootElement(element)
+        return
       }
     }
-  }, [localStorageState.rootSelector])
+
+    // Priority 2: Custom defaultRootSelector prop provided by user
+    if (defaultRootSelector) {
+      try {
+        const element = document.querySelector(defaultRootSelector) as HTMLElement
+        if (element) {
+          setRootElement(element)
+        } else {
+          console.warn(
+            `[ruio] Could not find element with selector "${defaultRootSelector}". No root element set.`,
+          )
+        }
+      } catch (error) {
+        console.warn(`[ruio] Invalid selector "${defaultRootSelector}":`, error)
+      }
+      return // Don't fall through to auto-detection if custom selector was provided
+    }
+
+    // Priority 3: Common fallback patterns (auto-detection) - only if no custom selector
+    const fallbackSelectors = ['#root', '#app', '[data-reactroot]', 'body > div:first-child']
+
+    for (const selector of fallbackSelectors) {
+      try {
+        const element = document.querySelector(selector) as HTMLElement
+        if (element) {
+          setRootElement(element)
+          return
+        }
+      } catch (error) {
+        // Invalid selector, continue to next fallback
+        continue
+      }
+    }
+
+    // If all else fails, log a warning to help developers debug
+    console.warn(
+      '[ruio] Could not find a root element. Please ensure your app has an element with id="root", id="app", or pass a custom defaultRootSelector prop.',
+    )
+  }, [localStorageState.rootSelector, defaultRootSelector])
 
   // when root element changes recalc maximum available depth
   useEffect(() => {

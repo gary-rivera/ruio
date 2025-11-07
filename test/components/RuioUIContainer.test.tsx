@@ -15,10 +15,14 @@ vi.mock('@controllers/RuioToggleController', () => ({
 }))
 
 // Mock applyOutlineUI and ElementInteractionController
-vi.mock('@utils/outline', () => ({
-  applyOutlineUI: vi.fn(),
-  resetPreviouslyAppliedElements: vi.fn(),
-}))
+vi.mock('@utils/outline', async () => {
+  const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
+  return {
+    ...actual,
+    applyOutlineUI: vi.fn(),
+    resetPreviouslyAppliedElements: vi.fn(),
+  }
+})
 
 vi.mock('@controllers/ElementInteractionController', () => ({
   ElementInteractionController: vi.fn(() => vi.fn()),

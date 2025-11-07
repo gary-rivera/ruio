@@ -11,10 +11,16 @@ type RuioWrapperProps = {
    * Set to true to enable in production (useful for demo apps).
    */
   showInProduction?: boolean
+  /**
+   * Optional CSS selector for the root element to visualize.
+   * If not provided, ruio will auto-detect common patterns (#root, #app, etc).
+   * Examples: '#root', '#app', '.main-container', '[data-app-root]'
+   */
+  defaultRootSelector?: string
 }
 
 // Single point of entry to ease the process of handling context throughout the module
-const RuioWrapper = ({ children, showInProduction = false }: RuioWrapperProps) => {
+const RuioWrapper = ({ children, showInProduction = false, defaultRootSelector }: RuioWrapperProps) => {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null)
 
   // Determine if ruio UI should be shown based on environment
@@ -42,7 +48,7 @@ const RuioWrapper = ({ children, showInProduction = false }: RuioWrapperProps) =
   }, [shouldShowUI])
 
   return (
-    <RuioContextProvider>
+    <RuioContextProvider defaultRootSelector={defaultRootSelector}>
       {shouldShowUI && portalElement && createPortal(<RuioUIContainer />, portalElement)}
       {children}
     </RuioContextProvider>

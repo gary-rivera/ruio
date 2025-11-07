@@ -171,6 +171,72 @@ function App() {
 }
 ```
 
+## Root Element Configuration
+
+### Auto-Detection
+
+ruio automatically detects your application's root element. It tries the following selectors in order:
+
+1. User's saved selection (from localStorage)
+2. Custom `defaultRootSelector` prop (if provided)
+3. `#root` (most common)
+4. `#app` (alternative common pattern)
+5. `[data-reactroot]` (older React versions)
+6. `body > div:first-child` (universal fallback)
+
+### Custom Root Selector
+
+For non-standard app structures, pass the `defaultRootSelector` prop:
+
+```typescript
+import RuioContextProvider from 'ruio'
+
+function App() {
+  return (
+    <RuioContextProvider defaultRootSelector=".app-container">
+      <div className="app-container">
+        {/* Your App Components */}
+      </div>
+    </RuioContextProvider>
+  )
+}
+```
+
+**Common Use Cases:**
+
+```typescript
+// Custom ID
+<RuioContextProvider defaultRootSelector="#my-app">
+  <div id="my-app">{/* ... */}</div>
+</RuioContextProvider>
+
+// Class selector
+<RuioContextProvider defaultRootSelector=".main-content">
+  <div className="main-content">{/* ... */}</div>
+</RuioContextProvider>
+
+// Data attribute
+<RuioContextProvider defaultRootSelector="[data-app-root]">
+  <div data-app-root>{/* ... */}</div>
+</RuioContextProvider>
+
+// Complex selector
+<RuioContextProvider defaultRootSelector="main.app-wrapper > div">
+  <main className="app-wrapper">
+    <div>{/* ... */}</div>
+  </main>
+</RuioContextProvider>
+```
+
+### Manual Selection
+
+You can also manually select a root element at runtime:
+
+1. Enable ruio
+2. Click the crosshair icon (element selection mode)
+3. Click any element to make it the new root
+4. The selection persists across page refreshes
+
 ## LocalStorage Settings
 
 ruio automatically persists settings to `localStorage`. You can manually inspect or modify these:

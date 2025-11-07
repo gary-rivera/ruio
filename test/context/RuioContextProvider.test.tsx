@@ -97,7 +97,7 @@ describe('RuioContextProvider', () => {
 
   test('should update depth state when triggered', async () => {
     render(
-      <RuioContextProvider>
+      <RuioContextProvider defaultRootSelector="#non-existent-element">
         <TestComponent />
       </RuioContextProvider>,
     )
@@ -139,7 +139,7 @@ describe('RuioContextProvider', () => {
 
   test('should display "None" if no element is selected', () => {
     render(
-      <RuioContextProvider>
+      <RuioContextProvider defaultRootSelector="#non-existent-element">
         <TestComponent />
       </RuioContextProvider>,
     )
@@ -152,7 +152,7 @@ describe('RuioContextProvider', () => {
     localStorage.clear()
 
     render(
-      <RuioContextProvider>
+      <RuioContextProvider defaultRootSelector="#non-existent-element">
         <TestComponent />
       </RuioContextProvider>,
     )
@@ -327,7 +327,7 @@ describe('RuioContextProvider', () => {
 
   test('maxDepth defaults to high value when no rootElement is set', () => {
     render(
-      <RuioContextProvider>
+      <RuioContextProvider defaultRootSelector="#non-existent-element">
         <TestComponent />
       </RuioContextProvider>,
     )
