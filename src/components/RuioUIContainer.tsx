@@ -10,37 +10,43 @@ import divStyles from '../styles/Div.module.css'
 import iconStyles from '../styles/Icon.module.css'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-type RuioModeControls = { elementSelectOpen: boolean; settingsModal: boolean }
+type UIPanelVisibility = { elementSelector: boolean; settingsModal: boolean }
 
 function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
   const { ruioEnabled, isElementSelectionModeActive, setIsElementSelectionModeActive } = useRuioContext()
-  const [isOpen, setIsOpen] = useState<RuioModeControls>({
-    elementSelectOpen: false,
+
+  const [panelVisibility, setPanelVisibility] = useState<UIPanelVisibility>({
+    elementSelector: false,
     settingsModal: false,
   })
 
-  const toggleModeUI = (key: keyof RuioModeControls) => {
-    setIsOpen((prevState) => ({
-      elementSelectOpen: false,
-      settingsModal: false,
-      [key]: !prevState[key],
-    }))
-    // Turn off element selection mode when toggling to settings
-    if (key === 'settingsModal') {
+  const togglePanel = (panel: keyof UIPanelVisibility) => {
+    setPanelVisibility((prev) => {
+      const newState = {
+        elementSelector: false,
+        settingsModal: false,
+        [panel]: !prev[panel],
+      }
+      return newState
+    })
+
+    // ensure element selection deactivated when opening settings
+    if (panel === 'settingsModal' && !panelVisibility.settingsModal) {
       setIsElementSelectionModeActive(false)
     }
   }
 
-  const getIconContainerClass = (iconType: 'settings' | 'elementSelect') => {
+  const getIconStateClass = (icon: 'settings' | 'elementSelector') => {
     const baseClass = iconStyles['icon-container']
-    const isElementSelectActive = isElementSelectionModeActive
-    const isSettingsActive = isOpen.settingsModal
 
-    const isActive = iconType === 'settings' ? isSettingsActive : isElementSelectActive
-    const isOtherActive = iconType === 'settings' ? isElementSelectActive : isSettingsActive
+    const thisIconIsActive =
+      icon === 'settings' ? panelVisibility.settingsModal : isElementSelectionModeActive
 
-    if (isActive) return `${baseClass} ${iconStyles['icon-active']}`
-    if (isOtherActive) return `${baseClass} ${iconStyles['icon-dimmed']}`
+    const otherIconIsActive =
+      icon === 'settings' ? isElementSelectionModeActive : panelVisibility.settingsModal
+
+    if (thisIconIsActive) return `${baseClass} ${iconStyles['icon-active']}`
+    if (otherIconIsActive) return `${baseClass} ${iconStyles['icon-dimmed']}`
 
     return baseClass
   }
@@ -49,26 +55,28 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
     <div
       ref={ref}
       data-testid="ruio-ui-container"
-      className={`
-        ruio-exclude
-        ${divStyles['ruio-ui-container']}
-      `}
+      className={`ruio-exclude ${divStyles['ruio-ui-container']}`}
       id="ruio-exclude"
     >
       <div id="ruio-controls-container">
-        <div id="ruio-settings-container" className={getIconContainerClass('settings')}>
-          <SettingsIcon onClick={() => toggleModeUI('settingsModal')} />
+        <div id="ruio-settings-container" className={getIconStateClass('settings')}>
+          <SettingsIcon onClick={() => togglePanel('settingsModal')} />
           {ruioEnabled && (
-            <SettingsModal isOpen={isOpen.settingsModal} onClose={() => toggleModeUI('settingsModal')} />
+            <SettingsModal
+              isOpen={panelVisibility.settingsModal}
+              onClose={() => togglePanel('settingsModal')}
+            />
           )}
         </div>
-        <div id="ruio-element-select-container" className={getIconContainerClass('elementSelect')}>
-          <ElementSelectIcon onClick={() => toggleModeUI('elementSelectOpen')} />
-          {/* NOTE: for adding on the spot depth controls */}
-          {isOpen.elementSelectOpen && false && <div>{/* Render Element Select Container */}</div>}
+
+        <div id="ruio-element-select-container" className={getIconStateClass('elementSelector')}>
+          <ElementSelectIcon onClick={() => togglePanel('elementSelector')} />
+          {/* TODO: Add inline depth controls panel */}
+          {panelVisibility.elementSelector && false && <div>{/* Element selector panel content */}</div>}
         </div>
       </div>
-      <RuioToggleController isDimmed={isElementSelectionModeActive || isOpen.settingsModal} />
+
+      <RuioToggleController isDimmed={isElementSelectionModeActive || panelVisibility.settingsModal} />
     </div>
   )
 }
