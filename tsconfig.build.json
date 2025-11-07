@@ -5,6 +5,7 @@
     "declarationDir": "dist",
     "emitDeclarationOnly": true, // Only generate .d.ts files
     "baseUrl": ".",
+    "rootDir": "./src",
     "paths": {
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],

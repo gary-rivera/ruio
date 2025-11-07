@@ -18,10 +18,8 @@
   },
   "files": [
     "dist",
-    "docs",
     "README.md",
-    "LICENSE",
-    "*.css"
+    "LICENSE"
   ],
   "scripts": {
     "dev": "vite",
