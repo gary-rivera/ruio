@@ -10,30 +10,31 @@ import divStyles from '../styles/Div.module.css'
 import iconStyles from '../styles/Icon.module.css'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-type ControllersContainerState = {
-  elementSelectOpen: boolean
-  settingsOpen: boolean
-}
+type RuioModeControls = { elementSelectOpen: boolean; settingsModal: boolean }
 
 function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
-  const { ruioEnabled, isElementSelectionModeActive } = useRuioContext()
-  const [isOpen, setIsOpen] = useState<ControllersContainerState>({
+  const { ruioEnabled, isElementSelectionModeActive, setIsElementSelectionModeActive } = useRuioContext()
+  const [isOpen, setIsOpen] = useState<RuioModeControls>({
     elementSelectOpen: false,
-    settingsOpen: false,
+    settingsModal: false,
   })
 
-  const toggleContainer = (key: keyof ControllersContainerState) => {
+  const toggleModeUI = (key: keyof RuioModeControls) => {
     setIsOpen((prevState) => ({
       elementSelectOpen: false,
-      settingsOpen: false,
+      settingsModal: false,
       [key]: !prevState[key],
     }))
+    // Turn off element selection mode when toggling to settings
+    if (key === 'settingsModal') {
+      setIsElementSelectionModeActive(false)
+    }
   }
 
   const getIconContainerClass = (iconType: 'settings' | 'elementSelect') => {
     const baseClass = iconStyles['icon-container']
     const isElementSelectActive = isElementSelectionModeActive
-    const isSettingsActive = isOpen.settingsOpen
+    const isSettingsActive = isOpen.settingsModal
 
     const isActive = iconType === 'settings' ? isSettingsActive : isElementSelectActive
     const isOtherActive = iconType === 'settings' ? isElementSelectActive : isSettingsActive
@@ -56,23 +57,18 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
     >
       <div id="ruio-controls-container">
         <div id="ruio-settings-container" className={getIconContainerClass('settings')}>
-          <SettingsIcon onClick={() => toggleContainer('settingsOpen')} />
+          <SettingsIcon onClick={() => toggleModeUI('settingsModal')} />
           {ruioEnabled && (
-            <SettingsModal
-              isOpen={isOpen.settingsOpen}
-              onClose={() => toggleContainer('settingsOpen')}
-            />
+            <SettingsModal isOpen={isOpen.settingsModal} onClose={() => toggleModeUI('settingsModal')} />
           )}
         </div>
         <div id="ruio-element-select-container" className={getIconContainerClass('elementSelect')}>
-          <ElementSelectIcon onClick={() => toggleContainer('elementSelectOpen')} />
+          <ElementSelectIcon onClick={() => toggleModeUI('elementSelectOpen')} />
           {/* NOTE: for adding on the spot depth controls */}
           {isOpen.elementSelectOpen && false && <div>{/* Render Element Select Container */}</div>}
         </div>
       </div>
-      <RuioToggleController
-        isDimmed={isElementSelectionModeActive || isOpen.settingsOpen}
-      />
+      <RuioToggleController isDimmed={isElementSelectionModeActive || isOpen.settingsModal} />
     </div>
   )
 }
