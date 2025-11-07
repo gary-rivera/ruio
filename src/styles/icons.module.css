@@ -138,24 +138,41 @@ BASE BUTTON STYLES (used by most icons)
 }
 
 /* Settings icon specific SVG parts */
-.svgOutline {
+.iconSvg :global(.svg-outline) {
   fill: var(--ruio-color-bg-dark);
   stroke: var(--ruio-color-accent);
 }
 
-.svgBarBg {
+.iconSvg :global(.svg-bar-bg) {
   fill: none;
   stroke: var(--ruio-color-light);
   opacity: 0.9;
 }
 
-.svgDial {
+.iconSvg :global(.svg-dial) {
   fill: none;
   stroke: var(--ruio-color-light);
 }
 
 /* Element select icon specific SVG parts */
-.svgMousePointer {
+.iconSvg :global(.svg-mouse-pointer) {
   fill: var(--ruio-color-bg-dark);
   stroke: var(--ruio-color-light);
+}
+
+/* Chevron icon SVG styling */
+.chevronSvg path {
+  stroke: var(--ruio-color-light);
+  fill: none;
+}
+
+/* Close modal icon SVG styling */
+.closeSvg path {
+  stroke: var(--ruio-color-light);
+}
+
+/* Checkmark icon SVG styling */
+.checkmarkPath path {
+  stroke: var(--ruio-color-light);
+  fill: none;
 }

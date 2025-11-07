@@ -1,5 +1,4 @@
-import { ReactNode, MouseEvent, useState, useCallback, useMemo, memo } from 'react'
-import { useRuioContext } from '@context/RuioContextProvider'
+import { ReactNode, MouseEvent, useState, useCallback } from 'react'
 
 import baseStyles from '@root/styles/base.module.css'
 
@@ -9,9 +8,7 @@ type RuioIconProps = {
   children: ReactNode
   buttonClassName?: string
   svgClassName?: string
-  svgViewBox?: string
   pulseEnabled?: boolean
-  shouldMemoize?: boolean
 }
 
 function RuioIcon({
@@ -20,45 +17,29 @@ function RuioIcon({
   children,
   buttonClassName = '',
   svgClassName = '',
-  svgViewBox = '0 0 24 24',
   pulseEnabled = true,
-  shouldMemoize = true,
 }: RuioIconProps) {
-  const { ruioEnabled } = useRuioContext()
   const [shouldPulse, setShouldPulse] = useState(false)
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
-      onClick && onClick(event)
-      // TODO: reenable, just debugging
+      onClick?.(event)
+
       if (pulseEnabled) {
         setShouldPulse(true)
-
         setTimeout(() => {
           setShouldPulse(false)
         }, 150)
       }
     },
-    [onClick],
+    [onClick, pulseEnabled],
   )
 
-  const buttonClasses = shouldMemoize
-    ? useMemo(() => {
-        return `${buttonClassName} ${shouldPulse ? baseStyles.pulse : ''}`
-      }, [buttonClassName, shouldPulse])
-    : `${buttonClassName} ${shouldPulse ? baseStyles.pulse : ''}`
+  const buttonClasses = `${buttonClassName} ${shouldPulse ? baseStyles.pulse : ''}`
 
-  // Conditionally memoize the svg classes
-  const svgClasses = shouldMemoize
-    ? useMemo(() => {
-        return `${svgClassName}`
-      }, [svgClassName])
-    : `${svgClassName}`
   return (
     <button id={id} className={buttonClasses} onClick={handleClick}>
-      <svg className={svgClasses} viewBox={svgViewBox} xmlns="http://www.w3.org/2000/svg">
-        {children}
-      </svg>
+      {children}
     </button>
   )
 }
