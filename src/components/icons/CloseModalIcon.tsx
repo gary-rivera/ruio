@@ -1,25 +1,19 @@
 import { MouseEvent } from 'react'
 import RuioIcon from '@components/icons/RuioIcon'
-
-import buttonStyles from '../../styles/Button.module.css'
-import iconStyles from '../../styles/Icon.module.css'
-import svgStyles from '../../styles/SVG.module.css'
+import styles from '@root/styles/icons.module.css'
 
 type CloseModalIconv2Props = {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
   buttonStyleKey?: string
 }
 
-function CloseModalIconv2({ onClick, buttonStyleKey = '' }: CloseModalIconv2Props) {
+function CloseModalIconv2({ onClick }: CloseModalIconv2Props) {
   return (
     <RuioIcon
       id="ruio-close-modal-icon"
       onClick={onClick}
-      buttonClassName={`
-        ${buttonStyles['ruio-btn']}
-        ${iconStyles[buttonStyleKey]}
-      `}
-      svgClassName={svgStyles['close-modal-svg']}
+      buttonClassName={styles.closeButton}
+      svgClassName={styles.closeSvg}
       svgViewBox="0 0 94 93"
       pulseEnabled={false}
     >

@@ -2,8 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { colorPalettesMap } from '@utils/colorPalettes'
 import { useRuioContext } from '@context/RuioContextProvider'
 import CheckmarkIcon from '@components/icons/CheckmarkIcon'
-
-import styles from '../../styles/ColorPaletteDropdown.module.css'
+import styles from './ColorPaletteDropdown.module.css'
 
 type ColorPaletteDropdownProps = {
   isOpen: boolean
@@ -37,11 +36,11 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
   }, [])
 
   return (
-    <div className={styles.colorPaletteDropdownControl} ref={dropdownRef}>
+    <div className={styles.control} ref={dropdownRef}>
       {currentColorPalette}
 
       <div
-        className={`${styles.dropdownMenu} ${isOpen ? styles.dropdownMenuOpen : ''}`}
+        className={`${styles.menu} ${isOpen ? styles.menuOpen : ''}`}
         ref={dropdownRef}
         // onMouseLeave={handleMouseLeave}
       >
@@ -53,25 +52,25 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
               key={paletteKey}
               data-palette-key={paletteKey}
               className={`
-                ${styles.dropdownItemContainer}
-                ${index === hoveredIndex ? styles.dropdownMenuItemActive : ''}
+                ${styles.itemContainer}
+                ${index === hoveredIndex ? styles.itemActive : ''}
               `}
               onClick={handleThemeSelect}
               onMouseEnter={() => setHoveredIndex(index)} // Set hovered index on mouse enter
             >
-              <div className={styles.dropdownItemIcon}>{itemIsCurrentTheme && <CheckmarkIcon />}</div>
-              <div className={styles.dropdownItemDetails}>
-                <div className={styles.dropdownItemTitle}>{paletteKey}</div>
+              <div className={styles.itemIcon}>{itemIsCurrentTheme && <CheckmarkIcon />}</div>
+              <div className={styles.itemDetails}>
+                <div className={styles.itemTitle}>{paletteKey}</div>
                 {paletteKey === 'dynamic' ? (
-                  <div className={styles.dropdownItemDescription}>
+                  <div className={styles.itemDescription}>
                     Auto-calculated based on element colors
                   </div>
                 ) : (
-                  <ul className={styles.dropdownItemColorPalette}>
+                  <ul className={styles.itemColorPalette}>
                     {colors.map((color) => (
                       <li
                         key={color}
-                        className={styles.dropdownItemColorSwatch}
+                        className={styles.itemColorSwatch}
                         style={{ backgroundColor: color }}
                       />
                     ))}

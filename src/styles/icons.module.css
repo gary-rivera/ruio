@@ -1,0 +1,167 @@
+/*
+ * Shared Icon Styles
+ *
+ * Used by: SettingsIcon, ElementSelectIcon, CloseModalIcon, ChevronIcon, CheckmarkIcon
+ *
+ * Pattern: All icons follow similar structure:
+ * - Button wrapper with base styles + state modifiers
+ * - SVG with specific styling
+ * - Hover effects and transitions
+ */
+
+/* ============================================
+   BASE BUTTON STYLES (used by most icons)
+   ============================================ */
+
+/* Secondary icons (Settings, ElementSelect) */
+.iconButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: #1c2120;
+
+  overflow: hidden;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+
+  transition:
+    transform 150ms ease-in-out,
+    opacity 150ms ease-in-out;
+}
+
+.iconButton:hover {
+  transform: scale(1.05);
+}
+
+/* Active/Inactive states for secondary icons */
+.iconButtonInactive {
+  transition:
+    opacity 250ms ease-in-out,
+    transform 250ms ease-in-out;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.iconButtonActive {
+  cursor: pointer;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ============================================
+   CLOSE MODAL ICON STYLES
+   ============================================ */
+
+.closeButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.closeButton:hover {
+  background-color: #565a59;
+}
+
+.closeSvg {
+  max-width: 0.85rem;
+  max-height: 0.85rem;
+  stroke: rgba(234, 248, 239, 1);
+}
+
+/* ============================================
+   CHEVRON ICON STYLES
+   ============================================ */
+
+.chevronButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0 0.75rem;
+  width: 2rem;
+  height: inherit;
+  position: absolute;
+  right: 0;
+  border-radius: 8px;
+}
+
+.chevronButton:focus {
+  outline: none;
+}
+
+.chevronInactive {
+  transform: rotate(0deg);
+  transition: transform 300ms ease;
+}
+
+.chevronActive {
+  transform: rotate(180deg);
+  transition: transform 300ms ease;
+}
+
+.chevronSvg {
+  max-width: 0.5rem;
+  max-height: 0.5rem;
+  fill: none;
+}
+
+/* ============================================
+   CHECKMARK ICON STYLES
+   ============================================ */
+
+.checkmarkIcon {
+  cursor: inherit;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+}
+
+/* ============================================
+   SVG ELEMENT STYLES
+   ============================================ */
+
+/* Default SVG styling for secondary icons */
+.iconSvg {
+  border-radius: 10px;
+  fill: #1c2120;
+}
+
+/* Settings icon specific SVG parts */
+.svgOutline {
+  stroke: #06e5d5;
+}
+
+.svgBarBg {
+  stroke: #eaf8ef;
+  opacity: 0.9;
+}
+
+.svgDial {
+  stroke: #eaf8ef;
+}
+
+/* Element select icon specific SVG parts */
+.svgMousePointer {
+  fill: #1c2120;
+  stroke: #eaf8ef;
+}
