@@ -10,11 +10,11 @@ function CheckmarkIcon({ isOpen }: ChevronIconProps) {
     <RuioIcon
       id="ruio-chevron"
       buttonClassName={styles.checkmarkIcon}
-      svgClassName={styles.checkmarkIcon}
       svgViewBox="0 0 127 97"
       pulseEnabled={false}
     >
       <path
+        className={styles.checkmarkPath}
         d="M8 50L43.0018 85.0018L118.688 8.43771"
         stroke="white"
         strokeWidth="16"

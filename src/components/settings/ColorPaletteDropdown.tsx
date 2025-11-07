@@ -62,9 +62,7 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
               <div className={styles.itemDetails}>
                 <div className={styles.itemTitle}>{paletteKey}</div>
                 {paletteKey === 'dynamic' ? (
-                  <div className={styles.itemDescription}>
-                    Auto-calculated based on element colors
-                  </div>
+                  <div className={styles.itemDescription}>Computed colors</div>
                 ) : (
                   <ul className={styles.itemColorPalette}>
                     {colors.map((color) => (

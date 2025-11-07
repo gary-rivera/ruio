@@ -9,6 +9,7 @@ import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
+import CheckmarkIcon from '@components/icons/CheckmarkIcon'
 import RuioToggleController from '@controllers/RuioToggleController'
 
 /**
@@ -417,6 +418,46 @@ describe('CSS Regression Tests', () => {
         const styles = captureComputedStyles(svg as unknown as HTMLElement, [
           'transform',
           'transition',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+    })
+
+    describe('CheckmarkIcon', () => {
+      test('button element styles', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <CheckmarkIcon />
+          </RuioContextProvider>,
+        )
+
+        const button = container.querySelector('button') as HTMLElement
+        expect(button).toBeTruthy()
+
+        const styles = captureComputedStyles(button, [
+          ...VISUAL_PROPS,
+          ...SPACING_PROPS,
+          'cursor',
+          'position',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('path has fill: none to prevent filled appearance', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <CheckmarkIcon />
+          </RuioContextProvider>,
+        )
+
+        const path = container.querySelector('path') as SVGPathElement
+        expect(path).toBeTruthy()
+
+        const styles = captureComputedStyles(path as unknown as HTMLElement, [
+          'fill',
+          'stroke',
+          'stroke-width',
+          'stroke-linecap',
         ])
         expect(styles).toMatchSnapshot()
       })

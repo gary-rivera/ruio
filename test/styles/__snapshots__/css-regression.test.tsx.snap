@@ -41,6 +41,32 @@ exports[`CSS Regression Tests > ColorPaletteDropdown > dropdown menu when open 1
 }
 `;
 
+exports[`CSS Regression Tests > Icon Components > CheckmarkIcon > button element styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > CheckmarkIcon > path has fill: none to prevent filled appearance 1`] = `
+{
+  "fill": "",
+  "stroke": "",
+  "stroke-linecap": "",
+  "stroke-width": "",
+}
+`;
+
 exports[`CSS Regression Tests > Icon Components > ChevronIcon > SVG transform when active 1`] = `
 {
   "transform": "",

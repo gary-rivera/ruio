@@ -36,6 +36,8 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run",
+    "test:regression": "vitest run --testNamePattern=\"CSS Regression|HTML structure\"",
+    "test:regression:update": "vitest run --testNamePattern=\"CSS Regression|HTML structure\" -u",
     "test:react18": "npm install react@^18.2.0 react-dom@^18.2.0 && npm run test:ci && npm run build",
     "test:react19": "npm install react@^19.0.0 react-dom@^19.0.0 && npm run test:ci && npm run build",
     "prepare": "npm run build",

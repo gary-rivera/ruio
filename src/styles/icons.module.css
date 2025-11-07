@@ -78,7 +78,8 @@ BASE BUTTON STYLES (used by most icons)
 
 .chevronButton {
   composes: buttonReset from '@root/styles/base.module.css';
-
+  background: transparent;
+  fill: none;
   cursor: pointer;
   padding: 0 0.75rem;
   width: 2rem;
@@ -115,10 +116,15 @@ BASE BUTTON STYLES (used by most icons)
 .checkmarkIcon {
   composes: buttonReset from '@root/styles/base.module.css';
 
+  background: transparent;
   cursor: inherit;
-  width: 1rem;
-  height: 1rem;
+  width: 0.65rem;
+  height: 0.65rem;
   position: absolute;
+}
+
+.checkmarkPath {
+  fill: none;
 }
 
 /* ============================================
