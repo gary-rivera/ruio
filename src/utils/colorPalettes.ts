@@ -1,12 +1,4 @@
 export const colorPalettesMap: Record<string, string[]> = {
-  default: [
-    '#249EA0', // Blue
-    '#FAAB36', // Orange
-    '#008083', // Cerulean
-    '#F78104', // Lime Orange
-    '#005F60', // Ruio Cyan
-    '#FD5901', // Blood Orange
-  ],
   roygbiv: [
     '#CD001A', // Red
     '#EF6A00', // Orange

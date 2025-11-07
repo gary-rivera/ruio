@@ -149,7 +149,7 @@ describe('RuioToggleController - Visual Regression', () => {
     const config = {
       ruioEnabled: true,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
 
@@ -171,7 +171,7 @@ describe('RuioToggleController - Visual Regression', () => {
     const config = {
       ruioEnabled: true,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
 
@@ -199,7 +199,7 @@ describe('RuioToggleController - Visual Regression', () => {
     const config = {
       ruioEnabled: true,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
 

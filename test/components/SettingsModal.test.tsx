@@ -30,7 +30,7 @@ describe('SettingsModal - Report Issue Feature', () => {
     const config = {
       ruioEnabled: true,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
 
@@ -111,7 +111,7 @@ describe('SettingsModal - Report Issue Feature', () => {
     const testState: githubIssue.RuioState = {
       ruioEnabled: true,
       depth: 5,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElement: null,
       isElementSelectionModeActive: false,
     }
@@ -127,7 +127,7 @@ describe('SettingsModal - Report Issue Feature', () => {
     expect(decodedUrl).toContain('Ruio Version')
     expect(decodedUrl).toContain('**Enabled:** Yes')
     expect(decodedUrl).toContain('**Depth:** 5')
-    expect(decodedUrl).toContain('**Color Palette:** default')
+    expect(decodedUrl).toContain('**Color Palette:** dynamic')
   })
 
   test('modal container does not have open class when closed', () => {
@@ -224,7 +224,7 @@ describe('SettingsModal - Depth Limiting', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#shallow-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
@@ -263,7 +263,7 @@ describe('SettingsModal - Depth Limiting', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#shallow-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))
@@ -315,7 +315,7 @@ describe('SettingsModal - Depth Limiting', () => {
     const config = {
       ruioEnabled: false,
       depth: 3,
-      currentColorPalette: 'default',
+      currentColorPalette: 'dynamic',
       rootElementSelector: '#test-root',
     }
     localStorage.setItem('ruio-config', JSON.stringify(config))

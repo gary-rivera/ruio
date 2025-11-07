@@ -34,39 +34,39 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
   // Smoke Tests
   test('runs without errors on valid input', () => {
     expect(() => {
-      applyOutlineUI(element, 2, true, 'default')
+      applyOutlineUI(element, 2, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('handles empty elements without throwing', () => {
     const emptyElement = document.createElement('div')
     expect(() => {
-      applyOutlineUI(emptyElement, 2, true, 'default')
+      applyOutlineUI(emptyElement, 2, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('does not fail on depth 0', () => {
     expect(() => {
-      applyOutlineUI(element, 0, true, 'default')
+      applyOutlineUI(element, 0, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('does not fail when apply is false', () => {
     expect(() => {
-      applyOutlineUI(element, 2, false, 'default')
+      applyOutlineUI(element, 2, false, 'roygbiv')
     }).not.toThrow()
   })
 
   // Functional Tests
   test('applies borders to the element and its children', () => {
-    applyOutlineUI(element, 1, true, 'default')
-    expect(element.style.outline).toBe('2px solid #249EA0')
-    expect(childElement.style.outline).toBe('2px solid #FAAB36')
+    applyOutlineUI(element, 1, true, 'roygbiv')
+    expect(element.style.outline).toBe('2px solid #CD001A')
+    expect(childElement.style.outline).toBe('2px solid #EF6A00')
   })
 
   test('removes borders when apply is false', () => {
-    applyOutlineUI(element, 1, true, 'default')
-    applyOutlineUI(element, 1, false, 'default')
+    applyOutlineUI(element, 1, true, 'roygbiv')
+    applyOutlineUI(element, 1, false, 'roygbiv')
 
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('')
@@ -76,20 +76,20 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
     const deepChildElement = document.createElement('div')
     childElement.appendChild(deepChildElement)
 
-    applyOutlineUI(element, 1, true, 'default')
+    applyOutlineUI(element, 1, true, 'roygbiv')
 
-    expect(element.style.outline).toBe('2px solid #249EA0')
-    expect(childElement.style.outline).toBe('2px solid #FAAB36')
+    expect(element.style.outline).toBe('2px solid #CD001A')
+    expect(childElement.style.outline).toBe('2px solid #EF6A00')
     expect(deepChildElement.style.outline).toBe('')
   })
 
   test('removes border from previously applied elements not in the current list', () => {
-    applyOutlineUI(element, 1, true, 'default')
-    expect(element.style.outline).toBe('2px solid #249EA0')
+    applyOutlineUI(element, 1, true, 'roygbiv')
+    expect(element.style.outline).toBe('2px solid #CD001A')
 
-    applyOutlineUI(childElement, 1, true, 'default')
+    applyOutlineUI(childElement, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('')
-    expect(childElement.style.outline).toBe('2px solid #249EA0')
+    expect(childElement.style.outline).toBe('2px solid #CD001A')
   })
 })
 

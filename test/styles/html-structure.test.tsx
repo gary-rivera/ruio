@@ -20,7 +20,7 @@ describe('HTML Structure Snapshots', () => {
       JSON.stringify({
         ruioEnabled: true,
         depth: 3,
-        currentColorPalette: 'default',
+        currentColorPalette: 'dynamic',
       }),
     )
   })
