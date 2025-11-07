@@ -5,6 +5,11 @@ import RuioUIContainer from '@components/RuioUIContainer'
 import SettingsModal from '@components/settings/SettingsModal'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import SettingsRow from '@components/settings/SettingsRow'
+import SettingsIcon from '@components/icons/SettingsIcon'
+import ElementSelectIcon from '@components/icons/ElementSelectIcon'
+import CloseModalIcon from '@components/icons/CloseModalIcon'
+import ChevronIcon from '@components/icons/ChevronIcon'
+import RuioToggleController from '@controllers/RuioToggleController'
 
 /**
  * CSS Regression Tests
@@ -224,6 +229,272 @@ describe('CSS Regression Tests', () => {
 
       const row = container.firstChild as HTMLElement
       const styles = captureComputedStyles(row, [...LAYOUT_PROPS, ...SPACING_PROPS])
+      expect(styles).toMatchSnapshot()
+    })
+  })
+
+  describe('Icon Components', () => {
+    describe('SettingsIcon', () => {
+      test('button element styles when active', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <SettingsIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const button = container.querySelector('#ruio-settings-icon') as HTMLElement
+        expect(button).toBeTruthy()
+
+        const styles = captureComputedStyles(button, [
+          ...VISUAL_PROPS,
+          ...SPACING_PROPS,
+          'cursor',
+          'transform',
+          'transition',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('SVG outline path has correct stroke and fill', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <SettingsIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const outlinePath = container.querySelector('path') as SVGPathElement
+        expect(outlinePath).toBeTruthy()
+
+        const styles = captureComputedStyles(outlinePath as unknown as HTMLElement, [
+          'fill',
+          'stroke',
+          'stroke-width',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('SVG element has correct fill', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <SettingsIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const svg = container.querySelector('svg') as SVGElement
+        expect(svg).toBeTruthy()
+
+        const styles = captureComputedStyles(svg as unknown as HTMLElement, [
+          'fill',
+          'border-radius',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+    })
+
+    describe('ElementSelectIcon', () => {
+      test('button element styles when active', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <ElementSelectIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const button = container.querySelector('#ruio-element-select-icon') as HTMLElement
+        expect(button).toBeTruthy()
+
+        const styles = captureComputedStyles(button, [
+          ...VISUAL_PROPS,
+          ...SPACING_PROPS,
+          'cursor',
+          'transform',
+          'transition',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('SVG outline path has correct stroke', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <ElementSelectIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const outlinePath = container.querySelector('path') as SVGPathElement
+        expect(outlinePath).toBeTruthy()
+
+        const styles = captureComputedStyles(outlinePath as unknown as HTMLElement, [
+          'fill',
+          'stroke',
+          'stroke-width',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+    })
+
+    describe('CloseModalIcon', () => {
+      test('button element styles', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <CloseModalIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const button = container.querySelector('button') as HTMLElement
+        expect(button).toBeTruthy()
+
+        const styles = captureComputedStyles(button, [
+          ...VISUAL_PROPS,
+          ...SPACING_PROPS,
+          'cursor',
+          'transition',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('SVG stroke color', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <CloseModalIcon onClick={() => {}} />
+          </RuioContextProvider>,
+        )
+
+        const svg = container.querySelector('svg') as SVGElement
+        expect(svg).toBeTruthy()
+
+        const styles = captureComputedStyles(svg as unknown as HTMLElement, ['stroke'])
+        expect(styles).toMatchSnapshot()
+      })
+    })
+
+    describe('ChevronIcon', () => {
+      test('button element styles', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <ChevronIcon isOpen={false} />
+          </RuioContextProvider>,
+        )
+
+        const button = container.querySelector('button') as HTMLElement
+        expect(button).toBeTruthy()
+
+        const styles = captureComputedStyles(button, [
+          ...VISUAL_PROPS,
+          ...SPACING_PROPS,
+          'cursor',
+          'position',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('SVG transform when inactive', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <ChevronIcon isOpen={false} />
+          </RuioContextProvider>,
+        )
+
+        const svg = container.querySelector('svg') as SVGElement
+        expect(svg).toBeTruthy()
+
+        const styles = captureComputedStyles(svg as unknown as HTMLElement, [
+          'transform',
+          'transition',
+          'fill',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+
+      test('SVG transform when active', () => {
+        const { container } = render(
+          <RuioContextProvider>
+            <ChevronIcon isOpen={true} />
+          </RuioContextProvider>,
+        )
+
+        const svg = container.querySelector('svg') as SVGElement
+        expect(svg).toBeTruthy()
+
+        const styles = captureComputedStyles(svg as unknown as HTMLElement, [
+          'transform',
+          'transition',
+        ])
+        expect(styles).toMatchSnapshot()
+      })
+    })
+  })
+
+  describe('RuioToggleController', () => {
+    test('container styles', () => {
+      const { container } = render(
+        <RuioContextProvider>
+          <RuioToggleController />
+        </RuioContextProvider>,
+      )
+
+      const toggleContainer = container.firstChild as HTMLElement
+      expect(toggleContainer).toBeTruthy()
+
+      const styles = captureComputedStyles(toggleContainer, [
+        ...LAYOUT_PROPS,
+        ...SPACING_PROPS,
+        'position',
+        'transition',
+      ])
+      expect(styles).toMatchSnapshot()
+    })
+
+    test('button styles when enabled', () => {
+      const { container } = render(
+        <RuioContextProvider>
+          <RuioToggleController />
+        </RuioContextProvider>,
+      )
+
+      const button = container.querySelector('button') as HTMLElement
+      expect(button).toBeTruthy()
+
+      const styles = captureComputedStyles(button, [
+        ...VISUAL_PROPS,
+        ...SPACING_PROPS,
+        'transform',
+        'transition',
+      ])
+      expect(styles).toMatchSnapshot()
+    })
+
+    test('background div styles when active', () => {
+      const { container } = render(
+        <RuioContextProvider>
+          <RuioToggleController />
+        </RuioContextProvider>,
+      )
+
+      const bgDiv = container.querySelector('button')?.previousSibling as HTMLElement
+      expect(bgDiv).toBeTruthy()
+
+      const styles = captureComputedStyles(bgDiv, [
+        'background',
+        'background-color',
+        'transform',
+        'opacity',
+        'transition',
+        'border-radius',
+        'position',
+      ])
+      expect(styles).toMatchSnapshot()
+    })
+
+    test('logo SVG fill color', () => {
+      const { container } = render(
+        <RuioContextProvider>
+          <RuioToggleController />
+        </RuioContextProvider>,
+      )
+
+      const svg = container.querySelector('svg') as SVGElement
+      expect(svg).toBeTruthy()
+
+      const styles = captureComputedStyles(svg as unknown as HTMLElement, ['fill'])
       expect(styles).toMatchSnapshot()
     })
   })

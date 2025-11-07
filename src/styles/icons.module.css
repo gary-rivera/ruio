@@ -19,7 +19,6 @@ BASE BUTTON STYLES (used by most icons)
   composes: transitionMedium from '@root/styles/base.module.css';
 
   background-color: #1c2120;
-  overflow: hidden;
   width: 34px;
   height: 34px;
   border-radius: 10px;
@@ -130,20 +129,22 @@ BASE BUTTON STYLES (used by most icons)
 .iconSvg {
   border-radius: 10px;
   fill: #1c2120;
-  stroke: yellow;
 }
 
 /* Settings icon specific SVG parts */
 .svgOutline {
+  fill: #1c2120;
   stroke: #06e5d5;
 }
 
 .svgBarBg {
+  fill: none;
   stroke: #eaf8ef;
   opacity: 0.9;
 }
 
 .svgDial {
+  fill: none;
   stroke: #eaf8ef;
 }
 
