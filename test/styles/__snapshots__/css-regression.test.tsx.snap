@@ -1,0 +1,358 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CSS Regression Tests > ColorPaletteDropdown > dropdown container styles 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "justify-content": "",
+  "opacity": "",
+  "position": "",
+}
+`;
+
+exports[`CSS Regression Tests > ColorPaletteDropdown > dropdown menu when open 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "max-height": "",
+  "opacity": "",
+  "overflow-y": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > CheckmarkIcon > button element styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > CheckmarkIcon > path has fill: none to prevent filled appearance 1`] = `
+{
+  "fill": "",
+  "stroke": "",
+  "stroke-linecap": "",
+  "stroke-width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > ChevronIcon > SVG transform when active 1`] = `
+{
+  "transform": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > ChevronIcon > SVG transform when inactive 1`] = `
+{
+  "fill": "",
+  "transform": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > ChevronIcon > button element styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > CloseModalIcon > SVG stroke color 1`] = `
+{
+  "stroke": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > CloseModalIcon > button element styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > ElementSelectIcon > SVG outline path has correct stroke 1`] = `
+{
+  "fill": "",
+  "stroke": "",
+  "stroke-width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > ElementSelectIcon > button element styles when active 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "transform": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > SettingsIcon > SVG element has correct fill 1`] = `
+{
+  "border-radius": "",
+  "fill": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > SettingsIcon > SVG outline path has correct stroke and fill 1`] = `
+{
+  "fill": "",
+  "stroke": "",
+  "stroke-width": "",
+}
+`;
+
+exports[`CSS Regression Tests > Icon Components > SettingsIcon > button element styles when active 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "transform": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioToggleController > background div styles when active 1`] = `
+{
+  "background": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border-radius": "",
+  "opacity": "",
+  "position": "",
+  "transform": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioToggleController > button styles when enabled 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "transform": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioToggleController > container styles 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioToggleController > logo SVG fill color 1`] = `
+{
+  "fill": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioUIContainer > container layout styles 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+  "z-index": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioUIContainer > controls container layout 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioUIContainer > icon container styles 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "justify-content": "",
+  "opacity": "",
+  "position": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsModal > button styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "font-family": "",
+  "font-size": "",
+  "font-weight": "",
+  "line-height": "initial",
+  "opacity": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsModal > input field styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "font-family": "",
+  "font-size": "",
+  "font-weight": "",
+  "height": "",
+  "line-height": "initial",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsModal > modal container when open 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "position": "",
+  "transform": "",
+  "transition": "",
+  "width": "",
+  "z-index": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsRow > row layout and spacing 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;

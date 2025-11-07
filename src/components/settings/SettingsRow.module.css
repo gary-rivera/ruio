@@ -1,44 +1,49 @@
-.settingRowContainer {
+@import url('@root/styles/variables.css');
+
+.container {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   font-size: 0.9rem;
 }
 
-.setttingRowTitle {
+.title {
   margin: 0;
   font-weight: 400;
 }
 
-.settingControlContainer {
+.controlContainer {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   width: 100%;
   max-width: 6.5rem;
-  background-color: #3c3f3e;
-  border-radius: 8px;
+  background-color: var(--ruio-color-bg-medium);
+  border-radius: var(--ruio-radius-md);
   height: 2rem;
   position: relative;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .controlContainerActive {
-  outline: 0.01rem solid #06e5d5;
+  outline: 0.01rem solid var(--ruio-color-accent);
 }
 
-.settingRowButton {
+.button {
+  composes: buttonReset from '@root/styles/base.module.css';
+
   font-size: inherit;
   width: 2rem;
   height: inherit;
   cursor: pointer;
-  background-color: #3c3f3e;
-  border-radius: 8px;
-  color: #ffffff;
+  background-color: var(--ruio-color-bg-medium);
+  border-radius: var(--ruio-radius-md);
+  color: var(--ruio-color-white);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 0 0.75rem;
 }
 
+/* Depth control variants */
 .depthControlContainer {
   background-color: transparent;
   justify-content: space-between;
@@ -56,24 +61,24 @@
 }
 
 .depthControlInput {
+  composes: inputReset from '@root/styles/base.module.css';
+
   justify-self: center;
   align-self: center;
   width: 2.5rem;
   font-size: inherit;
   text-align: center;
+  color: var(--ruio-color-white);
+  height: 2rem;
 }
 
+/* Theme control variants */
 .themeControlContainer {
   user-select: none;
   cursor: pointer;
-
   grid-template-columns: 1fr auto;
 }
-.themeControlContainer:focus {
-  outline: 0.01rem solid #06e5d5;
-}
-.themeInput {
-}
 
-.themeControlButton {
+.themeControlContainer:focus {
+  outline: 0.01rem solid var(--ruio-color-accent);
 }

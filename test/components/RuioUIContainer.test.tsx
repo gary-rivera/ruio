@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import RuioUIContainer from '@components/RuioUIContainer'
 import { RuioContextProvider } from '@context/RuioContextProvider'
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import iconStyles from '@root/styles/Icon.module.css'
+import styles from '@components/RuioUIContainer.module.css'
 
 // Mock the RuioToggleController to expose isDimmed prop
 vi.mock('@controllers/RuioToggleController', () => ({
@@ -44,7 +44,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
 
     await userEvent.click(settingsButton!)
 
-    expect(settingsContainer.className).toContain(iconStyles['icon-active'])
+    expect(settingsContainer.className).toContain(styles.iconActive)
   })
 
   test('element select icon container has icon-dimmed class when settings is open', async () => {
@@ -60,7 +60,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
 
     await userEvent.click(settingsButton!)
 
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(elementSelectContainer.className).toContain(styles.iconDimmed)
   })
 
   test('logo is dimmed when settings icon is clicked', async () => {
@@ -112,7 +112,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
 
     await userEvent.click(elementSelectButton!)
 
-    expect(settingsContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(settingsContainer.className).toContain(styles.iconDimmed)
   })
 
   test('element select icon container has icon-active class when element select mode is active', async () => {
@@ -127,7 +127,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
 
     await userEvent.click(elementSelectButton!)
 
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-active'])
+    expect(elementSelectContainer.className).toContain(styles.iconActive)
   })
 
   test('dimming stops when settings modal is closed', async () => {
@@ -146,14 +146,14 @@ describe('RuioUIContainer - Icon Dimming', () => {
     await userEvent.click(settingsButton!)
 
     expect(logo.getAttribute('data-dimmed')).toBe('true')
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(elementSelectContainer.className).toContain(styles.iconDimmed)
 
     // Close settings by clicking the button again (toggles)
     await userEvent.click(settingsButton!)
 
     expect(logo.getAttribute('data-dimmed')).toBe('false')
-    expect(elementSelectContainer.className).not.toContain(iconStyles['icon-dimmed'])
-    expect(elementSelectContainer.className).not.toContain(iconStyles['icon-active'])
+    expect(elementSelectContainer.className).not.toContain(styles.iconDimmed)
+    expect(elementSelectContainer.className).not.toContain(styles.iconActive)
   })
 
   test('clicking element select icon twice toggles dimming on and off', async () => {
@@ -172,14 +172,14 @@ describe('RuioUIContainer - Icon Dimming', () => {
     await userEvent.click(elementSelectButton!)
 
     expect(logo.getAttribute('data-dimmed')).toBe('true')
-    expect(settingsContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(settingsContainer.className).toContain(styles.iconDimmed)
 
     // Second click - deactivate element select mode
     await userEvent.click(elementSelectButton!)
 
     expect(logo.getAttribute('data-dimmed')).toBe('false')
-    expect(settingsContainer.className).not.toContain(iconStyles['icon-dimmed'])
-    expect(settingsContainer.className).not.toContain(iconStyles['icon-active'])
+    expect(settingsContainer.className).not.toContain(styles.iconDimmed)
+    expect(settingsContainer.className).not.toContain(styles.iconActive)
   })
 
   test('only one icon can be active at a time', async () => {
@@ -197,14 +197,14 @@ describe('RuioUIContainer - Icon Dimming', () => {
     // Activate settings
     await userEvent.click(settingsButton!)
 
-    expect(settingsContainer.className).toContain(iconStyles['icon-active'])
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(settingsContainer.className).toContain(styles.iconActive)
+    expect(elementSelectContainer.className).toContain(styles.iconDimmed)
 
     // Activate element select - settings should close
     await userEvent.click(elementSelectButton!)
 
-    expect(settingsContainer.className).toContain(iconStyles['icon-dimmed'])
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-active'])
+    expect(settingsContainer.className).toContain(styles.iconDimmed)
+    expect(elementSelectContainer.className).toContain(styles.iconActive)
   })
 
   test('icon containers have base icon-container class', () => {
@@ -217,8 +217,8 @@ describe('RuioUIContainer - Icon Dimming', () => {
     const settingsContainer = document.getElementById('ruio-settings-container')!
     const elementSelectContainer = document.getElementById('ruio-element-select-container')!
 
-    expect(settingsContainer.className).toContain(iconStyles['icon-container'])
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-container'])
+    expect(settingsContainer.className).toContain(styles.iconContainer)
+    expect(elementSelectContainer.className).toContain(styles.iconContainer)
   })
 
   test('clicking settings when element select is active deactivates element select mode', async () => {
@@ -236,14 +236,14 @@ describe('RuioUIContainer - Icon Dimming', () => {
     // Activate element select mode
     await userEvent.click(elementSelectButton!)
 
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-active'])
-    expect(settingsContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(elementSelectContainer.className).toContain(styles.iconActive)
+    expect(settingsContainer.className).toContain(styles.iconDimmed)
 
     // Click settings - should deactivate element select mode and activate settings
     await userEvent.click(settingsButton!)
 
-    expect(settingsContainer.className).toContain(iconStyles['icon-active'])
-    expect(elementSelectContainer.className).toContain(iconStyles['icon-dimmed'])
-    expect(elementSelectContainer.className).not.toContain(iconStyles['icon-active'])
+    expect(settingsContainer.className).toContain(styles.iconActive)
+    expect(elementSelectContainer.className).toContain(styles.iconDimmed)
+    expect(elementSelectContainer.className).not.toContain(styles.iconActive)
   })
 })

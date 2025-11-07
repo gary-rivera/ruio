@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, memo } from 'react'
-import styles from '../../styles/SettingsRow.module.css'
+import styles from './SettingsRow.module.css'
 
 type SettingsRowProps = {
   title: string
@@ -25,12 +25,12 @@ function SettingsRow({
   }, [allowCustomEvents, isOpen, setIsOpen])
 
   return (
-    <div id={containerID} className={styles.settingRowContainer}>
-      <h4 className={styles.setttingRowTitle}>{title}</h4>
+    <div id={containerID} className={styles.container}>
+      <h4 className={styles.title}>{title}</h4>
       <div
         className={`
           ${inputContainerClassName}
-          ${styles.settingControlContainer}
+          ${styles.controlContainer}
         `}
         onClick={handleClick}
       >

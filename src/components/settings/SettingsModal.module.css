@@ -1,3 +1,5 @@
+@import url('@root/styles/variables.css');
+
 .modalContainer {
   position: absolute;
   right: 105%;
@@ -5,7 +7,7 @@
   display: flex;
   flex-direction: column;
 
-  background-color: #323635;
+  background-color: var(--ruio-color-bg-modal);
 
   color: white;
   width: 20rem;
@@ -49,6 +51,7 @@
 .categorySubtitle {
   margin: 0;
 }
+
 .title {
   font-weight: 500;
 }
@@ -63,7 +66,7 @@
 .categorySubtitleSection {
   display: flex;
   align-items: center;
-  color: #a6a6a6;
+  color: var(--ruio-color-gray-disabled);
   gap: 1.75rem;
 }
 
@@ -75,14 +78,45 @@
 .categoryDividerBar {
   flex: 1;
   border: none;
-  border-top: 0.1rem solid #5e5e5e;
+  border-top: 0.1rem solid var(--ruio-color-gray-border);
+}
+
+/* Depth input dynamic color states */
+.depthInputDefault {
+  color: inherit;
+  transition: color var(--ruio-timing-medium) var(--ruio-ease);
+}
+
+.depthInputWarning {
+  color: var(--ruio-color-warning);
+  transition: color var(--ruio-timing-medium) var(--ruio-ease);
+}
+
+.depthInputError {
+  color: var(--ruio-color-error);
+  transition: color var(--ruio-timing-medium) var(--ruio-ease);
+}
+
+/* Commented out section styles (for future opacity control) */
+.opacityValue {
+  max-width: 1.5rem;
+  padding: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-right: 0.1rem;
+}
+
+.opacityUnit {
+  color: gray;
+  align-self: center;
 }
 
 /* Footer */
 .modalFooter {
   height: 50%;
   max-height: 3rem;
-  background-color: #1c2120;
+  background-color: var(--ruio-color-bg-dark);
   display: flex;
   align-items: center;
   margin: 1.25rem -2rem -1rem -2rem;
@@ -92,10 +126,10 @@
 }
 
 .reportIssue {
-  color: #5e5e5e;
+  color: var(--ruio-color-gray-border);
   margin-left: 2rem;
   cursor: pointer;
-  transition: color 150ms ease-in-out;
+  transition: color var(--ruio-timing-medium) var(--ruio-ease);
   display: flex;
   align-items: center;
   gap: 0.15rem;
@@ -103,11 +137,11 @@
 }
 
 .reportIssue:hover {
-  color: #06e5d5;
+  color: var(--ruio-color-accent);
 }
 
 .reportIssueIcon {
   width: 1rem;
   height: 1rem;
-  transition: color 150ms ease-in-out;
+  transition: color var(--ruio-timing-medium) var(--ruio-ease);
 }

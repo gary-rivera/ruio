@@ -1,63 +1,63 @@
-.colorPaletteDropdownControl {
+@import url('@root/styles/variables.css');
+
+.control {
   justify-self: center;
   width: fit-content;
 }
 
-.dropdownMenu {
+.menu {
   display: flex;
   flex-direction: column;
 
   width: 10rem;
 
-  background-color: #383b3a;
+  background-color: var(--ruio-color-bg-medium-alt);
   position: absolute;
   top: 125%;
   right: 0;
   padding: 0.5rem 0rem;
-  border-radius: 8px;
+  border-radius: var(--ruio-radius-md);
 
-  /* transition effects */
   transition:
-    max-height 0.3s ease,
-    opacity 0.2s ease,
-    visibility 0.3s;
+    max-height var(--ruio-timing-slower) var(--ruio-ease),
+    opacity 0.2s var(--ruio-ease),
+    visibility var(--ruio-timing-slower);
   max-height: 0;
   opacity: 0;
   visibility: hidden;
   overflow-x: hidden;
-
   overflow-y: auto;
 
   gap: 0.2rem;
 }
 
-.dropdownMenuOpen {
+.menuOpen {
   max-height: 10rem;
   opacity: 1;
   visibility: visible;
   overflow-y: auto;
 }
 
-.dropdownMenu::-webkit-scrollbar {
+.menu::-webkit-scrollbar {
   width: 5px;
   margin-top: 8px;
 }
 
-.dropdownMenu::-webkit-scrollbar-thumb {
-  background-color: #565a59;
-  border-radius: 8px;
+.menu::-webkit-scrollbar-thumb {
+  background-color: var(--ruio-color-gray-medium);
+  border-radius: var(--ruio-radius-md);
 }
 
-.dropdownMenu::-webkit-scrollbar-track {
+.menu::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
-.dropdownMenu {
+.menu {
   scrollbar-width: thin;
-  scrollbar-color: #565a59 transparent;
+  scrollbar-color: var(--ruio-color-gray-medium) transparent;
 }
 
-.dropdownItemContainer {
+.itemContainer {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -66,47 +66,43 @@
   padding: 0.7rem 0;
 }
 
-/* .dropdownItemContainer:hover {
-  background-color: #565a59;
-} */
-
-.dropdownMenuItemActive {
-  background-color: #565a59;
+.itemActive {
+  background-color: var(--ruio-color-gray-medium);
 }
 
-.dropdownItemIcon {
+.itemIcon {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 25%;
 }
 
-.dropdownItemDetails {
+.itemDetails {
   width: 75%;
 }
 
-.dropdownItemTitle {
+.itemTitle {
   margin-bottom: 0.3rem;
 }
 
-.dropdownItemColorPalette {
+.itemColorPalette {
   list-style: none;
   display: flex;
   padding: 0;
   height: 0.55rem;
   width: 80%;
   margin: 0;
-  border-radius: 50px;
+  border-radius: var(--ruio-radius-pill);
   overflow: hidden;
 }
 
-.dropdownItemColorSwatch {
+.itemColorSwatch {
   flex: 1;
 }
 
-.dropdownItemDescription {
+.itemDescription {
   font-size: 0.65rem;
-  color: #9ca3af;
+  color: var(--ruio-color-gray-light);
   font-style: italic;
   width: 80%;
 }

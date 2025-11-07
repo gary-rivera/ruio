@@ -5,9 +5,7 @@ import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
 import SettingsModal from './settings/SettingsModal'
 
-import '../styles/globals.css'
-import divStyles from '../styles/Div.module.css'
-import iconStyles from '../styles/Icon.module.css'
+import styles from './RuioUIContainer.module.css'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
 type UIPanelVisibility = { elementSelector: boolean; settingsModal: boolean }
@@ -33,7 +31,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
   }
 
   const getIconStateClass = (icon: 'settings' | 'elementSelector') => {
-    const baseClass = iconStyles['icon-container']
+    const baseClass = styles.iconContainer
 
     const thisIconIsActive =
       icon === 'settings' ? panelVisibility.settingsModal : isElementSelectionModeActive
@@ -41,8 +39,8 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
     const otherIconIsActive =
       icon === 'settings' ? isElementSelectionModeActive : panelVisibility.settingsModal
 
-    if (thisIconIsActive) return `${baseClass} ${iconStyles['icon-active']}`
-    if (otherIconIsActive) return `${baseClass} ${iconStyles['icon-dimmed']}`
+    if (thisIconIsActive) return `${baseClass} ${styles.iconActive}`
+    if (otherIconIsActive) return `${baseClass} ${styles.iconDimmed}`
 
     return baseClass
   }
@@ -51,7 +49,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
     <div
       ref={ref}
       data-testid="ruio-ui-container"
-      className={`ruio-exclude ${divStyles['ruio-ui-container']}`}
+      className={`ruio-exclude ${styles.container}`}
       id="ruio-exclude"
     >
       <div id="ruio-controls-container">

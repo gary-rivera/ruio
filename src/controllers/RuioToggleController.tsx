@@ -1,8 +1,5 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
-
-import buttonStyles from '../styles/Button.module.css'
-import divStyles from '../styles/Div.module.css'
-import svgStyles from '../styles/SVG.module.css'
+import styles from './RuioToggleController.module.css'
 
 type RuioToggleControllerProps = {
   isDimmed?: boolean
@@ -16,24 +13,38 @@ function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
     setIsElementSelectionModeActive(false)
   }
 
+  const getButtonClass = () => {
+    const classes = [styles.button]
+    if (ruioEnabled) classes.push(styles.logoEnabled)
+    else classes.push(styles.logoDisabled)
+    if (isDimmed) {
+      classes.push(ruioEnabled ? styles.logoEnabledDimmed : styles.logoDisabledDimmed)
+    }
+    return classes.join(' ')
+  }
+
+  const getBgClass = () => {
+    const classes = [styles.logoDivBg]
+    if (ruioEnabled) classes.push(styles.logoDivBgActive)
+    else classes.push(styles.logoDivBgInactive)
+    if (isDimmed) classes.push(styles.logoDivBgDimmed)
+    return classes.join(' ')
+  }
+
+  const getLogoDivClass = () => {
+    const classes = [styles.logoDiv]
+    if (ruioEnabled) classes.push(styles.logoDivActive)
+    else classes.push(styles.logoDivInactive)
+    return classes.join(' ')
+  }
+
   return (
-    <div className={`${divStyles['ruio-toggle-container']}`}>
-      <div
-        className={`${divStyles['ruio-logo-div-bg']} ${ruioEnabled ? divStyles['ruio-logo-div-bg-active'] : divStyles['ruio-logo-div-bg-inactive']} ${isDimmed ? divStyles['ruio-logo-div-bg-dimmed'] : ''}`}
-      />
-      <button
-        className={`
-        ${buttonStyles['ruio-btn']}
-        ${buttonStyles['ruio-btn-primary']}
-        ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}
-        ${isDimmed ? buttonStyles['ruio-btn-primary-dimmed'] : ''}`}
-        onClick={handleToggle}
-      >
-        <div
-          className={`${divStyles['ruio-logo-div']} ${ruioEnabled ? divStyles['ruio-logo-div-active'] : divStyles['ruio-logo-div-inactive']}`}
-        >
+    <div className={styles.toggleContainer}>
+      <div className={getBgClass()} />
+      <button className={getButtonClass()} onClick={handleToggle}>
+        <div className={getLogoDivClass()}>
           <svg
-            className={`${svgStyles['ruio-logo-svg']}`}
+            className={styles.svg}
             viewBox="0 0 208 176"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,73 @@
+/*
+ * CSS Custom Properties (Variables)
+ *
+ * Global design tokens for the RUIO component library.
+ * These variables enable consistent styling and easy theme customization.
+ */
+
+:root {
+  /* ============================================
+     COLORS
+     ============================================ */
+
+  /* Background colors */
+  --ruio-color-bg-dark: #1c2120;
+  --ruio-color-bg-medium: #3c3f3e;
+  --ruio-color-bg-medium-alt: #383b3a;
+  --ruio-color-bg-modal: #323635;
+
+  /* Gray scale */
+  --ruio-color-gray-medium: #565a59;
+  --ruio-color-gray-border: #5e5e5e;
+  --ruio-color-gray-light: #9ca3af;
+  --ruio-color-gray-disabled: #a6a6a6;
+
+  /* Brand/accent colors */
+  --ruio-color-accent: #06e5d5;
+  --ruio-color-light: #eaf8ef;
+  --ruio-color-white: #ffffff;
+
+  /* Status colors */
+  --ruio-color-warning: #f39c12;
+  --ruio-color-error: #e74c3c;
+
+  /* ============================================
+     TIMING & EASING
+     ============================================ */
+
+  --ruio-timing-fast: 100ms;
+  --ruio-timing-medium: 150ms;
+  --ruio-timing-slow: 250ms;
+  --ruio-timing-slower: 300ms;
+  --ruio-ease: ease-in-out;
+  --ruio-ease-out: ease-out;
+
+  /* ============================================
+     SPACING & SIZING
+     ============================================ */
+
+  /* Border radius */
+  --ruio-radius-sm: 5px;
+  --ruio-radius-md: 8px;
+  --ruio-radius-lg: 10px;
+  --ruio-radius-xl: 12px;
+  --ruio-radius-pill: 50px;
+
+  /* Z-index layers */
+  --ruio-z-index: 100000;
+
+  /* ============================================
+     TRANSITIONS (Compound)
+     ============================================ */
+
+  --ruio-transition-fast: transform var(--ruio-timing-fast) var(--ruio-ease),
+    opacity var(--ruio-timing-fast) var(--ruio-ease);
+
+  --ruio-transition-medium: transform var(--ruio-timing-medium) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+
+  --ruio-transition-slow: transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-slow) var(--ruio-ease);
+
+  --ruio-transition-bg: background-color var(--ruio-timing-medium) var(--ruio-ease);
+}

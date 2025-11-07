@@ -1,0 +1,154 @@
+@import url('@root/styles/variables.css');
+
+.toggleContainer {
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  transition: transform var(--ruio-timing-slow) var(--ruio-ease);
+}
+
+.toggleContainer:hover {
+  transform: scale(1.05);
+}
+
+.button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  background-color: var(--ruio-color-bg-dark);
+  border-radius: var(--ruio-radius-md);
+  width: 45px;
+  height: 38px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  transition: var(--ruio-transition-slow);
+}
+
+.button:hover {
+  opacity: 1;
+  transition: var(--ruio-transition-slow);
+  transform: scale(1.05);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.98);
+  }
+  40% {
+    transform: scale(0.95);
+  }
+  60% {
+    transform: scale(0.97);
+  }
+  80% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse 150ms ease-out;
+}
+
+.logoEnabled,
+.logoEnabled:hover {
+  transition: var(--ruio-transition-slow);
+  transform: rotate(-10deg);
+  opacity: 1;
+}
+
+.logoDisabled,
+.logoDisabled:hover {
+  transition: var(--ruio-transition-slow);
+  transform: scale(1);
+  opacity: 0.5;
+}
+
+/* Dimmed states - use higher specificity instead of !important */
+.button.logoEnabledDimmed {
+  opacity: 0.4;
+  transform: rotate(-10deg) scale(0.8);
+}
+
+.button.logoDisabledDimmed {
+  opacity: 0.4;
+  transform: scale(0.8);
+}
+
+.logoDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+.logoDivActive {
+  transition:
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  transform: scale(0.9) rotate(10deg);
+}
+
+.logoDivInactive {
+  transition:
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  transform: scale(1);
+}
+
+.logoDivBg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  border-radius: var(--ruio-radius-xl);
+  transition:
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  will-change: opacity;
+  width: 100%;
+  height: 100%;
+}
+
+.logoDivBgActive {
+  background: var(--ruio-color-accent);
+  transition:
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  transform: scale(1.1, 1.03) rotate(3deg);
+  opacity: 1;
+}
+
+.logoDivBgInactive {
+  transition:
+    transform var(--ruio-timing-slow) var(--ruio-ease),
+    opacity var(--ruio-timing-medium) var(--ruio-ease);
+  transform: scale(0.1, 1) rotate(0deg);
+  opacity: 0;
+}
+
+/* Higher specificity instead of !important */
+.logoDivBg.logoDivBgDimmed {
+  transform: scale(0.01);
+  opacity: 0;
+  transition: var(--ruio-transition-fast);
+}
+
+.svg {
+  fill: var(--ruio-color-light);
+}

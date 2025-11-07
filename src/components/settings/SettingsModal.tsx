@@ -6,11 +6,8 @@ import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
 import { generateGitHubIssueUrl } from '@utils/githubIssue'
 
-import settingsModalStyles from '../../styles/SettingsModal.module.css'
-import settingsRowStyles from '../../styles/SettingsRow.module.css'
-
-import buttonStyles from '../../styles/Button.module.css'
-import inputStyles from '../../styles/Input.module.css'
+import styles from './SettingsModal.module.css'
+import rowStyles from './SettingsRow.module.css'
 
 type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string; footer?: ReactNode }
 
@@ -18,11 +15,6 @@ type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string
 const FLASH_DURATION_MS = 600
 const MIN_DEPTH = 0
 const APPROACHING_MIN_DEPTH = 1
-
-// Visual feedback colors
-const LIMIT_REACHED_COLOR = '#e74c3c'
-const APPROACHING_LIMIT_COLOR = '#f39c12'
-const TRANSITION_TIMING = 'color 0.15s ease-in-out'
 
 // TODO: add settings row for border/outline toggle
 // TODO: add settings row to clear local storage
@@ -73,10 +65,10 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     return approachingMaximum || approachingMinimum
   }
 
-  const getDepthInputColor = (): string => {
-    if (showLimitFlash) return LIMIT_REACHED_COLOR
-    if (showWarningFlash) return APPROACHING_LIMIT_COLOR
-    return '' // default color
+  const getDepthInputClass = (): string => {
+    if (showLimitFlash) return styles.depthInputError
+    if (showWarningFlash) return styles.depthInputWarning
+    return styles.depthInputDefault
   }
 
   function adjustDepth(operation: 'increment' | 'decrement'): void {
@@ -125,37 +117,33 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   return (
     <div
       id="ruio-settings-modal-container"
-      className={`${settingsModalStyles.modalContainer} ${isOpen ? settingsModalStyles.open : ''}`}
+      className={`${styles.modalContainer} ${isOpen ? styles.open : ''}`}
     >
-      <div className={settingsModalStyles.mainContent}>
-        <div className={settingsModalStyles.header}>
-          <h2 className={settingsModalStyles.title}>Settings</h2>
-          <CloseModalIcon onClick={onClose} buttonStyleKey="close-modal-btn" />
+      <div className={styles.mainContent}>
+        <div className={styles.header}>
+          <h2 className={styles.title}>Settings</h2>
+          <CloseModalIcon onClick={onClose} />
         </div>
-        <section className={settingsModalStyles.category}>
-          <div className={settingsModalStyles.categorySubtitleSection}>
-            <h4 className={settingsModalStyles.categorySubtitle}>Outline configuration</h4>
-            <hr className={settingsModalStyles.categoryDividerBar} />
+        <section className={styles.category}>
+          <div className={styles.categorySubtitleSection}>
+            <h4 className={styles.categorySubtitle}>Outline configuration</h4>
+            <hr className={styles.categoryDividerBar} />
           </div>
 
           <SettingsRow
             title="Depth"
             containerID="ruio-settings-depth-row"
-            inputContainerClassName={settingsRowStyles.depthControlContainer}
+            inputContainerClassName={rowStyles.depthControlContainer}
             children={
               <>
                 <button
-                  className={`
-                    ${buttonStyles['ruio-btn']}
-                    ${settingsRowStyles.settingRowButton}
-                    ${settingsRowStyles.depthControlButtonLeft}
-                  `}
+                  className={`${rowStyles.button} ${rowStyles.depthControlButtonLeft}`}
                   onClick={() => adjustDepth('decrement')}
                 >
                   -
                 </button>
                 <input
-                  className={`${inputStyles['ruio-input']} ${settingsRowStyles.depthControlInput}`}
+                  className={`${rowStyles.depthControlInput} ${getDepthInputClass()}`}
                   type="text"
                   value={tempDepth}
                   onChange={handleDepthChange}
@@ -163,10 +151,9 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     e.key === 'Enter' && handleDepthConfirm()
                   }
-                  style={{ color: getDepthInputColor(), transition: TRANSITION_TIMING }}
                 />
                 <button
-                  className={`${buttonStyles['ruio-btn']} ${settingsRowStyles.settingRowButton} ${settingsRowStyles.depthControlButtonLeft}`}
+                  className={`${rowStyles.button} ${rowStyles.depthControlButtonRight}`}
                   onClick={() => adjustDepth('increment')}
                 >
                   +
@@ -179,8 +166,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             title="Theme"
             containerID="ruio-settings-theme-row"
             inputContainerClassName={`
-              ${settingsRowStyles.themeControlContainer}
-              ${themeDropdownIsOpen ? settingsRowStyles.controlContainerActive : ''}
+              ${rowStyles.themeControlContainer}
+              ${themeDropdownIsOpen ? rowStyles.controlContainerActive : ''}
             `}
             children={
               <>
@@ -204,29 +191,18 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             inputContainerStyling={{ display: 'flex', alignItems: 'center' }}
             children={
               <>
-                <span
-                  style={{
-                    maxWidth: '1.5rem',
-                    padding: 0,
-                    textAlign: 'center',
-                    fontSize: '0.9rem',
-                    fontWeight: '300',
-                    marginRight: '0.1rem',
-                  }}
-                >
-                  100
-                </span>
-                <span style={{ color: 'gray', alignSelf: 'center' }}>%</span>
+                <span className={styles.opacityValue}>100</span>
+                <span className={styles.opacityUnit}>%</span>
               </>
             }
           /> */}
         </section>
       </div>
 
-      <footer className={settingsModalStyles.modalFooter}>
-        <span className={settingsModalStyles.reportIssue} onClick={handleReportIssue}>
+      <footer className={styles.modalFooter}>
+        <span className={styles.reportIssue} onClick={handleReportIssue}>
           <svg
-            className={settingsModalStyles.reportIssueIcon}
+            className={styles.reportIssueIcon}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

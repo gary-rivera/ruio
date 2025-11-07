@@ -1,0 +1,178 @@
+/*
+ * Shared Icon Styles
+ *
+ * Used by: SettingsIcon, ElementSelectIcon, CloseModalIcon, ChevronIcon, CheckmarkIcon
+ *
+ * Pattern: All icons follow similar structure:
+ * - Button wrapper with base styles + state modifiers
+ * - SVG with specific styling
+ * - Hover effects and transitions
+ */
+
+@import url('./variables.css');
+
+/* ============================================
+BASE BUTTON STYLES (used by most icons)
+   ============================================ */
+
+/* Secondary icons (Settings, ElementSelect) */
+.iconButton {
+  composes: buttonReset from '@root/styles/base.module.css';
+  composes: transitionMedium from '@root/styles/base.module.css';
+
+  background-color: var(--ruio-color-bg-dark);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--ruio-radius-lg);
+}
+
+.iconButton:hover {
+  transform: scale(1.05);
+}
+
+/* Active/Inactive states for secondary icons */
+.iconButtonInactive {
+  transition: var(--ruio-transition-slow);
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.iconButtonActive {
+  cursor: pointer;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ============================================
+   CLOSE MODAL ICON STYLES
+   ============================================ */
+
+.closeButton {
+  composes: buttonReset from '@root/styles/base.module.css';
+
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 7px;
+  border-radius: var(--ruio-radius-sm);
+  transition: var(--ruio-transition-bg);
+}
+
+.closeButton:hover {
+  background-color: var(--ruio-color-gray-medium);
+}
+
+.closeSvg {
+  max-width: 0.85rem;
+  max-height: 0.85rem;
+  stroke: var(--ruio-color-light);
+}
+
+/* ============================================
+   CHEVRON ICON STYLES
+   ============================================ */
+
+.chevronButton {
+  composes: buttonReset from '@root/styles/base.module.css';
+  background: transparent;
+  fill: none;
+  cursor: pointer;
+  padding: 0 0.75rem;
+  width: 2rem;
+  height: inherit;
+  position: absolute;
+  right: 0;
+  border-radius: var(--ruio-radius-md);
+}
+
+.chevronButton:focus {
+  outline: none;
+}
+
+.chevronInactive {
+  transform: rotate(0deg);
+  transition: transform var(--ruio-timing-slower) var(--ruio-ease);
+}
+
+.chevronActive {
+  transform: rotate(180deg);
+  transition: transform var(--ruio-timing-slower) var(--ruio-ease);
+}
+
+.chevronSvg {
+  max-width: 0.5rem;
+  max-height: 0.5rem;
+  fill: none;
+}
+
+/* ============================================
+   CHECKMARK ICON STYLES
+   ============================================ */
+
+.checkmarkIcon {
+  composes: buttonReset from '@root/styles/base.module.css';
+
+  background: transparent;
+  cursor: inherit;
+  width: 0.65rem;
+  height: 0.65rem;
+  position: absolute;
+}
+
+.checkmarkPath {
+  fill: none;
+}
+
+/* ============================================
+   SVG ELEMENT STYLES
+   ============================================ */
+
+/* Default SVG styling for secondary icons */
+.iconSvg {
+  border-radius: var(--ruio-radius-lg);
+  fill: var(--ruio-color-bg-dark);
+}
+
+/* Settings icon specific SVG parts */
+.iconSvg :global(.svg-outline) {
+  fill: var(--ruio-color-bg-dark);
+  stroke: var(--ruio-color-accent);
+}
+
+.iconSvg :global(.svg-bar-bg) {
+  fill: none;
+  stroke: var(--ruio-color-light);
+  opacity: 0.9;
+}
+
+.iconSvg :global(.svg-dial) {
+  fill: none;
+  stroke: var(--ruio-color-light);
+}
+
+/* Element select icon specific SVG parts */
+.iconSvg :global(.svg-mouse-pointer) {
+  fill: var(--ruio-color-bg-dark);
+  stroke: var(--ruio-color-light);
+}
+
+/* Chevron icon SVG styling */
+.chevronSvg path {
+  stroke: var(--ruio-color-light);
+  fill: none;
+}
+
+/* Close modal icon SVG styling */
+.closeSvg path {
+  stroke: var(--ruio-color-light);
+}
+
+/* Checkmark icon SVG styling */
+.checkmarkPath path {
+  stroke: var(--ruio-color-light);
+  fill: none;
+}

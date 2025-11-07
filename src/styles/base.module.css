@@ -1,0 +1,76 @@
+/*
+ * Base Utility Styles
+ *
+ * Shared reset styles and utilities used across components
+ * Import this in components that need base resets or common patterns
+ */
+
+@import url('./variables.css');
+
+/* ============================================
+   BUTTON RESET
+   ============================================ */
+
+.buttonReset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ============================================
+   INPUT RESET
+   ============================================ */
+
+.inputReset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.98);
+  }
+  40% {
+    transform: scale(0.95);
+  }
+  60% {
+    transform: scale(0.97);
+  }
+  80% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse var(--ruio-timing-medium) var(--ruio-ease-out);
+}
+
+/* ============================================
+   TRANSITIONS
+   ============================================ */
+
+.transitionFast {
+  transition: var(--ruio-transition-fast);
+}
+
+.transitionMedium {
+  transition: var(--ruio-transition-medium);
+}
+
+.transitionSlow {
+  transition: var(--ruio-transition-slow);
+}
