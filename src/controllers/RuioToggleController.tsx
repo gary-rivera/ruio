@@ -9,7 +9,12 @@ type RuioToggleControllerProps = {
 }
 
 function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
-  const { ruioEnabled, setRuioEnabled } = useRuioContext()
+  const { ruioEnabled, setRuioEnabled, setIsElementSelectionModeActive } = useRuioContext()
+
+  const handleToggle = () => {
+    setRuioEnabled(!ruioEnabled)
+    setIsElementSelectionModeActive(false)
+  }
 
   return (
     <div className={`${divStyles['ruio-toggle-container']}`}>
@@ -22,9 +27,7 @@ function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
         ${buttonStyles['ruio-btn-primary']}
         ${ruioEnabled ? buttonStyles['ruio-logo-btn-enabled'] : buttonStyles['ruio-logo-btn-disabled']}
         ${isDimmed ? buttonStyles['ruio-btn-primary-dimmed'] : ''}`}
-        onClick={() => {
-          setRuioEnabled(!ruioEnabled)
-        }}
+        onClick={handleToggle}
       >
         <div
           className={`${divStyles['ruio-logo-div']} ${ruioEnabled ? divStyles['ruio-logo-div-active'] : divStyles['ruio-logo-div-inactive']}`}

@@ -220,4 +220,30 @@ describe('RuioUIContainer - Icon Dimming', () => {
     expect(settingsContainer.className).toContain(iconStyles['icon-container'])
     expect(elementSelectContainer.className).toContain(iconStyles['icon-container'])
   })
+
+  test('clicking settings when element select is active deactivates element select mode', async () => {
+    render(
+      <RuioContextProvider>
+        <RuioUIContainer />
+      </RuioContextProvider>,
+    )
+
+    const settingsContainer = document.getElementById('ruio-settings-container')!
+    const elementSelectContainer = document.getElementById('ruio-element-select-container')!
+    const settingsButton = settingsContainer.querySelector('button')
+    const elementSelectButton = elementSelectContainer.querySelector('button')
+
+    // Activate element select mode
+    await userEvent.click(elementSelectButton!)
+
+    expect(elementSelectContainer.className).toContain(iconStyles['icon-active'])
+    expect(settingsContainer.className).toContain(iconStyles['icon-dimmed'])
+
+    // Click settings - should deactivate element select mode and activate settings
+    await userEvent.click(settingsButton!)
+
+    expect(settingsContainer.className).toContain(iconStyles['icon-active'])
+    expect(elementSelectContainer.className).toContain(iconStyles['icon-dimmed'])
+    expect(elementSelectContainer.className).not.toContain(iconStyles['icon-active'])
+  })
 })

@@ -1,10 +1,5 @@
 {
   "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "types": ["jest", "@testing-library/jest-dom", "../src/types/cssModules", "node"]
-  },
-  "include": [
-    "./**/*",
-    "../src/**/*"
-  ]
+  "compilerOptions": { "types": ["@testing-library/jest-dom", "../src/types/cssModules", "node"] },
+  "include": ["./**/*", "../src/**/*"]
 }

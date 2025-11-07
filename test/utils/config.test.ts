@@ -34,8 +34,10 @@ describe('config', () => {
     })
 
     test('returns null on invalid JSON', () => {
+      const consoleErrorMock = vi.spyOn(console, 'error').mockImplementation(() => {})
       localStorage.setItem(RUIO_CONFIG_KEY, 'invalid json')
       expect(loadConfig()).toBeNull()
+      consoleErrorMock.mockRestore()
     })
   })
 

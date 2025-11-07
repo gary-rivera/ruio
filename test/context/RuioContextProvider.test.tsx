@@ -227,19 +227,22 @@ describe('RuioContextProvider', () => {
     localStorage.clear()
   })
 
+  // enable if any significant changes to context provider are made but for now suppress due to vitest logs adding noise to test suite
   test('should throw error if useRuioContext is used outside provider', () => {
-    const consoleErrorMock = vi.spyOn(console, 'error').mockImplementation(() => {})
+    // Suppress error output for this expected error test
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     const TestInvalidComponent = () => {
-      const { ruioEnabled } = useRuioContext()
-      return <div>{ruioEnabled ? 'Enabled' : 'Disabled'}</div>
+      useRuioContext()
+      return null
     }
 
+    // Verify that rendering without provider throws the expected error
     expect(() => render(<TestInvalidComponent />)).toThrow(
       '[RuioContextProvider] useRuio must be used within RuioProvider',
     )
 
-    consoleErrorMock.mockRestore()
+    spy.mockRestore()
   })
 
   test('should calculate maxDepth when rootElement is set', async () => {
