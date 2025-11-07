@@ -14,8 +14,32 @@ export default [
   },
   // Base ESLint recommended rules
   js.configs.recommended,
+  // TypeScript config files (without type checking)
+  {
+    files: ['*.config.ts', '*.config.js'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.node,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptPlugin,
+      prettier: prettierPlugin,
+    },
+    rules: {
+      ...typescriptPlugin.configs.recommended.rules,
+      'prettier/prettier': 'error',
+    },
+  },
+  // Regular TypeScript files (with type checking)
   {
     files: ['*.ts', '*.tsx'],
+    ignores: ['*.config.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
