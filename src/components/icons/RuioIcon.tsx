@@ -1,7 +1,7 @@
 import { ReactNode, MouseEvent, useState, useCallback, useMemo, memo } from 'react'
 import { useRuioContext } from '@context/RuioContextProvider'
 
-import buttonStyles from '../../styles/Button.module.css'
+import baseStyles from '@root/styles/base.module.css'
 
 type RuioIconProps = {
   id: string
@@ -44,9 +44,9 @@ function RuioIcon({
 
   const buttonClasses = shouldMemoize
     ? useMemo(() => {
-        return `${buttonClassName} ${shouldPulse ? buttonStyles.pulse : ''}`
+        return `${buttonClassName} ${shouldPulse ? baseStyles.pulse : ''}`
       }, [buttonClassName, shouldPulse])
-    : `${buttonClassName} ${shouldPulse ? buttonStyles.pulse : ''}`
+    : `${buttonClassName} ${shouldPulse ? baseStyles.pulse : ''}`
 
   // Conditionally memoize the svg classes
   const svgClasses = shouldMemoize

@@ -28,10 +28,7 @@
 }
 
 .button {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
+  composes: buttonReset from '@root/styles/base.module.css';
 
   font-size: inherit;
   width: 2rem;
@@ -62,18 +59,13 @@
 }
 
 .depthControlInput {
+  composes: inputReset from '@root/styles/base.module.css';
+
   justify-self: center;
   align-self: center;
   width: 2.5rem;
   font-size: inherit;
   text-align: center;
-
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  outline: none;
-
   color: #ffffff;
   height: 2rem;
 }

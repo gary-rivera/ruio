@@ -10,25 +10,19 @@
  */
 
 /* ============================================
-   BASE BUTTON STYLES (used by most icons)
+BASE BUTTON STYLES (used by most icons)
    ============================================ */
 
 /* Secondary icons (Settings, ElementSelect) */
 .iconButton {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background-color: #1c2120;
+  composes: buttonReset from '@root/styles/base.module.css';
+  composes: transitionMedium from '@root/styles/base.module.css';
 
+  background-color: #1c2120;
   overflow: hidden;
   width: 34px;
   height: 34px;
   border-radius: 10px;
-
-  transition:
-    transform 150ms ease-in-out,
-    opacity 150ms ease-in-out;
 }
 
 .iconButton:hover {
@@ -55,12 +49,9 @@
    ============================================ */
 
 .closeButton {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background-color: inherit;
+  composes: buttonReset from '@root/styles/base.module.css';
 
+  background-color: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,6 +60,7 @@
   height: 1.5rem;
   padding: 7px;
   border-radius: 5px;
+  transition: background-color 150ms ease-in-out;
 }
 
 .closeButton:hover {
@@ -86,13 +78,9 @@
    ============================================ */
 
 .chevronButton {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
+  composes: buttonReset from '@root/styles/base.module.css';
 
   cursor: pointer;
-  background-color: transparent;
   padding: 0 0.75rem;
   width: 2rem;
   height: inherit;
@@ -126,11 +114,9 @@
    ============================================ */
 
 .checkmarkIcon {
+  composes: buttonReset from '@root/styles/base.module.css';
+
   cursor: inherit;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
   width: 1rem;
   height: 1rem;
   position: absolute;
@@ -144,6 +130,7 @@
 .iconSvg {
   border-radius: 10px;
   fill: #1c2120;
+  stroke: yellow;
 }
 
 /* Settings icon specific SVG parts */

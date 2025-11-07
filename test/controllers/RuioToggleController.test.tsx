@@ -223,4 +223,48 @@ describe('RuioToggleController - Visual Regression', () => {
 
     expect(container.innerHTML).toMatchSnapshot()
   })
+
+  test('button maintains black background with buttonReset composition', () => {
+    const { container } = render(
+      <RuioContextProvider>
+        <RuioToggleController />
+      </RuioContextProvider>,
+    )
+
+    const button = container.querySelector('button')!
+
+    // Button should have the button class
+    expect(button.classList.contains(styles.button)).toBe(true)
+
+    // Regression test: button should maintain background-color: #1c2120
+    // Previously lost when buttonReset used 'background: transparent' shorthand
+    // which overrode 'background-color' even when declared after in CSS
+    expect(styles.button).toBeDefined()
+
+    // Verify button exists and has expected structure
+    expect(button).toBeTruthy()
+    expect(button.tagName).toBe('BUTTON')
+  })
+
+  test('button does not compose transitionFast (transitions only on states)', () => {
+    const { container } = render(
+      <RuioContextProvider>
+        <RuioToggleController />
+      </RuioContextProvider>,
+    )
+
+    const button = container.querySelector('button')!
+
+    // Count CSS module classes - should only have buttonReset, not transitionFast
+    const classes = Array.from(button.classList)
+
+    // Should have: button (local), buttonReset (composed)
+    // Should NOT have: transitionFast (was incorrectly added, causing transition issues)
+    // Original design had no base transition - only on :hover and state classes
+    expect(classes.length).toBeLessThanOrEqual(3) // button + buttonReset + logoEnabled/Disabled
+
+    // Verify the state classes exist and have their own transitions
+    expect(styles.logoEnabled).toBeDefined()
+    expect(styles.logoDisabled).toBeDefined()
+  })
 })

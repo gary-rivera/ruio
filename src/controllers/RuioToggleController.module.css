@@ -1,3 +1,44 @@
+.toggleContainer {
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  transition: transform 250ms ease-in-out;
+}
+
+.toggleContainer:hover {
+  transform: scale(1.05);
+}
+
+.button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  background-color: #1c2120;
+  border-radius: 8px;
+  width: 45px;
+  height: 38px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  transition:
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
+}
+
+.button:hover {
+  opacity: 1;
+  transition:
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
+  transform: scale(1.05);
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -20,60 +61,11 @@
   }
 }
 
-.toggleContainer {
-  margin-top: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-  transition: transform 250ms ease-in-out;
-}
-
-.toggleContainer:hover {
-  transform: scale(1.05);
-}
-
-.button {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background-color: #1c2120;
-
-  border-radius: 8px;
-  width: 45px;
-  height: 38px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3px;
-
-  transition:
-    transform 100ms ease-in-out,
-    opacity 100ms ease-in-out;
-}
-
-.button:hover {
-  opacity: 1;
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
-  transform: scale(1.05);
-}
-
 .pulse {
   animation: pulse 150ms ease-out;
 }
 
-.logoEnabled {
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
-  transform: rotate(-10deg);
-  opacity: 1;
-}
-
+.logoEnabled,
 .logoEnabled:hover {
   transition:
     transform 250ms ease-in-out,
@@ -82,28 +74,24 @@
   opacity: 1;
 }
 
-.logoDisabled {
-  transition:
-    transform 250ms ease-in-out,
-    opacity 250ms ease-in-out;
-  opacity: 0.5;
-}
-
+.logoDisabled,
 .logoDisabled:hover {
   transition:
     transform 250ms ease-in-out,
     opacity 250ms ease-in-out;
+  transform: scale(1);
   opacity: 0.5;
 }
 
-.logoEnabledDimmed {
-  opacity: 0.4 !important;
-  transform: rotate(-10deg) scale(0.8) !important;
+/* Dimmed states - use higher specificity instead of !important */
+.button.logoEnabledDimmed {
+  opacity: 0.4;
+  transform: rotate(-10deg) scale(0.8);
 }
 
-.logoDisabledDimmed {
-  opacity: 0.4 !important;
-  transform: scale(0.8) !important;
+.button.logoDisabledDimmed {
+  opacity: 0.4;
+  transform: scale(0.8);
 }
 
 .logoDiv {
@@ -145,22 +133,28 @@
 
 .logoDivBgActive {
   background: #06e5d5;
-
+  transition:
+    transform 250ms ease-in-out,
+    opacity 150ms ease-in-out;
   transform: scaleX(1.1) scaleY(1.03) rotate(3deg);
   opacity: 1;
 }
 
 .logoDivBgInactive {
+  transition:
+    transform 250ms ease-in-out,
+    opacity 150ms ease-in-out;
   transform: scaleX(0.1) scaleY(1) rotate(0deg);
   opacity: 0;
 }
 
-.logoDivBgDimmed {
-  transform: scale(0.01) !important;
-  opacity: 0 !important;
+/* Higher specificity instead of !important */
+.logoDivBg.logoDivBgDimmed {
+  transform: scale(0.01);
+  opacity: 0;
   transition:
     transform 100ms ease-in-out,
-    opacity 100ms ease-in-out !important;
+    opacity 100ms ease-in-out;
 }
 
 .svg {
