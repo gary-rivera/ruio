@@ -1,0 +1,167 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CSS Regression Tests > ColorPaletteDropdown > dropdown container styles 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "justify-content": "",
+  "opacity": "",
+  "position": "",
+}
+`;
+
+exports[`CSS Regression Tests > ColorPaletteDropdown > dropdown menu when open 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "max-height": "",
+  "opacity": "",
+  "overflow-y": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioUIContainer > container layout styles 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+  "z-index": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioUIContainer > controls container layout 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > RuioUIContainer > icon container styles 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "justify-content": "",
+  "opacity": "",
+  "position": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsModal > button styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "font-family": "",
+  "font-size": "",
+  "font-weight": "",
+  "line-height": "initial",
+  "opacity": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsModal > input field styles 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "font-family": "",
+  "font-size": "",
+  "font-weight": "",
+  "height": "",
+  "line-height": "initial",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsModal > modal container when open 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "position": "",
+  "transform": "",
+  "transition": "",
+  "width": "",
+  "z-index": "",
+}
+`;
+
+exports[`CSS Regression Tests > SettingsRow > row layout and spacing 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
