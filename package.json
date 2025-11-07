@@ -1,6 +1,6 @@
 {
   "name": "ruio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "author": "Gary Rivera <a.gary.rivera@gmail.com> (https://github.com/gary-rivera)",
   "description": "A React developer tool for dynamically applying border styles to elements.",
