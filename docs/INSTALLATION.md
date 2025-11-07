@@ -43,6 +43,44 @@ npm list ruio
 cat package.json | grep ruio
 ```
 
+## Root Element Detection
+
+ruio automatically detects your application's root element using common patterns. It tries to find elements in this order:
+
+1. User's saved selection (from previous session via localStorage)
+2. Custom `defaultRootSelector` prop (if provided)
+3. `#root` (most common in React apps)
+4. `#app` (alternative common pattern)
+5. `[data-reactroot]` (older React versions)
+6. `body > div:first-child` (universal fallback)
+
+### Standard Setup
+
+Most React apps work out of the box with no configuration:
+
+```html
+<!-- index.html -->
+<div id="root"></div>
+```
+
+### Custom Setup
+
+For non-standard app structures, pass the `defaultRootSelector` prop:
+
+```typescript
+import RuioContextProvider from 'ruio'
+
+function App() {
+  return (
+    <RuioContextProvider defaultRootSelector=".main-app">
+      <div className="main-app">
+        {/* Your components */}
+      </div>
+    </RuioContextProvider>
+  )
+}
+```
+
 ## Troubleshooting
 
 ### Peer Dependency Warnings
@@ -78,6 +116,23 @@ If you get "Module not found" errors:
    rm -rf node_modules package-lock.json
    npm install
    ```
+
+### Root Element Not Found
+
+If you see a console warning about not finding a root element:
+
+1. **Check your HTML**: Ensure you have a root element with `id="root"` or `id="app"`
+2. **Use custom selector**: Pass the `defaultRootSelector` prop with your actual root element's selector
+3. **Use element selection mode**: Click the crosshair icon in the ruio UI to manually select a root element
+
+```typescript
+// Example with custom selector
+<RuioContextProvider defaultRootSelector="#my-app">
+  <div id="my-app">
+    {/* Your app */}
+  </div>
+</RuioContextProvider>
+```
 
 ## Next Steps
 

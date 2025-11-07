@@ -78,6 +78,8 @@ function App() {
 }
 ```
 
+<p><strong>Note:</strong> ruio automatically detects your app root (<code>#root</code>, <code>#app</code>, etc.). For custom setups, pass a <code>defaultRootSelector</code> prop.</p>
+
 <h2>Documentation</h2>
 
 <ul>

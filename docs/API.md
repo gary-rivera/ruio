@@ -43,12 +43,14 @@ function App() {
 |------|------|----------|---------|-------------|
 | `children` | `ReactNode` | Yes | - | Your application components |
 | `showInProduction` | `boolean` | No | `false` | Override to show ruio UI in production environments. Useful for demo apps. |
+| `defaultRootSelector` | `string` | No | Auto-detected | CSS selector for the root element to visualize. If not provided, ruio auto-detects common patterns (`#root`, `#app`, `[data-reactroot]`, `body > div:first-child`). Examples: `'#root'`, `'#app'`, `'.main-container'`, `'[data-app-root]'` |
 
 ### Behavior
 
 - Automatically detects development vs. production environment
 - Only renders the ruio UI toggle in development mode (`process.env.NODE_ENV !== 'production'`)
 - Can be overridden with `showInProduction` prop to enable in production (useful for demos)
+- Auto-detects the root element using common patterns (`#root`, `#app`, etc.) unless `defaultRootSelector` is provided
 - Creates a portal for the ruio UI controls to avoid CSS conflicts
 - Persists settings (enabled state, root element) in `localStorage`
 
@@ -237,6 +239,32 @@ function App() {
   return (
     <RuioContextProvider showInProduction={true}>
       <YourApp />
+    </RuioContextProvider>
+  )
+}
+```
+
+### Custom Root Element
+
+```typescript
+// For non-standard app structures
+function App() {
+  return (
+    <RuioContextProvider defaultRootSelector=".main-container">
+      <div className="main-container">
+        <YourApp />
+      </div>
+    </RuioContextProvider>
+  )
+}
+
+// Or with data attributes
+function App() {
+  return (
+    <RuioContextProvider defaultRootSelector="[data-app-root]">
+      <div data-app-root>
+        <YourApp />
+      </div>
     </RuioContextProvider>
   )
 }
