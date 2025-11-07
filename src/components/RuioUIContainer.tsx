@@ -20,13 +20,9 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
     settingsModal: false,
   })
 
-  const togglePanel = (panel: keyof UIPanelVisibility) => {
+  const exclusivelyTogglePanel = (panel: keyof UIPanelVisibility) => {
     setPanelVisibility((prev) => {
-      const newState = {
-        elementSelector: false,
-        settingsModal: false,
-        [panel]: !prev[panel],
-      }
+      const newState = { elementSelector: false, settingsModal: false, [panel]: !prev[panel] }
       return newState
     })
 
@@ -60,17 +56,17 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
     >
       <div id="ruio-controls-container">
         <div id="ruio-settings-container" className={getIconStateClass('settings')}>
-          <SettingsIcon onClick={() => togglePanel('settingsModal')} />
+          <SettingsIcon onClick={() => exclusivelyTogglePanel('settingsModal')} />
           {ruioEnabled && (
             <SettingsModal
               isOpen={panelVisibility.settingsModal}
-              onClose={() => togglePanel('settingsModal')}
+              onClose={() => exclusivelyTogglePanel('settingsModal')}
             />
           )}
         </div>
 
         <div id="ruio-element-select-container" className={getIconStateClass('elementSelector')}>
-          <ElementSelectIcon onClick={() => togglePanel('elementSelector')} />
+          <ElementSelectIcon onClick={() => exclusivelyTogglePanel('elementSelector')} />
           {/* TODO: Add inline depth controls panel */}
           {panelVisibility.elementSelector && false && <div>{/* Element selector panel content */}</div>}
         </div>
