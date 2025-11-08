@@ -105,5 +105,15 @@
   "bugs": {
     "url": "https://github.com/gary-rivera/ruio/issues"
   },
-  "homepage": "https://github.com/gary-rivera/ruio#readme"
+  "homepage": "https://github.com/gary-rivera/ruio#readme",
+  "prettier": {
+    "printWidth": 105,
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "endOfLine": "auto"
+  }
 }
