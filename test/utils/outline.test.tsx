@@ -1,7 +1,7 @@
-import { applyOutlineUI, resetPreviouslyAppliedElements, calculateMaxDepth } from '@utils/outline'
+import { applyCommittedOutlines, resetCommittedOutlines, calculateMaxDepth } from '@utils/outline'
 import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
-describe('applyOutlineUI Smoke and Functionality Tests', () => {
+describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
   let element: HTMLElement
   let childElement: HTMLElement
   let originalRequestAnimationFrame: typeof window.requestAnimationFrame
@@ -21,7 +21,7 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
     }
 
     // Reset previously applied elements before each test
-    resetPreviouslyAppliedElements()
+    resetCommittedOutlines()
   })
 
   afterEach(() => {
@@ -34,39 +34,39 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
   // Smoke Tests
   test('runs without errors on valid input', () => {
     expect(() => {
-      applyOutlineUI(element, 2, true, 'roygbiv')
+      applyCommittedOutlines(element, 2, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('handles empty elements without throwing', () => {
     const emptyElement = document.createElement('div')
     expect(() => {
-      applyOutlineUI(emptyElement, 2, true, 'roygbiv')
+      applyCommittedOutlines(emptyElement, 2, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('does not fail on depth 0', () => {
     expect(() => {
-      applyOutlineUI(element, 0, true, 'roygbiv')
+      applyCommittedOutlines(element, 0, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('does not fail when apply is false', () => {
     expect(() => {
-      applyOutlineUI(element, 2, false, 'roygbiv')
+      applyCommittedOutlines(element, 2, false, 'roygbiv')
     }).not.toThrow()
   })
 
   // Functional Tests
   test('applies borders to the element and its children', () => {
-    applyOutlineUI(element, 1, true, 'roygbiv')
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('2px solid #CD001A')
     expect(childElement.style.outline).toBe('2px solid #EF6A00')
   })
 
   test('removes borders when apply is false', () => {
-    applyOutlineUI(element, 1, true, 'roygbiv')
-    applyOutlineUI(element, 1, false, 'roygbiv')
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applyCommittedOutlines(element, 1, false, 'roygbiv')
 
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('')
@@ -76,7 +76,7 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
     const deepChildElement = document.createElement('div')
     childElement.appendChild(deepChildElement)
 
-    applyOutlineUI(element, 1, true, 'roygbiv')
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
 
     expect(element.style.outline).toBe('2px solid #CD001A')
     expect(childElement.style.outline).toBe('2px solid #EF6A00')
@@ -84,10 +84,10 @@ describe('applyOutlineUI Smoke and Functionality Tests', () => {
   })
 
   test('removes border from previously applied elements not in the current list', () => {
-    applyOutlineUI(element, 1, true, 'roygbiv')
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('2px solid #CD001A')
 
-    applyOutlineUI(childElement, 1, true, 'roygbiv')
+    applyCommittedOutlines(childElement, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('2px solid #CD001A')
   })
