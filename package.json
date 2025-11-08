@@ -36,6 +36,7 @@
     "clean": "rm -rf ./dist node_modules && npm install && npx tsc --build --clean",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:usnapshots": "vitest -u",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run",
