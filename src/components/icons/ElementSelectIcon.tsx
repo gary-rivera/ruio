@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import RuioIcon from '@components/icons/RuioIcon'
-import IconProps from '../../types/IconTypes'
+import IconProps from '@root/types/IconTypes'
 import styles from '@root/styles/icons.module.css'
 import ElementSelectSvg from '@assets/svg/ruio-element-select-icon.svg?react'
 

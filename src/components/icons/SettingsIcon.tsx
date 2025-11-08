@@ -1,6 +1,6 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
 import RuioIcon from '@components/icons/RuioIcon'
-import IconProps from '../../types/IconTypes'
+import IconProps from '@root/types/IconTypes'
 import styles from '@root/styles/icons.module.css'
 import SettingsSvg from '@assets/svg/ruio-settings-icon.svg?react'
 

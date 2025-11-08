@@ -1,4 +1,4 @@
-import packageJson from '../../package.json'
+import packageJson from '@root/../package.json'
 
 export interface RuioState {
   ruioEnabled: boolean

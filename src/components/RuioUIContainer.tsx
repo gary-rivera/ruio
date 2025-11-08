@@ -1,12 +1,11 @@
 import React, { forwardRef, useState } from 'react'
-import RuioToggleController from '../controllers/RuioToggleController'
-
+import RuioToggleController from '@controllers/RuioToggleController'
 import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
-import SettingsModal from './settings/SettingsModal'
-
-import styles from './RuioUIContainer.module.css'
+import SettingsModal from '@components/settings/SettingsModal'
 import { useRuioContext } from '@root/context/RuioContextProvider'
+
+import styles from '@components/RuioUIContainer.module.css'
 
 type UIPanelVisibility = { elementSelector: boolean; settingsModal: boolean }
 
