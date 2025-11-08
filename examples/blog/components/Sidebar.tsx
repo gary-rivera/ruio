@@ -118,6 +118,7 @@ const Sidebar: React.FC = () => {
             borderRadius: '4px',
             border: 'none',
             marginBottom: '0.5rem',
+            boxSizing: 'border-box',
           }}
         />
         <button
@@ -132,6 +133,7 @@ const Sidebar: React.FC = () => {
             borderRadius: '4px',
             fontWeight: 'bold',
             cursor: 'pointer',
+            boxSizing: 'border-box',
           }}
         >
           Subscribe

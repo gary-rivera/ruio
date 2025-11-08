@@ -14,9 +14,9 @@ export const ElementSelectionTooltip: React.FC<ElementSelectionTooltipProps> = (
   if (!data) return null
 
   const depthText =
-    data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `max_depth: ${data.depth}`
+    data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `${data.depth}`
 
-  const hasComponentInfo =
+  const componentInfoAvailable =
     data.reactComponentName || data.parentComponentName || data.firstChildComponentName
 
   return (
@@ -28,7 +28,7 @@ export const ElementSelectionTooltip: React.FC<ElementSelectionTooltipProps> = (
       }}
     >
       {/* React Component Info */}
-      {hasComponentInfo && (
+      {componentInfoAvailable && (
         <>
           {data.reactComponentName && (
             <div className={styles.row}>
@@ -78,7 +78,7 @@ export const ElementSelectionTooltip: React.FC<ElementSelectionTooltipProps> = (
 
       {/* Metrics */}
       <div className={styles.row}>
-        <span className={styles.label}>depth:</span>
+        <span className={styles.label}>max_depth:</span>
         <span className={styles.value}>{depthText}</span>
       </div>
       <div className={styles.row}>
