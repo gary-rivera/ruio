@@ -17,6 +17,7 @@ export interface TooltipData {
   selector: string
 
   // Metrics
+  currentDepth: number
   depth: number | 'MAX_DEPTH_EXCEEDED'
   childrenCount: number
   siblingsCount: number
@@ -68,6 +69,7 @@ export const useElementSelection = ({
         const elementInfo = getElementInfo(element)
         setTooltipData({
           ...elementInfo,
+          currentDepth: depth,
           x,
           y,
         })
