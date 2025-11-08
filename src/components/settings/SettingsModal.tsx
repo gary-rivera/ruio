@@ -4,6 +4,7 @@ import SettingsRow from '@components/settings/SettingsRow'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
+import ThemeToggle from '@components/settings/ThemeToggle'
 import { generateGitHubIssueUrl } from '@utils/githubIssue'
 import { clearColorCache } from '@utils/outline'
 import { resetConfig, loadConfig } from '@utils/config'
@@ -27,6 +28,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     currentColorPalette,
     rootElement,
     isElementSelectionModeActive,
+    theme,
+    setTheme,
   } = useRuioContext()
 
   const [tempDepth, setTempDepth] = useState<string>(depth.toString())
@@ -154,7 +157,9 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       <div className={styles.mainContent}>
         <div className={styles.header}>
           <h2 className={styles.title}>Settings</h2>
-          <CloseModalIcon onClick={onClose} />
+          <div className={styles.headerActions}>
+            <CloseModalIcon onClick={onClose} />
+          </div>
         </div>
         <section className={styles.category}>
           <div className={styles.categorySubtitleSection}>
@@ -249,6 +254,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </svg>
           Report an issue
         </span>
+        <ThemeToggle theme={theme} onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
       </footer>
     </div>
   )

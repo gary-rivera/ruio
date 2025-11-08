@@ -1,0 +1,79 @@
+@import url('@root/styles/variables.css');
+
+.toggle {
+  composes: buttonReset from '@root/styles/base.module.css';
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.track {
+  position: relative;
+  width: 2.5rem;
+  height: 1.5rem;
+  border-radius: var(--ruio-radius-pill);
+  transition:
+    background-color var(--ruio-timing-medium) var(--ruio-ease),
+    border-color var(--ruio-timing-medium) var(--ruio-ease);
+}
+
+.trackDark {
+  background-color: var(--ruio-color-bg-medium-alt);
+  border-color: var(--ruio-color-gray-border);
+}
+
+.trackLight {
+  background-color: var(--ruio-color-accent);
+  border-color: var(--ruio-color-accent);
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  transition:
+    left var(--ruio-timing-medium) cubic-bezier(0.4, 0, 0.2, 1),
+    background-color var(--ruio-timing-medium) var(--ruio-ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbDark {
+  left: 0.125rem;
+  background-color: var(--ruio-color-gray-medium);
+}
+
+.thumbLight {
+  left: calc(100% - 1.25rem - 0.125rem);
+  background-color: var(--ruio-color-white);
+}
+
+.icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--ruio-color-text-primary);
+}
+
+.thumbDark .icon {
+  color: var(--ruio-color-white);
+}
+
+.thumbLight .icon {
+  color: var(--ruio-color-text-primary);
+}
+
+.toggle:hover .trackDark {
+  background-color: var(--ruio-color-bg-medium);
+}
+
+.toggle:hover .trackLight {
+  opacity: 0.9;
+}
+
+.toggle:active .thumb {
+  transform: translateY(-50%) scale(0.95);
+}

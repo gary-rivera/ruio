@@ -28,6 +28,9 @@ interface RuioContextProps {
 
   currentColorPalette: string // the key of the current color palette aka theme
   setCurrentColorPalette: React.Dispatch<React.SetStateAction<string>> // setter for the color palette theme
+
+  theme: 'light' | 'dark' // current UI theme
+  setTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>> // setter for the theme
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
@@ -57,6 +60,8 @@ export const RuioContextProvider = ({
   const setDepth = localStorageState.setDepth
   const currentColorPalette = localStorageState.currentColorPalette
   const setCurrentColorPalette = localStorageState.setCurrentColorPalette
+  const theme = localStorageState.theme
+  const setTheme = localStorageState.setTheme
 
   // on mount restore previously selected root element from localStorage or auto-detect
   useEffect(() => {
@@ -143,6 +148,13 @@ export const RuioContextProvider = ({
     onElementSelected: handleRootSelected,
   })
 
+  // apply theme to document root
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-ruio-theme', theme)
+    }
+  }, [theme])
+
   // react when settings or root element change by applying committed outlines
   useEffect(() => {
     if (rootElement) {
@@ -163,6 +175,8 @@ export const RuioContextProvider = ({
       toggleElementSelectionMode: rootSelection.toggle,
       currentColorPalette,
       setCurrentColorPalette,
+      theme,
+      setTheme,
     }),
     [
       localStorageState.ruioEnabled,
@@ -176,6 +190,8 @@ export const RuioContextProvider = ({
       rootSelection.toggle,
       currentColorPalette,
       setCurrentColorPalette,
+      theme,
+      setTheme,
     ],
   )
 
