@@ -39,11 +39,11 @@ function App() {
 
 ### Props
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `children` | `ReactNode` | Yes | - | Your application components |
-| `showInProduction` | `boolean` | No | `false` | Override to show ruio UI in production environments. Useful for demo apps. |
-| `defaultRootSelector` | `string` | No | Auto-detected | CSS selector for the root element to visualize. If not provided, ruio auto-detects common patterns (`#root`, `#app`, `[data-reactroot]`, `body > div:first-child`). Examples: `'#root'`, `'#app'`, `'.main-container'`, `'[data-app-root]'` |
+| Prop                  | Type        | Required | Default       | Description                                                                                                                                                                                                                                 |
+| --------------------- | ----------- | -------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`            | `ReactNode` | Yes      | -             | Your application components                                                                                                                                                                                                                 |
+| `showInProduction`    | `boolean`   | No       | `false`       | Override to show ruio UI in production environments. Useful for demo apps.                                                                                                                                                                  |
+| `defaultRootSelector` | `string`    | No       | Auto-detected | CSS selector for the root element to visualize. If not provided, ruio auto-detects common patterns (`#root`, `#app`, `[data-reactroot]`, `body > div:first-child`). Examples: `'#root'`, `'#app'`, `'.main-container'`, `'[data-app-root]'` |
 
 ### Behavior
 
@@ -92,18 +92,18 @@ function CustomComponent() {
 
 The hook returns an object with the following properties:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `ruioEnabled` | `boolean` | Whether ruio visualization is currently enabled |
-| `setRuioEnabled` | `React.Dispatch<boolean>` | Toggle ruio on/off |
-| `depth` | `number` | Current UI depth for border visualization |
-| `setDepth` | `React.Dispatch<number>` | Set the visualization depth |
-| `rootElement` | `HTMLElement \| null` | Currently selected root element |
-| `isElementSelectionModeActive` | `boolean` | Whether element selection mode is active |
-| `setIsElementSelectionModeActive` | `React.Dispatch<boolean>` | Control element selection mode |
-| `toggleElementSelectionMode` | `() => void` | Toggle element selection mode |
-| `currentColorPalette` | `string` | Current color palette/theme key |
-| `setCurrentColorPalette` | `React.Dispatch<string>` | Change the color palette |
+| Property                          | Type                      | Description                                     |
+| --------------------------------- | ------------------------- | ----------------------------------------------- |
+| `ruioEnabled`                     | `boolean`                 | Whether ruio visualization is currently enabled |
+| `setRuioEnabled`                  | `React.Dispatch<boolean>` | Toggle ruio on/off                              |
+| `depth`                           | `number`                  | Current UI depth for border visualization       |
+| `setDepth`                        | `React.Dispatch<number>`  | Set the visualization depth                     |
+| `rootElement`                     | `HTMLElement \| null`     | Currently selected root element                 |
+| `isElementSelectionModeActive`    | `boolean`                 | Whether element selection mode is active        |
+| `setIsElementSelectionModeActive` | `React.Dispatch<boolean>` | Control element selection mode                  |
+| `toggleElementSelectionMode`      | `() => void`              | Toggle element selection mode                   |
+| `currentColorPalette`             | `string`                  | Current color palette/theme key                 |
+| `setCurrentColorPalette`          | `React.Dispatch<string>`  | Change the color palette                        |
 
 ### Important Notes
 
@@ -168,10 +168,10 @@ ruio checks `process.env.NODE_ENV` and only renders UI controls when the value i
 
 ruio automatically persists certain settings in `localStorage`:
 
-| Key | Value Type | Description |
-|-----|------------|-------------|
-| `ruio_enabled` | `boolean` | Whether ruio is enabled |
-| `ruio_root_selector` | `string` | CSS selector for the root element |
+| Key                  | Value Type | Description                       |
+| -------------------- | ---------- | --------------------------------- |
+| `ruio_enabled`       | `boolean`  | Whether ruio is enabled           |
+| `ruio_root_selector` | `string`   | CSS selector for the root element |
 
 These values are automatically restored on page refresh, providing a seamless developer experience.
 

@@ -2,7 +2,11 @@ import React from 'react'
 
 const Sidebar: React.FC = () => {
   return (
-    <aside id="sidebar" className="sidebar-column widget-area" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <aside
+      id="sidebar"
+      className="sidebar-column widget-area"
+      style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+    >
       {/* Author Card */}
       <div
         id="author-card"
@@ -14,10 +18,16 @@ const Sidebar: React.FC = () => {
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         }}
       >
-        <h3 className="widget-title" style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}>
+        <h3
+          className="widget-title"
+          style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}
+        >
           About the Author
         </h3>
-        <div className="author-info profile" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+        <div
+          className="author-info profile"
+          style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}
+        >
           <div
             className="avatar gradient-bg"
             style={{
@@ -28,13 +38,20 @@ const Sidebar: React.FC = () => {
             }}
           />
           <div className="author-details">
-            <div className="author-name" style={{ fontWeight: 'bold', color: '#1f2937' }}>Jane Developer</div>
-            <div className="author-role" style={{ fontSize: '0.875rem', color: '#6b7280' }}>Senior Engineer</div>
+            <div className="author-name" style={{ fontWeight: 'bold', color: '#1f2937' }}>
+              Jane Developer
+            </div>
+            <div className="author-role" style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+              Senior Engineer
+            </div>
           </div>
         </div>
-        <p className="author-bio" style={{ fontSize: '0.875rem', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>
-          Passionate about React, TypeScript, and developer tooling. Writing about web development
-          for 5+ years.
+        <p
+          className="author-bio"
+          style={{ fontSize: '0.875rem', color: '#4b5563', lineHeight: '1.6', margin: 0 }}
+        >
+          Passionate about React, TypeScript, and developer tooling. Writing about web development for 5+
+          years.
         </p>
       </div>
 
@@ -49,10 +66,23 @@ const Sidebar: React.FC = () => {
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         }}
       >
-        <h3 className="widget-title" style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}>
+        <h3
+          className="widget-title"
+          style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}
+        >
           Related Posts
         </h3>
-        <ul className="post-list" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <ul
+          className="post-list"
+          style={{
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+          }}
+        >
           <li
             className="post-item"
             style={{
@@ -60,10 +90,17 @@ const Sidebar: React.FC = () => {
               borderBottom: '1px solid #e5e7eb',
             }}
           >
-            <a href="#" className="post-link" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+            <a
+              href="#"
+              className="post-link"
+              style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}
+            >
               React Hooks Deep Dive
             </a>
-            <div className="post-date" style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
+            <div
+              className="post-date"
+              style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}
+            >
               Oct 28, 2025
             </div>
           </li>
@@ -74,18 +111,32 @@ const Sidebar: React.FC = () => {
               borderBottom: '1px solid #e5e7eb',
             }}
           >
-            <a href="#" className="post-link" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+            <a
+              href="#"
+              className="post-link"
+              style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}
+            >
               Building Custom Dev Tools
             </a>
-            <div className="post-date" style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
+            <div
+              className="post-date"
+              style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}
+            >
               Oct 15, 2025
             </div>
           </li>
           <li className="post-item">
-            <a href="#" className="post-link" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+            <a
+              href="#"
+              className="post-link"
+              style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}
+            >
               TypeScript Best Practices
             </a>
-            <div className="post-date" style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
+            <div
+              className="post-date"
+              style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}
+            >
               Oct 1, 2025
             </div>
           </li>
@@ -103,8 +154,13 @@ const Sidebar: React.FC = () => {
           color: 'white',
         }}
       >
-        <h3 className="widget-title" style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Stay Updated</h3>
-        <p className="widget-description" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', opacity: 0.9 }}>
+        <h3 className="widget-title" style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>
+          Stay Updated
+        </h3>
+        <p
+          className="widget-description"
+          style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', opacity: 0.9 }}
+        >
           Get the latest posts delivered right to your inbox.
         </p>
         <input

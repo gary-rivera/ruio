@@ -13,8 +13,7 @@ interface ElementSelectionTooltipProps {
 export const ElementSelectionTooltip: React.FC<ElementSelectionTooltipProps> = ({ data }) => {
   if (!data) return null
 
-  const depthText =
-    data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `${data.depth}`
+  const depthText = data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `${data.depth}`
 
   const componentInfoAvailable =
     data.reactComponentName || data.parentComponentName || data.firstChildComponentName

@@ -29,13 +29,8 @@ vi.mock('@controllers/ElementInteractionController', () => ({
 
 // Test component to access context and trigger element selection
 const ElementSelectionTester = () => {
-  const {
-    rootElement,
-    toggleElementSelectionMode,
-    isElementSelectionModeActive,
-    ruioEnabled,
-    depth,
-  } = useRuioContext()
+  const { rootElement, toggleElementSelectionMode, isElementSelectionModeActive, ruioEnabled, depth } =
+    useRuioContext()
 
   return (
     <div>
@@ -192,7 +187,8 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     )
 
     // Track how many times applyCommittedOutlines has been called up to this point
-    const callCountAfterFirstSelection = vi.mocked(outlineModule.applyCommittedOutlines).mock.calls.length
+    const callCountAfterFirstSelection = vi.mocked(outlineModule.applyCommittedOutlines).mock.calls
+      .length
 
     // STEP 3: Manually clear the committedOutlineElements to simulate the bug
     // In a real scenario, this might happen if elements are removed from the DOM

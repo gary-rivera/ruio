@@ -192,7 +192,6 @@ describe('elementInfo utilities', () => {
       const parent = document.createElement('div')
       const child = document.createElement('div')
       parent.appendChild(child)
-
       ;(parent as any).__reactFiber$test = {
         type: function ParentComponent() {},
       }
@@ -246,7 +245,6 @@ describe('elementInfo utilities', () => {
       const parent = document.createElement('div')
       const child = document.createElement('div')
       parent.appendChild(child)
-
       ;(child as any).__reactFiber$test = {
         type: function ChildComponent() {},
       }

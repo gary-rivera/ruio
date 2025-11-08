@@ -30,11 +30,7 @@ describe('Element Selection Tooltip Integration', () => {
   })
 
   const TestApp = ({ children }: { children: React.ReactNode }) => {
-    return (
-      <RuioContextProvider>
-        {children}
-      </RuioContextProvider>
-    )
+    return <RuioContextProvider>{children}</RuioContextProvider>
   }
 
   test('should calculate correct metrics for simple element', async () => {

@@ -28,7 +28,10 @@ const App: React.FC = () => {
             gap: '2rem',
           }}
         >
-          <div className="primary-column" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div
+            className="primary-column"
+            style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+          >
             <BlogPost />
             <CommentsSection />
           </div>
