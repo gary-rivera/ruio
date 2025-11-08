@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, memo } from 'react'
-import styles from './SettingsRow.module.css'
+import styles from '@components/settings/SettingsRow.module.css'
 
 type SettingsRowProps = {
   title: string

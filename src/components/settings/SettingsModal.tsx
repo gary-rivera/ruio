@@ -8,8 +8,8 @@ import { generateGitHubIssueUrl } from '@utils/githubIssue'
 import { clearColorCache } from '@utils/outline'
 import { resetConfig, loadConfig } from '@utils/config'
 
-import styles from './SettingsModal.module.css'
-import rowStyles from './SettingsRow.module.css'
+import styles from '@components/settings/SettingsModal.module.css'
+import rowStyles from '@components/settings/SettingsRow.module.css'
 
 type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string; footer?: ReactNode }
 

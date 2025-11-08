@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { colorPalettesMap } from '@utils/colorPalettes'
 import { useRuioContext } from '@context/RuioContextProvider'
 import CheckmarkIcon from '@components/icons/CheckmarkIcon'
-import styles from './ColorPaletteDropdown.module.css'
+import styles from '@components/settings/ColorPaletteDropdown.module.css'
 
 type ColorPaletteDropdownProps = {
   isOpen: boolean

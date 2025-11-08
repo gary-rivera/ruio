@@ -1,5 +1,5 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import styles from './RuioToggleController.module.css'
+import styles from '@controllers/RuioToggleController.module.css'
 
 type RuioToggleControllerProps = {
   isDimmed?: boolean
