@@ -65,8 +65,6 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
 
         <div id="ruio-element-select-container" className={getIconStateClass('elementSelector')}>
           <ElementSelectIcon onClick={() => exclusivelyTogglePanel('elementSelector')} />
-          {/* TODO: Add inline depth controls panel */}
-          {panelVisibility.elementSelector && false && <div>{/* Element selector panel content */}</div>}
         </div>
       </div>
 

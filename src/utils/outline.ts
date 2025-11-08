@@ -1,4 +1,3 @@
-// sha for original transition from Array to Set: a1808d5fd72213a86fcc827416e4a6c8891cd1db
 import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
 import { generateContrastingColor } from '@utils/colorContrast'
 
@@ -13,8 +12,6 @@ let previewOutlineElements: Set<HTMLElement> = new Set()
 let colorCache: Map<string, string> = new Map()
 let cachedRootElement: HTMLElement | null = null
 let cachedPalette: string | null = null
-
-// TODO: offer a way to toggle between Sets and Array for committedOutlineElements (performance for small vs. large data sets)
 
 // Generate a unique key for caching based on element attributes
 const getElementCacheKey = (el: HTMLElement, depth: number): string => {
@@ -152,7 +149,7 @@ export const clearColorCache = () => {
  * @param depth - Maximum depth to apply outlines
  * @param currentColorPalette - Color palette to use
  */
-export const applyPreviewOutlineUI = (
+export const applyPreviewOutlines = (
   element: HTMLElement,
   depth: number,
   currentColorPalette: string,

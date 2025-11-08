@@ -24,8 +24,6 @@ export const ElementInteractionController = (
     return () => {}
   }
 
-  // TODO: add a tooltip to clarify this element is excluded from border styles or element selection
-
   /**
    * Checks if an element takes up the entire viewport (or nearly all of it).
    * Elements that fill the viewport are typically not useful to inspect.

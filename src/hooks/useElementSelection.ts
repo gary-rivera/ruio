@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { applyPreviewOutlineUI, clearPreviewOutlines } from '@utils/outline'
+import { applyPreviewOutlines, clearPreviewOutlines } from '@utils/outline'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import { debounce } from '@utils/debounce'
 
@@ -37,7 +37,7 @@ export const useElementSelection = ({
     if (ruioEnabled && isActive) {
       // Use preview outlines for hover (doesn't interfere with committed outlines)
       const debouncedPreview = debounce((element: HTMLElement) => {
-        applyPreviewOutlineUI(element, depth, currentColorPalette)
+        applyPreviewOutlines(element, depth, currentColorPalette)
       }, 50)
 
       const debouncedCommit = debounce((element: HTMLElement) => {

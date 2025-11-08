@@ -18,7 +18,6 @@ const FLASH_DURATION_MS = 600
 const MIN_DEPTH = 0
 const APPROACHING_MIN_DEPTH = 1
 
-// TODO: add settings row for border/outline toggle
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const {
     depth,
