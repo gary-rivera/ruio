@@ -14,6 +14,7 @@ The [`/examples`](../examples/) directory contains working demonstrations of rui
 ### Prerequisites
 
 1. Clone the ruio repository:
+
    ```bash
    git clone https://github.com/gary-rivera/ruio.git
    cd ruio
@@ -41,6 +42,7 @@ This will start Vite's dev server and you can explore the examples in your brows
 ### What It Demonstrates
 
 This minimal example shows:
+
 - Basic ruio setup with `RuioContextProvider`
 - Simple component hierarchy
 - How ruio visualizes nested components
@@ -76,13 +78,6 @@ function App() {
 4. Click the crosshair icon to enter selection mode
 5. Click any element to make it the root
 
-### What You'll Learn
-
-- How to wrap your app with `RuioContextProvider`
-- How the toggle button appears in development mode
-- How border colors represent component depth
-- How to use element selection mode
-
 ## Example 2: blog
 
 **Location**: `examples/blog/`
@@ -90,6 +85,7 @@ function App() {
 ### What It Demonstrates
 
 This realistic example shows:
+
 - Complex, nested component structure
 - Real-world layout patterns (header, sidebar, content, footer)
 - Multiple levels of component nesting
@@ -158,13 +154,6 @@ App
    - A single BlogPost
    - The Sidebar
 4. Observe how complex layouts become easier to understand
-
-### What You'll Learn
-
-- How ruio handles complex, nested layouts
-- Debugging deeply nested component structures
-- Using depth-based colors to identify hierarchy
-- Focusing on specific parts of a large component tree
 
 ## Real-World Example
 

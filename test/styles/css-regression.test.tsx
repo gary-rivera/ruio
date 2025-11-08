@@ -30,25 +30,11 @@ const captureComputedStyles = (element: HTMLElement, properties: string[]) => {
   )
 }
 
-const LAYOUT_PROPS = [
-  'display',
-  'position',
-  'flex-direction',
-  'align-items',
-  'justify-content',
-  'gap',
-]
+const LAYOUT_PROPS = ['display', 'position', 'flex-direction', 'align-items', 'justify-content', 'gap']
 
 const SPACING_PROPS = ['padding', 'margin', 'width', 'height']
 
-const VISUAL_PROPS = [
-  'background-color',
-  'color',
-  'border',
-  'border-radius',
-  'box-shadow',
-  'opacity',
-]
+const VISUAL_PROPS = ['background-color', 'color', 'border', 'border-radius', 'box-shadow', 'opacity']
 
 const TYPOGRAPHY_PROPS = ['font-size', 'font-weight', 'line-height', 'font-family']
 
@@ -76,11 +62,7 @@ describe('CSS Regression Tests', () => {
       const uiContainer = container.querySelector('#ruio-exclude') as HTMLElement
       expect(uiContainer).toBeTruthy()
 
-      const styles = captureComputedStyles(uiContainer, [
-        ...LAYOUT_PROPS,
-        ...SPACING_PROPS,
-        'z-index',
-      ])
+      const styles = captureComputedStyles(uiContainer, [...LAYOUT_PROPS, ...SPACING_PROPS, 'z-index'])
       expect(styles).toMatchSnapshot()
     })
 
@@ -126,9 +108,7 @@ describe('CSS Regression Tests', () => {
         </RuioContextProvider>,
       )
 
-      const modalContainer = container.querySelector(
-        '#ruio-settings-modal-container',
-      ) as HTMLElement
+      const modalContainer = container.querySelector('#ruio-settings-modal-container') as HTMLElement
       expect(modalContainer).toBeTruthy()
 
       const styles = captureComputedStyles(modalContainer, [
@@ -191,11 +171,7 @@ describe('CSS Regression Tests', () => {
       const dropdown = container.firstChild as HTMLElement
       expect(dropdown).toBeTruthy()
 
-      const styles = captureComputedStyles(dropdown, [
-        ...LAYOUT_PROPS,
-        ...VISUAL_PROPS,
-        'cursor',
-      ])
+      const styles = captureComputedStyles(dropdown, [...LAYOUT_PROPS, ...VISUAL_PROPS, 'cursor'])
       expect(styles).toMatchSnapshot()
     })
 
@@ -284,10 +260,7 @@ describe('CSS Regression Tests', () => {
         const svg = container.querySelector('svg') as SVGElement
         expect(svg).toBeTruthy()
 
-        const styles = captureComputedStyles(svg as unknown as HTMLElement, [
-          'fill',
-          'border-radius',
-        ])
+        const styles = captureComputedStyles(svg as unknown as HTMLElement, ['fill', 'border-radius'])
         expect(styles).toMatchSnapshot()
       })
     })
@@ -415,10 +388,7 @@ describe('CSS Regression Tests', () => {
         const svg = container.querySelector('svg') as SVGElement
         expect(svg).toBeTruthy()
 
-        const styles = captureComputedStyles(svg as unknown as HTMLElement, [
-          'transform',
-          'transition',
-        ])
+        const styles = captureComputedStyles(svg as unknown as HTMLElement, ['transform', 'transition'])
         expect(styles).toMatchSnapshot()
       })
     })

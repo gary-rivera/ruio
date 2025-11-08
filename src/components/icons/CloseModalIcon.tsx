@@ -10,7 +10,12 @@ type CloseModalIconv2Props = {
 
 function CloseModalIconv2({ onClick }: CloseModalIconv2Props) {
   return (
-    <RuioIcon id="ruio-close-modal-icon" onClick={onClick} buttonClassName={styles.closeButton} pulseEnabled={false}>
+    <RuioIcon
+      id="ruio-close-modal-icon"
+      onClick={onClick}
+      buttonClassName={styles.closeButton}
+      pulseEnabled={false}
+    >
       <CloseSvg className={styles.closeSvg} />
     </RuioIcon>
   )

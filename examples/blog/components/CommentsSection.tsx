@@ -13,7 +13,10 @@ const CommentsSection: React.FC = () => {
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
       }}
     >
-      <h2 className="comments-title section-heading" style={{ margin: '0 0 1.5rem 0', fontSize: '1.5rem', color: '#1f2937' }}>
+      <h2
+        className="comments-title section-heading"
+        style={{ margin: '0 0 1.5rem 0', fontSize: '1.5rem', color: '#1f2937' }}
+      >
         Comments (3)
       </h2>
 
@@ -25,7 +28,7 @@ const CommentsSection: React.FC = () => {
           {
             author: 'Jane Developer',
             date: '1 hour ago',
-            content: "Thanks Alex! Glad you found it helpful. Let me know if you have any questions!",
+            content: 'Thanks Alex! Glad you found it helpful. Let me know if you have any questions!',
           },
         ]}
       />
@@ -44,7 +47,7 @@ const CommentsSection: React.FC = () => {
           {
             author: 'Jane Developer',
             date: '20 hours ago',
-            content: 'Great suggestion! I\'ll add that to my writing queue.',
+            content: "Great suggestion! I'll add that to my writing queue.",
           },
           {
             author: 'Alex Chen',

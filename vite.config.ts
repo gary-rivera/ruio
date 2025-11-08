@@ -5,8 +5,14 @@ import svgr from 'vite-plugin-svgr'
 import checker from 'vite-plugin-checker'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
+const isDevServer = process.env.NODE_ENV !== 'production'
+const exampleName = process.env.EXAMPLE || 'vite-simple'
+const isTesting = process.env.VITEST === 'true'
+
 export default defineConfig({
   plugins: [react(), svgr(), checker({ typescript: true }), cssInjectedByJsPlugin()],
+  // For dev server, use the specified example's HTML as entry point
+  root: isDevServer && !isTesting ? path.resolve(__dirname, `examples/${exampleName}`) : __dirname,
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/components/RuioWrapper.tsx'),

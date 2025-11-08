@@ -7,9 +7,7 @@ You can exclude specific elements and their descendants from ruio's border visua
 ### Basic Usage
 
 ```html
-<div className="ruio-exclude">
-  {/* This content and all descendants will be excluded from ruio */}
-</div>
+<div className="ruio-exclude">{/* This content and all descendants will be excluded from ruio */}</div>
 ```
 
 ### How It Works
@@ -129,6 +127,7 @@ function App() {
 ```
 
 **Use Cases:**
+
 - Demo applications where you want to showcase ruio
 - Staging environments for debugging
 - Production apps where you need to visualize component hierarchy
@@ -243,10 +242,10 @@ ruio automatically persists settings to `localStorage`. You can manually inspect
 
 ### Storage Keys
 
-| Key | Value Type | Description |
-|-----|------------|-------------|
-| `ruio_enabled` | `boolean` | Whether ruio is enabled |
-| `ruio_root_selector` | `string` | CSS selector for the root element |
+| Key                  | Value Type | Description                       |
+| -------------------- | ---------- | --------------------------------- |
+| `ruio_enabled`       | `boolean`  | Whether ruio is enabled           |
+| `ruio_root_selector` | `string`   | CSS selector for the root element |
 
 ### Inspecting Storage
 
@@ -285,6 +284,7 @@ Control how deep ruio crawls the DOM tree:
 ```
 
 Options will include:
+
 - Crawl deeper down the DOM tree
 - Option to crawl up the DOM tree
 - Simultaneously crawl the DOM upwards and downwards

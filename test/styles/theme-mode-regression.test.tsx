@@ -63,9 +63,7 @@ describe('Theme Mode Regression Tests', () => {
           </RuioContextProvider>,
         )
 
-        const modalContainer = container.querySelector(
-          '#ruio-settings-modal-container',
-        ) as HTMLElement
+        const modalContainer = container.querySelector('#ruio-settings-modal-container') as HTMLElement
         expect(modalContainer).toBeTruthy()
 
         const styles = captureComputedStyles(modalContainer, THEME_PROPS)
@@ -98,9 +96,7 @@ describe('Theme Mode Regression Tests', () => {
           </RuioContextProvider>,
         )
 
-        const modalContainer = container.querySelector(
-          '#ruio-settings-modal-container',
-        ) as HTMLElement
+        const modalContainer = container.querySelector('#ruio-settings-modal-container') as HTMLElement
         const styles = captureComputedStyles(modalContainer, ['box-shadow'])
         expect(styles).toMatchSnapshot('dark-mode-modal-shadow')
       })
@@ -230,9 +226,7 @@ describe('Theme Mode Regression Tests', () => {
           </RuioContextProvider>,
         )
 
-        const modalContainer = container.querySelector(
-          '#ruio-settings-modal-container',
-        ) as HTMLElement
+        const modalContainer = container.querySelector('#ruio-settings-modal-container') as HTMLElement
         expect(modalContainer).toBeTruthy()
 
         const styles = captureComputedStyles(modalContainer, THEME_PROPS)
@@ -264,9 +258,7 @@ describe('Theme Mode Regression Tests', () => {
           </RuioContextProvider>,
         )
 
-        const modalContainer = container.querySelector(
-          '#ruio-settings-modal-container',
-        ) as HTMLElement
+        const modalContainer = container.querySelector('#ruio-settings-modal-container') as HTMLElement
         const styles = captureComputedStyles(modalContainer, ['box-shadow'])
         expect(styles).toMatchSnapshot('light-mode-modal-shadow')
 
@@ -321,10 +313,7 @@ describe('Theme Mode Regression Tests', () => {
 
         // Check first path (should have stroke styling)
         const firstPath = paths[0] as SVGPathElement
-        const styles = captureComputedStyles(firstPath as unknown as HTMLElement, [
-          'fill',
-          'stroke',
-        ])
+        const styles = captureComputedStyles(firstPath as unknown as HTMLElement, ['fill', 'stroke'])
         expect(styles).toMatchSnapshot('light-mode-settings-icon-svg-path')
       })
 
@@ -339,10 +328,7 @@ describe('Theme Mode Regression Tests', () => {
         expect(paths.length).toBeGreaterThan(0)
 
         const firstPath = paths[0] as SVGPathElement
-        const styles = captureComputedStyles(firstPath as unknown as HTMLElement, [
-          'fill',
-          'stroke',
-        ])
+        const styles = captureComputedStyles(firstPath as unknown as HTMLElement, ['fill', 'stroke'])
         expect(styles).toMatchSnapshot('light-mode-element-select-icon-svg-path')
       })
     })
@@ -438,9 +424,7 @@ describe('Theme Mode Regression Tests', () => {
         </RuioContextProvider>,
       )
 
-      const lightModal = lightContainer.querySelector(
-        '#ruio-settings-modal-container',
-      ) as HTMLElement
+      const lightModal = lightContainer.querySelector('#ruio-settings-modal-container') as HTMLElement
       expect(lightModal).toBeTruthy()
       const lightBg = window.getComputedStyle(lightModal).backgroundColor
 

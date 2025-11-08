@@ -28,15 +28,11 @@ const Comment: React.FC<CommentProps> = ({ author, date, content, replies }) => 
             }}
           />
           <div>
-            <div style={{ fontWeight: 'bold', fontSize: '0.875rem', color: '#1f2937' }}>
-              {author}
-            </div>
+            <div style={{ fontWeight: 'bold', fontSize: '0.875rem', color: '#1f2937' }}>{author}</div>
             <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>{date}</div>
           </div>
         </div>
-        <p style={{ margin: 0, color: '#374151', fontSize: '0.875rem', lineHeight: '1.6' }}>
-          {content}
-        </p>
+        <p style={{ margin: 0, color: '#374151', fontSize: '0.875rem', lineHeight: '1.6' }}>{content}</p>
         <div style={{ marginTop: '0.75rem', display: 'flex', gap: '1rem' }}>
           <button
             style={{
@@ -69,12 +65,7 @@ const Comment: React.FC<CommentProps> = ({ author, date, content, replies }) => 
       {replies && replies.length > 0 && (
         <div style={{ marginLeft: '2rem', marginTop: '0.75rem' }}>
           {replies.map((reply, index) => (
-            <Comment
-              key={index}
-              author={reply.author}
-              date={reply.date}
-              content={reply.content}
-            />
+            <Comment key={index} author={reply.author} date={reply.date} content={reply.content} />
           ))}
         </div>
       )}
