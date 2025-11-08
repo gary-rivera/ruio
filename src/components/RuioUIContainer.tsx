@@ -79,7 +79,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
       <RuioToggleController isDimmed={isElementSelectionModeActive || panelVisibility.settingsModal} />
 
       {isElementSelectionModeActive && <ElementSelectionTooltip data={tooltipData} />}
-      {!isElementSelectionModeActive && (
+      {!isElementSelectionModeActive && ruioEnabled && (
         <PersistedElementTooltip data={persistedTooltipData} rootElement={rootElement} />
       )}
     </div>
