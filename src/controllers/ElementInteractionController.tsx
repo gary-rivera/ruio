@@ -6,13 +6,15 @@ const DEFAULT_ROOT_ELEMENT = 'root'
  * Attaches hover and click listeners to elements under the specified root element.
  * When an element is hovered or clicked, the provided callback function is executed.
  *
- * @param {function(HTMLElement): void} onHover - The callback function to be invoked when an element is hovered. Adds styling and applys borders
+ * @param {function(HTMLElement, number, number): void} onHover - The callback function to be invoked when an element is hovered. Adds styling and applys borders. Receives element and mouse coordinates.
  * @param {function(HTMLElement): void} onClick - The callback function to be invoked when an element is clicked. Removes styling and borders, cleans up event listeners, and toggles ruioEnabled state to off
+ * @param {function(): void} onMouseOut - Optional callback invoked when mouse leaves an element
  * @returns {function(): void} - A cleanup function that removes all attached event listeners.
  */
 export const ElementInteractionController = (
-  onHover: (element: HTMLElement) => void,
+  onHover: (element: HTMLElement, x: number, y: number) => void,
   onClick: (element: HTMLElement) => void,
+  onMouseOut?: () => void,
 ) => {
   const rootElement = document.querySelector(`#${DEFAULT_ROOT_ELEMENT}`) as HTMLElement
   if (!rootElement) {
@@ -156,15 +158,16 @@ export const ElementInteractionController = (
     const target = event.target as HTMLElement
     if (isValidTarget(target)) {
       applyHoverStyles(target)
-      onHover(target)
+      onHover(target, event.clientX, event.clientY)
     }
   }
 
-  const handleMouseOut = (event: MouseEvent) => {
+  const handleMouseOutInternal = (event: MouseEvent) => {
     const target = event.target as HTMLElement
     if (isValidTarget(target) && target.classList.contains('ruio-hovered')) {
       removeHoverStyles(target)
     }
+    onMouseOut?.()
   }
 
   const handleClick = (event: MouseEvent) => {
@@ -181,12 +184,12 @@ export const ElementInteractionController = (
   }
 
   document.body.addEventListener('mouseover', handleHover)
-  document.body.addEventListener('mouseout', handleMouseOut)
+  document.body.addEventListener('mouseout', handleMouseOutInternal)
   document.body.addEventListener('click', handleClick)
 
   const cleanup = () => {
     document.body.removeEventListener('mouseover', handleHover)
-    document.body.removeEventListener('mouseout', handleMouseOut)
+    document.body.removeEventListener('mouseout', handleMouseOutInternal)
     document.body.removeEventListener('click', handleClick)
   }
 

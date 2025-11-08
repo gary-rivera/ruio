@@ -10,11 +10,15 @@ const App: React.FC = () => {
   return (
     <RuioWrapper>
       <div
+        id="app-container"
+        className="blog-layout"
         style={{ fontFamily: 'Inter, system-ui, sans-serif', minHeight: '100vh', background: '#f9fafb' }}
       >
         <Header />
 
         <main
+          id="main-content"
+          className="content-grid"
           style={{
             maxWidth: '1200px',
             margin: '0 auto',
@@ -24,7 +28,7 @@ const App: React.FC = () => {
             gap: '2rem',
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div className="primary-column" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <BlogPost />
             <CommentsSection />
           </div>

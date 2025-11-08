@@ -10,7 +10,7 @@ import React, {
 } from 'react'
 import { applyCommittedOutlines, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
-import { useElementSelection } from '@hooks/useElementSelection'
+import { useElementSelection, TooltipData } from '@hooks/useElementSelection'
 
 interface RuioContextProps {
   ruioEnabled: boolean // are ruio related state +/- interactions enabled
@@ -31,6 +31,8 @@ interface RuioContextProps {
 
   theme: 'light' | 'dark' // current UI theme
   setTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>> // setter for the theme
+
+  tooltipData: TooltipData | null // tooltip data for element selection mode
 }
 
 const RuioContext = createContext<RuioContextProps | undefined>(undefined)
@@ -177,6 +179,7 @@ export const RuioContextProvider = ({
       setCurrentColorPalette,
       theme,
       setTheme,
+      tooltipData: rootSelection.tooltipData,
     }),
     [
       localStorageState.ruioEnabled,
@@ -192,6 +195,7 @@ export const RuioContextProvider = ({
       setCurrentColorPalette,
       theme,
       setTheme,
+      rootSelection.tooltipData,
     ],
   )
 
