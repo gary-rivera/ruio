@@ -42,7 +42,7 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
       <div
         className={`${styles.menu} ${isOpen ? styles.menuOpen : ''}`}
         ref={dropdownRef}
-        // onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleMouseLeave}
       >
         {Object.entries(colorPalettesMap).map(([paletteKey, colors], index) => {
           const itemIsCurrentTheme = paletteKey === currentColorPalette
