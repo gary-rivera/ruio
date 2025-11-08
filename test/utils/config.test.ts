@@ -134,6 +134,7 @@ describe('config', () => {
         depth: 3,
         currentColorPalette: 'dynamic',
         rootElementSelector: '#root',
+        theme: 'dark',
       })
     })
 
@@ -147,6 +148,7 @@ describe('config', () => {
         depth: 3,
         currentColorPalette: 'neon',
         rootElementSelector: '#root',
+        theme: 'dark',
       })
     })
   })
