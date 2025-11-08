@@ -9,6 +9,7 @@
 
   /* Background colors */
   --ruio-color-bg-dark: #1c2120;
+  --ruio-color-bg-dark-alt: #1c2120;
   --ruio-color-bg-medium: #3c3f3e;
   --ruio-color-bg-medium-alt: #383b3a;
   --ruio-color-bg-modal: #323635;
@@ -22,6 +23,7 @@
   /* Text colors */
   --ruio-color-text-primary: #ffffff;
   --ruio-color-text-secondary: #9ca3af;
+  --ruio-color-text-highlight: #06e5d5;
 
   /* Brand/accent colors */
   --ruio-color-accent: #06e5d5;
@@ -85,7 +87,8 @@
    ============================================ */
 :root[data-ruio-theme='light'] {
   /* Background colors */
-  --ruio-color-bg-dark: #dae5f1;
+  --ruio-color-bg-dark: #1c2120;
+  --ruio-color-bg-dark-alt: #d1d5db;
   --ruio-color-bg-medium: #f0f2f5;
   --ruio-color-bg-medium-alt: #f5f7fa;
   --ruio-color-bg-modal: #ffffff;
@@ -99,10 +102,11 @@
   /* Text colors */
   --ruio-color-text-primary: #1f2937;
   --ruio-color-text-secondary: #6b7280;
+  --ruio-color-text-highlight: #3c3f3e;
 
   /* Brand/accent colors - keep vibrant */
-  --ruio-color-accent: #05ccbe;
-  --ruio-color-light: #4b5563;
+  --ruio-color-accent: #06e5d5;
+  --ruio-color-light: #eaf8ef;
 
   /* Shadows - lighter for light mode */
   --ruio-box-shadow-modal: rgba(0, 0, 0, 0.25) 0px 20px 30px -10px;

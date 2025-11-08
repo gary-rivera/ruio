@@ -196,7 +196,7 @@
 .modalFooter {
   height: 50%;
   max-height: 3rem;
-  background-color: var(--ruio-color-bg-dark);
+  background-color: var(--ruio-color-bg-dark-alt);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -218,7 +218,7 @@
 }
 
 .reportIssue:hover {
-  color: var(--ruio-color-accent);
+  color: var(--ruio-color-text-highlight);
   /* color: #2a9d8f; */
 }
 
