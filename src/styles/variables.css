@@ -139,3 +139,34 @@
   --ruio-tooltip-value: #1f2937;
   --ruio-tooltip-divider: rgba(0, 0, 0, 0.1);
 }
+
+/* ============================================
+   LIGHT MODE THEME
+   ============================================ */
+:root[data-ruio-theme='light'] {
+  /* Background colors */
+  --ruio-color-bg-dark: #1c2120;
+  --ruio-color-bg-dark-alt: #d1d5db;
+  --ruio-color-bg-medium: #f0f2f5;
+  --ruio-color-bg-medium-alt: #f5f7fa;
+  --ruio-color-bg-modal: #ffffff;
+
+  /* Gray scale */
+  --ruio-color-gray-medium: #d1d5db;
+  --ruio-color-gray-border: #d1d5db;
+  --ruio-color-gray-light: #6b7280;
+  --ruio-color-gray-disabled: #9ca3af;
+
+  /* Text colors */
+  --ruio-color-text-primary: #1f2937;
+  --ruio-color-text-secondary: #6b7280;
+  --ruio-color-text-highlight: #3c3f3e;
+
+  /* Brand/accent colors - keep vibrant */
+  --ruio-color-accent: #06e5d5;
+  --ruio-color-light: #eaf8ef;
+
+  /* Shadows - lighter for light mode */
+  --ruio-box-shadow-modal: rgba(0, 0, 0, 0.25) 0px 20px 30px -10px;
+  --ruio-box-shadow-button: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+}

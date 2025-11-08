@@ -183,6 +183,36 @@ BASE BUTTON STYLES (used by most icons)
 
 :root[data-ruio-theme='light'] .iconButton {
   background-color: var(--ruio-color-accent);
+  border: 1px solid var(--ruio-color-text-primary);
+}
+
+/* Settings icon light mode */
+:root[data-ruio-theme='light'] .iconSvg :global(.svg-outline) {
+  fill: var(--ruio-color-accent);
+  stroke: var(--ruio-color-text-primary);
+}
+
+:root[data-ruio-theme='light'] .iconSvg :global(.svg-bar-bg) {
+  stroke: var(--ruio-color-text-primary);
+}
+
+:root[data-ruio-theme='light'] .iconSvg :global(.svg-dial) {
+  fill: var(--ruio-color-white);
+  stroke: var(--ruio-color-text-primary);
+}
+
+/* Element select icon light mode */
+:root[data-ruio-theme='light'] .iconSvg :global(.svg-mouse-pointer) {
+  fill: var(--ruio-color-white);
+  stroke: var(--ruio-color-text-primary);
+}
+
+/* ============================================
+   LIGHT MODE OVERRIDES
+   ============================================ */
+
+:root[data-ruio-theme='light'] .iconButton {
+  background-color: var(--ruio-color-accent);
 }
 
 /* Settings icon light mode */
