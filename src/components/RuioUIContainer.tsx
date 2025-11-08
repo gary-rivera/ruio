@@ -3,6 +3,7 @@ import RuioToggleController from '@controllers/RuioToggleController'
 import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
 import SettingsModal from '@components/settings/SettingsModal'
+import { ElementSelectionTooltip } from '@components/ElementSelectionTooltip'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import styles from '@components/RuioUIContainer.module.css'
@@ -10,7 +11,8 @@ import styles from '@components/RuioUIContainer.module.css'
 type UIPanelVisibility = { elementSelector: boolean; settingsModal: boolean }
 
 function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
-  const { ruioEnabled, isElementSelectionModeActive, setIsElementSelectionModeActive } = useRuioContext()
+  const { ruioEnabled, isElementSelectionModeActive, setIsElementSelectionModeActive, tooltipData } =
+    useRuioContext()
 
   const [panelVisibility, setPanelVisibility] = useState<UIPanelVisibility>({
     elementSelector: false,
@@ -68,6 +70,8 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
       </div>
 
       <RuioToggleController isDimmed={isElementSelectionModeActive || panelVisibility.settingsModal} />
+
+      {isElementSelectionModeActive && <ElementSelectionTooltip data={tooltipData} />}
     </div>
   )
 }

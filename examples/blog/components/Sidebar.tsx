@@ -2,9 +2,11 @@ import React from 'react'
 
 const Sidebar: React.FC = () => {
   return (
-    <aside style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <aside id="sidebar" className="sidebar-column widget-area" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Author Card */}
       <div
+        id="author-card"
+        className="widget author-widget card"
         style={{
           background: 'white',
           padding: '1.5rem',
@@ -12,11 +14,12 @@ const Sidebar: React.FC = () => {
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         }}
       >
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}>
+        <h3 className="widget-title" style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}>
           About the Author
         </h3>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+        <div className="author-info profile" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
           <div
+            className="avatar gradient-bg"
             style={{
               width: '60px',
               height: '60px',
@@ -24,12 +27,12 @@ const Sidebar: React.FC = () => {
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             }}
           />
-          <div>
-            <div style={{ fontWeight: 'bold', color: '#1f2937' }}>Jane Developer</div>
-            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>Senior Engineer</div>
+          <div className="author-details">
+            <div className="author-name" style={{ fontWeight: 'bold', color: '#1f2937' }}>Jane Developer</div>
+            <div className="author-role" style={{ fontSize: '0.875rem', color: '#6b7280' }}>Senior Engineer</div>
           </div>
         </div>
-        <p style={{ fontSize: '0.875rem', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>
+        <p className="author-bio" style={{ fontSize: '0.875rem', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>
           Passionate about React, TypeScript, and developer tooling. Writing about web development
           for 5+ years.
         </p>
@@ -37,6 +40,8 @@ const Sidebar: React.FC = () => {
 
       {/* Related Posts */}
       <div
+        id="related-posts"
+        className="widget related-posts-widget card"
         style={{
           background: 'white',
           padding: '1.5rem',
@@ -44,41 +49,43 @@ const Sidebar: React.FC = () => {
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         }}
       >
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}>
+        <h3 className="widget-title" style={{ margin: '0 0 1rem 0', fontSize: '1.125rem', color: '#1f2937' }}>
           Related Posts
         </h3>
-        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <ul className="post-list" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <li
+            className="post-item"
             style={{
               paddingBottom: '1rem',
               borderBottom: '1px solid #e5e7eb',
             }}
           >
-            <a href="#" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+            <a href="#" className="post-link" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
               React Hooks Deep Dive
             </a>
-            <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
+            <div className="post-date" style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
               Oct 28, 2025
             </div>
           </li>
           <li
+            className="post-item"
             style={{
               paddingBottom: '1rem',
               borderBottom: '1px solid #e5e7eb',
             }}
           >
-            <a href="#" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+            <a href="#" className="post-link" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
               Building Custom Dev Tools
             </a>
-            <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
+            <div className="post-date" style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
               Oct 15, 2025
             </div>
           </li>
-          <li>
-            <a href="#" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
+          <li className="post-item">
+            <a href="#" className="post-link" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '500' }}>
               TypeScript Best Practices
             </a>
-            <div style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
+            <div className="post-date" style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>
               Oct 1, 2025
             </div>
           </li>
@@ -87,7 +94,8 @@ const Sidebar: React.FC = () => {
 
       {/* Newsletter Signup */}
       <div
-        className="ruio-exclude"
+        id="newsletter-widget"
+        className="ruio-exclude widget newsletter-widget gradient-bg"
         style={{
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           padding: '1.5rem',
@@ -95,11 +103,13 @@ const Sidebar: React.FC = () => {
           color: 'white',
         }}
       >
-        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Stay Updated</h3>
-        <p style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', opacity: 0.9 }}>
+        <h3 className="widget-title" style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Stay Updated</h3>
+        <p className="widget-description" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', opacity: 0.9 }}>
           Get the latest posts delivered right to your inbox.
         </p>
         <input
+          id="email-input"
+          className="email-field input-field"
           type="email"
           placeholder="your@email.com"
           style={{
@@ -108,9 +118,12 @@ const Sidebar: React.FC = () => {
             borderRadius: '4px',
             border: 'none',
             marginBottom: '0.5rem',
+            boxSizing: 'border-box',
           }}
         />
         <button
+          id="subscribe-btn"
+          className="submit-button cta-button"
           style={{
             width: '100%',
             padding: '0.5rem',
@@ -120,6 +133,7 @@ const Sidebar: React.FC = () => {
             borderRadius: '4px',
             fontWeight: 'bold',
             cursor: 'pointer',
+            boxSizing: 'border-box',
           }}
         >
           Subscribe

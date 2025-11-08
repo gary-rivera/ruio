@@ -57,7 +57,7 @@ describe('ElementInteractionController', () => {
     })
     childElement.dispatchEvent(hoverEvent)
 
-    expect(mockHoverCallback).toHaveBeenCalledWith(childElement)
+    expect(mockHoverCallback).toHaveBeenCalledWith(childElement, 0, 0)
     expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
   })
 

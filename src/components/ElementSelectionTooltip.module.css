@@ -1,0 +1,42 @@
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999999;
+  background: var(--ruio-tooltip-bg);
+  border: 1px solid var(--ruio-tooltip-border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ruio-tooltip-text);
+  box-shadow: var(--ruio-tooltip-shadow);
+  transform: translate(12px, 12px);
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  color: var(--ruio-tooltip-label);
+  font-weight: 500;
+}
+
+.value {
+  color: var(--ruio-tooltip-value);
+  font-weight: 400;
+}
+
+.divider {
+  height: 1px;
+  background: var(--ruio-tooltip-divider);
+  margin: 6px 0;
+}

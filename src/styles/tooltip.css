@@ -1,0 +1,72 @@
+/**
+ * Shared Tooltip Styles
+ *
+ * These CSS classes can be used by any tooltip component across the application.
+ * All tooltips will automatically support both light and dark themes via CSS variables
+ * defined in variables.css
+ *
+ * Usage:
+ * <div class="ruio-tooltip">
+ *   <div class="ruio-tooltip-row">
+ *     <span class="ruio-tooltip-label">label:</span>
+ *     <span class="ruio-tooltip-value">value</span>
+ *   </div>
+ * </div>
+ */
+
+.ruio-tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999999;
+  background: var(--ruio-tooltip-bg);
+  border: 1px solid var(--ruio-tooltip-border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ruio-tooltip-text);
+  box-shadow: var(--ruio-tooltip-shadow);
+  white-space: nowrap;
+}
+
+.ruio-tooltip-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.ruio-tooltip-row:last-child {
+  margin-bottom: 0;
+}
+
+.ruio-tooltip-label {
+  color: var(--ruio-tooltip-label);
+  font-weight: 500;
+}
+
+.ruio-tooltip-value {
+  color: var(--ruio-tooltip-value);
+  font-weight: 400;
+}
+
+.ruio-tooltip-divider {
+  height: 1px;
+  background: var(--ruio-tooltip-divider);
+  margin: 6px 0;
+}
+
+/* Modifier: Inline tooltip (follows cursor) */
+.ruio-tooltip--inline {
+  transform: translate(12px, 12px);
+}
+
+/* Modifier: Static positioned tooltip */
+.ruio-tooltip--static {
+  position: absolute;
+}
+
+/* Modifier: Compact padding */
+.ruio-tooltip--compact {
+  padding: 6px 10px;
+}

@@ -4,6 +4,8 @@ import Comment from './Comment'
 const CommentsSection: React.FC = () => {
   return (
     <section
+      id="comments-section"
+      className="comments-wrapper card"
       style={{
         background: 'white',
         padding: '2rem',
@@ -11,7 +13,7 @@ const CommentsSection: React.FC = () => {
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
       }}
     >
-      <h2 style={{ margin: '0 0 1.5rem 0', fontSize: '1.5rem', color: '#1f2937' }}>
+      <h2 className="comments-title section-heading" style={{ margin: '0 0 1.5rem 0', fontSize: '1.5rem', color: '#1f2937' }}>
         Comments (3)
       </h2>
 

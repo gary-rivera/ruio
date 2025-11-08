@@ -69,7 +69,7 @@ BASE BUTTON STYLES (used by most icons)
 .closeSvg {
   max-width: 0.85rem;
   max-height: 0.85rem;
-  stroke: var(--ruio-color-light);
+  stroke: var(--ruio-color-accent);
 }
 
 /* ============================================
@@ -168,7 +168,7 @@ BASE BUTTON STYLES (used by most icons)
 
 /* Close modal icon SVG styling */
 .closeSvg path {
-  stroke: var(--ruio-color-light);
+  stroke: var(--ruio-color-svg-stroke);
 }
 
 /* Checkmark icon SVG styling */
@@ -183,7 +183,6 @@ BASE BUTTON STYLES (used by most icons)
 
 :root[data-ruio-theme='light'] .iconButton {
   background-color: var(--ruio-color-accent);
-  border: 1px solid var(--ruio-color-text-primary);
 }
 
 /* Settings icon light mode */
