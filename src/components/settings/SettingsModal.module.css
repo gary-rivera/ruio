@@ -10,14 +10,14 @@
   background-color: var(--ruio-color-bg-modal);
 
   color: white;
-  width: 20rem;
-  height: 14rem;
-  border-radius: calc(20rem * 0.03125);
+  width: 22rem;
+  height: 15.4rem;
+  border-radius: calc(22rem * 0.03125);
 
   padding: 1rem 2rem;
-  font-size: 1rem;
+  font-size: 16px;
 
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  box-shadow: var(--ruio-box-shadow-modal);
 
   opacity: 0;
   transform: translateY(20%);
@@ -84,7 +84,14 @@
 /* Depth input dynamic color states */
 .depthInputDefault {
   color: inherit;
+  border-radius: var(--ruio-radius-md);
+  outline-offset: -2px;
+
   transition: color var(--ruio-timing-medium) var(--ruio-ease);
+}
+
+.depthInputDefault:focus {
+  outline: 0.01rem solid var(--ruio-color-accent);
 }
 
 .depthInputWarning {
@@ -95,6 +102,72 @@
 .depthInputError {
   color: var(--ruio-color-error);
   transition: color var(--ruio-timing-medium) var(--ruio-ease);
+}
+
+/* Action Buttons Section */
+.actionButtonsSection {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  /* border-top: 0.1rem solid var(--ruio-color-gray-border); */
+}
+
+.actionButton {
+  composes: buttonReset from '@root/styles/base.module.css';
+  background-color: var(--ruio-color-bg-medium-alt);
+
+  box-shadow: var(--ruio-box-shadow-button);
+  color: var(--ruio-color-gray-light);
+
+  border-radius: var(--ruio-radius-md);
+
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background-color var(--ruio-timing-fast) var(--ruio-ease),
+    color var(--ruio-timing-fast) var(--ruio-ease),
+    border-color var(--ruio-timing-fast) var(--ruio-ease),
+    opacity var(--ruio-timing-fast) var(--ruio-ease);
+  font-weight: 400;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 7.5rem;
+}
+
+.actionButton:hover:not(:disabled) {
+  background-color: var(--ruio-color-gray-medium);
+  color: var(--ruio-color-white);
+  outline: 0.5px solid var(--ruio-color-accent);
+}
+
+.actionButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.actionButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid var(--ruio-color-gray-border);
+  border-top-color: var(--ruio-color-accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Commented out section styles (for future opacity control) */

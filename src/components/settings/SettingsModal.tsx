@@ -5,6 +5,8 @@ import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
 import { generateGitHubIssueUrl } from '@utils/githubIssue'
+import { clearDynamicColorCache } from '@utils/outline'
+import { resetConfig, loadConfig } from '@utils/config'
 
 import styles from './SettingsModal.module.css'
 import rowStyles from './SettingsRow.module.css'
@@ -17,7 +19,6 @@ const MIN_DEPTH = 0
 const APPROACHING_MIN_DEPTH = 1
 
 // TODO: add settings row for border/outline toggle
-// TODO: add settings row to clear local storage
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const {
     depth,
@@ -33,11 +34,19 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [themeDropdownIsOpen, setThemeDropdownIsOpen] = useState<boolean>(false)
   const [showLimitFlash, setShowLimitFlash] = useState<boolean>(false)
   const [showWarningFlash, setShowWarningFlash] = useState<boolean>(false)
+  const [isClearingCache, setIsClearingCache] = useState<boolean>(false)
+  const [hasCachedData, setHasCachedData] = useState<boolean>(false)
 
   // keep user input depth in sync with actual depth
   useEffect(() => {
     setTempDepth(depth.toString())
   }, [depth])
+
+  // Check if there's cached data in localStorage
+  useEffect(() => {
+    const config = loadConfig()
+    setHasCachedData(config !== null)
+  }, [isOpen]) // Re-check when modal opens
 
   const clampDepthToValidRange = (value: number): number => {
     return Math.max(MIN_DEPTH, Math.min(value, maxDepth))
@@ -112,6 +121,30 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       isElementSelectionModeActive,
     })
     window.open(issueUrl, '_blank', 'noopener,noreferrer')
+  }
+
+  async function handleClearCache(): Promise<void> {
+    setIsClearingCache(true)
+
+    // Simulate async operation for smooth UX (minimum 500ms for spinner visibility)
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
+    try {
+      // Clear localStorage config
+      resetConfig()
+
+      // Clear dynamic color cache
+      clearDynamicColorCache()
+
+      // Update state to reflect no cached data
+      setHasCachedData(false)
+
+      // Reload the page to reset the app state
+      window.location.reload()
+    } catch (error) {
+      console.error('Failed to clear cache:', error)
+      setIsClearingCache(false)
+    }
   }
 
   return (
@@ -197,7 +230,27 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             }
           /> */}
         </section>
+
+        {/* Action Buttons Section */}
+        <section className={styles.actionButtonsSection}>
+          <button
+            className={styles.actionButton}
+            onClick={handleClearCache}
+            disabled={!hasCachedData || isClearingCache}
+            title={
+              !hasCachedData
+                ? 'No cached data to clear'
+                : 'Clear all cached settings. This will close the modal.'
+            }
+          >
+            {isClearingCache && <span className={styles.spinner}></span>}
+            <span>{isClearingCache ? 'Clearing...' : 'Clear cache'}</span>
+          </button>
+        </section>
       </div>
+      {/* TODO: add copy component path of current root */}
+      {/* TODO: add Highlight updates to component metrics */}
+      {/* TODO: render current keyboard shortcuts */}
 
       <footer className={styles.modalFooter}>
         <span className={styles.reportIssue} onClick={handleReportIssue}>
