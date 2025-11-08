@@ -25,6 +25,9 @@
   --ruio-color-text-secondary: #9ca3af;
   --ruio-color-text-highlight: #06e5d5;
 
+  /* Misc. */
+  --ruio-color-svg-stroke: #eaf8ef;
+
   /* Brand/accent colors */
   --ruio-color-accent: #06e5d5;
   --ruio-color-light: #eaf8ef;
@@ -80,6 +83,17 @@
   ============================================ */
   --ruio-box-shadow-modal: rgba(38, 57, 77, 1) 0px 20px 30px -10px;
   --ruio-box-shadow-button: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  /* ============================================
+     TOOLTIP - Shared styles for all tooltips
+     ============================================ */
+  --ruio-tooltip-bg: rgba(20, 20, 20, 0.95);
+  --ruio-tooltip-border: rgba(255, 255, 255, 0.2);
+  --ruio-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --ruio-tooltip-text: #ffffff;
+  --ruio-tooltip-label: #9ca3af;
+  --ruio-tooltip-value: #ffffff;
+  --ruio-tooltip-divider: rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
@@ -98,6 +112,7 @@
   --ruio-color-gray-border: #d1d5db;
   --ruio-color-gray-light: #6b7280;
   --ruio-color-gray-disabled: #9ca3af;
+  --ruio-color-gray-unfocused: #d1d5db;
 
   /* Text colors */
   --ruio-color-text-primary: #1f2937;
@@ -108,7 +123,19 @@
   --ruio-color-accent: #06e5d5;
   --ruio-color-light: #eaf8ef;
 
+  /* Misc. */
+  --ruio-color-svg-stroke: #6b7280;
+
   /* Shadows - lighter for light mode */
   --ruio-box-shadow-modal: rgba(0, 0, 0, 0.25) 0px 20px 30px -10px;
   --ruio-box-shadow-button: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+
+  /* Tooltip - Light mode overrides */
+  --ruio-tooltip-bg: rgba(255, 255, 255, 0.98);
+  --ruio-tooltip-border: rgba(0, 0, 0, 0.15);
+  --ruio-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --ruio-tooltip-text: #1f2937;
+  --ruio-tooltip-label: #6b7280;
+  --ruio-tooltip-value: #1f2937;
+  --ruio-tooltip-divider: rgba(0, 0, 0, 0.1);
 }

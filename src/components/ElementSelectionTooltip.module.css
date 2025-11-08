@@ -2,15 +2,15 @@
   position: fixed;
   pointer-events: none;
   z-index: 999999;
-  background: rgba(20, 20, 20, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--ruio-tooltip-bg);
+  border: 1px solid var(--ruio-tooltip-border);
   border-radius: 4px;
   padding: 8px 12px;
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 11px;
   line-height: 1.5;
-  color: #e0e0e0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  color: var(--ruio-tooltip-text);
+  box-shadow: var(--ruio-tooltip-shadow);
   transform: translate(12px, 12px);
   white-space: nowrap;
 }
@@ -26,17 +26,17 @@
 }
 
 .label {
-  color: #888;
+  color: var(--ruio-tooltip-label);
   font-weight: 500;
 }
 
 .value {
-  color: #c9d1d9;
+  color: var(--ruio-tooltip-value);
   font-weight: 400;
 }
 
 .divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--ruio-tooltip-divider);
   margin: 6px 0;
 }
