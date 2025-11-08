@@ -49,50 +49,86 @@ export const ElementInteractionController = (
     return targetIsDescendantOfRoot && !targetIsDescendantOfRuio && !targetFillsViewport
   }
 
-  const originalStyles = new Map<HTMLElement, string>()
+  const originalStyles = new Map<HTMLElement, Map<string, string>>()
+
+  /**
+   * Parses inline style string into a Map of property-value pairs.
+   *
+   * @param {string} styleString - The inline style string to parse.
+   * @returns {Map<string, string>} - Map of CSS property to value.
+   */
+  const parseStyleString = (styleString: string): Map<string, string> => {
+    const styleMap = new Map<string, string>()
+    if (!styleString) return styleMap
+
+    const declarations = styleString.split(';').filter(Boolean)
+    declarations.forEach((declaration) => {
+      const colonIndex = declaration.indexOf(':')
+      if (colonIndex > 0) {
+        const property = declaration.slice(0, colonIndex).trim()
+        const value = declaration.slice(colonIndex + 1).trim()
+        if (property && value) {
+          styleMap.set(property, value)
+        }
+      }
+    })
+
+    return styleMap
+  }
 
   /**
    * Saves the element's current inline styles before applying new hover styles.
+   * Stores styles as a Map for efficient property-level operations.
    *
    * @param {HTMLElement} target - The element to apply hover styles to.
    */
   const saveOriginalStyles = (target: HTMLElement) => {
     if (!target.classList.contains('ruio-hovered')) {
-      originalStyles.set(target, target.getAttribute('style') || '')
+      const styleString = target.getAttribute('style') || ''
+      const styleMap = parseStyleString(styleString)
+      originalStyles.set(target, styleMap)
       target.classList.add('ruio-hovered')
     }
   }
 
   /**
+   * Converts a Map of style properties to an inline style string.
+   *
+   * @param {Map<string, string>} styleMap - Map of CSS property to value.
+   * @returns {string} - Inline style string.
+   */
+  const styleMapToString = (styleMap: Map<string, string>): string => {
+    const styles: string[] = []
+    styleMap.forEach((value, property) => {
+      styles.push(`${property}: ${value}`)
+    })
+    return styles.join('; ')
+  }
+
+  /**
    * Restores the original inline styles to the element.
+   * Uses Map-based storage for O(1) property filtering instead of O(n) string parsing.
    *
    * @param {HTMLElement} target - The element whose styles should be restored.
+   * @param {string[]} [stylesToFilterOut] - Optional array of CSS property names to exclude from restoration.
    */
-
-  // TODO: we need to ensure the ElemntInteractionController is updated to handle this case
-  // requires being more restrictive in the hover and click event listeners, namely our logic behind storing element styles in the originalStyles map section
-  // TODO: make style properties exist on a key'value schema so instant lookup for filtering can occur instead of iterative filtering
   const restoreOriginalStyles = (target: HTMLElement, stylesToFilterOut?: string[]) => {
-    const originalStyle = originalStyles.get(target)
+    const originalStyleMap = originalStyles.get(target)
 
-    if (originalStyle) {
-      // Split the style string into individual declarations
-      let updatedStyles = originalStyle
+    if (originalStyleMap) {
+      // Create a new Map with filtered properties (instant O(1) lookup)
+      const filteredStyleMap = new Map(originalStyleMap)
 
       if (stylesToFilterOut && stylesToFilterOut.length) {
-        const stylesArray = updatedStyles.split(';').filter(Boolean)
-
-        updatedStyles = stylesArray
-          .filter((style) => {
-            const [property] = style.split(':').map((s) => s.trim())
-            return !stylesToFilterOut.includes(property)
-          })
-          .join('; ')
+        stylesToFilterOut.forEach((property) => {
+          filteredStyleMap.delete(property)
+        })
       }
 
       // Apply the filtered styles or remove the style attribute if empty
-      if (updatedStyles.trim()) {
-        target.setAttribute('style', updatedStyles)
+      if (filteredStyleMap.size > 0) {
+        const styleString = styleMapToString(filteredStyleMap)
+        target.setAttribute('style', styleString)
       } else {
         target.removeAttribute('style')
       }
