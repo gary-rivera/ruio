@@ -103,35 +103,99 @@ describe('ElementInteractionController', () => {
   /**
    * Edge Case Tests
    */
-  // TODO: before implementing this test, we need to ensure the ElemntInteractionController is updated to handle this case
-  // requires being more restrictive in the hover and click event listeners, namely our logic behind storing element styles in the originalStyles map section
-  // test('restores element styles to their original state after selection mode is triggered', () => {
-  //   const hoverEvent = new MouseEvent('mouseover', {
-  //     bubbles: true,
-  //   })
-  //   const clickEvent = new MouseEvent('click', {
-  //     bubbles: true,
-  //   })
+  test('restores element styles to their original state after selection mode is triggered', () => {
+    const hoverEvent = new MouseEvent('mouseover', {
+      bubbles: true,
+    })
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+    })
 
-  //   // Dispatch hover event before click
-  //   childElement.dispatchEvent(hoverEvent)
-  //   expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
+    // Verify initial background color is white (set in beforeEach)
+    expect(childElement.style.backgroundColor).toBe('white')
 
-  //   // Dispatch click event to trigger selection mode and reset styles
-  //   childElement.dispatchEvent(clickEvent)
-  //   expect(childElement.style.backgroundColor).toBe('')
+    // Dispatch hover event before click
+    childElement.dispatchEvent(hoverEvent)
+    expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
 
-  //   // Ensure cleanup is called (listeners are removed)
-  //   if (cleanup) cleanup()
+    // Dispatch click event to trigger selection mode and reset styles
+    childElement.dispatchEvent(clickEvent)
+    // After click, the original background color should be restored
+    expect(childElement.style.backgroundColor).toBe('white')
 
-  //   // Clear mocks and check for post-cleanup events
-  //   mockHoverCallback.mockClear()
-  //   mockClickCallback.mockClear()
+    // Ensure cleanup is called (listeners are removed)
+    if (cleanup) cleanup()
 
-  //   childElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
-  //   childElement.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    // Clear mocks and check for post-cleanup events
+    mockHoverCallback.mockClear()
+    mockClickCallback.mockClear()
 
-  //   expect(mockHoverCallback).not.toHaveBeenCalled()
-  //   expect(mockClickCallback).not.toHaveBeenCalled()
-  // })
+    childElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
+    childElement.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
+    expect(mockHoverCallback).not.toHaveBeenCalled()
+    expect(mockClickCallback).not.toHaveBeenCalled()
+  })
+
+  test('correctly preserves and restores multiple inline styles', () => {
+    // Set up element with multiple inline styles
+    const testElement = document.createElement('div')
+    testElement.style.backgroundColor = 'red'
+    testElement.style.color = 'blue'
+    testElement.style.fontSize = '16px'
+    testElement.style.padding = '10px'
+    rootElement.appendChild(testElement)
+
+    const originalBgColor = testElement.style.backgroundColor
+    const originalColor = testElement.style.color
+    const originalFontSize = testElement.style.fontSize
+    const originalPadding = testElement.style.padding
+
+    // Hover over the element
+    const hoverEvent = new MouseEvent('mouseover', { bubbles: true })
+    testElement.dispatchEvent(hoverEvent)
+
+    // Verify hover style is applied
+    expect(testElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
+    // Other styles should remain unchanged
+    expect(testElement.style.color).toBe(originalColor)
+    expect(testElement.style.fontSize).toBe(originalFontSize)
+    expect(testElement.style.padding).toBe(originalPadding)
+
+    // Mouse out
+    const mouseOutEvent = new MouseEvent('mouseout', { bubbles: true })
+    testElement.dispatchEvent(mouseOutEvent)
+
+    // Verify all original styles are restored
+    expect(testElement.style.backgroundColor).toBe(originalBgColor)
+    expect(testElement.style.color).toBe(originalColor)
+    expect(testElement.style.fontSize).toBe(originalFontSize)
+    expect(testElement.style.padding).toBe(originalPadding)
+
+    rootElement.removeChild(testElement)
+  })
+
+  test('handles elements with no initial inline styles', () => {
+    // Create element with no inline styles
+    const noStyleElement = document.createElement('div')
+    rootElement.appendChild(noStyleElement)
+
+    expect(noStyleElement.getAttribute('style')).toBeNull()
+
+    // Hover over the element
+    const hoverEvent = new MouseEvent('mouseover', { bubbles: true })
+    noStyleElement.dispatchEvent(hoverEvent)
+
+    // Verify hover style is applied
+    expect(noStyleElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
+
+    // Mouse out
+    const mouseOutEvent = new MouseEvent('mouseout', { bubbles: true })
+    noStyleElement.dispatchEvent(mouseOutEvent)
+
+    // Verify style attribute is removed (not just emptied)
+    expect(noStyleElement.getAttribute('style')).toBeNull()
+
+    rootElement.removeChild(noStyleElement)
+  })
 })
