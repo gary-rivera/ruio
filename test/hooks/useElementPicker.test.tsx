@@ -1,28 +1,28 @@
 import { renderHook, act } from '@testing-library/react'
-import { useElementSelection } from '@hooks/useElementSelection'
-import { ElementInteractionController } from '@controllers/ElementInteractionController'
+import { useElementPicker } from '@hooks/useElementPicker'
+import { ElementPicker } from '@controllers/ElementPicker'
 import { applyCommittedOutlines } from '@utils/outline'
 import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
 
-vi.mock('@controllers/ElementInteractionController')
+vi.mock('@controllers/ElementPicker')
 vi.mock('@utils/outline')
 
-describe('useElementSelection', () => {
-  const mockOnElementSelected = vi.fn()
+describe('useElementPicker', () => {
+  const mockOnElementPicked = vi.fn()
   const mockCleanup = vi.fn()
 
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(ElementInteractionController as Mock).mockReturnValue(mockCleanup)
+    ;(ElementPicker as Mock).mockReturnValue(mockCleanup)
   })
 
   test('initializes with isActive false', () => {
     const { result } = renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: false,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
@@ -31,11 +31,11 @@ describe('useElementSelection', () => {
 
   test('toggle function changes isActive state', () => {
     const { result } = renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: false,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
@@ -54,37 +54,37 @@ describe('useElementSelection', () => {
 
   test('does not initialize controller when ruioEnabled is false', () => {
     renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: false,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
-    expect(ElementInteractionController).not.toHaveBeenCalled()
+    expect(ElementPicker).not.toHaveBeenCalled()
   })
 
   test('does not initialize controller when isActive is false', () => {
     renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: true,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
-    expect(ElementInteractionController).not.toHaveBeenCalled()
+    expect(ElementPicker).not.toHaveBeenCalled()
   })
 
   test('initializes controller when both ruioEnabled and isActive are true', () => {
     const { result } = renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: true,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
@@ -92,16 +92,16 @@ describe('useElementSelection', () => {
       result.current.setIsActive(true)
     })
 
-    expect(ElementInteractionController).toHaveBeenCalled()
+    expect(ElementPicker).toHaveBeenCalled()
   })
 
   test('calls cleanup when hook unmounts', () => {
     const { result, unmount } = renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: true,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
@@ -109,7 +109,7 @@ describe('useElementSelection', () => {
       result.current.setIsActive(true)
     })
 
-    expect(ElementInteractionController).toHaveBeenCalled()
+    expect(ElementPicker).toHaveBeenCalled()
 
     unmount()
 
@@ -118,11 +118,11 @@ describe('useElementSelection', () => {
 
   test('calls cleanup when isActive changes to false', () => {
     const { result } = renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: true,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 
@@ -130,7 +130,7 @@ describe('useElementSelection', () => {
       result.current.setIsActive(true)
     })
 
-    expect(ElementInteractionController).toHaveBeenCalled()
+    expect(ElementPicker).toHaveBeenCalled()
     mockCleanup.mockClear()
 
     act(() => {
@@ -142,11 +142,11 @@ describe('useElementSelection', () => {
 
   test('toggle function maintains referential equality', () => {
     const { result, rerender } = renderHook(() =>
-      useElementSelection({
+      useElementPicker({
         ruioEnabled: true,
         depth: 3,
         currentColorPalette: 'dynamic',
-        onElementSelected: mockOnElementSelected,
+        onElementPicked: mockOnElementPicked,
       }),
     )
 

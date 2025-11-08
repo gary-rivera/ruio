@@ -1,12 +1,12 @@
 import React, { useRef, useState, useMemo } from 'react'
-import { TooltipData } from '@hooks/useElementSelection'
+import { PickerTooltipData } from '@hooks/useElementPicker'
 import { useTooltipPositioning } from '@hooks/useTooltipPositioning'
 import { useTooltipDrag } from '@hooks/useTooltipDrag'
 import { Tooltip } from './Tooltip'
 import { TooltipContent } from './TooltipContent'
 
 interface PersistedElementTooltipProps {
-  data: Omit<TooltipData, 'x' | 'y'> | null
+  data: Omit<PickerTooltipData, 'x' | 'y'> | null
   rootElement: HTMLElement | null
 }
 

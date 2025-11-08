@@ -1,14 +1,14 @@
 import React from 'react'
-import { TooltipData } from '@hooks/useElementSelection'
+import { PickerTooltipData } from '@hooks/useElementPicker'
 import { Tooltip } from './Tooltip'
 import { TooltipContent } from './TooltipContent'
 
 interface ElementSelectionTooltipProps {
-  data: TooltipData | null
+  data: PickerTooltipData | null
 }
 
 /**
- * Tooltip that follows the cursor during element selection mode.
+ * Tooltip that follows the cursor during element picker mode.
  * Displays component name, depth, and selector information for debugging.
  */
 export const ElementSelectionTooltip: React.FC<ElementSelectionTooltipProps> = ({ data }) => {

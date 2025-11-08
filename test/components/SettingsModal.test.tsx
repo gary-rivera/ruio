@@ -17,8 +17,8 @@ vi.mock('@utils/outline', async () => {
   }
 })
 
-vi.mock('@controllers/ElementInteractionController', () => ({
-  ElementInteractionController: vi.fn(() => vi.fn()),
+vi.mock('@controllers/ElementPicker', () => ({
+  ElementPicker: vi.fn(() => vi.fn()),
 }))
 
 describe('SettingsModal - Report Issue Feature', () => {
@@ -75,7 +75,7 @@ describe('SettingsModal - Report Issue Feature', () => {
         ruioEnabled: true,
         depth: expect.any(Number),
         currentColorPalette: expect.any(String),
-        isElementSelectionModeActive: expect.any(Boolean),
+        isElementPickerActive: expect.any(Boolean),
       }),
     )
 
@@ -104,7 +104,7 @@ describe('SettingsModal - Report Issue Feature', () => {
     expect(callArgs).toHaveProperty('depth')
     expect(callArgs).toHaveProperty('currentColorPalette')
     expect(callArgs).toHaveProperty('rootElement')
-    expect(callArgs).toHaveProperty('isElementSelectionModeActive')
+    expect(callArgs).toHaveProperty('isElementPickerActive')
   })
 
   test('generated URL contains environment information', () => {
@@ -113,7 +113,7 @@ describe('SettingsModal - Report Issue Feature', () => {
       depth: 5,
       currentColorPalette: 'dynamic',
       rootElement: null,
-      isElementSelectionModeActive: false,
+      isElementPickerActive: false,
     }
 
     const url = githubIssue.generateGitHubIssueUrl(testState)

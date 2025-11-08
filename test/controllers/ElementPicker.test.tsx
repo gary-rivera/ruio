@@ -1,7 +1,7 @@
-import { ElementInteractionController } from '@controllers/ElementInteractionController'
+import { ElementPicker } from '@controllers/ElementPicker'
 import { describe, it, test, expect, beforeEach, afterEach, vi } from 'vitest'
 
-describe('ElementInteractionController', () => {
+describe('ElementPicker', () => {
   let mockHoverCallback: ReturnType<typeof vi.fn>
   let mockClickCallback: ReturnType<typeof vi.fn>
   let rootElement: HTMLElement
@@ -24,7 +24,7 @@ describe('ElementInteractionController', () => {
     mockHoverCallback = vi.fn()
     mockClickCallback = vi.fn()
 
-    cleanup = ElementInteractionController(mockHoverCallback, mockClickCallback)
+    cleanup = ElementPicker(mockHoverCallback, mockClickCallback)
   })
 
   afterEach(() => {
@@ -40,7 +40,7 @@ describe('ElementInteractionController', () => {
    */
   test('runs without errors when called with a valid callback', () => {
     expect(() => {
-      ElementInteractionController(mockHoverCallback, mockClickCallback)
+      ElementPicker(mockHoverCallback, mockClickCallback)
     }).not.toThrow()
   })
 

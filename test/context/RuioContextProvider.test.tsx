@@ -1,7 +1,7 @@
 import { render, screen, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
 import { applyCommittedOutlines } from '@utils/outline'
-import { ElementInteractionController } from '@controllers/ElementInteractionController'
+import { ElementPicker } from '@controllers/ElementPicker'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
 import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
@@ -15,11 +15,11 @@ vi.mock('@utils/outline', async () => {
     resetCommittedOutlines: vi.fn(),
   }
 })
-vi.mock('@controllers/ElementInteractionController')
+vi.mock('@controllers/ElementPicker')
 
 // mocks target
-const mockedElementInteractionController = ElementInteractionController as Mock<
-  typeof ElementInteractionController
+const mockedElementPicker = ElementPicker as Mock<
+  typeof ElementPicker
 >
 const mockedApplyBorders = applyCommittedOutlines as Mock<typeof applyCommittedOutlines>
 
@@ -30,8 +30,8 @@ const TestComponent = () => {
     depth,
     setDepth,
     maxDepth,
-    isElementSelectionModeActive,
-    setIsElementSelectionModeActive,
+    isElementPickerActive,
+    setIsElementPickerActive,
     rootElement,
   } = useRuioContext()
 
@@ -44,7 +44,7 @@ const TestComponent = () => {
       <button
         data-testid="select-element-mode"
         onClick={() => {
-          setIsElementSelectionModeActive(!isElementSelectionModeActive)
+          setIsElementPickerActive(!isElementPickerActive)
         }}
       >
         Select Element Mode
@@ -112,7 +112,7 @@ describe('RuioContextProvider', () => {
   test('should call cleanup function when selection mode is triggered', async () => {
     const cleanupMock = vi.fn()
 
-    mockedElementInteractionController.mockReturnValue(cleanupMock)
+    mockedElementPicker.mockReturnValue(cleanupMock)
 
     render(
       <RuioContextProvider>

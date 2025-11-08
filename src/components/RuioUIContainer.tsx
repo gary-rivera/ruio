@@ -9,43 +9,43 @@ import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import styles from '@components/RuioUIContainer.module.css'
 
-type UIPanelVisibility = { elementSelector: boolean; settingsModal: boolean }
+type UIPanelVisibility = { elementPicker: boolean; settingsModal: boolean }
 
 function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
   const {
     ruioEnabled,
-    isElementSelectionModeActive,
-    setIsElementSelectionModeActive,
+    isElementPickerActive,
+    setIsElementPickerActive,
     tooltipData,
     persistedTooltipData,
     rootElement,
   } = useRuioContext()
 
   const [panelVisibility, setPanelVisibility] = useState<UIPanelVisibility>({
-    elementSelector: false,
+    elementPicker: false,
     settingsModal: false,
   })
 
   const exclusivelyTogglePanel = (panel: keyof UIPanelVisibility) => {
     setPanelVisibility((prev) => {
-      const newState = { elementSelector: false, settingsModal: false, [panel]: !prev[panel] }
+      const newState = { elementPicker: false, settingsModal: false, [panel]: !prev[panel] }
       return newState
     })
 
-    // ensure element selection deactivated when opening settings
+    // ensure element picker deactivated when opening settings
     if (panel === 'settingsModal' && !panelVisibility.settingsModal) {
-      setIsElementSelectionModeActive(false)
+      setIsElementPickerActive(false)
     }
   }
 
-  const getIconStateClass = (icon: 'settings' | 'elementSelector') => {
+  const getIconStateClass = (icon: 'settings' | 'elementPicker') => {
     const baseClass = styles.iconContainer
 
     const thisIconIsActive =
-      icon === 'settings' ? panelVisibility.settingsModal : isElementSelectionModeActive
+      icon === 'settings' ? panelVisibility.settingsModal : isElementPickerActive
 
     const otherIconIsActive =
-      icon === 'settings' ? isElementSelectionModeActive : panelVisibility.settingsModal
+      icon === 'settings' ? isElementPickerActive : panelVisibility.settingsModal
 
     if (thisIconIsActive) return `${baseClass} ${styles.iconActive}`
     if (otherIconIsActive) return `${baseClass} ${styles.iconDimmed}`
@@ -71,15 +71,15 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
           )}
         </div>
 
-        <div id="ruio-element-select-container" className={getIconStateClass('elementSelector')}>
-          <ElementSelectIcon onClick={() => exclusivelyTogglePanel('elementSelector')} />
+        <div id="ruio-element-select-container" className={getIconStateClass('elementPicker')}>
+          <ElementSelectIcon onClick={() => exclusivelyTogglePanel('elementPicker')} />
         </div>
       </div>
 
-      <RuioToggleController isDimmed={isElementSelectionModeActive || panelVisibility.settingsModal} />
+      <RuioToggleController isDimmed={isElementPickerActive || panelVisibility.settingsModal} />
 
-      {isElementSelectionModeActive && <ElementSelectionTooltip data={tooltipData} />}
-      {!isElementSelectionModeActive && ruioEnabled && (
+      {isElementPickerActive && <ElementSelectionTooltip data={tooltipData} />}
+      {!isElementPickerActive && ruioEnabled && (
         <PersistedElementTooltip data={persistedTooltipData} rootElement={rootElement} />
       )}
     </div>

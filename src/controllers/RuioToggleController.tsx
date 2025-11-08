@@ -6,11 +6,11 @@ type RuioToggleControllerProps = {
 }
 
 function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
-  const { ruioEnabled, setRuioEnabled, setIsElementSelectionModeActive } = useRuioContext()
+  const { ruioEnabled, setRuioEnabled, setIsElementPickerActive } = useRuioContext()
 
   const handleToggle = () => {
     setRuioEnabled(!ruioEnabled)
-    setIsElementSelectionModeActive(false)
+    setIsElementPickerActive(false)
   }
 
   const getButtonClass = () => {

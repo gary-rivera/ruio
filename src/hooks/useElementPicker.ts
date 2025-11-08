@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { applyPreviewOutlines, clearPreviewOutlines } from '@utils/outline'
-import { ElementInteractionController } from '@controllers/ElementInteractionController'
+import { ElementPicker } from '@controllers/ElementPicker'
 import { debounce } from '@utils/debounce'
 import { getElementInfo } from '@utils/elementInfo'
 
-export interface TooltipData {
+export interface PickerTooltipData {
   // React component info
   reactComponentName: string | null
   parentComponentName: string | null
@@ -27,32 +27,32 @@ export interface TooltipData {
   y: number
 }
 
-interface UseElementSelectionOptions {
+interface UseElementPickerOptions {
   ruioEnabled: boolean
   depth: number
   currentColorPalette: string
-  onElementSelected: (element: HTMLElement) => void
+  onElementPicked: (element: HTMLElement) => void
 }
 
-interface UseElementSelectionReturn {
+interface UseElementPickerReturn {
   isActive: boolean
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>
   toggle: () => void
-  tooltipData: TooltipData | null
+  tooltipData: PickerTooltipData | null
 }
 
 /**
- * Custom hook for managing element selection mode.
- * Handles hover interactions, element selection, and cleanup of event listeners.
+ * Custom hook for managing element picker mode.
+ * Handles hover interactions, element picking, and cleanup of event listeners.
  */
-export const useElementSelection = ({
+export const useElementPicker = ({
   ruioEnabled,
   depth,
   currentColorPalette,
-  onElementSelected,
-}: UseElementSelectionOptions): UseElementSelectionReturn => {
+  onElementPicked,
+}: UseElementPickerOptions): UseElementPickerReturn => {
   const [isActive, setIsActive] = useState(false)
-  const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
+  const [tooltipData, setTooltipData] = useState<PickerTooltipData | null>(null)
 
   // Toggle function wrapped in useCallback to maintain referential equality
   const toggle = useCallback(() => {
@@ -76,36 +76,32 @@ export const useElementSelection = ({
       }, 50)
 
       const debouncedCommit = debounce((element: HTMLElement) => {
-        // Clear preview outlines when an element is selected
+        // Clear preview outlines when an element is picked
         clearPreviewOutlines()
         setTooltipData(null)
         setIsActive(false)
-        onElementSelected(element)
+        onElementPicked(element)
       }, 50)
 
       const handleMouseOut = () => {
         setTooltipData(null)
       }
 
-      const cleanupSelection = ElementInteractionController(
-        debouncedPreview,
-        debouncedCommit,
-        handleMouseOut,
-      )
+      const cleanupPicker = ElementPicker(debouncedPreview, debouncedCommit, handleMouseOut)
 
       return () => {
-        // Clear preview outlines when exiting selection mode
+        // Clear preview outlines when exiting picker mode
         clearPreviewOutlines()
         setTooltipData(null)
-        if (cleanupSelection) {
-          cleanupSelection()
+        if (cleanupPicker) {
+          cleanupPicker()
         }
       }
     } else {
-      // Clear tooltip when selection mode is disabled
+      // Clear tooltip when picker mode is disabled
       setTooltipData(null)
     }
-  }, [isActive, depth, ruioEnabled, currentColorPalette, onElementSelected])
+  }, [isActive, depth, ruioEnabled, currentColorPalette, onElementPicked])
 
   return { isActive, setIsActive, toggle, tooltipData }
 }

@@ -3,6 +3,7 @@ import { setConfigValueAtKey, parseSelectorFromSelectedElement } from '@utils/co
 const DEFAULT_ROOT_ELEMENT = 'root'
 
 /**
+ * Interactive element picker that allows users to select DOM elements via hover and click.
  * Attaches hover and click listeners to elements under the specified root element.
  * When an element is hovered or clicked, the provided callback function is executed.
  *
@@ -11,7 +12,7 @@ const DEFAULT_ROOT_ELEMENT = 'root'
  * @param {function(): void} onMouseOut - Optional callback invoked when mouse leaves an element
  * @returns {function(): void} - A cleanup function that removes all attached event listeners.
  */
-export const ElementInteractionController = (
+export const ElementPicker = (
   onHover: (element: HTMLElement, x: number, y: number) => void,
   onClick: (element: HTMLElement) => void,
   onMouseOut?: () => void,
@@ -19,7 +20,7 @@ export const ElementInteractionController = (
   const rootElement = document.querySelector(`#${DEFAULT_ROOT_ELEMENT}`) as HTMLElement
   if (!rootElement) {
     console.error(
-      "[ruio][ElementInteractionController] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
+      "[ruio][ElementPicker] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
       DEFAULT_ROOT_ELEMENT,
     )
     // Return a no-op cleanup function to prevent undefined errors

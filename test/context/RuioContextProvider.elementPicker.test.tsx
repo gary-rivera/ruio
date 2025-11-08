@@ -13,8 +13,8 @@ vi.mock('@utils/outline', async () => {
   }
 })
 
-vi.mock('@controllers/ElementInteractionController', () => ({
-  ElementInteractionController: vi.fn((onHover, onClick) => {
+vi.mock('@controllers/ElementPicker', () => ({
+  ElementPicker: vi.fn((onHover, onClick) => {
     // Store callbacks for testing
     const controller = {
       onHover,
@@ -29,16 +29,16 @@ vi.mock('@controllers/ElementInteractionController', () => ({
 
 // Test component to access context and trigger element selection
 const ElementSelectionTester = () => {
-  const { rootElement, toggleElementSelectionMode, isElementSelectionModeActive, ruioEnabled, depth } =
+  const { rootElement, toggleElementPicker, isElementPickerActive, ruioEnabled, depth } =
     useRuioContext()
 
   return (
     <div>
       <div data-testid="root-element-id">{rootElement?.id || 'None'}</div>
-      <div data-testid="selection-mode-active">{isElementSelectionModeActive ? 'true' : 'false'}</div>
+      <div data-testid="selection-mode-active">{isElementPickerActive ? 'true' : 'false'}</div>
       <div data-testid="ruio-enabled">{ruioEnabled ? 'true' : 'false'}</div>
       <div data-testid="depth">{depth}</div>
-      <button onClick={toggleElementSelectionMode} data-testid="toggle-selection">
+      <button onClick={toggleElementPicker} data-testid="toggle-selection">
         Toggle Selection Mode
       </button>
     </div>
@@ -157,11 +157,11 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 2: Simulate clicking on target element to make it the new root
-    // This would normally be done through ElementInteractionController
+    // This would normally be done through ElementPicker
     // We need to manually trigger the element selection since we're mocking
-    const { ElementInteractionController } = await import('@controllers/ElementInteractionController')
-    const lastCall = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    const { ElementPicker } = await import('@controllers/ElementPicker')
+    const lastCall = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     const onClickCallback = lastCall?.[1]
 
@@ -222,8 +222,8 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 5: Click on the SAME element again (target-element)
-    const lastCall2 = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    const lastCall2 = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     const onClickCallback2 = lastCall2?.[1]
 
@@ -342,9 +342,9 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 2: Simulate clicking on target element to make it the new root
-    const { ElementInteractionController } = await import('@controllers/ElementInteractionController')
-    const lastCall = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    const { ElementPicker } = await import('@controllers/ElementPicker')
+    const lastCall = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     const onClickCallback = lastCall?.[1]
 
@@ -474,9 +474,9 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 2: Click on target element A to make it the new root
-    const { ElementInteractionController } = await import('@controllers/ElementInteractionController')
-    let lastCall = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    const { ElementPicker } = await import('@controllers/ElementPicker')
+    let lastCall = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     let onClickCallback = lastCall?.[1]
 
@@ -515,8 +515,8 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 4: Click on target element B (different element) to make it the new root
-    lastCall = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    lastCall = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     onClickCallback = lastCall?.[1]
 
@@ -599,9 +599,9 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
       toggleButton.click()
     })
 
-    const { ElementInteractionController } = await import('@controllers/ElementInteractionController')
-    const lastCall = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    const { ElementPicker } = await import('@controllers/ElementPicker')
+    const lastCall = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     const onClickCallback = lastCall?.[1]
 
@@ -632,8 +632,8 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
       expect(screen.getByTestId('selection-mode-active').textContent).toBe('true')
     })
 
-    const lastCall2 = vi.mocked(ElementInteractionController).mock.calls[
-      vi.mocked(ElementInteractionController).mock.calls.length - 1
+    const lastCall2 = vi.mocked(ElementPicker).mock.calls[
+      vi.mocked(ElementPicker).mock.calls.length - 1
     ]
     const onClickCallback2 = lastCall2?.[1]
 
