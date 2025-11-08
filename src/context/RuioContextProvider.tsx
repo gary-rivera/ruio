@@ -138,19 +138,25 @@ export const RuioContextProvider = ({
     }
   }, [depth, maxDepth, setDepth])
 
-  const handleRootSelected = useCallback((element: HTMLElement) => {
-    // Capture element info for persisted tooltip
-    const elementInfo = getElementInfo(element)
-    setPersistedTooltipData(elementInfo)
+  const handleRootSelected = useCallback(
+    (element: HTMLElement) => {
+      // Capture element info for persisted tooltip
+      const elementInfo = getElementInfo(element)
+      setPersistedTooltipData({
+        ...elementInfo,
+        currentDepth: depth,
+      })
 
-    // Set to null first, then to the element to force the useEffect to run
-    // This ensures outlines are always reapplied, even when selecting the same element
-    setRootElement(null)
-    // Use setTimeout to ensure the null state is processed before setting the new element
-    setTimeout(() => {
-      setRootElement(element)
-    }, 0)
-  }, [])
+      // Set to null first, then to the element to force the useEffect to run
+      // This ensures outlines are always reapplied, even when selecting the same element
+      setRootElement(null)
+      // Use setTimeout to ensure the null state is processed before setting the new element
+      setTimeout(() => {
+        setRootElement(element)
+      }, 0)
+    },
+    [depth],
+  )
 
   const rootSelection = useElementSelection({
     ruioEnabled: localStorageState.ruioEnabled,

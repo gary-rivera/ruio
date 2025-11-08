@@ -73,6 +73,10 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({ data }) => {
         <span className={styles.value}>{depthText}</span>
       </div>
       <div className={styles.row}>
+        <span className={styles.label}>current_depth:</span>
+        <span className={styles.value}>{data.currentDepth}</span>
+      </div>
+      <div className={styles.row}>
         <span className={styles.label}>children:</span>
         <span className={styles.value}>{data.childrenCount}</span>
       </div>
