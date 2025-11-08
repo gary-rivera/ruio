@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { applyOutlineUI } from '@utils/outline'
+import { applyPreviewOutlineUI, clearPreviewOutlines } from '@utils/outline'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import { debounce } from '@utils/debounce'
 
@@ -35,23 +35,25 @@ export const useElementSelection = ({
 
   useEffect(() => {
     if (ruioEnabled && isActive) {
-      const debouncedApplyOutline = debounce((element: HTMLElement) => {
-        applyOutlineUI(element, depth, ruioEnabled, currentColorPalette)
+      // Use preview outlines for hover (doesn't interfere with committed outlines)
+      const debouncedPreview = debounce((element: HTMLElement) => {
+        applyPreviewOutlineUI(element, depth, currentColorPalette)
       }, 50)
 
-      const debouncedSetSelection = debounce((element: HTMLElement) => {
+      const debouncedCommit = debounce((element: HTMLElement) => {
+        // Clear preview outlines when an element is selected
+        clearPreviewOutlines()
         setIsActive(false)
         onElementSelected(element)
       }, 50)
 
-      const cleanupElementSelectionEvents = ElementInteractionController(
-        debouncedApplyOutline,
-        debouncedSetSelection,
-      )
+      const cleanupSelection = ElementInteractionController(debouncedPreview, debouncedCommit)
 
       return () => {
-        if (cleanupElementSelectionEvents) {
-          cleanupElementSelectionEvents()
+        // Clear preview outlines when exiting selection mode
+        clearPreviewOutlines()
+        if (cleanupSelection) {
+          cleanupSelection()
         }
       }
     }
