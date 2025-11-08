@@ -1,8 +1,5 @@
 /*
- * CSS Custom Properties (Variables)
- *
- * Global design tokens for the RUIO component library.
- * These variables enable consistent styling and easy theme customization.
+ * CSS Custom Properties (Variables for ruio)
  */
 
 :root {
@@ -60,14 +57,21 @@
      TRANSITIONS (Compound)
      ============================================ */
 
-  --ruio-transition-fast: transform var(--ruio-timing-fast) var(--ruio-ease),
-    opacity var(--ruio-timing-fast) var(--ruio-ease);
+  --ruio-transition-fast:
+    transform var(--ruio-timing-fast) var(--ruio-ease), opacity var(--ruio-timing-fast) var(--ruio-ease);
 
-  --ruio-transition-medium: transform var(--ruio-timing-medium) var(--ruio-ease),
+  --ruio-transition-medium:
+    transform var(--ruio-timing-medium) var(--ruio-ease),
     opacity var(--ruio-timing-medium) var(--ruio-ease);
 
-  --ruio-transition-slow: transform var(--ruio-timing-slow) var(--ruio-ease),
-    opacity var(--ruio-timing-slow) var(--ruio-ease);
+  --ruio-transition-slow:
+    transform var(--ruio-timing-slow) var(--ruio-ease), opacity var(--ruio-timing-slow) var(--ruio-ease);
 
   --ruio-transition-bg: background-color var(--ruio-timing-medium) var(--ruio-ease);
+
+  /* ============================================
+    SHADOWS
+  ============================================ */
+  --ruio-box-shadow-modal: rgb(38, 57, 77) 0px 20px 30px -10px;
+  --ruio-box-shadow-button: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
