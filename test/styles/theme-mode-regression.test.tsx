@@ -399,68 +399,6 @@ describe('Theme Mode Regression Tests', () => {
   })
 
   describe('Theme Comparison', () => {
-    // Note: JSDOM has limitations with CSS custom properties in attribute selectors
-    // These tests verify theme differences work in actual browsers
-    // Snapshot tests above already verify the computed styles
-    test.skip('modal background differs between light and dark modes', () => {
-      setTheme('dark')
-      const { container: darkContainer } = render(
-        <RuioContextProvider>
-          <SettingsModal isOpen={true} onClose={() => {}} />
-        </RuioContextProvider>,
-      )
-
-      const darkModal = darkContainer.querySelector('#ruio-settings-modal-container') as HTMLElement
-      expect(darkModal).toBeTruthy()
-      const darkBg = window.getComputedStyle(darkModal).backgroundColor
-
-      // Re-render for light mode with fresh container
-      darkContainer.remove()
-
-      setTheme('light')
-      const { container: lightContainer } = render(
-        <RuioContextProvider>
-          <SettingsModal isOpen={true} onClose={() => {}} />
-        </RuioContextProvider>,
-      )
-
-      const lightModal = lightContainer.querySelector('#ruio-settings-modal-container') as HTMLElement
-      expect(lightModal).toBeTruthy()
-      const lightBg = window.getComputedStyle(lightModal).backgroundColor
-
-      // Backgrounds should differ between themes
-      expect(darkBg).not.toBe(lightBg)
-    })
-
-    test.skip('icon backgrounds differ between light and dark modes', () => {
-      setTheme('dark')
-      const { container: darkContainer } = render(
-        <RuioContextProvider>
-          <SettingsIcon onClick={() => {}} />
-        </RuioContextProvider>,
-      )
-
-      const darkButton = darkContainer.querySelector('#ruio-settings-icon') as HTMLElement
-      expect(darkButton).toBeTruthy()
-      const darkBg = window.getComputedStyle(darkButton).backgroundColor
-
-      // Clean up before re-render
-      darkContainer.remove()
-
-      setTheme('light')
-      const { container: lightContainer } = render(
-        <RuioContextProvider>
-          <SettingsIcon onClick={() => {}} />
-        </RuioContextProvider>,
-      )
-
-      const lightButton = lightContainer.querySelector('#ruio-settings-icon') as HTMLElement
-      expect(lightButton).toBeTruthy()
-      const lightBg = window.getComputedStyle(lightButton).backgroundColor
-
-      expect(darkBg).not.toBe(lightBg)
-    })
-
     test('logo colors remain consistent across themes', () => {
       setTheme('dark')
       const { container: darkContainer } = render(
