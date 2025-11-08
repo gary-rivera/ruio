@@ -1,0 +1,145 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > Icons > ElementSelectIcon background is dark > dark-mode-element-select-icon 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "fill": "",
+  "opacity": "",
+  "stroke": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > Icons > SettingsIcon SVG paths have correct colors > dark-mode-settings-icon-svg 1`] = `
+{
+  "fill": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > Icons > SettingsIcon background is dark > dark-mode-settings-icon 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "fill": "",
+  "opacity": "",
+  "stroke": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > RuioToggleController > logo colors in dark mode > dark-mode-logo-bg 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > RuioToggleController > logo colors in dark mode > dark-mode-logo-svg 1`] = `
+{
+  "fill": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > RuioToggleController > logo maintains size when dimmed > dark-mode-logo-dimmed 1`] = `
+{
+  "opacity": "",
+  "transform": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > SettingsModal > box shadow on modal > dark-mode-modal-shadow 1`] = `
+{
+  "box-shadow": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > SettingsModal > depth control buttons are white text > dark-mode-depth-button 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "color": "rgb(0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > SettingsModal > modal container background and text colors > dark-mode-modal-container 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "opacity": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > Icons > ElementSelectIcon has cyan background with black border > light-mode-element-select-icon 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > Icons > ElementSelectIcon mouse pointer has white fill and black stroke > light-mode-element-select-icon-svg-path 1`] = `
+{
+  "fill": "",
+  "stroke": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > Icons > SettingsIcon SVG has black strokes and white fills > light-mode-settings-icon-svg-path 1`] = `
+{
+  "fill": "",
+  "stroke": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > Icons > SettingsIcon has cyan background with black border > light-mode-settings-icon 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > RuioToggleController > logo colors remain same as dark mode > light-mode-logo-bg 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > RuioToggleController > logo colors remain same as dark mode > light-mode-logo-svg 1`] = `
+{
+  "fill": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > SettingsModal > box shadow is more visible in light mode > light-mode-modal-shadow 1`] = `
+{
+  "box-shadow": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > SettingsModal > depth control buttons are black text > light-mode-depth-button 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "color": "rgb(0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > SettingsModal > modal container background and text colors > light-mode-modal-container 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "opacity": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > ThemeToggle > sun icon in light mode has black color > light-mode-theme-toggle-icon 1`] = `
+{
+  "color": "rgb(0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > ThemeToggle > theme toggle button in light mode > light-mode-theme-toggle 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "cursor": "",
+}
+`;

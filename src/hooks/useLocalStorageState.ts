@@ -46,6 +46,8 @@ interface UseLocalStorageStateReturn {
   setDepth: React.Dispatch<React.SetStateAction<number>>
   currentColorPalette: string
   setCurrentColorPalette: React.Dispatch<React.SetStateAction<string>>
+  theme: 'light' | 'dark'
+  setTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>
 }
 
 export const useLocalStorageState = (): UseLocalStorageStateReturn => {
@@ -55,10 +57,15 @@ export const useLocalStorageState = (): UseLocalStorageStateReturn => {
   })
   const [depth, setDepth] = usePersistedConfigValue('depth')
   const [currentColorPalette, setCurrentColorPalette] = usePersistedConfigValue('currentColorPalette')
+  const [themeRaw, setThemeRaw] = usePersistedConfigValue('theme')
 
   // ensure rootSelector defaults to empty string if undefined
   const rootSelector = (rootSelectorRaw || '') as string
   const setRootSelector = setRootSelectorRaw as React.Dispatch<React.SetStateAction<string>>
+
+  // ensure theme has proper type
+  const theme = (themeRaw || 'dark') as 'light' | 'dark'
+  const setTheme = setThemeRaw as React.Dispatch<React.SetStateAction<'light' | 'dark'>>
 
   return {
     ruioEnabled,
@@ -69,5 +76,7 @@ export const useLocalStorageState = (): UseLocalStorageStateReturn => {
     setDepth,
     currentColorPalette,
     setCurrentColorPalette,
+    theme,
+    setTheme,
   }
 }

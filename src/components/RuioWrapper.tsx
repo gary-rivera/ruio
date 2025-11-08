@@ -2,6 +2,7 @@ import { ReactNode, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { RuioContextProvider } from '@root/context/RuioContextProvider'
 import RuioUIContainer from '@components/RuioUIContainer'
+import '@root/styles/variables.css'
 
 type RuioWrapperProps = {
   children: ReactNode

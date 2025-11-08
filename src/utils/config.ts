@@ -8,6 +8,7 @@ export interface ConfigLocalState {
   depth: number
   currentColorPalette: string
   rootElementSelector?: string
+  theme?: 'light' | 'dark'
 }
 
 const DEFAULT_CONFIG: ConfigLocalState = {
@@ -15,6 +16,7 @@ const DEFAULT_CONFIG: ConfigLocalState = {
   depth: UI_DEPTH,
   currentColorPalette: COLOR_PALETTE,
   rootElementSelector: ROOT_ELEMENT_SELECTOR,
+  theme: 'dark',
 }
 
 const isStorageAvailable = (): boolean => {
