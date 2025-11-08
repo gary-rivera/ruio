@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
-import { applyOutlineUI, calculateMaxDepth } from '@utils/outline'
+import { applyCommittedOutlines, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementSelection } from '@hooks/useElementSelection'
 
@@ -126,21 +126,27 @@ export const RuioContextProvider = ({
     }
   }, [depth, maxDepth, setDepth])
 
-  const handleElementSelected = useCallback((element: HTMLElement) => {
-    setRootElement(element)
+  const handleRootSelected = useCallback((element: HTMLElement) => {
+    // Set to null first, then to the element to force the useEffect to run
+    // This ensures outlines are always reapplied, even when selecting the same element
+    setRootElement(null)
+    // Use setTimeout to ensure the null state is processed before setting the new element
+    setTimeout(() => {
+      setRootElement(element)
+    }, 0)
   }, [])
 
-  const elementSelection = useElementSelection({
+  const rootSelection = useElementSelection({
     ruioEnabled: localStorageState.ruioEnabled,
     depth,
     currentColorPalette,
-    onElementSelected: handleElementSelected,
+    onElementSelected: handleRootSelected,
   })
 
-  // react when settings or root element change by applying ui styles
+  // react when settings or root element change by applying committed outlines
   useEffect(() => {
     if (rootElement) {
-      applyOutlineUI(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
+      applyCommittedOutlines(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
     }
   }, [depth, rootElement, localStorageState.ruioEnabled, currentColorPalette])
 
@@ -152,9 +158,9 @@ export const RuioContextProvider = ({
       setDepth,
       maxDepth,
       rootElement,
-      isElementSelectionModeActive: elementSelection.isActive,
-      setIsElementSelectionModeActive: elementSelection.setIsActive,
-      toggleElementSelectionMode: elementSelection.toggle,
+      isElementSelectionModeActive: rootSelection.isActive,
+      setIsElementSelectionModeActive: rootSelection.setIsActive,
+      toggleElementSelectionMode: rootSelection.toggle,
       currentColorPalette,
       setCurrentColorPalette,
     }),
@@ -165,9 +171,9 @@ export const RuioContextProvider = ({
       setDepth,
       maxDepth,
       rootElement,
-      elementSelection.isActive,
-      elementSelection.setIsActive,
-      elementSelection.toggle,
+      rootSelection.isActive,
+      rootSelection.setIsActive,
+      rootSelection.toggle,
       currentColorPalette,
       setCurrentColorPalette,
     ],

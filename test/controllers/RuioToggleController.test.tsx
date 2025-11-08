@@ -5,13 +5,13 @@ import { RuioContextProvider } from '@context/RuioContextProvider'
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import styles from '@controllers/RuioToggleController.module.css'
 
-// Mock applyOutlineUI
+// Mock applyCommittedOutlines
 vi.mock('@utils/outline', async () => {
   const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
-    applyOutlineUI: vi.fn(),
-    resetPreviouslyAppliedElements: vi.fn(),
+    applyCommittedOutlines: vi.fn(),
+    resetCommittedOutlines: vi.fn(),
   }
 })
 

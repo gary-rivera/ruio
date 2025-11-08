@@ -1,6 +1,6 @@
 import { render, screen, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
-import { applyOutlineUI } from '@utils/outline'
+import { applyCommittedOutlines } from '@utils/outline'
 import { ElementInteractionController } from '@controllers/ElementInteractionController'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
@@ -11,8 +11,8 @@ vi.mock('@utils/outline', async () => {
   const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
-    applyOutlineUI: vi.fn(),
-    resetPreviouslyAppliedElements: vi.fn(),
+    applyCommittedOutlines: vi.fn(),
+    resetCommittedOutlines: vi.fn(),
   }
 })
 vi.mock('@controllers/ElementInteractionController')
@@ -21,7 +21,7 @@ vi.mock('@controllers/ElementInteractionController')
 const mockedElementInteractionController = ElementInteractionController as Mock<
   typeof ElementInteractionController
 >
-const mockedApplyBorders = applyOutlineUI as Mock<typeof applyOutlineUI>
+const mockedApplyBorders = applyCommittedOutlines as Mock<typeof applyCommittedOutlines>
 
 const TestComponent = () => {
   const {
@@ -173,7 +173,7 @@ describe('RuioContextProvider', () => {
     // Verify rootElement is still null (not auto-selected to #root)
     expect(screen.getByTestId('rootElement').textContent).toBe('None')
 
-    // Verify applyOutlineUI was NOT called with a default root element
+    // Verify applyCommittedOutlines was NOT called with a default root element
     // It should only be called during hover interactions, not on mount
     expect(mockedApplyBorders).not.toHaveBeenCalled()
   })
@@ -210,7 +210,7 @@ describe('RuioContextProvider', () => {
       await userEvent.click(enableBordersButton)
     })
 
-    // Verify applyOutlineUI was called with the restored root element
+    // Verify applyCommittedOutlines was called with the restored root element
     await waitFor(() => {
       expect(mockedApplyBorders).toHaveBeenCalledWith(
         testRoot,
