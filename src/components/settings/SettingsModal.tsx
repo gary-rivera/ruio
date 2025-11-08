@@ -5,7 +5,7 @@ import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
 import { generateGitHubIssueUrl } from '@utils/githubIssue'
-import { clearDynamicColorCache } from '@utils/outline'
+import { clearColorCache } from '@utils/outline'
 import { resetConfig, loadConfig } from '@utils/config'
 
 import styles from './SettingsModal.module.css'
@@ -134,7 +134,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       resetConfig()
 
       // Clear dynamic color cache
-      clearDynamicColorCache()
+      clearColorCache()
 
       // Update state to reflect no cached data
       setHasCachedData(false)
