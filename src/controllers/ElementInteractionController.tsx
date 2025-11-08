@@ -20,7 +20,8 @@ export const ElementInteractionController = (
       "[ruio][ElementInteractionController] Root element not found. Make sure your project's root element matches the DEFAULT_ROOT_ELEMENT: ",
       DEFAULT_ROOT_ELEMENT,
     )
-    return
+    // Return a no-op cleanup function to prevent undefined errors
+    return () => {}
   }
 
   // TODO: add a tooltip to clarify this element is excluded from border styles or element selection
