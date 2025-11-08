@@ -211,23 +211,6 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             isOpen={themeDropdownIsOpen}
             setIsOpen={setThemeDropdownIsOpen}
           />
-
-          {/* outline vs. border toggle */}
-          {/* toggle annotations toggle (meta details about element such as class, dimensions) */}
-          {/* toggle horizontal/vertical halfway line */}
-
-          {/* <SettingsRow
-            title="Border/Outline"
-            containerID="ruio-settings-opacity-row"
-            inputContainerClassName="ruio-opacity-input-control"
-            inputContainerStyling={{ display: 'flex', alignItems: 'center' }}
-            children={
-              <>
-                <span className={styles.opacityValue}>100</span>
-                <span className={styles.opacityUnit}>%</span>
-              </>
-            }
-          /> */}
         </section>
 
         {/* Action Buttons Section */}
@@ -247,9 +230,6 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </button>
         </section>
       </div>
-      {/* TODO: add copy component path of current root */}
-      {/* TODO: add Highlight updates to component metrics */}
-      {/* TODO: render current keyboard shortcuts */}
 
       <footer className={styles.modalFooter}>
         <span className={styles.reportIssue} onClick={handleReportIssue}>
