@@ -132,3 +132,64 @@ export const parseSelectorFromSelectedElement = (selectedElement: HTMLElement): 
   // fallback
   return generateSelectorPath(selectedElement)
 }
+
+/**
+ * Detects the root element to visualize based on a priority cascade:
+ * 1. User's saved selection from localStorage
+ * 2. Custom defaultRootSelector prop provided by user
+ * 3. Common fallback patterns (auto-detection)
+ *
+ * @param savedSelector - Selector stored in localStorage from previous session
+ * @param customSelector - Optional selector provided via RuioWrapper prop
+ * @returns The detected HTMLElement or null if none found
+ */
+export const detectRootElement = (
+  savedSelector: string | undefined,
+  customSelector: string | undefined,
+): HTMLElement | null => {
+  // Priority 1: User's saved selection from localStorage
+  if (savedSelector) {
+    const element = document.querySelector(savedSelector) as HTMLElement
+    if (element) {
+      return element
+    }
+  }
+
+  // Priority 2: Custom defaultRootSelector prop provided by user
+  if (customSelector) {
+    try {
+      const element = document.querySelector(customSelector) as HTMLElement
+      if (element) {
+        return element
+      } else {
+        console.warn(
+          `[ruio] Could not find element with selector "${customSelector}". No root element set.`,
+        )
+      }
+    } catch (error) {
+      console.warn(`[ruio] Invalid selector "${customSelector}":`, error)
+    }
+    return null // Don't fall through to auto-detection if custom selector was provided
+  }
+
+  // Priority 3: Common fallback patterns (auto-detection) - only if no custom selector
+  const fallbackSelectors = ['#root', '#app', '[data-reactroot]', 'body > div:first-child']
+
+  for (const selector of fallbackSelectors) {
+    try {
+      const element = document.querySelector(selector) as HTMLElement
+      if (element) {
+        return element
+      }
+    } catch (error) {
+      // Invalid selector, continue to next fallback
+      continue
+    }
+  }
+
+  // If all else fails, log a warning to help developers debug
+  console.warn(
+    '[ruio] Could not find a root element. Please ensure your app has an element with id="root", id="app", or pass a custom defaultRootSelector prop.',
+  )
+  return null
+}

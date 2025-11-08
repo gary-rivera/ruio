@@ -12,6 +12,7 @@ import { applyCommittedOutlines, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementSelection, TooltipData } from '@hooks/useElementSelection'
 import { getElementInfo } from '@utils/elementInfo'
+import { detectRootElement } from '@utils/config'
 
 interface RuioContextProps {
   ruioEnabled: boolean // are ruio related state +/- interactions enabled
@@ -72,52 +73,10 @@ export const RuioContextProvider = ({
 
   // on mount restore previously selected root element from localStorage or auto-detect
   useEffect(() => {
-    // Priority 1: User's saved selection from localStorage
-    if (localStorageState.rootSelector) {
-      const element = document.querySelector(localStorageState.rootSelector) as HTMLElement
-      if (element) {
-        setRootElement(element)
-        return
-      }
+    const element = detectRootElement(localStorageState.rootSelector, defaultRootSelector)
+    if (element) {
+      setRootElement(element)
     }
-
-    // Priority 2: Custom defaultRootSelector prop provided by user
-    if (defaultRootSelector) {
-      try {
-        const element = document.querySelector(defaultRootSelector) as HTMLElement
-        if (element) {
-          setRootElement(element)
-        } else {
-          console.warn(
-            `[ruio] Could not find element with selector "${defaultRootSelector}". No root element set.`,
-          )
-        }
-      } catch (error) {
-        console.warn(`[ruio] Invalid selector "${defaultRootSelector}":`, error)
-      }
-      return // Don't fall through to auto-detection if custom selector was provided
-    }
-
-    // Priority 3: Common fallback patterns (auto-detection) - only if no custom selector
-    const fallbackSelectors = ['#root', '#app', '[data-reactroot]', 'body > div:first-child']
-
-    for (const selector of fallbackSelectors) {
-      try {
-        const element = document.querySelector(selector) as HTMLElement
-        if (element) {
-          setRootElement(element)
-          return
-        }
-      } catch (error) {
-        // Invalid selector, continue to next fallback
-        continue
-      }
-    }
-
-    // If all else fails, log a warning to help developers debug
-    console.warn(
-      '[ruio] Could not find a root element. Please ensure your app has an element with id="root", id="app", or pass a custom defaultRootSelector prop.',
-    )
   }, [localStorageState.rootSelector, defaultRootSelector])
 
   // when root element changes recalc maximum available depth
