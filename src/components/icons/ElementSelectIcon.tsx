@@ -6,10 +6,10 @@ import styles from '@root/styles/icons.module.css'
 import ElementSelectSvg from '@assets/svg/ruio-element-select-icon.svg?react'
 
 function ElementSelectIcon({ onClick }: IconProps) {
-  const { toggleElementSelectionMode, ruioEnabled } = useRuioContext()
+  const { toggleElementPicker, ruioEnabled } = useRuioContext()
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
-    toggleElementSelectionMode()
+    toggleElementPicker()
     onClick?.(event)
   }
 

@@ -1,9 +1,9 @@
 import React from 'react'
-import { TooltipData } from '@hooks/useElementSelection'
+import { PickerTooltipData } from '@hooks/useElementPicker'
 import styles from './Tooltip.module.css'
 
 interface TooltipContentProps {
-  data: Omit<TooltipData, 'x' | 'y'>
+  data: Omit<PickerTooltipData, 'x' | 'y'>
 }
 
 /**

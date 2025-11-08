@@ -27,7 +27,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     ruioEnabled,
     currentColorPalette,
     rootElement,
-    isElementSelectionModeActive,
+    isElementPickerActive,
     theme,
     setTheme,
   } = useRuioContext()
@@ -120,7 +120,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       depth,
       currentColorPalette,
       rootElement,
-      isElementSelectionModeActive,
+      isElementPickerActive,
     })
     window.open(issueUrl, '_blank', 'noopener,noreferrer')
   }

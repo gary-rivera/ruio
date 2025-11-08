@@ -14,7 +14,7 @@ vi.mock('@controllers/RuioToggleController', () => ({
   ),
 }))
 
-// Mock applyCommittedOutlines and ElementInteractionController
+// Mock applyCommittedOutlines and ElementPicker
 vi.mock('@utils/outline', async () => {
   const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
@@ -24,8 +24,8 @@ vi.mock('@utils/outline', async () => {
   }
 })
 
-vi.mock('@controllers/ElementInteractionController', () => ({
-  ElementInteractionController: vi.fn(() => vi.fn()),
+vi.mock('@controllers/ElementPicker', () => ({
+  ElementPicker: vi.fn(() => vi.fn()),
 }))
 
 describe('RuioUIContainer - Icon Dimming', () => {

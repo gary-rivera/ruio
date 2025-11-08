@@ -5,7 +5,7 @@ export interface RuioState {
   depth: number
   currentColorPalette: string
   rootElement: HTMLElement | null
-  isElementSelectionModeActive: boolean
+  isElementPickerActive: boolean
 }
 
 /**
@@ -78,7 +78,7 @@ export const generateGitHubIssueUrl = (ruioState: RuioState): string => {
 - **Depth:** ${ruioState.depth}
 - **Color Palette:** ${ruioState.currentColorPalette}
 - **Root Element:** ${getRootElementInfo()}
-- **Element Selection Mode Active:** ${ruioState.isElementSelectionModeActive ? 'Yes' : 'No'}
+- **Element Picker Mode Active:** ${ruioState.isElementPickerActive ? 'Yes' : 'No'}
 
 `)
 

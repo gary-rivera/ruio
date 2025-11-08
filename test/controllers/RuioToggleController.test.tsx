@@ -15,8 +15,8 @@ vi.mock('@utils/outline', async () => {
   }
 })
 
-vi.mock('@controllers/ElementInteractionController', () => ({
-  ElementInteractionController: vi.fn(() => vi.fn()),
+vi.mock('@controllers/ElementPicker', () => ({
+  ElementPicker: vi.fn(() => vi.fn()),
 }))
 
 describe('RuioToggleController - Visual Regression', () => {
