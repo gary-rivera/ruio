@@ -226,3 +226,17 @@ export const clearPreviewOutlines = () => {
     previewOutlineElements.clear()
   })
 }
+
+/**
+ * Removes all committed outlines.
+ * Should be called when entering element selection mode to clear previously selected root element outlines.
+ */
+export const clearCommittedOutlines = () => {
+  requestAnimationFrame(() => {
+    committedOutlineElements.forEach((el) => {
+      el.style.outline = ''
+      el.style.outlineOffset = ''
+    })
+    committedOutlineElements.clear()
+  })
+}

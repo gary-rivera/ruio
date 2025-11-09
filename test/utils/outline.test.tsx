@@ -1,4 +1,9 @@
-import { applyCommittedOutlines, resetCommittedOutlines, calculateMaxDepth } from '@utils/outline'
+import {
+  applyCommittedOutlines,
+  resetCommittedOutlines,
+  calculateMaxDepth,
+  clearCommittedOutlines,
+} from '@utils/outline'
 import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
 describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
@@ -172,5 +177,113 @@ describe('calculateMaxDepth', () => {
     p.appendChild(div)
 
     expect(calculateMaxDepth(root)).toBe(3)
+  })
+})
+
+describe('clearCommittedOutlines', () => {
+  let element: HTMLElement
+  let childElement: HTMLElement
+  let grandchildElement: HTMLElement
+  let originalRequestAnimationFrame: typeof window.requestAnimationFrame
+
+  beforeEach(() => {
+    element = document.createElement('div')
+    childElement = document.createElement('div')
+    grandchildElement = document.createElement('div')
+    element.appendChild(childElement)
+    childElement.appendChild(grandchildElement)
+
+    // Save original requestAnimationFrame reference
+    originalRequestAnimationFrame = window.requestAnimationFrame
+
+    // Mock requestAnimationFrame to run synchronously
+    window.requestAnimationFrame = (callback: FrameRequestCallback): number => {
+      callback(0)
+      return 1
+    }
+
+    // Reset previously applied elements before each test
+    resetCommittedOutlines()
+  })
+
+  afterEach(() => {
+    // Restore the original requestAnimationFrame after each test
+    window.requestAnimationFrame = originalRequestAnimationFrame
+    element.style.outline = ''
+    element.style.outlineOffset = ''
+    childElement.style.outline = ''
+    childElement.style.outlineOffset = ''
+    grandchildElement.style.outline = ''
+    grandchildElement.style.outlineOffset = ''
+  })
+
+  test('clears all committed outlines from elements', () => {
+    // Apply committed outlines
+    applyCommittedOutlines(element, 2, true, 'roygbiv')
+
+    // Verify outlines are applied
+    expect(element.style.outline).toBe('2px solid #CD001A')
+    expect(childElement.style.outline).toBe('2px solid #EF6A00')
+    expect(grandchildElement.style.outline).toBe('2px solid #F2CD00')
+
+    // Clear committed outlines
+    clearCommittedOutlines()
+
+    // Verify all outlines are removed
+    expect(element.style.outline).toBe('')
+    expect(childElement.style.outline).toBe('')
+    expect(grandchildElement.style.outline).toBe('')
+  })
+
+  test('clears outlineOffset property', () => {
+    // Apply committed outlines
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
+
+    // Manually set outlineOffset (simulating what preview outlines might do)
+    element.style.outlineOffset = '2px'
+    childElement.style.outlineOffset = '2px'
+
+    // Clear committed outlines
+    clearCommittedOutlines()
+
+    // Verify outlineOffset is also cleared
+    expect(element.style.outlineOffset).toBe('')
+    expect(childElement.style.outlineOffset).toBe('')
+  })
+
+  test('handles being called when no outlines are applied', () => {
+    // Should not throw when called with no committed outlines
+    expect(() => {
+      clearCommittedOutlines()
+    }).not.toThrow()
+  })
+
+  test('clears internal tracking of committed elements', () => {
+    // Apply committed outlines to first element
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    expect(element.style.outline).toBe('2px solid #CD001A')
+
+    // Clear all committed outlines
+    clearCommittedOutlines()
+
+    // Apply new committed outlines to a different element
+    applyCommittedOutlines(childElement, 1, true, 'roygbiv')
+
+    // Original element should not have outlines (proves internal tracking was cleared)
+    expect(element.style.outline).toBe('')
+    expect(childElement.style.outline).toBe('2px solid #CD001A')
+  })
+
+  test('can be called multiple times without errors', () => {
+    applyCommittedOutlines(element, 1, true, 'roygbiv')
+
+    expect(() => {
+      clearCommittedOutlines()
+      clearCommittedOutlines()
+      clearCommittedOutlines()
+    }).not.toThrow()
+
+    expect(element.style.outline).toBe('')
+    expect(childElement.style.outline).toBe('')
   })
 })
