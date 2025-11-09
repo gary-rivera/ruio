@@ -24,7 +24,7 @@ describe('ElementPicker', () => {
     mockHoverCallback = vi.fn()
     mockClickCallback = vi.fn()
 
-    cleanup = ElementPicker(mockHoverCallback, mockClickCallback)
+    cleanup = ElementPicker(mockClickCallback, mockHoverCallback, undefined)
   })
 
   afterEach(() => {
@@ -40,7 +40,7 @@ describe('ElementPicker', () => {
    */
   test('runs without errors when called with a valid callback', () => {
     expect(() => {
-      ElementPicker(mockHoverCallback, mockClickCallback)
+      ElementPicker(mockClickCallback, mockHoverCallback, undefined)
     }).not.toThrow()
   })
 
@@ -51,32 +51,33 @@ describe('ElementPicker', () => {
   /**
    * Functional Tests
    */
-  test('applies hover styles and calls hover callback on hover over a valid target', () => {
+  test('calls hover callback on hover over a valid target', () => {
     const hoverEvent = new MouseEvent('mouseover', {
       bubbles: true,
     })
     childElement.dispatchEvent(hoverEvent)
 
     expect(mockHoverCallback).toHaveBeenCalledWith(childElement, 0, 0)
-    expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
   })
 
-  test('removes hover styles when mouse leaves valid target', () => {
-    const originalBgColor = childElement.style.backgroundColor
+  test('calls mouseout callback when mouse leaves valid target', () => {
+    const mockMouseOutCallback = vi.fn()
+    const cleanupWithMouseOut = ElementPicker(mockClickCallback, mockHoverCallback, mockMouseOutCallback)
+
     const mouseOnEvent = new MouseEvent('mouseover', {
       bubbles: true,
     })
     const mouseOutEvent = new MouseEvent('mouseout', {
       bubbles: true,
-      relatedTarget: null, // Simulate moving out of the element completely
+      relatedTarget: null,
     })
 
     childElement.dispatchEvent(mouseOnEvent)
-    expect(childElement.classList.contains('ruio-hovered')).toBe(true)
-
     childElement.dispatchEvent(mouseOutEvent)
-    expect(childElement.classList.contains('ruio-hovered')).toBe(false)
-    expect(childElement.style.backgroundColor).toBe(originalBgColor)
+
+    expect(mockMouseOutCallback).toHaveBeenCalled()
+
+    cleanupWithMouseOut?.()
   })
 
   test('calls click callback and cleans up listeners on click', () => {
@@ -87,13 +88,12 @@ describe('ElementPicker', () => {
     childElement.dispatchEvent(clickEvent)
 
     expect(mockClickCallback).toHaveBeenCalledWith(childElement)
-    expect(childElement.style.backgroundColor).toBe('')
 
     // Ensure cleanup is called (listeners are removed)
     if (cleanup) cleanup()
 
     // Try triggering hover/click after cleanup to ensure no effect
-    mockClickCallback.mockClear() // Reset the callback to check for post-cleanup events
+    mockClickCallback.mockClear()
     childElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
     childElement.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
@@ -103,7 +103,7 @@ describe('ElementPicker', () => {
   /**
    * Edge Case Tests
    */
-  test('restores element styles to their original state after selection mode is triggered', () => {
+  test('cleanup removes all event listeners', () => {
     const hoverEvent = new MouseEvent('mouseover', {
       bubbles: true,
     })
@@ -111,17 +111,9 @@ describe('ElementPicker', () => {
       bubbles: true,
     })
 
-    // Verify initial background color is white (set in beforeEach)
-    expect(childElement.style.backgroundColor).toBe('white')
-
-    // Dispatch hover event before click
+    // Verify callbacks work before cleanup
     childElement.dispatchEvent(hoverEvent)
-    expect(childElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
-
-    // Dispatch click event to trigger selection mode and reset styles
-    childElement.dispatchEvent(clickEvent)
-    // After click, the original background color should be restored
-    expect(childElement.style.backgroundColor).toBe('white')
+    expect(mockHoverCallback).toHaveBeenCalled()
 
     // Ensure cleanup is called (listeners are removed)
     if (cleanup) cleanup()
@@ -137,65 +129,41 @@ describe('ElementPicker', () => {
     expect(mockClickCallback).not.toHaveBeenCalled()
   })
 
-  test('correctly preserves and restores multiple inline styles', () => {
-    // Set up element with multiple inline styles
+  test('does not apply styles directly - delegates to callbacks', () => {
+    // Set up element with inline styles
     const testElement = document.createElement('div')
     testElement.style.backgroundColor = 'red'
     testElement.style.color = 'blue'
-    testElement.style.fontSize = '16px'
-    testElement.style.padding = '10px'
     rootElement.appendChild(testElement)
 
     const originalBgColor = testElement.style.backgroundColor
     const originalColor = testElement.style.color
-    const originalFontSize = testElement.style.fontSize
-    const originalPadding = testElement.style.padding
 
     // Hover over the element
     const hoverEvent = new MouseEvent('mouseover', { bubbles: true })
     testElement.dispatchEvent(hoverEvent)
 
-    // Verify hover style is applied
-    expect(testElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
-    // Other styles should remain unchanged
-    expect(testElement.style.color).toBe(originalColor)
-    expect(testElement.style.fontSize).toBe(originalFontSize)
-    expect(testElement.style.padding).toBe(originalPadding)
-
-    // Mouse out
-    const mouseOutEvent = new MouseEvent('mouseout', { bubbles: true })
-    testElement.dispatchEvent(mouseOutEvent)
-
-    // Verify all original styles are restored
+    // ElementPicker should NOT modify styles - that's the callback's job
     expect(testElement.style.backgroundColor).toBe(originalBgColor)
     expect(testElement.style.color).toBe(originalColor)
-    expect(testElement.style.fontSize).toBe(originalFontSize)
-    expect(testElement.style.padding).toBe(originalPadding)
+
+    // But it should call the callback
+    expect(mockHoverCallback).toHaveBeenCalledWith(testElement, 0, 0)
 
     rootElement.removeChild(testElement)
   })
 
-  test('handles elements with no initial inline styles', () => {
-    // Create element with no inline styles
-    const noStyleElement = document.createElement('div')
-    rootElement.appendChild(noStyleElement)
+  test('filters out ruio UI elements', () => {
+    const ruioElement = document.createElement('div')
+    ruioElement.id = 'ruio-exclude-modal'
+    rootElement.appendChild(ruioElement)
 
-    expect(noStyleElement.getAttribute('style')).toBeNull()
-
-    // Hover over the element
     const hoverEvent = new MouseEvent('mouseover', { bubbles: true })
-    noStyleElement.dispatchEvent(hoverEvent)
+    ruioElement.dispatchEvent(hoverEvent)
 
-    // Verify hover style is applied
-    expect(noStyleElement.style.backgroundColor).toBe('rgba(153, 181, 214, 0.66)')
+    // Should not call hover callback for ruio elements
+    expect(mockHoverCallback).not.toHaveBeenCalled()
 
-    // Mouse out
-    const mouseOutEvent = new MouseEvent('mouseout', { bubbles: true })
-    noStyleElement.dispatchEvent(mouseOutEvent)
-
-    // Verify style attribute is removed (not just emptied)
-    expect(noStyleElement.getAttribute('style')).toBeNull()
-
-    rootElement.removeChild(noStyleElement)
+    rootElement.removeChild(ruioElement)
   })
 })

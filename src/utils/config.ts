@@ -115,7 +115,7 @@ const generateSelectorPath = (element: HTMLElement): string => {
 
 /**
  * Helper to parse selected root from captured element
- * Filters out internal temporary classes like 'ruio-hovered'
+ * Filters out internally generated classes like 'ruio-hovered'
  * Falls back to generating a selector path if no ID or classes exist
  */
 export const parseSelectorFromSelectedElement = (selectedElement: HTMLElement): string => {
@@ -134,7 +134,7 @@ export const parseSelectorFromSelectedElement = (selectedElement: HTMLElement): 
 }
 
 /**
- * Detects the root element to visualize based on a priority cascade:
+ * Detects the root element to apply initial UI to based on a priority cascade:
  * 1. User's saved selection from localStorage
  * 2. Custom defaultRootSelector prop provided by user
  * 3. Common fallback patterns (auto-detection)
