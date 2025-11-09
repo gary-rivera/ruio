@@ -1,4 +1,4 @@
-import RuioIcon from '@components/icons/RuioIcon'
+import Icon from '@components/icons/Icon'
 import styles from '@root/styles/icons.module.css'
 import ChevronSvg from '@assets/svg/ruio-chevron-icon.svg?react'
 
@@ -10,9 +10,9 @@ function ChevronIcon({ isOpen }: ChevronIconProps) {
   const buttonClass = `${styles.chevronButton} ${isOpen ? styles.chevronActive : styles.chevronInactive}`
 
   return (
-    <RuioIcon id="ruio-chevron" buttonClassName={buttonClass} pulseEnabled={false}>
+    <Icon id="ruio-chevron" buttonClassName={buttonClass} pulseEnabled={false}>
       <ChevronSvg className={styles.chevronSvg} />
-    </RuioIcon>
+    </Icon>
   )
 }
 

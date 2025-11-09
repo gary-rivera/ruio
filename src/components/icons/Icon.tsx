@@ -2,7 +2,7 @@ import { ReactNode, MouseEvent, useState, useCallback } from 'react'
 
 import baseStyles from '@root/styles/base.module.css'
 
-type RuioIconProps = {
+type IconProps = {
   id: string
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   children: ReactNode
@@ -11,14 +11,14 @@ type RuioIconProps = {
   pulseEnabled?: boolean
 }
 
-function RuioIcon({
+function Icon({
   id,
   onClick,
   children,
   buttonClassName = '',
   svgClassName = '',
   pulseEnabled = true,
-}: RuioIconProps) {
+}: IconProps) {
   const [shouldPulse, setShouldPulse] = useState(false)
 
   const handleClick = useCallback(
@@ -44,4 +44,4 @@ function RuioIcon({
   )
 }
 
-export default RuioIcon
+export default Icon

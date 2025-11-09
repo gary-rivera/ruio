@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react'
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import RuioIcon from '@components/icons/RuioIcon'
+import Icon from '@components/icons/Icon'
 import IconProps from '@root/types/IconTypes'
 import styles from '@root/styles/icons.module.css'
 import ElementSelectSvg from '@assets/svg/ruio-element-select-icon.svg?react'
@@ -16,9 +16,9 @@ function ElementSelectIcon({ onClick }: IconProps) {
   const buttonClass = `${styles.iconButton} ${ruioEnabled ? styles.iconButtonActive : styles.iconButtonInactive}`
 
   return (
-    <RuioIcon id="ruio-element-select-icon" onClick={handleClick} buttonClassName={buttonClass}>
+    <Icon id="ruio-element-select-icon" onClick={handleClick} buttonClassName={buttonClass}>
       <ElementSelectSvg className={styles.iconSvg} />
-    </RuioIcon>
+    </Icon>
   )
 }
 
