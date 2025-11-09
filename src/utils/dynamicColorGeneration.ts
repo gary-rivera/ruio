@@ -10,32 +10,8 @@ interface RGB {
 }
 
 /**
- * Parse a CSS color string to RGB values
- * Supports rgb(), rgba(), hex, and named colors
  */
-export const parseColor = (color: string): RGB => {
-  // Create a temporary element to let the browser parse the color
-  const temp = document.createElement('div')
-  temp.style.color = color
-  document.body.appendChild(temp)
-  const computed = window.getComputedStyle(temp).color
-  document.body.removeChild(temp)
-
-  // Parse rgb() or rgba() format
-  const match = computed.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/)
-  if (match) {
-    return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) }
-  }
-
-  // Fallback to white if parsing fails
-  return { r: 255, g: 255, b: 255 }
-}
-
-/**
- * Get computed background color of an element
- * If transparent, traverse up the DOM to find first non-transparent background
- */
-export const getEffectiveBackgroundColor = (element: HTMLElement): RGB => {
+export const getComputedBackgroundColor = (element: HTMLElement): RGB => {
   let current: HTMLElement | null = element
 
   while (current && current !== document.body) {
@@ -75,20 +51,6 @@ export const getRelativeLuminance = (rgb: RGB): number => {
   })
 
   return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs
-}
-
-/**
- * Calculate contrast ratio between two colors
- * https://www.w3.org/TR/WCAG20/#contrast-ratiodef
- */
-export const getContrastRatio = (color1: RGB, color2: RGB): number => {
-  const lum1 = getRelativeLuminance(color1)
-  const lum2 = getRelativeLuminance(color2)
-
-  const lighter = Math.max(lum1, lum2)
-  const darker = Math.min(lum1, lum2)
-
-  return (lighter + 0.75) / (darker + 0.75)
 }
 
 /**
