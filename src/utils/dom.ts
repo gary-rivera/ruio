@@ -53,3 +53,11 @@ export const styleMapToString = (styleMap: Map<string, string>): string => {
   })
   return styles.join('; ')
 }
+
+export function shouldSkipElement(el: HTMLElement): boolean {
+  return !el || el.tagName === 'SCRIPT'
+}
+
+export function getElementsChildren(el: HTMLElement): HTMLElement[] {
+  return Array.from(el.children).filter((child) => child instanceof HTMLElement) as HTMLElement[]
+}

@@ -1,148 +1,121 @@
 import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
 import { generateContrastingColor } from '@utils/colorContrast'
+import { getElementsChildren, shouldSkipElement } from './dom'
 
 const HOVER_BG_COLOR = 'rgba(153, 181, 214, 0.66)'
 
-// exported for tests
-export let committedOutlineElements: Set<HTMLElement> = new Set()
-
-// Preview outlines (hover during selection mode)
+// local state variables (avoids having to do expensive actual cache pulls)
+export let committedOutlineElements: Set<HTMLElement> = new Set() // exported for testing
 let previewOutlineElements: Set<HTMLElement> = new Set()
-
-// Store original background colors for elements we modify
 let originalBackgroundColors: Map<HTMLElement, string> = new Map()
 
-// Cache for color calculations - cleared when root element changes or palette changes
-// Key format: `${elementUniqueId}_${depth}`
+// ===== CACHING ========
+// this helps avoids having to do expensive actual cache pulls
 let colorCache: Map<string, string> = new Map()
 let cachedRootElement: HTMLElement | null = null
 let cachedPalette: string | null = null
 
-// Generate a unique key for caching based on element attributes
-const getElementCacheKey = (el: HTMLElement, depth: number): string => {
-  // Use a combination of attributes that uniquely identify the element and its position in the DOM
+function getElementCacheKey(el: HTMLElement, depth: number): string {
   const id = el.id || ''
   const className = el.className || ''
   const tagName = el.tagName
   const pathIndex = Array.from(el.parentElement?.children || []).indexOf(el)
-
   return `${tagName}_${id}_${className}_${pathIndex}_${depth}`
 }
 
-export const applyCommittedOutlines = (
-  element: HTMLElement,
-  depth: number,
-  apply: boolean,
-  currentColorPalette: string,
-) => {
-  if (!currentColorPalette) {
-    console.warn('currentColorPalette is undefined; defaulting to "dynamic" palette.')
-    currentColorPalette = 'dynamic'
-  }
-
-  // Clear cache if root element or palette changed
-  if (cachedRootElement !== element || cachedPalette !== currentColorPalette) {
+function invalidateCacheIfChanged(element: HTMLElement, palette: string): void {
+  if (cachedRootElement !== element || cachedPalette !== palette) {
     colorCache.clear()
     cachedRootElement = element
-    cachedPalette = currentColorPalette
+    cachedPalette = palette
+  }
+}
+
+function getColorForElement(el: HTMLElement, depth: number, palette: string): string {
+  const isDynamic = palette === 'dynamic'
+
+  if (isDynamic) {
+    const cacheKey = getElementCacheKey(el, depth)
+    const cached = colorCache.get(cacheKey)
+
+    if (cached) return cached
+
+    const color = generateContrastingColor(el, depth)
+    colorCache.set(cacheKey, color)
+    return color
   }
 
-  const colors = colorPalettesMap[currentColorPalette]
-  const elements = new Set<HTMLElement>()
-  const isDynamicPalette = currentColorPalette === 'dynamic'
+  const colors = colorPalettesMap[palette]
+  return getRelativeDepthColor(colors, depth)
+}
 
+export function clearColorCache(): void {
+  colorCache.clear()
+  cachedRootElement = null
+  cachedPalette = null
+}
+
+// ===== STYLE APPLICATION ========
+interface OutlineStyleConfig {
+  color: string
+  style: 'solid' | 'dashed'
+  offset?: string
+  backgroundColor?: string
+}
+
+function applyOutlineStyle(el: HTMLElement, config: OutlineStyleConfig): void {
+  el.style.outline = `2px ${config.style} ${config.color}`
+
+  if (config.offset) {
+    el.style.outlineOffset = config.offset
+  }
+
+  if (config.backgroundColor) {
+    if (!originalBackgroundColors.has(el)) {
+      originalBackgroundColors.set(el, el.style.backgroundColor)
+    }
+    el.style.backgroundColor = config.backgroundColor
+  }
+}
+
+function clearOutlineStyle(el: HTMLElement, clearBackground = false): void {
+  el.style.outline = ''
+  el.style.outlineOffset = ''
+
+  if (clearBackground && originalBackgroundColors.has(el)) {
+    el.style.backgroundColor = originalBackgroundColors.get(el) || ''
+    originalBackgroundColors.delete(el)
+  }
+}
+
+interface TraversalConfig {
+  maxDepth: number
+  palette: string
+  onElement: (el: HTMLElement, depth: number, color: string) => void
+}
+
+function traverseAndApply(
+  element: HTMLElement,
+  config: TraversalConfig,
+  elements: Set<HTMLElement> = new Set(),
+): Set<HTMLElement> {
   const traverse = (el: HTMLElement, currentDepth: number) => {
-    if (!el || currentDepth > depth) return
-
-    if (el.tagName === 'SCRIPT') return
+    if (shouldSkipElement(el) || currentDepth > config.maxDepth) return
 
     elements.add(el)
 
     requestAnimationFrame(() => {
-      let outlineColor: string
-
-      if (isDynamicPalette) {
-        // Try to get from cache first
-        const cacheKey = getElementCacheKey(el, currentDepth)
-        const cachedColor = colorCache.get(cacheKey)
-
-        if (cachedColor) {
-          outlineColor = cachedColor
-        } else {
-          // Calculate and cache the color
-          outlineColor = generateContrastingColor(el, currentDepth)
-          colorCache.set(cacheKey, outlineColor)
-        }
-      } else {
-        outlineColor = getRelativeDepthColor(colors, currentDepth)
-      }
-
-      el.style.outline = apply ? `2px solid ${outlineColor}` : ''
+      const color = getColorForElement(el, currentDepth, config.palette)
+      config.onElement(el, currentDepth, color)
     })
 
-    Array.from(el.children).forEach((child) => {
-      if (child instanceof HTMLElement) {
-        traverse(child, currentDepth + 1)
-      }
+    getElementsChildren(el).forEach((child) => {
+      traverse(child, currentDepth + 1)
     })
   }
 
   traverse(element, 0)
-
-  requestAnimationFrame(() => {
-    committedOutlineElements.forEach((el) => {
-      // Remove outline if not in the new set of elements
-      // NOTE: this may overwrite elements that have an outline style already applied
-      if (!elements.has(el)) el.style.outline = ''
-    })
-
-    committedOutlineElements = elements
-  })
-}
-
-/**
- * Calculates the maximum depth of the DOM tree starting from a root element.
- * Ignores script tags and counts the deepest path from root to leaf.
- *
- * @param element - The root element to calculate depth from
- * @returns The maximum depth (0 for elements with no children)
- */
-export const calculateMaxDepth = (element: HTMLElement | null): number => {
-  if (!element) return 0
-
-  let maxDepthFound = 0
-
-  const shouldSkipElement = (el: HTMLElement) => !el || el.tagName === 'SCRIPT'
-
-  const getHtmlElementChildren = (el: HTMLElement): HTMLElement[] => {
-    return Array.from(el.children).filter((child) => child instanceof HTMLElement) as HTMLElement[]
-  }
-
-  const traverseAndTrackDepth = (el: HTMLElement, currentDepth: number) => {
-    if (shouldSkipElement(el)) return
-
-    maxDepthFound = Math.max(maxDepthFound, currentDepth)
-
-    const childElements = getHtmlElementChildren(el)
-    childElements.forEach((child) => {
-      traverseAndTrackDepth(child, currentDepth + 1)
-    })
-  }
-
-  traverseAndTrackDepth(element, 0)
-  return maxDepthFound
-}
-
-// for testing
-export const resetCommittedOutlines = () => {
-  committedOutlineElements.clear()
-}
-
-// for testing and manual cache clearing
-export const clearColorCache = () => {
-  colorCache.clear()
-  cachedRootElement = null
-  cachedPalette = null
+  return elements
 }
 
 // =====  ========
@@ -177,64 +150,72 @@ export const applySelectedOutlines = (
   })
 }
 
-    Array.from(el.children).forEach((child) => {
-      if (child instanceof HTMLElement) {
-        traverse(child, currentDepth + 1)
-      }
-    })
+export const applyPreviewOutlines = (
+  element: HTMLElement,
+  depth: number,
+  currentColorPalette: string,
+) => {
+  if (!currentColorPalette) {
+    console.warn('currentColorPalette is undefined; defaulting to "dynamic" palette.')
+    currentColorPalette = 'dynamic'
   }
 
-  traverse(element, 0)
+  const elements = traverseAndApply(element, {
+    maxDepth: depth,
+    palette: currentColorPalette,
+    onElement: (el, currentDepth, color) => {
+      applyOutlineStyle(el, {
+        color,
+        style: 'dashed',
+        offset: '2px',
+        backgroundColor: currentDepth === 0 ? HOVER_BG_COLOR : undefined,
+      })
+    },
+  })
 
-  // Clean up previous preview outlines
   requestAnimationFrame(() => {
     previewOutlineElements.forEach((el) => {
       if (!elements.has(el)) {
-        el.style.outline = ''
-        el.style.outlineOffset = ''
-
-        // Restore original background color
-        if (originalBackgroundColors.has(el)) {
-          el.style.backgroundColor = originalBackgroundColors.get(el) || ''
-          originalBackgroundColors.delete(el)
-        }
+        clearOutlineStyle(el, true)
       }
     })
-
     previewOutlineElements = elements
   })
 }
 
-/**
- * Removes all preview outlines.
- * Should be called when exiting element selection mode or when an element is selected.
- */
 export const clearPreviewOutlines = () => {
   requestAnimationFrame(() => {
     previewOutlineElements.forEach((el) => {
-      el.style.outline = ''
-      el.style.outlineOffset = ''
-
-      // Restore original background color
-      if (originalBackgroundColors.has(el)) {
-        el.style.backgroundColor = originalBackgroundColors.get(el) || ''
-        originalBackgroundColors.delete(el)
-      }
+      clearOutlineStyle(el, true)
     })
     previewOutlineElements.clear()
   })
 }
 
-/**
- * Removes all committed outlines.
- * Should be called when entering element selection mode to clear previously selected root element outlines.
- */
-export const clearCommittedOutlines = () => {
+export const clearSelectedOutlines = () => {
   requestAnimationFrame(() => {
     committedOutlineElements.forEach((el) => {
-      el.style.outline = ''
-      el.style.outlineOffset = ''
+      clearOutlineStyle(el, false)
     })
     committedOutlineElements.clear()
   })
+}
+
+export const calculateMaxDepth = (element: HTMLElement | null): number => {
+  if (!element) return 0
+
+  let maxDepthFound = 0
+
+  const traverseAndTrackDepth = (el: HTMLElement, currentDepth: number) => {
+    if (shouldSkipElement(el)) return
+
+    maxDepthFound = Math.max(maxDepthFound, currentDepth)
+
+    getElementsChildren(el).forEach((child) => {
+      traverseAndTrackDepth(child, currentDepth + 1)
+    })
+  }
+
+  traverseAndTrackDepth(element, 0)
+  return maxDepthFound
 }

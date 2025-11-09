@@ -1,12 +1,12 @@
 import {
-  resetCommittedOutlines,
   applySelectedOutlines,
+  committedOutlineElements,
   calculateMaxDepth,
   clearSelectedOutlines,
 } from '@utils/outline'
 import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
-describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
+describe('applySelectedOutlines Smoke and Functionality Tests', () => {
   let element: HTMLElement
   let childElement: HTMLElement
   let originalRequestAnimationFrame: typeof window.requestAnimationFrame
@@ -26,7 +26,7 @@ describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
     }
 
     // Reset previously applied elements before each test
-    resetCommittedOutlines()
+    committedOutlineElements.clear()
   })
 
   afterEach(() => {
@@ -203,7 +203,7 @@ describe('clearSelectedOutlines', () => {
     }
 
     // Reset previously applied elements before each test
-    resetCommittedOutlines()
+    committedOutlineElements.clear()
   })
 
   afterEach(() => {

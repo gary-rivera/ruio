@@ -1,7 +1,7 @@
 import { render, screen, waitFor, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
-import { resetCommittedOutlines } from '@utils/outline'
+import { committedOutlineElements } from '@utils/outline'
 import * as outlineModule from '@utils/outline'
 
 // Spy on outline utilities to track calls
@@ -9,7 +9,7 @@ vi.mock('@utils/outline', async () => {
   const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
-    applyCommittedOutlines: vi.fn(actual.applyCommittedOutlines),
+    applySelectedOutlines: vi.fn(actual.applySelectedOutlines),
   }
 })
 
@@ -81,7 +81,7 @@ const simulateElementClick = async (callback: ((element: HTMLElement) => void) |
  * 4. Tracking verification: Verifies committedOutlineElements tracking (PASSES ✓)
  *
  * Implementation Details:
- * When an element is selected, handleRootSelected immediately calls applyCommittedOutlines synchronously.
+ * When an element is selected, handleRootSelected immediately calls applySelectedOutlines synchronously.
  * This ensures outlines are always applied when an element is clicked, regardless of whether it's
  * the same element or a different one, addressing the edge case where hover interactions during
  * element selection mode might have modified the outline state.
@@ -92,12 +92,12 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     localStorage.clear()
     // Clean up any existing test elements
     document.body.innerHTML = ''
-    resetCommittedOutlines()
+    committedOutlineElements.clear()
   })
 
   afterEach(() => {
     document.body.innerHTML = ''
-    resetCommittedOutlines()
+    committedOutlineElements.clear()
   })
 
   test('should apply outlines to selected root element and descendants when same element is selected twice', async () => {
@@ -111,7 +111,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
      *
      * Expected behavior: The outline styling should be reapplied to the root element and its descendants
      *
-     * Implementation: handleRootSelected calls applyCommittedOutlines synchronously when an element is
+     * Implementation: handleRootSelected calls applySelectedOutlines synchronously when an element is
      * clicked. This ensures outlines are always applied regardless of whether the same element is
      * reselected, handling cases where hover interactions might have modified outline state.
      *
@@ -206,15 +206,15 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
       { timeout: 2000 },
     )
 
-    // Track how many times applyCommittedOutlines has been called up to this point
-    const callCountAfterFirstSelection = vi.mocked(outlineModule.applyCommittedOutlines).mock.calls
+    // Track how many times applySelectedOutlines has been called up to this point
+    const callCountAfterFirstSelection = vi.mocked(outlineModule.applySelectedOutlines).mock.calls
       .length
 
     // STEP 3: Manually clear the committedOutlineElements to simulate the bug
     // In a real scenario, this might happen if elements are removed from the DOM
     // or if there's some other interaction that clears the tracked elements
-    const { resetCommittedOutlines: resetElements } = await import('@utils/outline')
-    resetElements()
+    const { committedOutlineElements: elements } = await import('@utils/outline')
+    elements.clear()
 
     // Wait for any pending requestAnimationFrame calls to complete
     await new Promise((resolve) => setTimeout(resolve, 100))
@@ -252,16 +252,16 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
       expect(screen.getByTestId('selection-mode-active').textContent).toBe('false')
     })
 
-    // Track how many times applyCommittedOutlines was called after reselection
-    const callCountAfterReselection = vi.mocked(outlineModule.applyCommittedOutlines).mock.calls.length
+    // Track how many times applySelectedOutlines was called after reselection
+    const callCountAfterReselection = vi.mocked(outlineModule.applySelectedOutlines).mock.calls.length
 
-    // CRITICAL ASSERTION: Verify that applyCommittedOutlines WAS called during reselection
+    // CRITICAL ASSERTION: Verify that applySelectedOutlines WAS called during reselection
     // even though the rootElement reference is the same. This is achieved by calling
-    // applyCommittedOutlines synchronously in handleRootSelected.
+    // applySelectedOutlines synchronously in handleRootSelected.
     expect(callCountAfterReselection).toBeGreaterThan(callCountAfterFirstSelection)
 
     // CRITICAL ASSERTION: Verify that the selected root element itself has outline REAPPLIED
-    // This should now PASS because handleRootSelected calls applyCommittedOutlines directly
+    // This should now PASS because handleRootSelected calls applySelectedOutlines directly
     await waitFor(
       () => {
         expect(targetElement.style.outline).toBeTruthy()
