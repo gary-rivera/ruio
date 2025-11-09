@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import RuioUIContainer from '@components/RuioUIContainer'
+import UIContainer from '@components/UIContainer'
 import { RuioContextProvider } from '@context/RuioContextProvider'
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import styles from '@components/RuioUIContainer.module.css'
+import styles from '@components/UIContainer.module.css'
 
-// Mock the RuioToggleController to expose isDimmed prop
-vi.mock('@controllers/RuioToggleController', () => ({
+// Mock the UIToggleController to expose isDimmed prop
+vi.mock('@controllers/UIToggleController', () => ({
   default: ({ isDimmed }: { isDimmed: boolean }) => (
     <div data-testid="ruio-toggle-controller" data-dimmed={isDimmed}>
       Toggle
@@ -28,7 +28,7 @@ vi.mock('@controllers/ElementPicker', () => ({
   ElementPicker: vi.fn(() => vi.fn()),
 }))
 
-describe('RuioUIContainer - Icon Dimming', () => {
+describe('UIContainer - Icon Dimming', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     localStorage.clear()
@@ -39,7 +39,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('settings icon container has icon-active class when settings is open', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -54,7 +54,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('element select icon container has icon-dimmed class when settings is open', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -70,7 +70,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('logo is dimmed when settings icon is clicked', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -88,7 +88,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('logo is dimmed when element select mode is active', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -106,7 +106,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('settings icon container has icon-dimmed class when element select mode is active', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -122,7 +122,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('element select icon container has icon-active class when element select mode is active', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -137,7 +137,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('dimming stops when settings modal is closed', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -163,7 +163,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('clicking element select icon twice toggles dimming on and off', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -189,7 +189,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('only one icon can be active at a time', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -214,7 +214,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('icon containers have base icon-container class', () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
@@ -228,7 +228,7 @@ describe('RuioUIContainer - Icon Dimming', () => {
   test('clicking settings when element select is active deactivates element select mode', async () => {
     render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
 
