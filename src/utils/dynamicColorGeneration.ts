@@ -1,8 +1,10 @@
 /**
- * Color contrast utilities for dynamic palette generation
- * Based on WCAG contrast ratio guidelines
+ * color contrast utilities for dynamic palette generation
+ * heavily based on WCAG contrast ratio guidelines from various sources (notated)
+ * NOTE: so many magic numbers, please fix eventually
  */
 
+const WHITE_RGB_FALLBACK = { r: 255, g: 255, b: 255 }
 interface RGB {
   r: number
   g: number
@@ -10,17 +12,19 @@ interface RGB {
 }
 
 /**
+ * if color is transparent, traverses up the DOM to find first non-transparent background
  */
 export const getComputedBackgroundColor = (element: HTMLElement): RGB => {
   let current: HTMLElement | null = element
 
   while (current && current !== document.body) {
     const bgColor = window.getComputedStyle(current).backgroundColor
+    const isNotTransparent = bgColor && bgColor !== 'transparent' && bgColor !== 'rgba(0, 0, 0, 0)'
 
-    // Check if color is not transparent
-    if (bgColor && bgColor !== 'transparent' && bgColor !== 'rgba(0, 0, 0, 0)') {
-      // Check if it has some opacity
+    if (isNotTransparent) {
+      // tl;dr - check for opacity
       const match = bgColor.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/)
+
       if (match) {
         const alpha = match[4] ? parseFloat(match[4]) : 1
         if (alpha > 0.1) {
@@ -34,11 +38,11 @@ export const getComputedBackgroundColor = (element: HTMLElement): RGB => {
   }
 
   // Default to white if no background color found
-  return { r: 255, g: 255, b: 255 }
+  return WHITE_RGB_FALLBACK
 }
 
 /**
- * Calculate relative luminance according to WCAG formula
+ * calculate relative luminance according to WCAG formula
  * https://www.w3.org/TR/WCAG20/#relativeluminancedef
  */
 export const getRelativeLuminance = (rgb: RGB): number => {
@@ -55,6 +59,7 @@ export const getRelativeLuminance = (rgb: RGB): number => {
 
 /**
  * Convert RGB to HSL
+ * Based on algorithm from CSS Color Module Level 3 - https://www.w3.org/TR/css-color-3/#hsl-color
  */
 const rgbToHsl = (rgb: RGB): { h: number; s: number; l: number } => {
   const r = rgb.r / 255
@@ -94,44 +99,38 @@ const rgbToHsl = (rgb: RGB): { h: number; s: number; l: number } => {
  * Uses depth to ensure color variation between nested elements
  */
 export const generateContrastingColor = (element: HTMLElement, depth: number): string => {
-  const elementBg = getEffectiveBackgroundColor(element)
+  const elementBg = getComputedBackgroundColor(element)
   const parentBg = element.parentElement
-    ? getEffectiveBackgroundColor(element.parentElement)
+    ? getComputedBackgroundColor(element.parentElement)
     : { r: 255, g: 255, b: 255 }
 
-  // Calculate luminance to determine if backgrounds are light or dark
   const elementLum = getRelativeLuminance(elementBg)
   const parentLum = getRelativeLuminance(parentBg)
 
-  // Determine the average luminance to decide on contrast color
+  // how we determine what color variance to use
   const avgLum = (elementLum + parentLum) / 2
 
-  // For light backgrounds (>0.5 luminance), use vibrant neon colors
-  // For dark backgrounds (<=0.5 luminance), use complementary colors for better contrast
+  // light backgrounds -> use vibrant neon colors
   if (avgLum > 0.5) {
-    // Light background - use pure vibrant neon colors
-    // Cycle through color wheel based on depth for variety
-    const baseHue = (depth * 51) % 360 // 51 degrees gives good color separation
+    const baseHue = (depth * 51) % 360
 
-    // Very high saturation and medium-high lightness for neon effect
-    const saturation = 95 + Math.floor((depth % 2) * 5) // 95-100%
-    const lightness = 45 + Math.floor((depth % 4) * 5) // 45-60% - vibrant but visible
+    const saturation = 95 + Math.floor((depth % 2) * 5)
+    const lightness = 45 + Math.floor((depth % 4) * 5)
 
     return `hsl(${baseHue}, ${saturation}%, ${lightness}%)`
-  } else {
-    // Dark background - use complementary colors that are bright
+  }
+  // dark backgrounds -> use complementary colors
+  else {
     const parentHsl = rgbToHsl(parentBg)
 
     // Calculate complementary color (opposite on color wheel)
     let complementaryHue = (parentHsl.h + 180) % 360
 
-    // Add depth-based variation (each depth gets offset)
-    const depthOffset = (depth * 45) % 135 // Vary within ±67.5 degrees
+    const depthOffset = (depth * 45) % 135
     complementaryHue = (complementaryHue + depthOffset - 67.5) % 360
 
-    // Very high saturation and high lightness for maximum brightness
-    const saturation = 95 + Math.floor((depth % 2) * 5) // 95-100%
-    const lightness = 60 + Math.floor((depth % 4) * 8) // 60-92% - very bright
+    const saturation = 95 + Math.floor((depth % 2) * 5)
+    const lightness = 60 + Math.floor((depth % 4) * 8)
 
     return `hsl(${Math.floor(complementaryHue)}, ${saturation}%, ${lightness}%)`
   }

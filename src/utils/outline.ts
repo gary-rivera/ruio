@@ -1,5 +1,5 @@
 import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
-import { generateContrastingColor } from '@utils/colorContrast'
+import { generateContrastingColor } from '@utils/dynamicColorGeneration'
 import { getElementsChildren, shouldSkipElement } from './dom'
 
 const HOVER_BG_COLOR = 'rgba(153, 181, 214, 0.66)'

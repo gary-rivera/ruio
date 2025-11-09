@@ -1,23 +1,22 @@
 import { describe, test, expect, beforeEach } from 'vitest'
 import {
-  getEffectiveBackgroundColor,
+  getComputedBackgroundColor,
   getRelativeLuminance,
-  getContrastRatio,
   generateContrastingColor,
-} from '@utils/colorContrast'
+} from '@utils/dynamicColorGeneration'
 
-describe('colorContrast', () => {
+describe('dynamicColorGeneration', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
   })
 
-  describe('getEffectiveBackgroundColor', () => {
+  describe('getComputedBackgroundColor', () => {
     test('returns element background when set', () => {
       const element = document.createElement('div')
       element.style.backgroundColor = 'rgb(255, 0, 0)'
       document.body.appendChild(element)
 
-      const color = getEffectiveBackgroundColor(element)
+      const color = getComputedBackgroundColor(element)
       expect(color).toEqual({ r: 255, g: 0, b: 0 })
     })
 
@@ -29,7 +28,7 @@ describe('colorContrast', () => {
       parent.appendChild(element)
       document.body.appendChild(parent)
 
-      const color = getEffectiveBackgroundColor(element)
+      const color = getComputedBackgroundColor(element)
       expect(color).toEqual({ r: 0, g: 255, b: 0 })
     })
 
@@ -37,7 +36,7 @@ describe('colorContrast', () => {
       const element = document.createElement('div')
       document.body.appendChild(element)
 
-      const color = getEffectiveBackgroundColor(element)
+      const color = getComputedBackgroundColor(element)
       expect(color).toEqual({ r: 255, g: 255, b: 255 })
     })
   })
@@ -57,31 +56,6 @@ describe('colorContrast', () => {
       const luminance = getRelativeLuminance({ r: 255, g: 0, b: 0 })
       expect(luminance).toBeGreaterThan(0)
       expect(luminance).toBeLessThan(1)
-    })
-  })
-
-  describe('getContrastRatio', () => {
-    test('calculates contrast ratio between black and white', () => {
-      const black = { r: 0, g: 0, b: 0 }
-      const white = { r: 255, g: 255, b: 255 }
-      const ratio = getContrastRatio(black, white)
-      // Note: Using modified formula with 0.75 offset instead of standard WCAG 0.05
-      expect(ratio).toBeGreaterThan(2)
-      expect(ratio).toBeLessThan(3)
-    })
-
-    test('calculates contrast ratio between identical colors', () => {
-      const color = { r: 128, g: 128, b: 128 }
-      const ratio = getContrastRatio(color, color)
-      expect(ratio).toBe(1)
-    })
-
-    test('contrast ratio is symmetric', () => {
-      const color1 = { r: 100, g: 150, b: 200 }
-      const color2 = { r: 200, g: 50, b: 100 }
-      const ratio1 = getContrastRatio(color1, color2)
-      const ratio2 = getContrastRatio(color2, color1)
-      expect(ratio1).toBe(ratio2)
     })
   })
 

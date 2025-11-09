@@ -60,9 +60,10 @@ export const RuioContextProvider = ({
   // local state fallback for SSR compatibility
   const [maxDepth, setMaxDepth] = useState(DEFAULT_MAX_DEPTH_WITHOUT_ROOT)
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
-  const [persistedTooltipData, setPersistedTooltipData] = useState<
-    Omit<PickerTooltipData, 'x' | 'y'> | null
-  >(null)
+  const [persistedTooltipData, setPersistedTooltipData] = useState<Omit<
+    PickerTooltipData,
+    'x' | 'y'
+  > | null>(null)
 
   const depth = localStorageState.depth
   const setDepth = localStorageState.setDepth
@@ -131,7 +132,7 @@ export const RuioContextProvider = ({
     }
   }, [theme])
 
-  // react when settings or root element change by applying committed outlines
+  // triggers when an element root has been selected
   useEffect(() => {
     if (rootElement) {
       applySelectedOutlines(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
