@@ -1,5 +1,5 @@
 import React, { forwardRef, useState } from 'react'
-import RuioToggleController from '@controllers/RuioToggleController'
+import UIToggleController from '@controllers/UIToggleController'
 import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
 import SettingsModal from '@components/settings/SettingsModal'
@@ -7,11 +7,11 @@ import { ElementSelectionTooltip } from '@components/ElementSelectionTooltip'
 import { PersistedElementTooltip } from '@components/PersistedElementTooltip'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
-import styles from '@components/RuioUIContainer.module.css'
+import styles from '@components/UIContainer.module.css'
 
 type UIPanelVisibility = { elementPicker: boolean; settingsModal: boolean }
 
-function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
+function UIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
   const {
     ruioEnabled,
     isElementPickerActive,
@@ -76,7 +76,7 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
         </div>
       </div>
 
-      <RuioToggleController isDimmed={isElementPickerActive || panelVisibility.settingsModal} />
+      <UIToggleController isDimmed={isElementPickerActive || panelVisibility.settingsModal} />
 
       {isElementPickerActive && <ElementSelectionTooltip data={tooltipData} />}
       {!isElementPickerActive && ruioEnabled && (
@@ -86,4 +86,4 @@ function RuioUIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
   )
 }
 
-export default forwardRef<HTMLDivElement>(RuioUIContainer)
+export default forwardRef<HTMLDivElement>(UIContainer)

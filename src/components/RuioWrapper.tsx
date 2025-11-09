@@ -1,7 +1,7 @@
 import { ReactNode, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { RuioContextProvider } from '@root/context/RuioContextProvider'
-import RuioUIContainer from '@components/RuioUIContainer'
+import UIContainer from '@components/UIContainer'
 import '@root/styles/variables.css'
 
 type RuioWrapperProps = {
@@ -50,7 +50,7 @@ const RuioWrapper = ({ children, showInProduction = false, defaultRootSelector }
 
   return (
     <RuioContextProvider defaultRootSelector={defaultRootSelector}>
-      {shouldShowUI && portalElement && createPortal(<RuioUIContainer />, portalElement)}
+      {shouldShowUI && portalElement && createPortal(<UIContainer />, portalElement)}
       {children}
     </RuioContextProvider>
   )

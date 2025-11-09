@@ -1,11 +1,11 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import styles from '@controllers/RuioToggleController.module.css'
+import styles from '@controllers/UIToggleController.module.css'
 
-type RuioToggleControllerProps = {
+type UIToggleControllerProps = {
   isDimmed?: boolean
 }
 
-function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
+function UIToggleController({ isDimmed = false }: UIToggleControllerProps) {
   const { ruioEnabled, setRuioEnabled, setIsElementPickerActive } = useRuioContext()
 
   const handleToggle = () => {
@@ -61,4 +61,4 @@ function RuioToggleController({ isDimmed = false }: RuioToggleControllerProps) {
   )
 }
 
-export default RuioToggleController
+export default UIToggleController

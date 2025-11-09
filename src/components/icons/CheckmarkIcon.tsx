@@ -1,4 +1,4 @@
-import RuioIcon from '@components/icons/RuioIcon'
+import Icon from '@components/icons/Icon'
 import styles from '@root/styles/icons.module.css'
 import CheckmarkSvg from '@assets/svg/ruio-checkmark-icon.svg?react'
 
@@ -8,9 +8,9 @@ type ChevronIconProps = {
 
 function CheckmarkIcon({ isOpen }: ChevronIconProps) {
   return (
-    <RuioIcon id="ruio-checkmark" buttonClassName={styles.checkmarkIcon} pulseEnabled={false}>
+    <Icon id="ruio-checkmark" buttonClassName={styles.checkmarkIcon} pulseEnabled={false}>
       <CheckmarkSvg className={styles.checkmarkPath} />
-    </RuioIcon>
+    </Icon>
   )
 }
 

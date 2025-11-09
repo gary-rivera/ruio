@@ -398,7 +398,7 @@ describe('SettingsModal - Visual Regression', () => {
     // Checkmark icons should have proper button reset styles (no default appearance)
     checkmarkButtons.forEach((button) => {
       expect(button).toBeTruthy()
-      // Should be a button element (RuioIcon wraps in button)
+      // Should be a button element (Icon wraps in button)
       expect(button.tagName).toBe('BUTTON')
     })
   })

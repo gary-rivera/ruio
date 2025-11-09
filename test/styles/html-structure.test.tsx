@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { describe, test, expect, beforeEach } from 'vitest'
 import { RuioContextProvider } from '@context/RuioContextProvider'
-import RuioUIContainer from '@components/RuioUIContainer'
+import UIContainer from '@components/UIContainer'
 import SettingsModal from '@components/settings/SettingsModal'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 
@@ -25,10 +25,10 @@ describe('HTML Structure Snapshots', () => {
     )
   })
 
-  test('RuioUIContainer HTML structure', () => {
+  test('UIContainer HTML structure', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioUIContainer />
+        <UIContainer />
       </RuioContextProvider>,
     )
     expect(container.innerHTML).toMatchSnapshot()

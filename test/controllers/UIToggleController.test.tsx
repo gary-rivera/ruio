@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import RuioToggleController from '@controllers/RuioToggleController'
+import UIToggleController from '@controllers/UIToggleController'
 import { RuioContextProvider } from '@context/RuioContextProvider'
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import styles from '@controllers/RuioToggleController.module.css'
+import styles from '@controllers/UIToggleController.module.css'
 
 // Mock applyCommittedOutlines
 vi.mock('@utils/outline', async () => {
@@ -19,7 +19,7 @@ vi.mock('@controllers/ElementPicker', () => ({
   ElementPicker: vi.fn(() => vi.fn()),
 }))
 
-describe('RuioToggleController - Visual Regression', () => {
+describe('UIToggleController - Visual Regression', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     localStorage.clear()
@@ -28,7 +28,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('renders with all required visual elements', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -58,7 +58,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('background div has correct classes when disabled', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -69,7 +69,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('background div has correct classes when enabled', async () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -83,7 +83,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('logo div has correct transform classes when disabled', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -94,7 +94,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('logo div has correct transform classes when enabled', async () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -108,7 +108,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('button has correct opacity classes when disabled', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -119,7 +119,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('button has correct opacity classes when enabled', async () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -132,7 +132,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('applies dimmed classes when isDimmed prop is true', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController isDimmed={true} />
+        <UIToggleController isDimmed={true} />
       </RuioContextProvider>,
     )
 
@@ -155,7 +155,7 @@ describe('RuioToggleController - Visual Regression', () => {
 
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController isDimmed={true} />
+        <UIToggleController isDimmed={true} />
       </RuioContextProvider>,
     )
 
@@ -177,7 +177,7 @@ describe('RuioToggleController - Visual Regression', () => {
 
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -205,7 +205,7 @@ describe('RuioToggleController - Visual Regression', () => {
 
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -221,7 +221,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('HTML structure snapshot', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -231,7 +231,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('button maintains black background with buttonReset composition', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 
@@ -253,7 +253,7 @@ describe('RuioToggleController - Visual Regression', () => {
   test('button does not compose transitionFast (transitions only on states)', () => {
     const { container } = render(
       <RuioContextProvider>
-        <RuioToggleController />
+        <UIToggleController />
       </RuioContextProvider>,
     )
 

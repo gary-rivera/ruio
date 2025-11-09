@@ -181,107 +181,6 @@ exports[`CSS Regression Tests > Icon Components > SettingsIcon > button element 
 }
 `;
 
-exports[`CSS Regression Tests > RuioToggleController > background div styles when active 1`] = `
-{
-  "background": "",
-  "background-color": "rgba(0, 0, 0, 0)",
-  "border-radius": "",
-  "opacity": "",
-  "position": "",
-  "transform": "",
-  "transition": "",
-}
-`;
-
-exports[`CSS Regression Tests > RuioToggleController > button styles when enabled 1`] = `
-{
-  "background-color": "rgba(0, 0, 0, 0)",
-  "border": "",
-  "border-radius": "",
-  "box-shadow": "",
-  "color": "rgb(0, 0, 0)",
-  "height": "",
-  "margin": "",
-  "opacity": "",
-  "padding": "",
-  "transform": "",
-  "transition": "",
-  "width": "",
-}
-`;
-
-exports[`CSS Regression Tests > RuioToggleController > container styles 1`] = `
-{
-  "align-items": "",
-  "display": "block",
-  "flex-direction": "",
-  "gap": "",
-  "height": "",
-  "justify-content": "",
-  "margin": "",
-  "padding": "",
-  "position": "",
-  "transition": "",
-  "width": "",
-}
-`;
-
-exports[`CSS Regression Tests > RuioToggleController > logo SVG fill color 1`] = `
-{
-  "fill": "",
-}
-`;
-
-exports[`CSS Regression Tests > RuioUIContainer > container layout styles 1`] = `
-{
-  "align-items": "",
-  "display": "block",
-  "flex-direction": "",
-  "gap": "",
-  "height": "",
-  "justify-content": "",
-  "margin": "",
-  "padding": "",
-  "position": "",
-  "width": "",
-  "z-index": "",
-}
-`;
-
-exports[`CSS Regression Tests > RuioUIContainer > controls container layout 1`] = `
-{
-  "align-items": "",
-  "display": "block",
-  "flex-direction": "",
-  "gap": "",
-  "height": "",
-  "justify-content": "",
-  "margin": "",
-  "padding": "",
-  "position": "",
-  "width": "",
-}
-`;
-
-exports[`CSS Regression Tests > RuioUIContainer > icon container styles 1`] = `
-{
-  "align-items": "",
-  "background-color": "rgba(0, 0, 0, 0)",
-  "border": "",
-  "border-radius": "",
-  "box-shadow": "",
-  "color": "rgb(0, 0, 0)",
-  "cursor": "",
-  "display": "block",
-  "flex-direction": "",
-  "gap": "",
-  "justify-content": "",
-  "opacity": "",
-  "position": "",
-  "transition": "",
-}
-`;
-
 exports[`CSS Regression Tests > SettingsModal > button styles 1`] = `
 {
   "background-color": "rgba(0, 0, 0, 0)",
@@ -354,5 +253,106 @@ exports[`CSS Regression Tests > SettingsRow > row layout and spacing 1`] = `
   "padding": "",
   "position": "",
   "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIContainer > container layout styles 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+  "z-index": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIContainer > controls container layout 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIContainer > icon container styles 1`] = `
+{
+  "align-items": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "cursor": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "justify-content": "",
+  "opacity": "",
+  "position": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIToggleController > background div styles when active 1`] = `
+{
+  "background": "",
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border-radius": "",
+  "opacity": "",
+  "position": "",
+  "transform": "",
+  "transition": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIToggleController > button styles when enabled 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+  "border": "",
+  "border-radius": "",
+  "box-shadow": "",
+  "color": "rgb(0, 0, 0)",
+  "height": "",
+  "margin": "",
+  "opacity": "",
+  "padding": "",
+  "transform": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIToggleController > container styles 1`] = `
+{
+  "align-items": "",
+  "display": "block",
+  "flex-direction": "",
+  "gap": "",
+  "height": "",
+  "justify-content": "",
+  "margin": "",
+  "padding": "",
+  "position": "",
+  "transition": "",
+  "width": "",
+}
+`;
+
+exports[`CSS Regression Tests > UIToggleController > logo SVG fill color 1`] = `
+{
+  "fill": "",
 }
 `;

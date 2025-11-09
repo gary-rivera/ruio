@@ -14,7 +14,7 @@ import { useElementPicker, PickerTooltipData } from '@hooks/useElementPicker'
 import { getElementInfo } from '@utils/elementInfo'
 import { detectRootElement } from '@utils/config'
 
-interface RuioContextProps {
+interface ContextProps {
   ruioEnabled: boolean // are ruio related state +/- interactions enabled
   setRuioEnabled: React.Dispatch<React.SetStateAction<boolean>> // dispatcher for ruio
 
@@ -38,9 +38,9 @@ interface RuioContextProps {
   persistedTooltipData: Omit<PickerTooltipData, 'x' | 'y'> | null // persisted tooltip data for selected root element
 }
 
-const RuioContext = createContext<RuioContextProps | undefined>(undefined)
+const Context = createContext<ContextProps | undefined>(undefined)
 
-type RuioContextProviderProps = {
+type ContextProviderProps = {
   children: ReactNode
   /**
    * Optional CSS selector for the default root element.
@@ -54,7 +54,7 @@ const DEFAULT_MAX_DEPTH_WITHOUT_ROOT = 100
 export const RuioContextProvider = ({
   children,
   defaultRootSelector,
-}: RuioContextProviderProps): ReactElement => {
+}: ContextProviderProps): ReactElement => {
   const localStorageState = useLocalStorageState()
 
   // local state fallback for SSR compatibility
@@ -175,11 +175,11 @@ export const RuioContextProvider = ({
     ],
   )
 
-  return <RuioContext.Provider value={contextValue}>{children}</RuioContext.Provider>
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }
 
 export const useRuioContext = () => {
-  const context = useContext(RuioContext)
+  const context = useContext(Context)
   if (!context) {
     throw new Error('[RuioContextProvider] useRuio must be used within RuioProvider')
   }

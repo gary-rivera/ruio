@@ -1,5 +1,5 @@
 import { useRuioContext } from '@root/context/RuioContextProvider'
-import RuioIcon from '@components/icons/RuioIcon'
+import Icon from '@components/icons/Icon'
 import IconProps from '@root/types/IconTypes'
 import styles from '@root/styles/icons.module.css'
 import SettingsSvg from '@assets/svg/ruio-settings-icon.svg?react'
@@ -10,9 +10,9 @@ function SettingsIcon({ onClick }: IconProps) {
   const buttonClass = `${styles.iconButton} ${ruioEnabled ? styles.iconButtonActive : styles.iconButtonInactive}`
 
   return (
-    <RuioIcon id="ruio-settings-icon" onClick={onClick} buttonClassName={buttonClass}>
+    <Icon id="ruio-settings-icon" onClick={onClick} buttonClassName={buttonClass}>
       <SettingsSvg className={styles.iconSvg} />
-    </RuioIcon>
+    </Icon>
   )
 }
 
