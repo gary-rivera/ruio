@@ -18,7 +18,7 @@ vi.mock('@controllers/ElementPicker', async () => {
   const configModule = await import('@utils/config')
 
   return {
-    ElementPicker: vi.fn((onMouseOver, onClick) => {
+    ElementPicker: vi.fn((onClick, onMouseOver) => {
       // Wrap onClick to include the setConfigValueAtKey call that happens in real ElementPicker
       const wrappedOnClick = (element: HTMLElement) => {
         configModule.setConfigValueAtKey(
@@ -187,7 +187,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     // We need to manually trigger the element selection since we're mocking
     const { ElementPicker } = await import('@controllers/ElementPicker')
     const lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    const onClickCallback = lastCall?.[1]
+    const onClickCallback = lastCall?.[0]
 
     // Simulate clicking the target element
     await simulateElementClick(onClickCallback, targetElement)
@@ -243,7 +243,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
 
     // STEP 5: Click on the SAME element again (target-element)
     const lastCall2 = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    const onClickCallback2 = lastCall2?.[1]
+    const onClickCallback2 = lastCall2?.[0]
 
     await simulateElementClick(onClickCallback2, targetElement)
 
@@ -358,7 +358,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     // STEP 2: Simulate clicking on target element to make it the new root
     const { ElementPicker } = await import('@controllers/ElementPicker')
     const lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    const onClickCallback = lastCall?.[1]
+    const onClickCallback = lastCall?.[0]
 
     await simulateElementClick(onClickCallback, targetElement)
 
@@ -484,7 +484,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     // STEP 2: Click on target element A to make it the new root
     const { ElementPicker } = await import('@controllers/ElementPicker')
     let lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    let onClickCallback = lastCall?.[1]
+    let onClickCallback = lastCall?.[0]
 
     await simulateElementClick(onClickCallback, targetElementA)
 
@@ -518,7 +518,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
 
     // STEP 4: Click on target element B (different element) to make it the new root
     lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    onClickCallback = lastCall?.[1]
+    onClickCallback = lastCall?.[0]
 
     await simulateElementClick(onClickCallback, targetElementB)
 
@@ -597,7 +597,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
 
     const { ElementPicker } = await import('@controllers/ElementPicker')
     const lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    const onClickCallback = lastCall?.[1]
+    const onClickCallback = lastCall?.[0]
 
     await simulateElementClick(onClickCallback, targetElement)
 
@@ -624,7 +624,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     const lastCall2 = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
-    const onClickCallback2 = lastCall2?.[1]
+    const onClickCallback2 = lastCall2?.[0]
 
     await simulateElementClick(onClickCallback2, targetElement)
 
