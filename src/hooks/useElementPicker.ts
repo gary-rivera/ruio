@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { applyPreviewOutlines, clearPreviewOutlines } from '@utils/outline'
+import { applyPreviewOutlines, clearPreviewOutlines, clearCommittedOutlines } from '@utils/outline'
 import { ElementPicker } from '@controllers/ElementPicker'
 import { debounce } from '@utils/debounce'
 import { getElementInfo } from '@utils/elementInfo'
@@ -61,6 +61,10 @@ export const useElementPicker = ({
 
   useEffect(() => {
     if (ruioEnabled && isActive) {
+      // Clear any existing outlines when picker mode is activated
+      clearPreviewOutlines()
+      clearCommittedOutlines()
+
       // Use preview outlines for hover (doesn't interfere with committed outlines)
       const debouncedPreview = debounce((element: HTMLElement, x: number, y: number) => {
         applyPreviewOutlines(element, depth, currentColorPalette)
