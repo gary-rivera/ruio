@@ -145,19 +145,11 @@ export const clearColorCache = () => {
   cachedPalette = null
 }
 
-/**
- * Applies temporary preview outlines during element selection mode (hover).
- * These outlines DO NOT interfere with the committed outlines from the selected root.
- * Uses a custom outline style to differentiate from committed outlines.
- * Also applies background color to the root element being hovered.
- *
- * @param element - The element being hovered over
- * @param depth - Maximum depth to apply outlines
- * @param currentColorPalette - Color palette to use
- */
-export const applyPreviewOutlines = (
+// =====  ========
+export const applySelectedOutlines = (
   element: HTMLElement,
   depth: number,
+  apply: boolean,
   currentColorPalette: string,
 ) => {
   if (!currentColorPalette) {
@@ -165,46 +157,25 @@ export const applyPreviewOutlines = (
     currentColorPalette = 'dynamic'
   }
 
-  const colors = colorPalettesMap[currentColorPalette]
-  const elements = new Set<HTMLElement>()
-  const isDynamicPalette = currentColorPalette === 'dynamic'
+  invalidateCacheIfChanged(element, currentColorPalette)
 
-  const traverse = (el: HTMLElement, currentDepth: number) => {
-    if (!el || currentDepth > depth) return
-    if (el.tagName === 'SCRIPT') return
+  const elements = traverseAndApply(element, {
+    maxDepth: depth,
+    palette: currentColorPalette,
+    onElement: (el, _, color) => {
+      el.style.outline = apply ? `2px solid ${color}` : ''
+    },
+  })
 
-    elements.add(el)
-
-    requestAnimationFrame(() => {
-      let outlineColor: string
-
-      if (isDynamicPalette) {
-        const cacheKey = getElementCacheKey(el, currentDepth)
-        const cachedColor = colorCache.get(cacheKey)
-
-        if (cachedColor) {
-          outlineColor = cachedColor
-        } else {
-          outlineColor = generateContrastingColor(el, currentDepth)
-          colorCache.set(cacheKey, outlineColor)
-        }
-      } else {
-        outlineColor = getRelativeDepthColor(colors, currentDepth)
-      }
-
-      // Use dashed outline to differentiate preview from committed
-      el.style.outline = `2px dashed ${outlineColor}`
-      el.style.outlineOffset = '2px' // Slightly offset to avoid overlap with committed outlines
-
-      // Apply background color only to the root element (depth 0)
-      if (currentDepth === 0) {
-        // Store original background color if we haven't already
-        if (!originalBackgroundColors.has(el)) {
-          originalBackgroundColors.set(el, el.style.backgroundColor)
-        }
-        el.style.backgroundColor = HOVER_BG_COLOR
+  requestAnimationFrame(() => {
+    committedOutlineElements.forEach((el) => {
+      if (!elements.has(el)) {
+        el.style.outline = ''
       }
     })
+    committedOutlineElements = elements
+  })
+}
 
     Array.from(el.children).forEach((child) => {
       if (child instanceof HTMLElement) {

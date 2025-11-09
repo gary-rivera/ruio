@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { applyPreviewOutlines, clearPreviewOutlines, clearCommittedOutlines } from '@utils/outline'
+import { applyPreviewOutlines, clearPreviewOutlines, clearSelectedOutlines } from '@utils/outline'
 import { ElementPicker } from '@controllers/ElementPicker'
 import { debounce } from '@utils/debounce'
 import { getElementInfo } from '@utils/elementInfo'
@@ -73,7 +73,7 @@ export const useElementPicker = ({
     if (ruioEnabled && isActive) {
       // clear any existing outlines when picker mode is activated
       clearPreviewOutlines()
-      clearCommittedOutlines()
+      clearSelectedOutlines()
 
       const debouncedHandleMouseOver = debounce((element: HTMLElement, x: number, y: number) => {
         applyPreviewOutlines(element, depth, currentColorPalette)

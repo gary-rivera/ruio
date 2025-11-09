@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
-import { applyCommittedOutlines, calculateMaxDepth } from '@utils/outline'
+import { applySelectedOutlines, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementPicker, PickerTooltipData } from '@hooks/useElementPicker'
 import { getElementInfo } from '@utils/elementInfo'
@@ -134,7 +134,7 @@ export const RuioContextProvider = ({
   // react when settings or root element change by applying committed outlines
   useEffect(() => {
     if (rootElement) {
-      applyCommittedOutlines(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
+      applySelectedOutlines(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
     }
   }, [depth, rootElement, localStorageState.ruioEnabled, currentColorPalette])
 
