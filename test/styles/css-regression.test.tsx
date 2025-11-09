@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { describe, test, expect, beforeEach } from 'vitest'
 import { RuioContextProvider } from '@context/RuioContextProvider'
-import RuioUIContainer from '@components/RuioUIContainer'
+import UIContainer from '@components/UIContainer'
 import SettingsModal from '@components/settings/SettingsModal'
 import ColorPaletteDropdown from '@components/settings/ColorPaletteDropdown'
 import SettingsRow from '@components/settings/SettingsRow'
@@ -10,7 +10,7 @@ import ElementSelectIcon from '@components/icons/ElementSelectIcon'
 import CloseModalIcon from '@components/icons/CloseModalIcon'
 import ChevronIcon from '@components/icons/ChevronIcon'
 import CheckmarkIcon from '@components/icons/CheckmarkIcon'
-import RuioToggleController from '@controllers/RuioToggleController'
+import UIToggleController from '@controllers/UIToggleController'
 
 /**
  * CSS Regression Tests
@@ -51,11 +51,11 @@ describe('CSS Regression Tests', () => {
     )
   })
 
-  describe('RuioUIContainer', () => {
+  describe('UIContainer', () => {
     test('container layout styles', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioUIContainer />
+          <UIContainer />
         </RuioContextProvider>,
       )
 
@@ -69,7 +69,7 @@ describe('CSS Regression Tests', () => {
     test('controls container layout', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioUIContainer />
+          <UIContainer />
         </RuioContextProvider>,
       )
 
@@ -83,7 +83,7 @@ describe('CSS Regression Tests', () => {
     test('icon container styles', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioUIContainer />
+          <UIContainer />
         </RuioContextProvider>,
       )
 
@@ -434,11 +434,11 @@ describe('CSS Regression Tests', () => {
     })
   })
 
-  describe('RuioToggleController', () => {
+  describe('UIToggleController', () => {
     test('container styles', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioToggleController />
+          <UIToggleController />
         </RuioContextProvider>,
       )
 
@@ -457,7 +457,7 @@ describe('CSS Regression Tests', () => {
     test('button styles when enabled', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioToggleController />
+          <UIToggleController />
         </RuioContextProvider>,
       )
 
@@ -476,7 +476,7 @@ describe('CSS Regression Tests', () => {
     test('background div styles when active', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioToggleController />
+          <UIToggleController />
         </RuioContextProvider>,
       )
 
@@ -498,7 +498,7 @@ describe('CSS Regression Tests', () => {
     test('logo SVG fill color', () => {
       const { container } = render(
         <RuioContextProvider>
-          <RuioToggleController />
+          <UIToggleController />
         </RuioContextProvider>,
       )
 

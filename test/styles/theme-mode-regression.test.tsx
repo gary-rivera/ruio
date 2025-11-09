@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
 import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 import { RuioContextProvider } from '@context/RuioContextProvider'
-import RuioUIContainer from '@components/RuioUIContainer'
+import UIContainer from '@components/UIContainer'
 import SettingsModal from '@components/settings/SettingsModal'
 import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
-import RuioToggleController from '@controllers/RuioToggleController'
+import UIToggleController from '@controllers/UIToggleController'
 import ThemeToggle from '@components/settings/ThemeToggle'
 
 /**
@@ -146,11 +146,11 @@ describe('Theme Mode Regression Tests', () => {
       })
     })
 
-    describe('RuioToggleController', () => {
+    describe('UIToggleController', () => {
       test('logo maintains size when dimmed', () => {
         const { container } = render(
           <RuioContextProvider>
-            <RuioToggleController isDimmed={true} />
+            <UIToggleController isDimmed={true} />
           </RuioContextProvider>,
         )
 
@@ -168,13 +168,13 @@ describe('Theme Mode Regression Tests', () => {
       test('logo dims (opacity) but does not shrink', () => {
         const { container: normalContainer } = render(
           <RuioContextProvider>
-            <RuioToggleController isDimmed={false} />
+            <UIToggleController isDimmed={false} />
           </RuioContextProvider>,
         )
 
         const { container: dimmedContainer } = render(
           <RuioContextProvider>
-            <RuioToggleController isDimmed={true} />
+            <UIToggleController isDimmed={true} />
           </RuioContextProvider>,
         )
 
@@ -197,7 +197,7 @@ describe('Theme Mode Regression Tests', () => {
       test('logo colors in dark mode', () => {
         const { container } = render(
           <RuioContextProvider>
-            <RuioToggleController />
+            <UIToggleController />
           </RuioContextProvider>,
         )
 
@@ -333,11 +333,11 @@ describe('Theme Mode Regression Tests', () => {
       })
     })
 
-    describe('RuioToggleController', () => {
+    describe('UIToggleController', () => {
       test('logo colors remain same as dark mode', () => {
         const { container } = render(
           <RuioContextProvider>
-            <RuioToggleController />
+            <UIToggleController />
           </RuioContextProvider>,
         )
 
@@ -354,7 +354,7 @@ describe('Theme Mode Regression Tests', () => {
       test('logo maintains size when dimmed in light mode', () => {
         const { container } = render(
           <RuioContextProvider>
-            <RuioToggleController isDimmed={true} />
+            <UIToggleController isDimmed={true} />
           </RuioContextProvider>,
         )
 
@@ -403,7 +403,7 @@ describe('Theme Mode Regression Tests', () => {
       setTheme('dark')
       const { container: darkContainer } = render(
         <RuioContextProvider>
-          <RuioToggleController />
+          <UIToggleController />
         </RuioContextProvider>,
       )
 
@@ -413,7 +413,7 @@ describe('Theme Mode Regression Tests', () => {
       setTheme('light')
       const { container: lightContainer } = render(
         <RuioContextProvider>
-          <RuioToggleController />
+          <UIToggleController />
         </RuioContextProvider>,
       )
 

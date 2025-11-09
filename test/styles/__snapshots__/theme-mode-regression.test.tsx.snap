@@ -26,25 +26,6 @@ exports[`Theme Mode Regression Tests > Dark Mode (Default) > Icons > SettingsIco
 }
 `;
 
-exports[`Theme Mode Regression Tests > Dark Mode (Default) > RuioToggleController > logo colors in dark mode > dark-mode-logo-bg 1`] = `
-{
-  "background-color": "rgba(0, 0, 0, 0)",
-}
-`;
-
-exports[`Theme Mode Regression Tests > Dark Mode (Default) > RuioToggleController > logo colors in dark mode > dark-mode-logo-svg 1`] = `
-{
-  "fill": "",
-}
-`;
-
-exports[`Theme Mode Regression Tests > Dark Mode (Default) > RuioToggleController > logo maintains size when dimmed > dark-mode-logo-dimmed 1`] = `
-{
-  "opacity": "",
-  "transform": "",
-}
-`;
-
 exports[`Theme Mode Regression Tests > Dark Mode (Default) > SettingsModal > box shadow on modal > dark-mode-modal-shadow 1`] = `
 {
   "box-shadow": "",
@@ -65,6 +46,25 @@ exports[`Theme Mode Regression Tests > Dark Mode (Default) > SettingsModal > mod
   "box-shadow": "",
   "color": "rgb(0, 0, 0)",
   "opacity": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > UIToggleController > logo colors in dark mode > dark-mode-logo-bg 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > UIToggleController > logo colors in dark mode > dark-mode-logo-svg 1`] = `
+{
+  "fill": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Dark Mode (Default) > UIToggleController > logo maintains size when dimmed > dark-mode-logo-dimmed 1`] = `
+{
+  "opacity": "",
+  "transform": "",
 }
 `;
 
@@ -93,18 +93,6 @@ exports[`Theme Mode Regression Tests > Light Mode > Icons > SettingsIcon has cya
 {
   "background-color": "rgba(0, 0, 0, 0)",
   "border": "",
-}
-`;
-
-exports[`Theme Mode Regression Tests > Light Mode > RuioToggleController > logo colors remain same as dark mode > light-mode-logo-bg 1`] = `
-{
-  "background-color": "rgba(0, 0, 0, 0)",
-}
-`;
-
-exports[`Theme Mode Regression Tests > Light Mode > RuioToggleController > logo colors remain same as dark mode > light-mode-logo-svg 1`] = `
-{
-  "fill": "",
 }
 `;
 
@@ -141,5 +129,17 @@ exports[`Theme Mode Regression Tests > Light Mode > ThemeToggle > theme toggle b
 {
   "background-color": "rgba(0, 0, 0, 0)",
   "cursor": "",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > UIToggleController > logo colors remain same as dark mode > light-mode-logo-bg 1`] = `
+{
+  "background-color": "rgba(0, 0, 0, 0)",
+}
+`;
+
+exports[`Theme Mode Regression Tests > Light Mode > UIToggleController > logo colors remain same as dark mode > light-mode-logo-svg 1`] = `
+{
+  "fill": "",
 }
 `;
