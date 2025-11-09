@@ -1,11 +1,16 @@
 import { getRelativeDepthColor, colorPalettesMap } from '@utils/colorPalettes'
 import { generateContrastingColor } from '@utils/colorContrast'
 
-// Committed outlines (selected root element)
+const HOVER_BG_COLOR = 'rgba(153, 181, 214, 0.66)'
+
+// exported for tests
 export let committedOutlineElements: Set<HTMLElement> = new Set()
 
 // Preview outlines (hover during selection mode)
 let previewOutlineElements: Set<HTMLElement> = new Set()
+
+// Store original background colors for elements we modify
+let originalBackgroundColors: Map<HTMLElement, string> = new Map()
 
 // Cache for color calculations - cleared when root element changes or palette changes
 // Key format: `${elementUniqueId}_${depth}`
@@ -144,6 +149,7 @@ export const clearColorCache = () => {
  * Applies temporary preview outlines during element selection mode (hover).
  * These outlines DO NOT interfere with the committed outlines from the selected root.
  * Uses a custom outline style to differentiate from committed outlines.
+ * Also applies background color to the root element being hovered.
  *
  * @param element - The element being hovered over
  * @param depth - Maximum depth to apply outlines
@@ -189,6 +195,15 @@ export const applyPreviewOutlines = (
       // Use dashed outline to differentiate preview from committed
       el.style.outline = `2px dashed ${outlineColor}`
       el.style.outlineOffset = '2px' // Slightly offset to avoid overlap with committed outlines
+
+      // Apply background color only to the root element (depth 0)
+      if (currentDepth === 0) {
+        // Store original background color if we haven't already
+        if (!originalBackgroundColors.has(el)) {
+          originalBackgroundColors.set(el, el.style.backgroundColor)
+        }
+        el.style.backgroundColor = HOVER_BG_COLOR
+      }
     })
 
     Array.from(el.children).forEach((child) => {
@@ -206,6 +221,12 @@ export const applyPreviewOutlines = (
       if (!elements.has(el)) {
         el.style.outline = ''
         el.style.outlineOffset = ''
+
+        // Restore original background color
+        if (originalBackgroundColors.has(el)) {
+          el.style.backgroundColor = originalBackgroundColors.get(el) || ''
+          originalBackgroundColors.delete(el)
+        }
       }
     })
 
@@ -222,6 +243,12 @@ export const clearPreviewOutlines = () => {
     previewOutlineElements.forEach((el) => {
       el.style.outline = ''
       el.style.outlineOffset = ''
+
+      // Restore original background color
+      if (originalBackgroundColors.has(el)) {
+        el.style.backgroundColor = originalBackgroundColors.get(el) || ''
+        originalBackgroundColors.delete(el)
+      }
     })
     previewOutlineElements.clear()
   })

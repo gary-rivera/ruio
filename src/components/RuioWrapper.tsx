@@ -5,10 +5,12 @@ import UIContainer from '@components/UIContainer'
 import '@root/styles/variables.css'
 
 type RuioWrapperProps = {
+  /**
+   * catch all for end user to pass
+   */
   children: ReactNode
   /**
-   * Override to show ruio UI in production environments.
-   * By default, ruio only shows in development (NODE_ENV !== 'production').
+   * Optional override to show ruio UI in production environments.
    * Set to true to enable in production (useful for demo apps).
    */
   showInProduction?: boolean
@@ -20,7 +22,7 @@ type RuioWrapperProps = {
   defaultRootSelector?: string
 }
 
-// Single point of entry to ease the process of handling context throughout the module
+// where it all comes together - primary entry point of ruio
 const RuioWrapper = ({ children, showInProduction = false, defaultRootSelector }: RuioWrapperProps) => {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null)
 

@@ -13,19 +13,33 @@ vi.mock('@utils/outline', async () => {
   }
 })
 
-vi.mock('@controllers/ElementPicker', () => ({
-  ElementPicker: vi.fn((onHover, onClick) => {
-    // Store callbacks for testing
-    const controller = {
-      onHover,
-      onClick,
-      cleanup: vi.fn(),
-    }
+vi.mock('@controllers/ElementPicker', async () => {
+  // Import config utilities to mimic real ElementPicker behavior
+  const configModule = await import('@utils/config')
 
-    // Return cleanup function
-    return controller.cleanup
-  }),
-}))
+  return {
+    ElementPicker: vi.fn((onMouseOver, onClick) => {
+      // Wrap onClick to include the setConfigValueAtKey call that happens in real ElementPicker
+      const wrappedOnClick = (element: HTMLElement) => {
+        configModule.setConfigValueAtKey(
+          'rootElementSelector',
+          configModule.parseSelectorFromSelectedElement(element),
+        )
+        onClick(element)
+      }
+
+      // Store callbacks for testing
+      const controller = {
+        onMouseOver,
+        onClick: wrappedOnClick,
+        cleanup: vi.fn(),
+      }
+
+      // Return cleanup function
+      return controller.cleanup
+    }),
+  }
+})
 
 // Test component to access context and trigger element selection
 const ElementSelectionTester = () => {
@@ -43,6 +57,18 @@ const ElementSelectionTester = () => {
       </button>
     </div>
   )
+}
+
+// Helper to simulate element click and wait for async effects
+const simulateElementClick = async (callback: ((element: HTMLElement) => void) | undefined, element: HTMLElement) => {
+  act(() => {
+    if (callback) {
+      callback(element)
+    }
+  })
+
+  // Wait for debounce (50ms) + handleRootPicked setTimeout (0ms)
+  await new Promise((resolve) => setTimeout(resolve, 150))
 }
 
 /**
@@ -160,17 +186,11 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     // This would normally be done through ElementPicker
     // We need to manually trigger the element selection since we're mocking
     const { ElementPicker } = await import('@controllers/ElementPicker')
-    const lastCall = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    const lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     const onClickCallback = lastCall?.[1]
 
     // Simulate clicking the target element
-    await act(async () => {
-      if (onClickCallback) {
-        onClickCallback(targetElement)
-      }
-    })
+    await simulateElementClick(onClickCallback, targetElement)
 
     // Wait for root element to update
     await waitFor(() => {
@@ -222,16 +242,10 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 5: Click on the SAME element again (target-element)
-    const lastCall2 = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    const lastCall2 = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     const onClickCallback2 = lastCall2?.[1]
 
-    await act(async () => {
-      if (onClickCallback2) {
-        onClickCallback2(targetElement)
-      }
-    })
+    await simulateElementClick(onClickCallback2, targetElement)
 
     // Wait for the UI to update
     await waitFor(() => {
@@ -343,16 +357,10 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
 
     // STEP 2: Simulate clicking on target element to make it the new root
     const { ElementPicker } = await import('@controllers/ElementPicker')
-    const lastCall = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    const lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     const onClickCallback = lastCall?.[1]
 
-    await act(async () => {
-      if (onClickCallback) {
-        onClickCallback(targetElement)
-      }
-    })
+    await simulateElementClick(onClickCallback, targetElement)
 
     // Wait for root element to update
     await waitFor(() => {
@@ -475,16 +483,10 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
 
     // STEP 2: Click on target element A to make it the new root
     const { ElementPicker } = await import('@controllers/ElementPicker')
-    let lastCall = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    let lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     let onClickCallback = lastCall?.[1]
 
-    await act(async () => {
-      if (onClickCallback) {
-        onClickCallback(targetElementA)
-      }
-    })
+    await simulateElementClick(onClickCallback, targetElementA)
 
     // Wait for root element to update to A
     await waitFor(() => {
@@ -515,16 +517,10 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     // STEP 4: Click on target element B (different element) to make it the new root
-    lastCall = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     onClickCallback = lastCall?.[1]
 
-    await act(async () => {
-      if (onClickCallback) {
-        onClickCallback(targetElementB)
-      }
-    })
+    await simulateElementClick(onClickCallback, targetElementB)
 
     // Wait for root element to update to B
     await waitFor(() => {
@@ -600,17 +596,12 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     })
 
     const { ElementPicker } = await import('@controllers/ElementPicker')
-    const lastCall = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    const lastCall = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     const onClickCallback = lastCall?.[1]
 
-    await act(async () => {
-      if (onClickCallback) {
-        onClickCallback(targetElement)
-      }
-    })
+    await simulateElementClick(onClickCallback, targetElement)
 
+    // Wait for root element to update
     await waitFor(() => {
       expect(screen.getByTestId('root-element-id').textContent).toBe('target-element')
     })
@@ -632,16 +623,10 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
       expect(screen.getByTestId('selection-mode-active').textContent).toBe('true')
     })
 
-    const lastCall2 = vi.mocked(ElementPicker).mock.calls[
-      vi.mocked(ElementPicker).mock.calls.length - 1
-    ]
+    const lastCall2 = vi.mocked(ElementPicker).mock.calls[vi.mocked(ElementPicker).mock.calls.length - 1]
     const onClickCallback2 = lastCall2?.[1]
 
-    await act(async () => {
-      if (onClickCallback2) {
-        onClickCallback2(targetElement)
-      }
-    })
+    await simulateElementClick(onClickCallback2, targetElement)
 
     // Wait for the selection to complete
     await waitFor(() => {
