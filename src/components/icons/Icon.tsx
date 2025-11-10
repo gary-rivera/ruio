@@ -1,5 +1,5 @@
 import { ReactNode, MouseEvent, useState, useCallback } from 'react'
-
+import { ICON_HOVER_TRANSITION_MS } from '@constants/index'
 import baseStyles from '@root/styles/base.module.css'
 
 type IconProps = {
@@ -22,7 +22,7 @@ function Icon({ id, onClick, children, buttonClassName = '', pulseEnabled = true
         setShouldPulse(true)
         setTimeout(() => {
           setShouldPulse(false)
-        }, 150)
+        }, ICON_HOVER_TRANSITION_MS)
       }
     },
     [onClick, pulseEnabled],
