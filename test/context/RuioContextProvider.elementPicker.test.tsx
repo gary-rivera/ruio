@@ -1,7 +1,7 @@
 import { render, screen, waitFor, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
-import { committedOutlineElements } from '@utils/outline'
+import { selectedOutlineElements } from '@utils/outline'
 import * as outlineModule from '@utils/outline'
 
 // Spy on outline utilities to track calls
@@ -78,7 +78,7 @@ const simulateElementClick = async (callback: ((element: HTMLElement) => void) |
  * 1. Same element reselection: Verifies outlines are reapplied when same element selected twice (PASSES ✓)
  * 2. Single selection: Verifies outlines are applied after selecting an element once (PASSES ✓)
  * 3. Different element selection: Verifies outline switching between different roots (PASSES ✓)
- * 4. Tracking verification: Verifies committedOutlineElements tracking (PASSES ✓)
+ * 4. Tracking verification: Verifies selectedOutlineElements tracking (PASSES ✓)
  *
  * Implementation Details:
  * When an element is selected, handleRootSelected immediately calls applySelectedOutlines synchronously.
@@ -92,12 +92,12 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     localStorage.clear()
     // Clean up any existing test elements
     document.body.innerHTML = ''
-    committedOutlineElements.clear()
+    selectedOutlineElements.clear()
   })
 
   afterEach(() => {
     document.body.innerHTML = ''
-    committedOutlineElements.clear()
+    selectedOutlineElements.clear()
   })
 
   test('should apply outlines to selected root element and descendants when same element is selected twice', async () => {
@@ -144,7 +144,7 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     rootDiv.appendChild(targetElement)
     document.body.appendChild(rootDiv)
 
-    // Add some sibling elements that will be in committedOutlineElements
+    // Add some sibling elements that will be in selectedOutlineElements
     const siblingElement = document.createElement('div')
     siblingElement.id = 'sibling-element'
     rootDiv.appendChild(siblingElement)
@@ -210,10 +210,10 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     const callCountAfterFirstSelection = vi.mocked(outlineModule.applySelectedOutlines).mock.calls
       .length
 
-    // STEP 3: Manually clear the committedOutlineElements to simulate the bug
+    // STEP 3: Manually clear the selectedOutlineElements to simulate the bug
     // In a real scenario, this might happen if elements are removed from the DOM
     // or if there's some other interaction that clears the tracked elements
-    const { committedOutlineElements: elements } = await import('@utils/outline')
+    const { selectedOutlineElements: elements } = await import('@utils/outline')
     elements.clear()
 
     // Wait for any pending requestAnimationFrame calls to complete
@@ -552,8 +552,8 @@ describe('RuioContextProvider - Element Reselection Outline Application', () => 
     )
   })
 
-  test('should correctly track and update committedOutlineElements when reselecting same element', async () => {
-    const { committedOutlineElements } = await import('@utils/outline')
+  test('should correctly track and update selectedOutlineElements when reselecting same element', async () => {
+    const { selectedOutlineElements } = await import('@utils/outline')
 
     // Create DOM structure
     const rootDiv = document.createElement('div')

@@ -5,12 +5,12 @@ import { getElementsChildren, shouldSkipElement } from './dom'
 const HOVER_BG_COLOR = 'rgba(153, 181, 214, 0.66)'
 
 // local state variables (avoids having to do expensive actual cache pulls)
-export let committedOutlineElements: Set<HTMLElement> = new Set() // exported for testing
+// these & caching variables allow dom related changes to occur directly rather than going through react (avoids re-renders)
+export let selectedOutlineElements: Set<HTMLElement> = new Set() // exported for testing
 let previewOutlineElements: Set<HTMLElement> = new Set()
 let originalBackgroundColors: Map<HTMLElement, string> = new Map()
 
 // ===== CACHING ========
-// this helps avoids having to do expensive actual cache pulls
 let colorCache: Map<string, string> = new Map()
 let cachedRootElement: HTMLElement | null = null
 let cachedPalette: string | null = null
@@ -20,6 +20,7 @@ function getElementCacheKey(el: HTMLElement, depth: number): string {
   const className = el.className || ''
   const tagName = el.tagName
   const pathIndex = Array.from(el.parentElement?.children || []).indexOf(el)
+
   return `${tagName}_${id}_${className}_${pathIndex}_${depth}`
 }
 
@@ -42,6 +43,7 @@ function getColorForElement(el: HTMLElement, depth: number, palette: string): st
 
     const color = generateContrastingColor(el, depth)
     colorCache.set(cacheKey, color)
+
     return color
   }
 
@@ -94,17 +96,21 @@ interface TraversalConfig {
   onElement: (el: HTMLElement, depth: number, color: string) => void
 }
 
-function traverseAndApply(
-  element: HTMLElement,
-  config: TraversalConfig,
-  elements: Set<HTMLElement> = new Set(),
-): Set<HTMLElement> {
+interface OutlineOperations {
+  elements: Set<HTMLElement>
+  styleOperationsQueue: Array<() => void>
+}
+
+function traverseAndQueueOutlines(element: HTMLElement, config: TraversalConfig): OutlineOperations {
+  const elements: Set<HTMLElement> = new Set()
+  const styleOperationsQueue: Array<() => void> = []
+
   const traverse = (el: HTMLElement, currentDepth: number) => {
     if (shouldSkipElement(el) || currentDepth > config.maxDepth) return
 
     elements.add(el)
 
-    requestAnimationFrame(() => {
+    styleOperationsQueue.push(() => {
       const color = getColorForElement(el, currentDepth, config.palette)
       config.onElement(el, currentDepth, color)
     })
@@ -115,10 +121,10 @@ function traverseAndApply(
   }
 
   traverse(element, 0)
-  return elements
+  return { elements, styleOperationsQueue }
 }
 
-// =====  ========
+// ===== MAIN UTIL API ========
 export const applySelectedOutlines = (
   element: HTMLElement,
   depth: number,
@@ -132,7 +138,7 @@ export const applySelectedOutlines = (
 
   invalidateCacheIfChanged(element, currentColorPalette)
 
-  const elements = traverseAndApply(element, {
+  const { elements, styleOperationsQueue } = traverseAndQueueOutlines(element, {
     maxDepth: depth,
     palette: currentColorPalette,
     onElement: (el, _, color) => {
@@ -141,12 +147,15 @@ export const applySelectedOutlines = (
   })
 
   requestAnimationFrame(() => {
-    committedOutlineElements.forEach((el) => {
+    styleOperationsQueue.forEach((op) => op())
+
+    selectedOutlineElements.forEach((el) => {
       if (!elements.has(el)) {
         el.style.outline = ''
       }
     })
-    committedOutlineElements = elements
+
+    selectedOutlineElements = elements
   })
 }
 
@@ -160,7 +169,7 @@ export const applyPreviewOutlines = (
     currentColorPalette = 'dynamic'
   }
 
-  const elements = traverseAndApply(element, {
+  const { elements, styleOperationsQueue } = traverseAndQueueOutlines(element, {
     maxDepth: depth,
     palette: currentColorPalette,
     onElement: (el, currentDepth, color) => {
@@ -174,11 +183,14 @@ export const applyPreviewOutlines = (
   })
 
   requestAnimationFrame(() => {
+    styleOperationsQueue.forEach((op) => op())
+
     previewOutlineElements.forEach((el) => {
       if (!elements.has(el)) {
         clearOutlineStyle(el, true)
       }
     })
+
     previewOutlineElements = elements
   })
 }
@@ -188,16 +200,18 @@ export const clearPreviewOutlines = () => {
     previewOutlineElements.forEach((el) => {
       clearOutlineStyle(el, true)
     })
+
     previewOutlineElements.clear()
   })
 }
 
 export const clearSelectedOutlines = () => {
   requestAnimationFrame(() => {
-    committedOutlineElements.forEach((el) => {
+    selectedOutlineElements.forEach((el) => {
       clearOutlineStyle(el, false)
     })
-    committedOutlineElements.clear()
+
+    selectedOutlineElements.clear()
   })
 }
 

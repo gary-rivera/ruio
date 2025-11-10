@@ -1,4 +1,4 @@
-import React, { forwardRef, CSSProperties, ReactNode } from 'react'
+import { forwardRef, CSSProperties, ReactNode } from 'react'
 import styles from './Tooltip.module.css'
 
 interface TooltipProps {
@@ -25,8 +25,7 @@ interface TooltipProps {
 }
 
 /**
- * Base tooltip component that handles positioning and styling.
- * Used as a foundation for all tooltip variants (element metrics, info tooltips, etc.)
+ * Base tooltip component that handles positioning and styling
  *
  * Features:
  * - Positioned absolutely at x,y coordinates

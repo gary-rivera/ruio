@@ -1,7 +1,6 @@
 import { UI_DEPTH, COLOR_PALETTE, RUIO_ENABLED, ROOT_ELEMENT_SELECTOR } from '@constants/index'
 
-// local storage key
-const RUIO_CONFIG_KEY = 'ruio-config'
+const RUIO_CONFIG_KEY = 'ruio-config' // local storage key
 
 export interface ConfigLocalState {
   ruioEnabled: boolean

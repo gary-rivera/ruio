@@ -1,6 +1,6 @@
 import {
   applySelectedOutlines,
-  committedOutlineElements,
+  selectedOutlineElements,
   calculateMaxDepth,
   clearSelectedOutlines,
 } from '@utils/outline'
@@ -26,7 +26,7 @@ describe('applySelectedOutlines Smoke and Functionality Tests', () => {
     }
 
     // Reset previously applied elements before each test
-    committedOutlineElements.clear()
+    selectedOutlineElements.clear()
   })
 
   afterEach(() => {
@@ -203,7 +203,7 @@ describe('clearSelectedOutlines', () => {
     }
 
     // Reset previously applied elements before each test
-    committedOutlineElements.clear()
+    selectedOutlineElements.clear()
   })
 
   afterEach(() => {

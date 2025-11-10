@@ -31,8 +31,8 @@ export const ElementPicker = (
 
   const handleMouseOut = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-    if (isValidTarget(target)) {
-      onMouseOut?.()
+    if (isValidTarget(target) && onMouseOut) {
+      onMouseOut()
     }
   }
 

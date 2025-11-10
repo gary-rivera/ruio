@@ -42,7 +42,7 @@ interface UseElementPickerReturn {
 }
 
 /**
- * life cycle manager for picking elements
+ * react lifecycle orchestration for all things ElementPicking
  * delegates all events assigning and cleanup to ElementPicker() controller
  *
  * @param ruioEnabled - whether the ruio UI/feature is enabled
@@ -71,7 +71,7 @@ export const useElementPicker = ({
 
   useEffect(() => {
     if (ruioEnabled && isActive) {
-      // clear any existing outlines when picker mode is activated
+      // cleanup any existing outline styling before making changes
       clearPreviewOutlines()
       clearSelectedOutlines()
 
@@ -91,7 +91,7 @@ export const useElementPicker = ({
       const debouncedHandleClick = debounce((element: HTMLElement) => {
         clearPreviewOutlines()
         setTooltipData(null)
-        setIsActive(false)
+        setIsActive(false) // really don't like that this setter comes from this hook instead of context...
         onElementPicked(element)
       }, 50)
 
@@ -106,7 +106,7 @@ export const useElementPicker = ({
       )
 
       return () => {
-        // clear preview outlines when exiting picker mode
+        // clear preview outlines and force tooltip to re-render when exiting picker mode
         clearPreviewOutlines()
         setTooltipData(null)
 
@@ -115,7 +115,7 @@ export const useElementPicker = ({
         }
       }
     } else {
-      // clear tooltip when picker mode is disabled
+      // force tooltip to re-render next time ruio is enabled/active
       setTooltipData(null)
     }
   }, [isActive, depth, ruioEnabled, currentColorPalette, onElementPicked])

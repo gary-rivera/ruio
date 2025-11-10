@@ -11,14 +11,7 @@ type IconProps = {
   pulseEnabled?: boolean
 }
 
-function Icon({
-  id,
-  onClick,
-  children,
-  buttonClassName = '',
-  svgClassName = '',
-  pulseEnabled = true,
-}: IconProps) {
+function Icon({ id, onClick, children, buttonClassName = '', pulseEnabled = true }: IconProps) {
   const [shouldPulse, setShouldPulse] = useState(false)
 
   const handleClick = useCallback(
