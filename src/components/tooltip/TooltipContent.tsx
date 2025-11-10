@@ -11,7 +11,7 @@ interface TooltipContentProps {
  * memoized to prevent unnecessary re-renders when parent components re-render due to state changes
  * (dragging, positioning, etc.)
  */
-export const TooltipContent: React.FC<TooltipContentProps> = ({ data }) => {
+export const TooltipContent = React.memo<TooltipContentProps>(({ data }) => {
   const depthText = data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `${data.depth}`
 
   return (
