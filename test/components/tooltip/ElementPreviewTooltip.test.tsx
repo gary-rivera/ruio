@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { ElementSelectionTooltip } from '@components/ElementSelectionTooltip'
+import { ElementPreviewTooltip } from '@components/tooltip/ElementPreviewTooltip'
 import type { TooltipData } from '@hooks/useElementSelection'
 
-describe('ElementSelectionTooltip', () => {
+describe('ElementPreviewTooltip', () => {
   const mockTooltipData: TooltipData = {
     reactComponentName: 'TestComponent',
     parentComponentName: 'ParentComponent',
@@ -20,12 +20,12 @@ describe('ElementSelectionTooltip', () => {
   }
 
   test('should not render when data is null', () => {
-    const { container } = render(<ElementSelectionTooltip data={null} />)
+    const { container } = render(<ElementPreviewTooltip data={null} />)
     expect(container.firstChild).toBeNull()
   })
 
   test('should render tooltip with all information when data is provided', () => {
-    render(<ElementSelectionTooltip data={mockTooltipData} />)
+    render(<ElementPreviewTooltip data={mockTooltipData} />)
 
     // React component section
     expect(screen.getByText('component:')).toBeInTheDocument()
@@ -51,7 +51,7 @@ describe('ElementSelectionTooltip', () => {
   })
 
   test('should position tooltip at correct coordinates', () => {
-    const { container } = render(<ElementSelectionTooltip data={mockTooltipData} />)
+    const { container } = render(<ElementPreviewTooltip data={mockTooltipData} />)
     const tooltip = container.firstChild as HTMLElement
 
     expect(tooltip.style.left).toBe('100px')
@@ -66,7 +66,7 @@ describe('ElementSelectionTooltip', () => {
       firstChildComponentName: null,
     }
 
-    render(<ElementSelectionTooltip data={dataWithoutComponents} />)
+    render(<ElementPreviewTooltip data={dataWithoutComponents} />)
 
     // Should not show component section
     expect(screen.queryByText('component:')).not.toBeInTheDocument()
@@ -86,7 +86,7 @@ describe('ElementSelectionTooltip', () => {
       firstChildComponentName: null,
     }
 
-    render(<ElementSelectionTooltip data={dataWithOnlyCurrentComponent} />)
+    render(<ElementPreviewTooltip data={dataWithOnlyCurrentComponent} />)
 
     expect(screen.getByText('component:')).toBeInTheDocument()
     expect(screen.getByText('CurrentComponent')).toBeInTheDocument()
@@ -100,7 +100,7 @@ describe('ElementSelectionTooltip', () => {
       depth: 'MAX_DEPTH_EXCEEDED',
     }
 
-    render(<ElementSelectionTooltip data={dataWithMaxDepth} />)
+    render(<ElementPreviewTooltip data={dataWithMaxDepth} />)
 
     expect(screen.getByText('max_depth:')).toBeInTheDocument()
     expect(screen.getByText('MAX_DEPTH_EXCEEDED')).toBeInTheDocument()
@@ -113,7 +113,7 @@ describe('ElementSelectionTooltip', () => {
       parentComponentName: null,
     }
 
-    render(<ElementSelectionTooltip data={dataWithoutParent} />)
+    render(<ElementPreviewTooltip data={dataWithoutParent} />)
 
     expect(screen.queryByText('parent_tag:')).not.toBeInTheDocument()
     expect(screen.getByText('tag:')).toBeInTheDocument()
@@ -127,7 +127,7 @@ describe('ElementSelectionTooltip', () => {
       childrenCount: 0,
     }
 
-    render(<ElementSelectionTooltip data={dataWithoutChildren} />)
+    render(<ElementPreviewTooltip data={dataWithoutChildren} />)
 
     expect(screen.queryByText('child_tag:')).not.toBeInTheDocument()
     expect(screen.getByText('children:')).toBeInTheDocument()
@@ -135,7 +135,7 @@ describe('ElementSelectionTooltip', () => {
   })
 
   test('should render dividers between sections', () => {
-    const { container } = render(<ElementSelectionTooltip data={mockTooltipData} />)
+    const { container } = render(<ElementPreviewTooltip data={mockTooltipData} />)
     const dividers = container.querySelectorAll('[class*="divider"]')
 
     // Should have 2 dividers (after component section and after HTML/CSS section)
@@ -149,7 +149,7 @@ describe('ElementSelectionTooltip', () => {
       siblingsCount: 0,
     }
 
-    render(<ElementSelectionTooltip data={dataWithNoChildrenOrSiblings} />)
+    render(<ElementPreviewTooltip data={dataWithNoChildrenOrSiblings} />)
 
     expect(screen.getByText('children:')).toBeInTheDocument()
     expect(screen.getAllByText('0')).toHaveLength(2) // Both children and siblings
@@ -161,7 +161,7 @@ describe('ElementSelectionTooltip', () => {
       selector: '.my-class.another-class',
     }
 
-    render(<ElementSelectionTooltip data={dataWithClassSelector} />)
+    render(<ElementPreviewTooltip data={dataWithClassSelector} />)
 
     expect(screen.getByText('selector:')).toBeInTheDocument()
     expect(screen.getByText('.my-class.another-class')).toBeInTheDocument()
@@ -173,7 +173,7 @@ describe('ElementSelectionTooltip', () => {
       selector: 'div > section:nth-of-type(2) > article',
     }
 
-    render(<ElementSelectionTooltip data={dataWithPathSelector} />)
+    render(<ElementPreviewTooltip data={dataWithPathSelector} />)
 
     expect(screen.getByText('selector:')).toBeInTheDocument()
     expect(screen.getByText('div > section:nth-of-type(2) > article')).toBeInTheDocument()

@@ -3,7 +3,7 @@ import { PickerTooltipData } from '@hooks/useElementPicker'
 import { Tooltip } from './Tooltip'
 import { TooltipContent } from './TooltipContent'
 
-interface ElementSelectionTooltipProps {
+interface ElementPreviewTooltipProps {
   data: PickerTooltipData | null
 }
 
@@ -11,7 +11,7 @@ interface ElementSelectionTooltipProps {
  * Tooltip that follows the cursor during element picker mode.
  * Displays component name, depth, and selector information for debugging.
  */
-export const ElementSelectionTooltip: React.FC<ElementSelectionTooltipProps> = ({ data }) => {
+export const ElementPreviewTooltip: React.FC<ElementPreviewTooltipProps> = ({ data }) => {
   if (!data) return null
 
   return (

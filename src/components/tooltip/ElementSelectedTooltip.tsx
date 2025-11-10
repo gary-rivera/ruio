@@ -5,7 +5,7 @@ import { useTooltipDrag } from '@hooks/useTooltipDrag'
 import { Tooltip } from './Tooltip'
 import { TooltipContent } from './TooltipContent'
 
-interface PersistedElementTooltipProps {
+interface ElementSelectedTooltipProps {
   data: Omit<PickerTooltipData, 'x' | 'y'> | null
   rootElement: HTMLElement | null
 }
@@ -20,7 +20,7 @@ const MIN_SPACE_REQUIRED = 24
  * - Position persists after dragging (no auto-repositioning)
  * - Resets when a new element is selected
  */
-export const PersistedElementTooltip: React.FC<PersistedElementTooltipProps> = ({
+export const ElementSelectedTooltip: React.FC<ElementSelectedTooltipProps> = ({
   data,
   rootElement,
 }) => {

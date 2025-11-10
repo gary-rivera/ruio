@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { RuioContextProvider } from '@root/context/RuioContextProvider'
-import { ElementSelectionTooltip } from '@components/ElementSelectionTooltip'
+import { ElementPreviewTooltip } from '@components/tooltip/ElementPreviewTooltip'
 import React from 'react'
 
 /**

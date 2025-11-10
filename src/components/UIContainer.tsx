@@ -3,8 +3,8 @@ import UIToggleController from '@controllers/UIToggleController'
 import SettingsIcon from '@components/icons/SettingsIcon'
 import ElementSelectIcon from '@components/icons/ElementSelectIcon'
 import SettingsModal from '@components/settings/SettingsModal'
-import { ElementSelectionTooltip } from '@components/ElementSelectionTooltip'
-import { PersistedElementTooltip } from '@components/PersistedElementTooltip'
+import { ElementPreviewTooltip } from '@components/tooltip/ElementPreviewTooltip'
+import { ElementSelectedTooltip } from '@components/tooltip/ElementSelectedTooltip'
 import { useRuioContext } from '@root/context/RuioContextProvider'
 
 import styles from '@components/UIContainer.module.css'
@@ -78,9 +78,9 @@ function UIContainer(_: unknown, ref: React.Ref<HTMLDivElement>) {
 
       <UIToggleController isDimmed={isElementPickerActive || panelVisibility.settingsModal} />
 
-      {isElementPickerActive && <ElementSelectionTooltip data={tooltipData} />}
+      {isElementPickerActive && <ElementPreviewTooltip data={tooltipData} />}
       {!isElementPickerActive && ruioEnabled && (
-        <PersistedElementTooltip data={persistedTooltipData} rootElement={rootElement} />
+        <ElementSelectedTooltip data={persistedTooltipData} rootElement={rootElement} />
       )}
     </div>
   )

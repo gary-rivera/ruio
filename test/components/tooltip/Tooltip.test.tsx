@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, test, expect } from 'vitest'
-import { Tooltip } from '@components/Tooltip'
+import { Tooltip } from '@components/tooltip/Tooltip'
 
 describe('Tooltip', () => {
   test('renders with children at specified position', () => {
