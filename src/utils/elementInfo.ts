@@ -160,7 +160,7 @@ export const getElementInfo = (element: HTMLElement) => {
     firstChildTag: getFirstChildTag(element),
     selector: parseSelectorFromSelectedElement(element),
 
-    // metrics
+    // Metrics
     depth: calculateElementDepth(element),
     childrenCount: getChildrenCount(element),
     siblingsCount: getSiblingsCount(element),

@@ -10,12 +10,12 @@ interface UseTooltipPositioningOptions {
   tooltipRef: RefObject<HTMLDivElement>
   offset: number
   minSpaceRequired: number
-  isLocked: boolean // Don't auto-update if user has manually positioned
+  isLocked: boolean // restricts updating when manual position is selected
 }
 
 /**
- * Hook to calculate and manage tooltip positioning relative to a target element.
- * Tries to position: above → below → right → left → top-right corner (fallback).
+ * hook to calculate and manage tooltip positioning relative to a target element.
+ * tries to position: above → below → right → left → top-right corner (fallback).
  */
 export const useTooltipPositioning = ({
   targetElement,
@@ -34,7 +34,7 @@ export const useTooltipPositioning = ({
     const tooltipHeight = tooltipRef.current?.offsetHeight || 0
     const tooltipWidth = tooltipRef.current?.offsetWidth || 0
 
-    // Wait for tooltip to render and get actual dimensions
+    // wait for tooltip to render and get actual dimensions
     if (isInitialRender && (tooltipHeight === 0 || tooltipWidth === 0)) {
       return null
     }
@@ -49,33 +49,33 @@ export const useTooltipPositioning = ({
     let x: number
     let y: number
 
-    // Try positioning above
+    // try positioning above
     if (availableSpace.above >= tooltipHeight + minSpaceRequired) {
       x = targetRect.left + offset
       y = targetRect.top - tooltipHeight - offset
     }
-    // Try positioning below
+    // try positioning below
     else if (availableSpace.below >= tooltipHeight + minSpaceRequired) {
       x = targetRect.left + offset
       y = targetRect.bottom + offset
     }
-    // Try positioning to the right
+    // try positioning to the right
     else if (availableSpace.right >= tooltipWidth + minSpaceRequired) {
       x = targetRect.right + offset
       y = targetRect.top + offset
     }
-    // Try positioning to the left
+    // try positioning to the left
     else if (availableSpace.left >= tooltipWidth + minSpaceRequired) {
       x = targetRect.left - tooltipWidth - offset
       y = targetRect.top + offset
     }
-    // Fallback: top-right corner of screen
+    // fallback: top-right corner of screen
     else {
       x = window.innerWidth - tooltipWidth - offset
       y = offset
     }
 
-    // Clamp to screen bounds
+    // clamp to within bounds to avoid partial renders (off-screen)
     x = Math.max(offset, Math.min(x, window.innerWidth - tooltipWidth - offset))
     y = Math.max(offset, Math.min(y, window.innerHeight - tooltipHeight - offset))
 
@@ -99,7 +99,7 @@ export const useTooltipPositioning = ({
       return
     }
 
-    // Use requestAnimationFrame to ensure DOM has updated
+    // fun fact: raf runs after layout calculations but before paints i.e. - offset values available
     const rafId = requestAnimationFrame(updatePosition)
     window.addEventListener('scroll', updatePosition, true)
     window.addEventListener('resize', updatePosition)

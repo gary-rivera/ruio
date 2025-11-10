@@ -13,8 +13,8 @@ interface UseTooltipDragReturn {
 }
 
 /**
- * Hook to handle drag functionality for a tooltip.
- * Manages drag state and position updates during dragging.
+ * hook to handle drag functionality for a tooltip.
+ * manages drag state and position updates during dragging.
  */
 export const useTooltipDrag = ({ enabled, onDragEnd }: UseTooltipDragOptions): UseTooltipDragReturn => {
   const [isDragging, setIsDragging] = useState(false)

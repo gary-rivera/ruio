@@ -10,7 +10,7 @@ interface TooltipProps {
 }
 
 /**
- * Base tooltip component that handles positioning and styling
+ * base tooltip component, more of a component factory
  *
  * Features:
  * - Positioned absolutely at x,y coordinates

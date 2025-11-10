@@ -8,8 +8,9 @@ interface ElementPreviewTooltipProps {
 }
 
 /**
- * Tooltip that follows the cursor during element picker mode.
- * Displays hovered elements metadata
+ * presentational component that sends coordinates to consumer (ElementPicker)
+ * - displays the metadata of a hovered element
+ * - positioning (following cursor) handled by ElementPicker
  */
 export const ElementPreviewTooltip: React.FC<ElementPreviewTooltipProps> = ({ data }) => {
   if (!data) return null
