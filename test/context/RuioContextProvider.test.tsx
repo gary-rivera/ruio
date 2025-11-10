@@ -330,8 +330,8 @@ describe('RuioContextProvider', () => {
       </RuioContextProvider>,
     )
 
-    // When no rootElement is set, maxDepth should be high (100) to allow free setting
-    expect(screen.getByTestId('maxDepth').textContent).toBe('100')
+    // When no rootElement is set, maxDepth should be high (50) to allow free setting
+    expect(screen.getByTestId('maxDepth').textContent).toBe('50')
   })
 
   test('should handle edge case where rootElement has no children', async () => {

@@ -1,4 +1,4 @@
-import { UI_DEPTH, COLOR_PALETTE, RUIO_ENABLED, ROOT_ELEMENT_SELECTOR } from '@constants/index'
+import { DEFAULT_DEPTH, COLOR_PALETTE, RUIO_ENABLED, ROOT_ELEMENT_SELECTOR } from '@constants/index'
 
 const RUIO_CONFIG_KEY = 'ruio-config' // local storage key
 
@@ -12,7 +12,7 @@ export interface ConfigLocalState {
 
 const DEFAULT_CONFIG: ConfigLocalState = {
   ruioEnabled: RUIO_ENABLED,
-  depth: UI_DEPTH,
+  depth: DEFAULT_DEPTH,
   currentColorPalette: COLOR_PALETTE,
   rootElementSelector: ROOT_ELEMENT_SELECTOR,
   theme: 'dark',

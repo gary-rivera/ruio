@@ -9,15 +9,19 @@ import { generateGitHubIssueUrl } from '@utils/githubIssue'
 import { clearColorCache } from '@utils/outline'
 import { resetConfig, loadConfig } from '@utils/config'
 
+import {
+  DEFAULT_MIN_DEPTH,
+  DEFAULT_APPROACHING_MIN_DEPTH,
+  CONFIG_RESET_DELAY_MS,
+} from '@constants/index'
+
 import styles from '@components/settings/SettingsModal.module.css'
 import rowStyles from '@components/settings/SettingsRow.module.css'
 
 type SettingsModalProps = { isOpen: boolean; onClose: () => void; title?: string; footer?: ReactNode }
 
-// Visual feedback configuration
+// depth related UI warnings
 const FLASH_DURATION_MS = 600
-const MIN_DEPTH = 0
-const APPROACHING_MIN_DEPTH = 1
 
 function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const {
@@ -51,7 +55,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   }, [isOpen]) // Re-check when modal opens
 
   const clampDepthToValidRange = (value: number): number => {
-    return Math.max(MIN_DEPTH, Math.min(value, maxDepth))
+    return Math.max(DEFAULT_MIN_DEPTH, Math.min(value, maxDepth))
   }
 
   const triggerFlashFeedback = (flashType: 'limit' | 'warning'): void => {
@@ -66,14 +70,15 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   const isAtOrBeyondLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
     const atMaximum = operation === 'increment' && (newDepth >= maxDepth || depth >= maxDepth)
-    const atMinimum = operation === 'decrement' && (newDepth <= MIN_DEPTH || depth <= MIN_DEPTH)
+    const atMinimum =
+      operation === 'decrement' && (newDepth <= DEFAULT_MIN_DEPTH || depth <= DEFAULT_MIN_DEPTH)
 
     return atMaximum || atMinimum
   }
 
   const isApproachingLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
     const approachingMaximum = operation === 'increment' && newDepth === maxDepth - 1
-    const approachingMinimum = operation === 'decrement' && newDepth === APPROACHING_MIN_DEPTH
+    const approachingMinimum = operation === 'decrement' && newDepth === DEFAULT_APPROACHING_MIN_DEPTH
 
     return approachingMaximum || approachingMinimum
   }
@@ -131,8 +136,8 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   async function handleClearCache(): Promise<void> {
     setIsClearingCache(true)
 
-    // Simulate async operation for smooth UX (minimum 500ms for spinner visibility)
-    await new Promise((resolve) => setTimeout(resolve, 500))
+    // Simulate async operation for smooth UX (minimum delay for spinner visibility)
+    await new Promise((resolve) => setTimeout(resolve, CONFIG_RESET_DELAY_MS))
 
     try {
       // Clear localStorage config

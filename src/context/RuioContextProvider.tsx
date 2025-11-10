@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
+import { DEFAULT_MAX_DEPTH } from '@constants/index'
 import { applySelectedOutlines, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementPicker, PickerTooltipData } from '@hooks/useElementPicker'
@@ -49,8 +50,6 @@ type ContextProviderProps = {
   defaultRootSelector?: string
 }
 
-const DEFAULT_MAX_DEPTH_WITHOUT_ROOT = 100
-
 export const RuioContextProvider = ({
   children,
   defaultRootSelector,
@@ -58,7 +57,7 @@ export const RuioContextProvider = ({
   const localStorageState = useLocalStorageState()
 
   // local state fallback for SSR compatibility
-  const [maxDepth, setMaxDepth] = useState(DEFAULT_MAX_DEPTH_WITHOUT_ROOT)
+  const [maxDepth, setMaxDepth] = useState(DEFAULT_MAX_DEPTH)
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
   const [persistedTooltipData, setPersistedTooltipData] = useState<Omit<
     PickerTooltipData,

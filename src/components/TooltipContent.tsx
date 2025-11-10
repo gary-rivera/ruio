@@ -8,7 +8,6 @@ interface TooltipContentProps {
 
 /**
  * Shared tooltip content component that renders the actual tooltip information.
- * Used by both ElementSelectionTooltip and PersistedElementTooltip.
  */
 export const TooltipContent: React.FC<TooltipContentProps> = ({ data }) => {
   const depthText = data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `${data.depth}`

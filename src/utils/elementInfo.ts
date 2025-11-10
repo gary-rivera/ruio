@@ -1,11 +1,6 @@
 import { parseSelectorFromSelectedElement } from './config'
+import { DEFAULT_MAX_DEPTH } from '@constants/index'
 
-const MAX_DEPTH_LIMIT = 100 // Performance threshold
-
-/**
- * Attempts to extract the React component name from an element.
- * Returns null if not a React component or if name cannot be determined.
- */
 export const getReactComponentName = (element: HTMLElement): string | null => {
   try {
     // Try to find React Fiber key (React 16+)
@@ -86,7 +81,7 @@ export const calculateElementDepth = (element: HTMLElement | null): number | 'MA
     if (shouldSkipElement(el)) return
 
     // Early exit if we've exceeded the limit
-    if (currentDepth > MAX_DEPTH_LIMIT) {
+    if (currentDepth > DEFAULT_MAX_DEPTH) {
       exceeded = true
       return
     }

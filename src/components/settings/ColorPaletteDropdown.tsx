@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { colorPalettesMap } from '@utils/colorPalettes'
 import { useRuioContext } from '@context/RuioContextProvider'
 import CheckmarkIcon from '@components/icons/CheckmarkIcon'
+import { DROPDOWN_CLOSE_DELAY_MS } from '@constants/index'
 import styles from '@components/settings/ColorPaletteDropdown.module.css'
 
 type ColorPaletteDropdownProps = {
@@ -24,7 +25,7 @@ function ColorPaletteDropdown({ isOpen, setIsOpen }: ColorPaletteDropdownProps) 
     if (dropdownRef.current && !dropdownRef.current.contains(movedToElement)) {
       setTimeout(() => {
         setIsOpen(false)
-      }, 350)
+      }, DROPDOWN_CLOSE_DELAY_MS)
     }
   }
 

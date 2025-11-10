@@ -3,6 +3,7 @@ import { applyPreviewOutlines, clearPreviewOutlines, clearSelectedOutlines } fro
 import { ElementPicker } from '@controllers/ElementPicker'
 import { debounce } from '@utils/debounce'
 import { getElementInfo } from '@utils/elementInfo'
+import { ELEMENT_PICKER_DEBOUNCE_MS } from '@constants/index'
 
 export interface PickerTooltipData {
   // React component info
@@ -86,14 +87,14 @@ export const useElementPicker = ({
           x,
           y,
         })
-      }, 50)
+      }, ELEMENT_PICKER_DEBOUNCE_MS)
 
       const debouncedHandleClick = debounce((element: HTMLElement) => {
         clearPreviewOutlines()
         setTooltipData(null)
         setIsActive(false) // really don't like that this setter comes from this hook instead of context...
         onElementPicked(element)
-      }, 50)
+      }, ELEMENT_PICKER_DEBOUNCE_MS)
 
       const handleMouseOut = () => {
         setTooltipData(null)
