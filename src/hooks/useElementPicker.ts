@@ -8,8 +8,6 @@ import { ELEMENT_PICKER_DEBOUNCE_MS } from '@constants/index'
 export interface PickerTooltipData {
   // React component info
   reactComponentName: string | null
-  parentComponentName: string | null
-  firstChildComponentName: string | null
 
   // HTML/CSS info
   tagName: string

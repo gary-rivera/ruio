@@ -6,8 +6,6 @@ import type { TooltipData } from '@hooks/useElementSelection'
 describe('ElementPreviewTooltip', () => {
   const mockTooltipData: TooltipData = {
     reactComponentName: 'TestComponent',
-    parentComponentName: 'ParentComponent',
-    firstChildComponentName: 'ChildComponent',
     tagName: '<div>',
     parentTag: '<section>',
     firstChildTag: '<span>',
@@ -62,36 +60,28 @@ describe('ElementPreviewTooltip', () => {
     const dataWithoutComponents: TooltipData = {
       ...mockTooltipData,
       reactComponentName: null,
-      parentComponentName: null,
-      firstChildComponentName: null,
     }
 
     render(<ElementPreviewTooltip data={dataWithoutComponents} />)
 
     // Should not show component section
     expect(screen.queryByText('component:')).not.toBeInTheDocument()
-    expect(screen.queryByText('parent_component:')).not.toBeInTheDocument()
-    expect(screen.queryByText('child_component:')).not.toBeInTheDocument()
 
     // Should still show HTML/CSS section
     expect(screen.getByText('tag:')).toBeInTheDocument()
     expect(screen.getByText('<div>')).toBeInTheDocument()
   })
 
-  test('should show only current component when parent and child are not detected', () => {
+  test('should show only current component when detected', () => {
     const dataWithOnlyCurrentComponent: TooltipData = {
       ...mockTooltipData,
       reactComponentName: 'CurrentComponent',
-      parentComponentName: null,
-      firstChildComponentName: null,
     }
 
     render(<ElementPreviewTooltip data={dataWithOnlyCurrentComponent} />)
 
     expect(screen.getByText('component:')).toBeInTheDocument()
     expect(screen.getByText('CurrentComponent')).toBeInTheDocument()
-    expect(screen.queryByText('parent_component:')).not.toBeInTheDocument()
-    expect(screen.queryByText('child_component:')).not.toBeInTheDocument()
   })
 
   test('should handle MAX_DEPTH_EXCEEDED', () => {
@@ -110,7 +100,6 @@ describe('ElementPreviewTooltip', () => {
     const dataWithoutParent: TooltipData = {
       ...mockTooltipData,
       parentTag: null,
-      parentComponentName: null,
     }
 
     render(<ElementPreviewTooltip data={dataWithoutParent} />)
@@ -123,7 +112,6 @@ describe('ElementPreviewTooltip', () => {
     const dataWithoutChildren: TooltipData = {
       ...mockTooltipData,
       firstChildTag: null,
-      firstChildComponentName: null,
       childrenCount: 0,
     }
 

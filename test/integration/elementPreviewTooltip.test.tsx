@@ -218,39 +218,6 @@ describe('Element Selection Tooltip Integration', () => {
     expect(info.reactComponentName).toBe('TestComponent')
   })
 
-  test('should extract parent React component name', async () => {
-    const parent = document.createElement('div')
-    const element = document.createElement('div')
-
-    ;(parent as any).__reactFiber$test = {
-      type: function ParentComponent() {},
-    }
-
-    parent.appendChild(element)
-    container.appendChild(parent)
-
-    const { getElementInfo } = await import('@utils/elementInfo')
-    const info = getElementInfo(element)
-
-    expect(info.parentComponentName).toBe('ParentComponent')
-  })
-
-  test('should extract child React component name', async () => {
-    const element = document.createElement('div')
-    const child = document.createElement('div')
-
-    ;(child as any).__reactFiber$test = {
-      type: function ChildComponent() {},
-    }
-
-    element.appendChild(child)
-    container.appendChild(element)
-
-    const { getElementInfo } = await import('@utils/elementInfo')
-    const info = getElementInfo(element)
-
-    expect(info.firstChildComponentName).toBe('ChildComponent')
-  })
 
   test('should handle very deep tree with MAX_DEPTH_EXCEEDED', async () => {
     const root = document.createElement('div')

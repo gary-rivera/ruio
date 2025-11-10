@@ -2,25 +2,10 @@ import { forwardRef, CSSProperties, ReactNode } from 'react'
 import styles from './Tooltip.module.css'
 
 interface TooltipProps {
-  /**
-   * The x-coordinate for the tooltip position (in pixels)
-   */
   x: number
-  /**
-   * The y-coordinate for the tooltip position (in pixels)
-   */
   y: number
-  /**
-   * Content to render inside the tooltip
-   */
   children: ReactNode
-  /**
-   * Additional CSS properties to apply to the tooltip
-   */
   style?: CSSProperties
-  /**
-   * Additional class name(s) to apply to the tooltip
-   */
   className?: string
 }
 
@@ -29,7 +14,6 @@ interface TooltipProps {
  *
  * Features:
  * - Positioned absolutely at x,y coordinates
- * - Styled with ruio tooltip theme
  * - Pointer events disabled by default
  * - High z-index to appear above other content
  *
