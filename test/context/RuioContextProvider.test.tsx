@@ -1,6 +1,6 @@
 import { render, screen, act } from '@testing-library/react'
 import { RuioContextProvider, useRuioContext } from '@context/RuioContextProvider'
-import { applyCommittedOutlines } from '@utils/outline'
+import { applySelectedOutlines } from '@utils/outline'
 import { ElementPicker } from '@controllers/ElementPicker'
 import userEvent from '@testing-library/user-event'
 import { waitFor } from '@testing-library/react'
@@ -11,7 +11,7 @@ vi.mock('@utils/outline', async () => {
   const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
-    applyCommittedOutlines: vi.fn(),
+    applySelectedOutlines: vi.fn(),
     resetCommittedOutlines: vi.fn(),
   }
 })
@@ -21,7 +21,7 @@ vi.mock('@controllers/ElementPicker')
 const mockedElementPicker = ElementPicker as Mock<
   typeof ElementPicker
 >
-const mockedApplyBorders = applyCommittedOutlines as Mock<typeof applyCommittedOutlines>
+const mockedApplyBorders = applySelectedOutlines as Mock<typeof applySelectedOutlines>
 
 const TestComponent = () => {
   const {
@@ -173,7 +173,7 @@ describe('RuioContextProvider', () => {
     // Verify rootElement is still null (not auto-selected to #root)
     expect(screen.getByTestId('rootElement').textContent).toBe('None')
 
-    // Verify applyCommittedOutlines was NOT called with a default root element
+    // Verify applySelectedOutlines was NOT called with a default root element
     // It should only be called during hover interactions, not on mount
     expect(mockedApplyBorders).not.toHaveBeenCalled()
   })
@@ -210,7 +210,7 @@ describe('RuioContextProvider', () => {
       await userEvent.click(enableBordersButton)
     })
 
-    // Verify applyCommittedOutlines was called with the restored root element
+    // Verify applySelectedOutlines was called with the restored root element
     await waitFor(() => {
       expect(mockedApplyBorders).toHaveBeenCalledWith(
         testRoot,

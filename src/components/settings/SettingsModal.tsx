@@ -67,22 +67,25 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const isAtOrBeyondLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
     const atMaximum = operation === 'increment' && (newDepth >= maxDepth || depth >= maxDepth)
     const atMinimum = operation === 'decrement' && (newDepth <= MIN_DEPTH || depth <= MIN_DEPTH)
+
     return atMaximum || atMinimum
   }
 
   const isApproachingLimit = (newDepth: number, operation: 'increment' | 'decrement'): boolean => {
     const approachingMaximum = operation === 'increment' && newDepth === maxDepth - 1
     const approachingMinimum = operation === 'decrement' && newDepth === APPROACHING_MIN_DEPTH
+
     return approachingMaximum || approachingMinimum
   }
 
   const getDepthInputClass = (): string => {
     if (showLimitFlash) return styles.depthInputError
     if (showWarningFlash) return styles.depthInputWarning
+
     return styles.depthInputDefault
   }
 
-  function adjustDepth(operation: 'increment' | 'decrement'): void {
+  function updateDepth(operation: 'increment' | 'decrement'): void {
     const requestedDepth = calculateDepthAfterOperation(operation)
     const validDepth = clampDepthToValidRange(requestedDepth)
 
@@ -175,7 +178,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               <>
                 <button
                   className={`${rowStyles.button} ${rowStyles.depthControlButtonLeft}`}
-                  onClick={() => adjustDepth('decrement')}
+                  onClick={() => updateDepth('decrement')}
                 >
                   -
                 </button>
@@ -191,7 +194,7 @@ function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 />
                 <button
                   className={`${rowStyles.button} ${rowStyles.depthControlButtonRight}`}
-                  onClick={() => adjustDepth('increment')}
+                  onClick={() => updateDepth('increment')}
                 >
                   +
                 </button>

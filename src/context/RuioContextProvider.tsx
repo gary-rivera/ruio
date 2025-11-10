@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
-import { applyCommittedOutlines, calculateMaxDepth } from '@utils/outline'
+import { applySelectedOutlines, calculateMaxDepth } from '@utils/outline'
 import { useLocalStorageState } from '@hooks/useLocalStorageState'
 import { useElementPicker, PickerTooltipData } from '@hooks/useElementPicker'
 import { getElementInfo } from '@utils/elementInfo'
@@ -22,7 +22,7 @@ interface ContextProps {
   setDepth: React.Dispatch<React.SetStateAction<number>>
   maxDepth: number // maximum available depth in the current DOM tree
 
-  rootElement: HTMLElement | null // the root element that is selected (defaults to div.body#root)
+  rootElement: HTMLElement | null // the root element that is selected
 
   isElementPickerActive: boolean // is element picker active -- aka are there hover and click events drilled into the DOM
   setIsElementPickerActive: React.Dispatch<React.SetStateAction<boolean>> // toggle element picker
@@ -60,9 +60,10 @@ export const RuioContextProvider = ({
   // local state fallback for SSR compatibility
   const [maxDepth, setMaxDepth] = useState(DEFAULT_MAX_DEPTH_WITHOUT_ROOT)
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null)
-  const [persistedTooltipData, setPersistedTooltipData] = useState<
-    Omit<PickerTooltipData, 'x' | 'y'> | null
-  >(null)
+  const [persistedTooltipData, setPersistedTooltipData] = useState<Omit<
+    PickerTooltipData,
+    'x' | 'y'
+  > | null>(null)
 
   const depth = localStorageState.depth
   const setDepth = localStorageState.setDepth
@@ -71,7 +72,7 @@ export const RuioContextProvider = ({
   const theme = localStorageState.theme
   const setTheme = localStorageState.setTheme
 
-  // on mount restore previously selected root element from localStorage or auto-detect
+  // on mount restore previously selected root element from localStorage or auto-detect/falback
   useEffect(() => {
     const element = detectRootElement(localStorageState.rootSelector, defaultRootSelector)
     if (element) {
@@ -99,17 +100,15 @@ export const RuioContextProvider = ({
 
   const handleRootPicked = useCallback(
     (element: HTMLElement) => {
-      // Capture element info for persisted tooltip
+      // capture element info before we apply any udpates to avoid recalculations
       const elementInfo = getElementInfo(element)
       setPersistedTooltipData({
         ...elementInfo,
         currentDepth: depth,
       })
 
-      // Set to null first, then to the element to force the useEffect to run
-      // This ensures outlines are always reapplied, even when picking the same element
+      // force re-render to ensure all outlines are applied (resolves weird root double select issue)
       setRootElement(null)
-      // Use setTimeout to ensure the null state is processed before setting the new element
       setTimeout(() => {
         setRootElement(element)
       }, 0)
@@ -124,17 +123,17 @@ export const RuioContextProvider = ({
     onElementPicked: handleRootPicked,
   })
 
-  // apply theme to document root
+  // triggers when light/dark theme changes
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('data-ruio-theme', theme)
     }
   }, [theme])
 
-  // react when settings or root element change by applying committed outlines
+  // triggers when an element root has been selected
   useEffect(() => {
     if (rootElement) {
-      applyCommittedOutlines(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
+      applySelectedOutlines(rootElement, depth, localStorageState.ruioEnabled, currentColorPalette)
     }
   }, [depth, rootElement, localStorageState.ruioEnabled, currentColorPalette])
 
@@ -142,34 +141,42 @@ export const RuioContextProvider = ({
     () => ({
       ruioEnabled: localStorageState.ruioEnabled,
       setRuioEnabled: localStorageState.setRuioEnabled,
+
       depth,
       setDepth,
       maxDepth,
+
       rootElement,
       isElementPickerActive: elementPicker.isActive,
       setIsElementPickerActive: elementPicker.setIsActive,
       toggleElementPicker: elementPicker.toggle,
+
       currentColorPalette,
       setCurrentColorPalette,
       theme,
       setTheme,
+
       tooltipData: elementPicker.tooltipData,
       persistedTooltipData,
     }),
     [
       localStorageState.ruioEnabled,
       localStorageState.setRuioEnabled,
+
       depth,
       setDepth,
       maxDepth,
+
       rootElement,
       elementPicker.isActive,
       elementPicker.setIsActive,
       elementPicker.toggle,
+
       currentColorPalette,
       setCurrentColorPalette,
       theme,
       setTheme,
+
       elementPicker.tooltipData,
       persistedTooltipData,
     ],

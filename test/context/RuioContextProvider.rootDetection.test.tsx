@@ -8,7 +8,7 @@ vi.mock('@utils/outline', async () => {
   const actual = await vi.importActual<typeof import('@utils/outline')>('@utils/outline')
   return {
     ...actual,
-    applyCommittedOutlines: vi.fn(),
+    applySelectedOutlines: vi.fn(),
     resetCommittedOutlines: vi.fn(),
   }
 })

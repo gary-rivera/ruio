@@ -27,18 +27,6 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({ data }) => {
               <span className={styles.value}>{data.reactComponentName}</span>
             </div>
           )}
-          {data.parentComponentName && (
-            <div className={styles.row}>
-              <span className={styles.label}>parent_component:</span>
-              <span className={styles.value}>{data.parentComponentName}</span>
-            </div>
-          )}
-          {data.firstChildComponentName && (
-            <div className={styles.row}>
-              <span className={styles.label}>child_component:</span>
-              <span className={styles.value}>{data.firstChildComponentName}</span>
-            </div>
-          )}
           <div className={styles.divider} />
         </>
       )}

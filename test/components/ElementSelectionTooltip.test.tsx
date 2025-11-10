@@ -30,10 +30,6 @@ describe('ElementSelectionTooltip', () => {
     // React component section
     expect(screen.getByText('component:')).toBeInTheDocument()
     expect(screen.getByText('TestComponent')).toBeInTheDocument()
-    expect(screen.getByText('parent_component:')).toBeInTheDocument()
-    expect(screen.getByText('ParentComponent')).toBeInTheDocument()
-    expect(screen.getByText('child_component:')).toBeInTheDocument()
-    expect(screen.getByText('ChildComponent')).toBeInTheDocument()
 
     // HTML/CSS section
     expect(screen.getByText('tag:')).toBeInTheDocument()

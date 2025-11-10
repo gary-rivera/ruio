@@ -3,7 +3,7 @@ import { getConfigValue, setConfigValueAtKey, loadConfig } from '@utils/config'
 import type { ConfigLocalState } from '@utils/config'
 
 /**
- * custom hook to update the value within config.
+ * custom hook to update the values within config (localStorage only, for now)
  * skipDefault: boolean is specifically to avoid defaulting to #root (not performant) when a user hasn't selected a root starting point
  * OR to use user chose specific settings we don't want to ignore.
  */
@@ -50,6 +50,9 @@ interface UseLocalStorageStateReturn {
   setTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>
 }
 
+/**
+ * custom hook to manage parsing config values from localStorage
+ */
 export const useLocalStorageState = (): UseLocalStorageStateReturn => {
   const [ruioEnabled, setRuioEnabled] = usePersistedConfigValue('ruioEnabled')
   const [rootSelectorRaw, setRootSelectorRaw] = usePersistedConfigValue('rootElementSelector', {

@@ -1,12 +1,12 @@
 import {
-  applyCommittedOutlines,
-  resetCommittedOutlines,
+  applySelectedOutlines,
+  selectedOutlineElements,
   calculateMaxDepth,
-  clearCommittedOutlines,
+  clearSelectedOutlines,
 } from '@utils/outline'
 import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
-describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
+describe('applySelectedOutlines Smoke and Functionality Tests', () => {
   let element: HTMLElement
   let childElement: HTMLElement
   let originalRequestAnimationFrame: typeof window.requestAnimationFrame
@@ -26,7 +26,7 @@ describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
     }
 
     // Reset previously applied elements before each test
-    resetCommittedOutlines()
+    selectedOutlineElements.clear()
   })
 
   afterEach(() => {
@@ -39,39 +39,39 @@ describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
   // Smoke Tests
   test('runs without errors on valid input', () => {
     expect(() => {
-      applyCommittedOutlines(element, 2, true, 'roygbiv')
+      applySelectedOutlines(element, 2, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('handles empty elements without throwing', () => {
     const emptyElement = document.createElement('div')
     expect(() => {
-      applyCommittedOutlines(emptyElement, 2, true, 'roygbiv')
+      applySelectedOutlines(emptyElement, 2, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('does not fail on depth 0', () => {
     expect(() => {
-      applyCommittedOutlines(element, 0, true, 'roygbiv')
+      applySelectedOutlines(element, 0, true, 'roygbiv')
     }).not.toThrow()
   })
 
   test('does not fail when apply is false', () => {
     expect(() => {
-      applyCommittedOutlines(element, 2, false, 'roygbiv')
+      applySelectedOutlines(element, 2, false, 'roygbiv')
     }).not.toThrow()
   })
 
   // Functional Tests
   test('applies borders to the element and its children', () => {
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('2px solid #CD001A')
     expect(childElement.style.outline).toBe('2px solid #EF6A00')
   })
 
   test('removes borders when apply is false', () => {
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
-    applyCommittedOutlines(element, 1, false, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, false, 'roygbiv')
 
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('')
@@ -81,7 +81,7 @@ describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
     const deepChildElement = document.createElement('div')
     childElement.appendChild(deepChildElement)
 
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
 
     expect(element.style.outline).toBe('2px solid #CD001A')
     expect(childElement.style.outline).toBe('2px solid #EF6A00')
@@ -89,10 +89,10 @@ describe('applyCommittedOutlines Smoke and Functionality Tests', () => {
   })
 
   test('removes border from previously applied elements not in the current list', () => {
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('2px solid #CD001A')
 
-    applyCommittedOutlines(childElement, 1, true, 'roygbiv')
+    applySelectedOutlines(childElement, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('')
     expect(childElement.style.outline).toBe('2px solid #CD001A')
   })
@@ -180,7 +180,7 @@ describe('calculateMaxDepth', () => {
   })
 })
 
-describe('clearCommittedOutlines', () => {
+describe('clearSelectedOutlines', () => {
   let element: HTMLElement
   let childElement: HTMLElement
   let grandchildElement: HTMLElement
@@ -203,7 +203,7 @@ describe('clearCommittedOutlines', () => {
     }
 
     // Reset previously applied elements before each test
-    resetCommittedOutlines()
+    selectedOutlineElements.clear()
   })
 
   afterEach(() => {
@@ -217,17 +217,17 @@ describe('clearCommittedOutlines', () => {
     grandchildElement.style.outlineOffset = ''
   })
 
-  test('clears all committed outlines from elements', () => {
+  test('clears all selected outlines from elements', () => {
     // Apply committed outlines
-    applyCommittedOutlines(element, 2, true, 'roygbiv')
+    applySelectedOutlines(element, 2, true, 'roygbiv')
 
     // Verify outlines are applied
     expect(element.style.outline).toBe('2px solid #CD001A')
     expect(childElement.style.outline).toBe('2px solid #EF6A00')
     expect(grandchildElement.style.outline).toBe('2px solid #F2CD00')
 
-    // Clear committed outlines
-    clearCommittedOutlines()
+    // Clear selected outlines
+    clearSelectedOutlines()
 
     // Verify all outlines are removed
     expect(element.style.outline).toBe('')
@@ -237,14 +237,14 @@ describe('clearCommittedOutlines', () => {
 
   test('clears outlineOffset property', () => {
     // Apply committed outlines
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
 
     // Manually set outlineOffset (simulating what preview outlines might do)
     element.style.outlineOffset = '2px'
     childElement.style.outlineOffset = '2px'
 
-    // Clear committed outlines
-    clearCommittedOutlines()
+    // Clear selected outlines
+    clearSelectedOutlines()
 
     // Verify outlineOffset is also cleared
     expect(element.style.outlineOffset).toBe('')
@@ -252,22 +252,22 @@ describe('clearCommittedOutlines', () => {
   })
 
   test('handles being called when no outlines are applied', () => {
-    // Should not throw when called with no committed outlines
+    // Should not throw when called with no selected outlines
     expect(() => {
-      clearCommittedOutlines()
+      clearSelectedOutlines()
     }).not.toThrow()
   })
 
-  test('clears internal tracking of committed elements', () => {
+  test('clears internal tracking of selected elements', () => {
     // Apply committed outlines to first element
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
     expect(element.style.outline).toBe('2px solid #CD001A')
 
-    // Clear all committed outlines
-    clearCommittedOutlines()
+    // Clear all selected outlines
+    clearSelectedOutlines()
 
     // Apply new committed outlines to a different element
-    applyCommittedOutlines(childElement, 1, true, 'roygbiv')
+    applySelectedOutlines(childElement, 1, true, 'roygbiv')
 
     // Original element should not have outlines (proves internal tracking was cleared)
     expect(element.style.outline).toBe('')
@@ -275,12 +275,12 @@ describe('clearCommittedOutlines', () => {
   })
 
   test('can be called multiple times without errors', () => {
-    applyCommittedOutlines(element, 1, true, 'roygbiv')
+    applySelectedOutlines(element, 1, true, 'roygbiv')
 
     expect(() => {
-      clearCommittedOutlines()
-      clearCommittedOutlines()
-      clearCommittedOutlines()
+      clearSelectedOutlines()
+      clearSelectedOutlines()
+      clearSelectedOutlines()
     }).not.toThrow()
 
     expect(element.style.outline).toBe('')

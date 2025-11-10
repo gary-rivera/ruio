@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react'
 import { useElementPicker } from '@hooks/useElementPicker'
 import { ElementPicker } from '@controllers/ElementPicker'
-import { applyCommittedOutlines, clearCommittedOutlines, clearPreviewOutlines } from '@utils/outline'
+import { applySelectedOutlines, clearSelectedOutlines, clearPreviewOutlines } from '@utils/outline'
 import { describe, test, expect, beforeEach, vi, Mock } from 'vitest'
 
 vi.mock('@controllers/ElementPicker')
@@ -157,7 +157,7 @@ describe('useElementPicker', () => {
     expect(result.current.toggle).toBe(initialToggle)
   })
 
-  test('clears committed outlines when entering picker mode', () => {
+  test('clears selected outlines when entering picker mode', () => {
     const { result } = renderHook(() =>
       useElementPicker({
         ruioEnabled: true,
@@ -171,7 +171,7 @@ describe('useElementPicker', () => {
       result.current.setIsActive(true)
     })
 
-    expect(clearCommittedOutlines).toHaveBeenCalled()
+    expect(clearSelectedOutlines).toHaveBeenCalled()
   })
 
   test('clears preview outlines when entering picker mode', () => {
@@ -191,7 +191,7 @@ describe('useElementPicker', () => {
     expect(clearPreviewOutlines).toHaveBeenCalled()
   })
 
-  test('clears both committed and preview outlines when entering picker mode', () => {
+  test('clears both selected and preview outlines when entering picker mode', () => {
     const { result } = renderHook(() =>
       useElementPicker({
         ruioEnabled: true,
@@ -209,7 +209,7 @@ describe('useElementPicker', () => {
     })
 
     // Verify both clear functions are called when picker mode is activated
-    expect(clearCommittedOutlines).toHaveBeenCalledTimes(1)
+    expect(clearSelectedOutlines).toHaveBeenCalledTimes(1)
     expect(clearPreviewOutlines).toHaveBeenCalledTimes(1)
   })
 
@@ -230,7 +230,7 @@ describe('useElementPicker', () => {
     })
 
     // Outlines should not be cleared when ruio is disabled
-    expect(clearCommittedOutlines).not.toHaveBeenCalled()
+    expect(clearSelectedOutlines).not.toHaveBeenCalled()
     expect(clearPreviewOutlines).not.toHaveBeenCalled()
   })
 
@@ -256,9 +256,9 @@ describe('useElementPicker', () => {
       result.current.setIsActive(false)
     })
 
-    // Only preview outlines should be cleared on exit (committed outlines remain)
+    // Only preview outlines should be cleared on exit (selected outlines remain)
     expect(clearPreviewOutlines).toHaveBeenCalled()
-    // clearCommittedOutlines should NOT be called when exiting
-    expect(clearCommittedOutlines).not.toHaveBeenCalled()
+    // clearSelectedOutlines should NOT be called when exiting
+    expect(clearSelectedOutlines).not.toHaveBeenCalled()
   })
 })

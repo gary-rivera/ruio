@@ -81,6 +81,7 @@ export const calculateElementDepth = (element: HTMLElement | null): number | 'MA
     return Array.from(el.children).filter((child) => child instanceof HTMLElement) as HTMLElement[]
   }
 
+  // tl;dr depth first, increment depth count for each valid stack
   const traverseAndTrackDepth = (el: HTMLElement, currentDepth: number) => {
     if (shouldSkipElement(el)) return
 
