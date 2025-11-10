@@ -1,57 +1,63 @@
 import { parseSelectorFromSelectedElement } from './config'
 import { DEFAULT_MAX_DEPTH } from '@constants/index'
 
+/**
+ * best-effort extraction of a components name
+ * works with functional, class, and composite components (Tab, etc.)
+ */
 export const getReactComponentName = (element: HTMLElement): string | null => {
   try {
-    // Try to find React Fiber key (React 16+)
-    const fiberKey = Object.keys(element).find(
+    // try to parse React Fiber key
+    const reactFiberKey = Object.keys(element).find(
       (key) => key.startsWith('__reactFiber') || key.startsWith('__reactInternalInstance'),
     )
+    if (!reactFiberKey) return null
 
-    if (!fiberKey) return null
+    // ref: https://blog.logrocket.com/deep-dive-react-fiber/
+    const reactFiber = (element as any)[reactFiberKey] // ew but not worth it rn
+    if (!reactFiber) return null
 
-    const fiber = (element as any)[fiberKey]
-    if (!fiber) return null
-
-    // Walk up the fiber tree to find the nearest component
-    let currentFiber = fiber
+    let currentFiber = reactFiber
     while (currentFiber) {
-      const { type, _debugSource, _debugOwner } = currentFiber
+      const { type, _debugOwner } = currentFiber
 
-      // Check if this fiber has a component type
-      if (type) {
-        // Function/Class component
-        if (typeof type === 'function') {
-          const name = type.displayName || type.name
-          if (name && name !== 'Anonymous') {
-            return name
-          }
-        }
+      if (!type) {
+        currentFiber = currentFiber.return
+        continue
+      }
 
-        // For composite components, try to get owner info
-        if (_debugOwner?.type) {
-          const ownerType = _debugOwner.type
-          if (typeof ownerType === 'function') {
-            const ownerName = ownerType.displayName || ownerType.name
-            if (ownerName && ownerName !== 'Anonymous') {
-              return ownerName
-            }
-          }
+      // function/class component
+      if (typeof type === 'function') {
+        const componentName = type.displayName || type.name
+        const isValidComponentName = componentName && componentName !== 'Anonymous'
+        if (isValidComponentName) {
+          return componentName
         }
       }
 
-      // Move up the fiber tree
+      // composite components
+      const ownerType = _debugOwner?.type
+      if (ownerType && typeof ownerType === 'function') {
+        // , try to get owner info
+        const ownerComponentName = ownerType.displayName || ownerType.name
+        const isValidOwnerName = ownerComponentName && ownerComponentName !== 'Anonymous'
+
+        if (isValidOwnerName) {
+          return ownerComponentName
+        }
+      }
+
       currentFiber = currentFiber.return
     }
   } catch (error) {
-    // Silently fail - this is a best-effort extraction
+    // silently fail - this is a best-effort extraction
   }
 
   return null
 }
 
 /**
- * Gets the HTML tag name from an element.
+ * gets the HTML tag name from an element, wraps in '<>'
  */
 export const getTagName = (element: HTMLElement): string => {
   return `<${element.tagName.toLowerCase()}>`
@@ -104,14 +110,14 @@ export const calculateElementDepth = (element: HTMLElement | null): number | 'MA
 }
 
 /**
- * Gets the count of direct HTML children (excluding text nodes, comments, etc.)
+ * gets the count of direct HTML children (excluding text nodes, comments, etc.)
  */
 export const getChildrenCount = (element: HTMLElement): number => {
   return Array.from(element.children).filter((child) => child instanceof HTMLElement).length
 }
 
 /**
- * Gets the parent tag name, or null if no parent
+ * gets the parent tag name, or null if no parent
  */
 export const getParentTag = (element: HTMLElement): string | null => {
   if (!element.parentElement) return null
@@ -119,15 +125,7 @@ export const getParentTag = (element: HTMLElement): string | null => {
 }
 
 /**
- * Gets the React component name of the parent element, or null if not found
- */
-export const getParentComponentName = (element: HTMLElement): string | null => {
-  if (!element.parentElement) return null
-  return getReactComponentName(element.parentElement)
-}
-
-/**
- * Gets the first child tag name, or null if no children
+ * gets the first child tag name, or null if no children
  */
 export const getFirstChildTag = (element: HTMLElement): string | null => {
   const firstChild = Array.from(element.children).find((child) => child instanceof HTMLElement) as
@@ -138,18 +136,7 @@ export const getFirstChildTag = (element: HTMLElement): string | null => {
 }
 
 /**
- * Gets the React component name of the first child element, or null if not found
- */
-export const getFirstChildComponentName = (element: HTMLElement): string | null => {
-  const firstChild = Array.from(element.children).find((child) => child instanceof HTMLElement) as
-    | HTMLElement
-    | undefined
-  if (!firstChild) return null
-  return getReactComponentName(firstChild)
-}
-
-/**
- * Gets the count of siblings (elements with the same parent)
+ * gets the count of siblings (i.e. elements with the same parent)
  */
 export const getSiblingsCount = (element: HTMLElement): number => {
   if (!element.parentElement) return 0
@@ -160,14 +147,12 @@ export const getSiblingsCount = (element: HTMLElement): number => {
 }
 
 /**
- * Gathers all information about an element for the tooltip.
+ * gathers relevant info about an element
  */
 export const getElementInfo = (element: HTMLElement) => {
   return {
     // React component info
     reactComponentName: getReactComponentName(element),
-    parentComponentName: getParentComponentName(element),
-    firstChildComponentName: getFirstChildComponentName(element),
 
     // HTML/CSS info
     tagName: getTagName(element),
@@ -175,7 +160,7 @@ export const getElementInfo = (element: HTMLElement) => {
     firstChildTag: getFirstChildTag(element),
     selector: parseSelectorFromSelectedElement(element),
 
-    // Metrics
+    // metrics
     depth: calculateElementDepth(element),
     childrenCount: getChildrenCount(element),
     siblingsCount: getSiblingsCount(element),
