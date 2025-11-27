@@ -3,9 +3,9 @@ import { getConfigValue, setConfigValueAtKey, loadConfig } from '@utils/config'
 import type { ConfigLocalState } from '@utils/config'
 
 /**
- * custom hook to update the values within config (localStorage only, for now)
+ * hook to update the values within config (localStorage only, for now)
  * skipDefault: boolean is specifically to avoid defaulting to #root (not performant) when a user hasn't selected a root starting point
- * OR to use user chose specific settings we don't want to ignore.
+ * OR the user chose specific settings we want to prioritize.
  */
 function usePersistedConfigValue<K extends keyof ConfigLocalState>(
   key: K,
@@ -51,7 +51,7 @@ interface UseLocalStorageStateReturn {
 }
 
 /**
- * custom hook to manage parsing config values from localStorage
+ * hook to manage parsing config values from localStorage
  */
 export const useLocalStorageState = (): UseLocalStorageStateReturn => {
   const [ruioEnabled, setRuioEnabled] = usePersistedConfigValue('ruioEnabled')
@@ -66,7 +66,7 @@ export const useLocalStorageState = (): UseLocalStorageStateReturn => {
   const rootSelector = (rootSelectorRaw || '') as string
   const setRootSelector = setRootSelectorRaw as React.Dispatch<React.SetStateAction<string>>
 
-  // ensure theme has proper type
+  // defaults to dark theme
   const theme = (themeRaw || 'dark') as 'light' | 'dark'
   const setTheme = setThemeRaw as React.Dispatch<React.SetStateAction<'light' | 'dark'>>
 

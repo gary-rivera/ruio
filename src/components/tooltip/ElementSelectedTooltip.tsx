@@ -14,20 +14,18 @@ const TOOLTIP_OFFSET = 12
 const MIN_SPACE_REQUIRED = 24
 
 /**
- * Draggable, auto-positioning tooltip that displays after a root element is selected.
+ * draggable tooltip that renders once a root element has been selected.
+ * - displays the metadata of a hovered element
  * - Auto-positions to avoid covering the target element
  * - User can drag to manually position
  * - Position persists after dragging (no auto-repositioning)
  * - Resets when a new element is selected
  */
-export const ElementSelectedTooltip: React.FC<ElementSelectedTooltipProps> = ({
-  data,
-  rootElement,
-}) => {
+export const ElementSelectedTooltip: React.FC<ElementSelectedTooltipProps> = ({ data, rootElement }) => {
   const tooltipRef = useRef<HTMLDivElement>(null)
   const [hasBeenManuallyPositioned, setHasBeenManuallyPositioned] = useState(false)
 
-  // Auto-positioning (disabled after user drags)
+  // disabled after user drags, as draggedPosition takes priority
   const autoPosition = useTooltipPositioning({
     targetElement: rootElement,
     tooltipRef,
@@ -36,29 +34,29 @@ export const ElementSelectedTooltip: React.FC<ElementSelectedTooltipProps> = ({
     isLocked: hasBeenManuallyPositioned,
   })
 
-  // Drag functionality
   const { isDragging, handleMouseDown, draggedPosition } = useTooltipDrag({
     enabled: true,
     onDragEnd: () => setHasBeenManuallyPositioned(true),
   })
 
-  // Use dragged position if available, otherwise use auto position
+  // prioritize dragged to position
   const position = draggedPosition ?? autoPosition
 
-  // Reset manual positioning when data changes (new element selected)
+  // reset manual positioning when data changes (new element selected)
   if (!data && hasBeenManuallyPositioned) {
     setHasBeenManuallyPositioned(false)
   }
 
   if (!data) return null
 
-  // Memoize style to avoid recreating object on every render
+  // avoids recreating this object on every re-render
   const tooltipStyle = useMemo(() => {
     if (!position) {
-      // Render off-screen initially to measure dimensions
+      // render off-screen initially for measuring dimensions w/o appearing to user
       return {
         transform: 'none',
         visibility: 'hidden' as const,
+        // a.k.a off screen
         left: '-9999px',
         top: '-9999px',
       }

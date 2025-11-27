@@ -7,25 +7,22 @@ interface TooltipContentProps {
 }
 
 /**
- * Shared tooltip content component that renders the actual tooltip information.
+ * renders the actual tooltip information.
+ * memoized to prevent unnecessary re-renders when parent components re-render due to state changes
+ * (dragging, positioning, etc.)
  */
-export const TooltipContent: React.FC<TooltipContentProps> = ({ data }) => {
+export const TooltipContent = React.memo<TooltipContentProps>(({ data }) => {
   const depthText = data.depth === 'MAX_DEPTH_EXCEEDED' ? 'MAX_DEPTH_EXCEEDED' : `${data.depth}`
-
-  const componentInfoAvailable =
-    data.reactComponentName || data.parentComponentName || data.firstChildComponentName
 
   return (
     <>
       {/* React Component Info */}
-      {componentInfoAvailable && (
+      {data.reactComponentName && (
         <>
-          {data.reactComponentName && (
-            <div className={styles.row}>
-              <span className={styles.label}>component:</span>
-              <span className={styles.value}>{data.reactComponentName}</span>
-            </div>
-          )}
+          <div className={styles.row}>
+            <span className={styles.label}>component:</span>
+            <span className={styles.value}>{data.reactComponentName}</span>
+          </div>
           <div className={styles.divider} />
         </>
       )}
@@ -73,4 +70,6 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({ data }) => {
       </div>
     </>
   )
-}
+})
+
+TooltipContent.displayName = 'TooltipContent'

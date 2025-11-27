@@ -5,9 +5,7 @@ import {
   calculateElementDepth,
   getChildrenCount,
   getParentTag,
-  getParentComponentName,
   getFirstChildTag,
-  getFirstChildComponentName,
   getSiblingsCount,
   getElementInfo,
 } from '@utils/elementInfo'
@@ -182,32 +180,6 @@ describe('elementInfo utilities', () => {
     })
   })
 
-  describe('getParentComponentName', () => {
-    test('should return null for element without parent', () => {
-      const div = document.createElement('div')
-      expect(getParentComponentName(div)).toBeNull()
-    })
-
-    test('should return parent React component name', () => {
-      const parent = document.createElement('div')
-      const child = document.createElement('div')
-      parent.appendChild(child)
-      ;(parent as any).__reactFiber$test = {
-        type: function ParentComponent() {},
-      }
-
-      expect(getParentComponentName(child)).toBe('ParentComponent')
-    })
-
-    test('should return null if parent has no React fiber', () => {
-      const parent = document.createElement('div')
-      const child = document.createElement('div')
-      parent.appendChild(child)
-
-      expect(getParentComponentName(child)).toBeNull()
-    })
-  })
-
   describe('getFirstChildTag', () => {
     test('should return null for element with no children', () => {
       const div = document.createElement('div')
@@ -232,32 +204,6 @@ describe('elementInfo utilities', () => {
       parent.appendChild(child)
 
       expect(getFirstChildTag(parent)).toBe('<button>')
-    })
-  })
-
-  describe('getFirstChildComponentName', () => {
-    test('should return null for element with no children', () => {
-      const div = document.createElement('div')
-      expect(getFirstChildComponentName(div)).toBeNull()
-    })
-
-    test('should return first child React component name', () => {
-      const parent = document.createElement('div')
-      const child = document.createElement('div')
-      parent.appendChild(child)
-      ;(child as any).__reactFiber$test = {
-        type: function ChildComponent() {},
-      }
-
-      expect(getFirstChildComponentName(parent)).toBe('ChildComponent')
-    })
-
-    test('should return null if first child has no React fiber', () => {
-      const parent = document.createElement('div')
-      const child = document.createElement('div')
-      parent.appendChild(child)
-
-      expect(getFirstChildComponentName(parent)).toBeNull()
     })
   })
 
@@ -326,14 +272,8 @@ describe('elementInfo utilities', () => {
       const element = document.createElement('div')
       const child = document.createElement('div')
 
-      ;(parent as any).__reactFiber$test = {
-        type: function ParentComp() {},
-      }
       ;(element as any).__reactFiber$test = {
         type: function CurrentComp() {},
-      }
-      ;(child as any).__reactFiber$test = {
-        type: function ChildComp() {},
       }
 
       parent.appendChild(element)
@@ -342,8 +282,6 @@ describe('elementInfo utilities', () => {
       const info = getElementInfo(element)
 
       expect(info.reactComponentName).toBe('CurrentComp')
-      expect(info.parentComponentName).toBe('ParentComp')
-      expect(info.firstChildComponentName).toBe('ChildComp')
     })
 
     test('should handle element without React components', () => {
@@ -352,8 +290,6 @@ describe('elementInfo utilities', () => {
       const info = getElementInfo(element)
 
       expect(info.reactComponentName).toBeNull()
-      expect(info.parentComponentName).toBeNull()
-      expect(info.firstChildComponentName).toBeNull()
     })
 
     test('should handle deeply nested structure', () => {
